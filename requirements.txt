@@ -1,0 +1,12 @@
+Django
+django-environ
+django-stripe-payments
+django-widget-tweaks
+django-tinymce
+gunicorn
+pillow
+psycopg2-binary
+python-environ
+python-dotenv
+stripe
+whitenoise
