@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- news/templates/news/detail.html -->
+<div class="mx-auto max-w-4xl px-6 sm:px-8 lg:px-12">
+    <div class="bg-white p-8 rounded-lg shadow-sm">
+        <header class="mb-8">
+            <h1 class="text-4xl font-bold">{{ post.title }}</h1>
+            <div class="mt-2 text-gray-600">
+                {{ post.publish_date|date:"F j, Y" }} | 
+                <a href="{{ post.category.get_absolute_url }}" class="text-blue-600 hover:text-blue-800">
+                    {{ post.category.name }}
+                </a>
+            </div>
+        </header>
+        
+        {% if post.youtube_url %}
+            <!-- Show video only -->
+            <div class="mb-8">
+                <div class="relative w-full" style="padding-top: 56.25%">
+                    <iframe 
+                        class="absolute inset-0 w-full h-full rounded-lg shadow-lg"
+                        src="{{ post.get_youtube_embed_url }}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        {% else %}
+            <!-- Only show image if there's no video -->
+            {% if post.external_image_url %}
+                <div class="mb-8">
+                    <img src="{{ post.external_image_url }}" alt="{{ post.title }}" class="w-full h-auto rounded-lg shadow-sm">
+                </div>
+            {% elif post.image %}
+                <div class="mb-8">
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-auto rounded-lg shadow-sm">
+                </div>
+            {% endif %}
+        {% endif %}
+
+
+        <div class="prose prose-lg text-gray-800 leading-relaxed">
+            {{ post.content|safe }}
+        </div>
+        {% if post.resource_type != 'none' and post.resource %}
+            <div class="mt-12 mb-8 p-6 bg-primary/10 rounded-lg border border-accent/30">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Download Resource
+                </h3>
+
+                <p class="mb-4">{{ post.resource_title|default:post.title }}</p>
+
+                <a href="{{ post.resource.url }}" download class="inline-flex items-center px-6 py-3 bg-gray-300 rounded-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Download {{ post.get_resource_type_display }}
+                </a>
+            </div>
+            {% endif %}
+
+
+        <!-- Navigation -->
+        <nav class="mt-16 border-t border-gray-200 pt-12">
+            <div class="flex justify-between items-center">
+                {% if previous_post %}
+                <a href="{{ previous_post.get_absolute_url }}" class="group flex items-center text-sm mt-8 text-gray-500 hover:text-gray-700">
+                    <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <div>
+                        <span class="block text-xs text-gray-400">Previous</span>
+                        <span class="block">{{ previous_post.title|truncatechars:40 }}</span>
+                    </div>
+                </a>
+                {% else %}
+                <div></div>
+                {% endif %}
+
+                {% if next_post %}
+                <a href="{{ next_post.get_absolute_url }}" class="group flex items-center text-right text-sm text-gray-500 hover:text-gray-700">
+                    <div>
+                        <span class="block text-xs text-gray-400">Next</span>
+                        <span class="block">{{ next_post.title|truncatechars:40 }}</span>
+                    </div>
+                    <svg class="ml-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+                {% else %}
+                <div></div>
+                {% endif %}
+            </div>
+        </nav>
+        <!-- all articles in category -->
+        <div class="text-center py-12 mb-6">
+            <a href="{{ post.category.get_absolute_url }}" class="inline-flex items-center py-1 px-4 mb-7 text-md text-bold bg-gray-100 text-gray-700 rounded-full dark:bg-gray-800 dark:text-white">
+                <span class="bg-blue-600 hover:text-white-800 text-white text-md px-4 py-1.5 rounded-full mr-2">All articles in category:</span>
+                {{ post.category.name }}
+            </a>
+        </div>
+       <!-- related posts -->
+        <div class="mt-12 mb-24">
+            <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
+            <div class="flex flex-row justify-between space-x-8">
+                {% for related in related_posts %}
+                <a href="{{ related.get_absolute_url }}" class="group w-1/2">
+                    <div class="aspect-video w-full mb-4 overflow-hidden rounded-lg bg-gray-100">
+                        {% if related.external_image_url %}
+                            <img src="{{ related.external_image_url }}" 
+                                alt="{{ related.title }}" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
+                        {% elif related.image %}
+                            <img src="{{ related.image.url }}" 
+                                alt="{{ related.title }}" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
+                        {% endif %}
+                    </div>
+                    <p class="text-lg text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
+                        {{ related.title|truncatechars:60 }}
+                    </p>
+                </a>
+                {% empty %}
+                    <div class="w-full text-center text-gray-500 py-4">
+                        No related posts found
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- Advertisement Section -->
+        {% if post.ad_type == 'banner' and post.ad_image %}
+            {% if post.ad_url %}
+                <a href="{{ post.ad_url }}" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ post.get_ad_image_url }}" alt="Advertisement" class="mx-auto max-w-full h-auto rounded-lg shadow-sm">
+                </a>
+            {% else %}
+                <img src="{{ post.get_ad_image_url }}" alt="Advertisement" class="mx-auto max-w-full h-auto rounded-lg shadow-sm">
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

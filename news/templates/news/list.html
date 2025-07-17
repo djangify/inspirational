@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- news/templates/news/list.html -->
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-8">News</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for post in posts %}
+        <article class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <a href="{{ post.get_absolute_url }}" class="block">
+                <div class="w-full h-48 overflow-hidden">
+                    <div class="w-full h-48 overflow-hidden">
+                        {% if post.external_image_url %}
+                            <img src="{{ post.external_image_url }}" 
+                                alt="{{ post.title }}" 
+                                class="w-full h-full object-cover">
+                        {% elif post.get_image_url %}
+                            <img src="{{ post.get_image_url }}" 
+                                alt="{{ post.title }}" 
+                                class="w-full h-full object-cover">
+                        {% elif post.youtube_url %}
+                            <img src="https://img.youtube.com/vi/{{ post.get_youtube_video_id }}/maxresdefault.jpg" 
+                                 alt="{{ post.title }}"
+                                 class="w-full h-full object-cover"
+                                 onerror="this.onerror=null; this.src='https://img.youtube.com/vi/{{ post.get_youtube_video_id }}/hqdefault.jpg';">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">{{ post.title }}</h2>
+                    <p class="text-gray-700 mb-4">
+                        {{ post.content|striptags|truncatewords:30 }}
+                    </p>
+                    <span class="text-blue-600 hover:text-blue-800">Read More →</span>
+                </div>
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
