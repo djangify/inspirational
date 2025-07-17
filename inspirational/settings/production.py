@@ -1,7 +1,5 @@
 import os
-from .base import (
-    BASE_DIR,
-)
+from .base import *  # noqa: F403
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -18,6 +16,17 @@ ALLOWED_HOSTS = [
 ]
 
 # Database in base.py is already set up to use environment variables
+# Database
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env("DATABASE_NAME"),
+        "USER": env("DATABASE_USER"),
+        "PASSWORD": env("DATABASE_PASSWORD"),
+        "HOST": env("DATABASE_HOST", default="localhost"),
+        "PORT": env("DATABASE_PORT", default="5432"),
+    }
+}
 
 # Session Configuration
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
