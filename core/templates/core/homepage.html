@@ -1,21 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Inspirational Guidance - Home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Basic Tailwind CDN for testing only -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-800">
-    <header class="bg-white shadow">
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Self-Help Ebooks ecommerce store{% endblock %}
+
+{% block content %}
+    <header class="shadow bg-slate-100 text-gray-800">
         <div class="max-w-7xl mx-auto py-6 px-4">
-            <h1 class="text-3xl font-bold text-center text-gray-900">Inspirational Guidance</h1>
+            <h1 class="text-3xl font-bold text-center text-gray-900">Inspirational Guidance </h1>
         </div>
     </header>
 
     <main class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-lg shadow">
-        <h2 class="text-2xl font-semibold mb-4">Welcome to Our Store</h2>
+        <h2 class="text-2xl font-semibold mb-4">New Site Coming Soon</h2>
         <p class="text-gray-700 mb-2">This is our homepage. We’ll soon be offering digital downloads, workbooks, and guides to help you grow and thrive.</p>
         <p class="text-gray-700">Stay tuned as we continue to build this platform!</p>
     </main>
@@ -23,5 +18,6 @@
     <footer class="text-center mt-12 p-4 text-sm text-gray-500">
         &copy; 2025 Inspirational Guidance
     </footer>
-</body>
-</html>
+</main>
+{% endblock %}
+
