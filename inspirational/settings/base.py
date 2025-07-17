@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "tinymce",
+    "core",
 ]
 
 MIDDLEWARE = [
@@ -34,36 +35,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "inspirational.urls"
-
-# CORS Configuration
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [
-    "https://inspirationalguidance.com",
-    "https://www.inspirationalguidance.com",
-    "https://65.108.89.200",
-    "http://localhost",
-    "http://127.0.0.1",
-]
-CORS_ALLOW_ALL_ORIGINS = True
-
-# Headers that should be exposed
-CORS_EXPOSE_HEADERS = [
-    "Content-Type",
-    "X-CSRFToken",
-    "Set-Cookie",
-]
-
-CORS_ALLOW_HEADERS = [
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-]
 
 # CSRF Configuration
 CSRF_TRUSTED_ORIGINS = [
