@@ -44,6 +44,24 @@
 
     {% include 'base/footer.html' %}
 
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #f8fafc; padding: 1em; text-align: center; font-size: 14px; box-shadow: 0 -1px 4px rgba(0,0,0,0.1); display: none;">
+      This website uses cookies to ensure you get the best experience. 
+      <a href="{% url 'cookie_policy' %}" style="text-decoration: underline;">Learn more</a>.
+      <button id="accept-cookies" style="margin-left: 1em; background-color: #216a95; color: white; border: none; padding: 0.5em 1em; cursor: pointer;">
+        Accept
+      </button>
+    </div>
 
+    <script>
+      if (!localStorage.getItem("cookiesAccepted")) {
+        document.getElementById("cookie-banner").style.display = "block";
+      }
+
+      document.getElementById("accept-cookies").onclick = function () {
+        localStorage.setItem("cookiesAccepted", "true");
+        document.getElementById("cookie-banner").style.display = "none";
+      };
+    </script>
   </body>
 </html>

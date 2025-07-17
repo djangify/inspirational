@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Terms & Conditions - Stream English{% endblock %}
+
+{% block content %}
+<div class="bg-white py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Table of Contents -->
+        <div class="mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-8">Redirects Page</h1>
+            <p class="text-gray-600 mb-6">As of January 2025 Stream English has a new site. If the link you clicked brought you here, you can use this page to get to the right place.
+            </p><p>Last updated: December 2024</p>
+            <div class="bg-gray-50 p-6 rounded-lg">
+                <h2 class="text-lg font-semibold mb-4">Contents:</h2>
+                <nav class="space-y-2">
+                    <a href="{% url 'courses:course_list' %}" class="block text-blue-600 hover:text-blue-800">1. GCSE English Lessons</a>
+                    <a href="{% url 'shop:product_list' %}" class="block text-blue-600 hover:text-blue-800">2. Digital Products</a>
+                    <a href="{% url 'profiles:signup' %}" class="block text-blue-600 hover:text-blue-800">3. Register</a>
+                    <a href="{% url 'profiles:login' %}" class="block text-blue-600 hover:text-blue-800">4. Login</a>
+                    <a href="{% url 'shop:product_list' %}" class="block text-blue-600 hover:text-blue-800">5. Shop</a>
+                    <a href="{% url 'news:list' %}" class="block text-blue-600 hover:text-blue-800">6. Blog</a>
+                    <a href="{% url 'pages:tuition' %}" class="block text-blue-600 hover:text-blue-800">7. Tuition</a>
+                    <a href="#contact" class="block text-blue-600 hover:text-blue-800">8. Contact Information</a>
+                </nav>
+            </div>
+        </div>
+
+        <section id="contact" class="mb-12">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">7. Contact Information</h2>
+          <p class="mb-4">For questions about these terms or assistance:</p>
+          <ul class="list-disc pl-6 mb-4">
+              <li>Email: info@streamenglish.co.uk</li>
+              <li>Use our contact form on the website</li>
+          </ul>
+          <p class="mb-4">We aim to respond to all inquiries within 2 business days.</p>
+      </section>
+    </div>
+</div>
+
+  
+{% endblock %}

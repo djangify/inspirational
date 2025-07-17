@@ -2,10 +2,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
-from inspirational.sitemaps import ProductSitemap
+from inspirational.sitemaps import ShopCategorySitemap, ShopProductSitemap, NewsSitemap
 
 sitemaps = {
-    "products": ProductSitemap,
+    "shop_categories": ShopCategorySitemap,
+    "shop_products": ShopProductSitemap,
     "news": NewsSitemap,
 }
 

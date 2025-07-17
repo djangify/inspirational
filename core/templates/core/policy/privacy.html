@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Privacy Policy - Stream English{% endblock %}
+
+{% block content %}
+<div class="bg-white py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Table of Contents -->
+        <div class="mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-8">Privacy Policy</h1>
+            <p class="text-gray-600 mb-6">Last updated: November 2024</p>
+            <div class="bg-gray-50 p-6 rounded-lg">
+                <h2 class="text-lg font-semibold mb-4">Contents:</h2>
+                <nav class="space-y-2">
+                    <a href="#overview" class="block text-blue-600 hover:text-blue-800">1. Overview and Key Principles</a>
+                    <a href="#young-users" class="block text-blue-600 hover:text-blue-800">2. Young Users and Parental Consent</a>
+                    <a href="#data-collection" class="block text-blue-600 hover:text-blue-800">3. Information We Collect</a>
+                    <a href="#data-use" class="block text-blue-600 hover:text-blue-800">4. How We Use Your Information</a>
+                    <a href="#data-protection" class="block text-blue-600 hover:text-blue-800">5. Data Protection and Security</a>
+                    <a href="#your-rights" class="block text-blue-600 hover:text-blue-800">6. Your Rights and Choices</a>
+                    <a href="#cookies" class="block text-blue-600 hover:text-blue-800">7. Cookies and Tracking</a>
+                    <a href="#contact" class="block text-blue-600 hover:text-blue-800">8. Contact Information</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Policy Content -->
+        <div class="prose prose-blue max-w-none">
+            <section id="overview" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">1. Overview and Key Principles</h2>
+                <p class="mb-4">Stream English ("we", "our", or "us") is committed to protecting the privacy of our users, particularly our young learners. This privacy policy explains how we collect, use, and protect your personal information in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.</p>
+                <p class="mb-4">We specifically design our services with young learners in mind and take extra precautions to protect the privacy of users under 16 years of age.</p>
+            </section>
+
+            <section id="young-users" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">2. Young Users and Parental Consent</h2>
+                <p class="mb-4">If you are under 16 years old, we require parental or guardian consent before you can create an account or use our services. Parents/guardians can contact us at any time to review their child's information, request modifications, or delete their child's account.</p>
+                <p class="mb-4">For users under 13, we collect only the minimum information necessary to provide our educational services and require explicit parental consent in accordance with UK data protection laws.</p>
+            </section>
+
+            <section id="data-collection" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">3. Information We Collect</h2>
+                <p class="mb-4">We collect and process the following information:</p>
+                <ul class="list-disc pl-6 mb-4">
+                    <li>Basic account information (username, email address)</li>
+                    <li>Student profile information (first name only)</li>
+                    <li>Course progress and completion data</li>
+                    <li>Communication preferences</li>
+                    <li>Optional: Parent/guardian contact details for users under 16</li>
+                </ul>
+            </section>
+
+            <section id="data-use" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">4. How We Use Your Information</h2>
+                <p class="mb-4">We use your information to:</p>
+                <ul class="list-disc pl-6 mb-4">
+                    <li>Provide access to our educational content and track progress</li>
+                    <li>Send important updates about courses and resources</li>
+                    <li>Improve our educational services</li>
+                    <li>Process purchases through our shop (detailed in our separate Shop Terms)</li>
+                    <li>Respond to support requests</li>
+                </ul>
+            </section>
+
+            <section id="data-protection" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">5. Data Protection and Security</h2>
+                <p class="mb-4">We implement appropriate technical and organisational measures to protect your personal information. Our security measures comply with UK data protection laws and ICO guidelines.</p>
+                <p class="mb-4">For detailed information about our cookie usage, please refer to our separate <a href="{% url 'cookie_policy' %}" class="text-blue-600 hover:text-blue-800">Cookie Policy</a>.</p>
+            </section>
+
+            <section id="your-rights" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">6. Your Rights and Choices</h2>
+                <p class="mb-4">Under UK data protection law, you have rights including:</p>
+                <ul class="list-disc pl-6 mb-4">
+                    <li>The right to access your personal information</li>
+                    <li>The right to correct inaccurate information</li>
+                    <li>The right to request deletion of your information</li>
+                    <li>The right to restrict processing of your information</li>
+                    <li>The right to data portability</li>
+                </ul>
+            </section>
+
+            <section id="cookies" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">7. Cookies and Tracking</h2>
+                <p class="mb-4">We use essential cookies to make our site work. For detailed information about our use of cookies and similar technologies, please see our separate <a href="{% url 'cookie_policy' %}" class="text-blue-600 hover:text-blue-800">Cookie Policy</a>.</p>
+            </section>
+
+            <section id="contact" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">8. Contact Information</h2>
+                <p class="mb-4">If you have any questions about this Privacy Policy or our data practices, please contact us at:</p>
+                <ul class="list-disc pl-6 mb-4">
+                    <li>Email: info@streamenglish.co.uk</li>
+                    <li>For complaints, you can also contact the ICO (Information Commissioner's Office) at ico.org.uk</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}
