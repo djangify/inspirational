@@ -1,52 +1,28 @@
-# stream/urls.py
-from django.contrib import admin
-from django.urls import include, path
-from django.conf import settings
-from django.conf.urls.static import static
-from . import views
-# from django.contrib.sitemaps.views import sitemap
-# from .sitemaps import (
-#     StaticViewSitemap,
-#     NewsSitemap,
-#     PageSitemap,
-#     ShopCategorySitemap,
-#     ShopProductSitemap,
+# shop/urls.py
+from django.urls import path
+from . import views, webhooks
 
-# )
-from django.views.generic import TemplateView
-
-# sitemaps = {
-#     "static": StaticViewSitemap,
-#     "news": NewsSitemap,
-#     "pages": PageSitemap,
-#     "shop_categories": ShopCategorySitemap,
-#     "shop_products": ShopProductSitemap,
-
-# }
+app_name = "shop"
 
 urlpatterns = [
-    path("", include("pages.urls")),
-    path("admin/", admin.site.urls),
-    path("ckeditor/", include("ckeditor_uploader.urls")),
-    path("profiles/", include("profiles.urls", namespace="profiles")),
-    path("courses/", include("courses.urls", namespace="courses")),
-    path("news/", include("news.urls", namespace="news")),
-    path("shop/", include("shop.urls", namespace="shop")),
-    path("policy/privacy/", views.privacy_view, name="privacy_policy"),
-    path("policy/cookies/", views.cookie_view, name="cookie_policy"),
-    path("policy/contents/", views.content_view, name="content_policy"),
-    path("policy/terms-conditions/", views.terms_view, name="terms_conditions"),
-    # path(
-    #     "sitemap.xml",
-    #     sitemap,
-    #     {"sitemaps": sitemaps},
-    #     name="django.contrib.sitemaps.views",
-    # ),
+    path("", views.product_list, name="product_list"),
+    path("category/<slug:slug>/", views.category_list, name="category"),
+    path("product/<slug:slug>/", views.product_detail, name="product_detail"),
+    path("cart/", views.cart_detail, name="cart_detail"),
+    path("cart/add/<int:product_id>/", views.cart_add, name="cart_add"),
+    path("cart/remove/<int:product_id>/", views.cart_remove, name="cart_remove"),
+    path("cart/update/<int:product_id>/", views.cart_update, name="cart_update"),
+    path("checkout/", views.checkout, name="checkout"),
+    path("webhook/", webhooks.stripe_webhook, name="stripe_webhook"),
+    path("success/", views.payment_success, name="payment_success"),
+    path("cancel/", views.payment_cancel, name="payment_cancel"),
     path(
-        "robots.txt",
-        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+        "secure-download/<int:order_item_id>/",
+        views.secure_download,
+        name="secure_download",
     ),
+    path("orders/", views.order_history, name="order_history"),
+    path("orders/<str:order_id>/", views.order_detail, name="order_detail"),
+    path("purchases/", views.purchases, name="purchases"),
+    path("product/<int:product_id>/review/", views.add_review, name="add_review"),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

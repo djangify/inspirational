@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "tinymce",
     "core",
     "shop",
+    "news",
 ]
 
 MIDDLEWARE = [
