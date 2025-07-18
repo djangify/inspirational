@@ -92,9 +92,8 @@ def cart_add(request, product_id):
         messages.success(request, f"{product.title} has been added to your cart.")
         return redirect("shop:cart_detail")
     except Exception as e:
-        print(f"Error adding to cart: {str(e)}")
         messages.error(request, "There was an error adding the item to your cart.")
-        return redirect("shop:product_detail", slug=product.slug)
+        return redirect("shop:product_list")
 
 
 def cart_detail(request):

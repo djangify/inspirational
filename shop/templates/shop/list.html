@@ -16,7 +16,7 @@
         <!-- Mobile Filter Button (hidden on larger screens) -->
         <button id="filterToggle" 
                 data-collapse-toggle="categories-grid"
-                class="lg:hidden w-full mb-4 px-4 py-2 bg-blue-600 text-white rounded-lg flex items-center justify-between">
+                class="lg:hidden w-full mb-4 px-4 py-2 bg-teal-700 text-white rounded-lg flex items-center justify-between">
             <span>Filter by Category</span>
             <svg class="w-5 h-5 transition-transform" id="filterIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -28,14 +28,14 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 <!-- All Products Tab -->
                 <a href="{% url 'shop:product_list' %}" 
-                   class="text-center text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg {% if not current_category %}bg-blue-100 font-semibold{% endif %}">
+                   class="text-center text-blue-600 hover:bg-blue-100 px-4 py-2 rounded-lg {% if not current_category %}bg-slate-100 font-semibold{% endif %}">
                     All Products
                 </a>
                 
                 <!-- Dynamic Category Tabs -->
                 {% for category in categories %}
                 <a href="{{ category.get_absolute_url }}" 
-                   class="text-center text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg {% if current_category and current_category.id == category.id %}bg-blue-100 font-semibold{% endif %}">
+                   class="text-center text-blue-600 hover:bg-slate-100 px-4 py-2 rounded-lg {% if current_category and current_category.id == category.id %}bg-slate-100 font-semibold{% endif %}">
                     {{ category.name }}
                 </a>
                 {% endfor %}
@@ -65,7 +65,7 @@
                     </p>
                     <div class="flex justify-between items-center">
                         <span class="text-xl font-bold text-gray-900">£{{ product.current_price|floatformat:2 }}</span>
-                        <a href="{{ product.get_absolute_url }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                        <a href="{{ product.get_absolute_url }}" class="bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-800 transition duration-300">
                             View Details
                         </a>
                     </div>
@@ -85,7 +85,7 @@
 
             {% for num in products.paginator.page_range %}
             {% if products.number == num %}
-            <span class="px-4 py-2 bg-blue-600 text-white border rounded">{{ num }}</span>
+            <span class="px-4 py-2 bg-teal-700 text-white border rounded">{{ num }}</span>
             {% else %}
             <a href="?page={{ num }}" class="px-4 py-2 bg-gray-100 border rounded hover:bg-gray-200">{{ num }}</a>
             {% endif %}

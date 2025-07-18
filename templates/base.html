@@ -44,6 +44,12 @@
 
     {% include 'components/footer.html' %}
 
+    {% if messages %}
+      <section aria-label="Notifications" role="alert">
+          {% include 'partials/_messages.html' %}
+      </section>
+    {% endif %}
+
     <!-- COOKIE BANNER -->
     <div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #f8fafc; padding: 1em; text-align: center; font-size: 14px; box-shadow: 0 -1px 4px rgba(0,0,0,0.1); display: none;">
       This website uses cookies to ensure you get the best experience. 
@@ -63,5 +69,9 @@
         document.getElementById("cookie-banner").style.display = "none";
       };
     </script>
+
+        <!-- Scripts -->
+    
+    <script src="{% static 'js/messages.js' %}"></script>
   </body>
 </html>

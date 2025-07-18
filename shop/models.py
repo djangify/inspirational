@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.conf import settings
 import uuid
+from decimal import Decimal
 from inspirational.storage import secure_storage, public_storage
 from inspirational.utils import custom_slugify
 from tinymce.models import HTMLField
@@ -159,13 +160,13 @@ class Product(models.Model):
     @property
     def price(self):
         """Return price in pounds"""
-        return self.price_pence / 100
+        return Decimal(self.price_pence) / 100
 
     @property
     def sale_price(self):
         """Return sale price in pounds if it exists"""
         if self.sale_price_pence:
-            return self.sale_price_pence / 100
+            return Decimal(self.sale_price_pence) / 100
         return None
 
     @property

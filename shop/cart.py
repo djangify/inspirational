@@ -1,14 +1,6 @@
 from decimal import Decimal
 from django.conf import settings
 from .models import Product
-from django.core.serializers.json import DjangoJSONEncoder
-
-
-class DecimalEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Decimal):
-            return str(obj)
-        return super().default(obj)
 
 
 class Cart:
@@ -29,11 +21,11 @@ class Cart:
         cart = self.cart.copy()
 
         for product in products:
-            cart[str(product.id)]["product"] = product
-            cart[str(product.id)]["image_url"] = product.get_image_url()
-
-        for item in cart.values():
-            item["price"] = Decimal(item["price"])
+            # Create a temporary item dict for yielding, don't modify the session cart
+            item = cart[str(product.id)].copy()
+            item["product"] = product
+            item["image_url"] = product.get_image_url()
+            item["price"] = Decimal(str(item["price"]))
             item["total_price"] = item["price"] * item["quantity"]
             yield item
 
@@ -41,14 +33,12 @@ class Cart:
         return sum(item["quantity"] for item in self.cart.values())
 
     def add(self, product, quantity=1, override_quantity=False):
-        """
-        Add a product to the cart or update its quantity.
-        """
         product_id = str(product.id)
         if product_id not in self.cart:
+            # Store only JSON serializable data - no Decimal objects
             self.cart[product_id] = {
                 "quantity": 0,
-                "price": str(product.price_pence / 100),  # Convert pence to pounds
+                "price": str(product.price),  # Always store as string
             }
         if override_quantity:
             self.cart[product_id]["quantity"] = quantity
@@ -57,6 +47,8 @@ class Cart:
         self.save()
 
     def save(self):
+        # Mark the session as modified but don't reassign the cart
+        # The cart should already contain only JSON serializable data
         self.session.modified = True
 
     def remove(self, product):
@@ -73,7 +65,8 @@ class Cart:
         Calculate total price of items in cart.
         """
         return sum(
-            Decimal(item["price"]) * item["quantity"] for item in self.cart.values()
+            Decimal(str(item["price"])) * item["quantity"]
+            for item in self.cart.values()
         )
 
     def clear(self):

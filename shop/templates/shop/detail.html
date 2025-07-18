@@ -6,10 +6,10 @@
         <!-- Breadcrumb -->
         <nav class="mb-8">
             <ol class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                <li><a href="{% url 'shop:product_list' %}" class="hover:text-blue-600 dark:hover:text-blue-400">Study Materials</a></li>
+                <li><a href="{% url 'shop:product_list' %}" class="hover:text-teal-700 dark:hover:text-teal-500">Shop</a></li>
                 <li><span class="mx-2">/</span></li>
                 {% if product.category %}
-                    <li><a href="{{ product.category.get_absolute_url }}" class="hover:text-blue-600 dark:hover:text-blue-400">{{ product.category.name }}</a></li>
+                    <li><a href="{{ product.category.get_absolute_url }}" class="hover:text-teal-700 dark:hover:text-teal-700">{{ product.category.name }}</a></li>
                     <li><span class="mx-2">/</span></li>
                 {% endif %}
                 <li class="text-gray-900 dark:text-white">{{ product.title }}</li>
@@ -51,7 +51,7 @@
                         {% if has_purchased %}
                             <li>Download Limit: {{ order_item.downloads_remaining }}</li>
                             {% if order_item.download_count < order_item.downloads_remaining %}
-                                <li>File: <a href="{% url 'shop:secure_download' order_item.id %}" class="text-blue-600 hover:underline">Download</a></li>
+                                <li>File: <a href="{% url 'shop:secure_download' order_item.id %}" class="text-teal-700 hover:underline">Download</a></li>
                             {% else %}
                                 <li>Download limit reached</li>
                             {% endif %}
@@ -60,7 +60,7 @@
                         {% if product.get_preview_url %}
                             <li>Preview: <a href="{{ product.get_preview_url }}" 
                                             target="_blank" 
-                                            class="text-blue-600 hover:underline inline-flex items-center">
+                                            class="text-teal-700 hover:underline inline-flex items-center">
                                 <span>View Preview PDF</span>
                                 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
@@ -75,9 +75,9 @@
                         {% csrf_token %}
                         <div class="flex items-center space-x-4">
                             <input type="number" name="quantity" value="1" min="1" max="99"
-                                class="w-20 px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                class="w-20 px-3 py-2 border border-gray-300 rounded-md focus:ring-teal-700 focus:border-teal-700">
                             <button type="submit" 
-                                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300">
+                                class="bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-4 rounded-lg focus:outline-none focus:ring-4 focus:ring-teal-700">
                             Add to Cart
                         </button>
                         </div>
@@ -175,7 +175,7 @@
                         </div>
 
                         <button type="submit" 
-                                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                class="bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-800">
                             Submit Review
                         </button>
                     </form>
@@ -187,7 +187,7 @@
             {% else %}
                 <div class="mb-6 p-4 bg-gray-50 rounded-lg">
                     <p>Please <a href="{% url 'profiles:login' %}?next={{ request.path }}" 
-                            class="text-blue-600 hover:underline">log in</a> to write a review.</p>
+                            class="text-teal-700 hover:underline">log in</a> to write a review.</p>
                 </div>
             {% endif %}
 
@@ -255,7 +255,7 @@
                                         £{{ related.current_price|floatformat:2|default:"0.00" }}
                                     </span>
                                     <a href="{{ related.get_absolute_url }}" 
-                                       class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800">
+                                       class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-teal-700 rounded-lg hover:bg-teal-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-teal-800">
                                         View Details
                                     </a>
                                 </div>

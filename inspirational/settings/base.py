@@ -72,6 +72,8 @@ REST_FRAMEWORK = {
     ],
 }
 
+CART_SESSION_ID = "cart"
+
 
 # CSRF Cookie Configuration
 CSRF_COOKIE_SECURE = True
@@ -90,6 +92,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "shop.context_processors.cart",
             ],
         },
     },
