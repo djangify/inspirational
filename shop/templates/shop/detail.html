@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container bg-white mx-auto px-6 py-12">
+    <div class="max-w-7xl mx-auto">
+        <!-- Breadcrumb -->
+        <nav class="mb-8">
+            <ol class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                <li><a href="{% url 'shop:product_list' %}" class="hover:text-blue-600 dark:hover:text-blue-400">Study Materials</a></li>
+                <li><span class="mx-2">/</span></li>
+                {% if product.category %}
+                    <li><a href="{{ product.category.get_absolute_url }}" class="hover:text-blue-600 dark:hover:text-blue-400">{{ product.category.name }}</a></li>
+                    <li><span class="mx-2">/</span></li>
+                {% endif %}
+                <li class="text-gray-900 dark:text-white">{{ product.title }}</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Left Column -->
+            <div class="space-y-12">
+                <!-- Product Image -->
+                <div class="relative">
+                    {% if product.get_image_url %}
+                        <img src="{{ product.get_image_url }}" 
+                            alt="{{ product.title|default:'Product Image' }}" 
+                            class="w-full rounded-lg shadow-lg object-cover">
+                    {% else %}
+                        <div class="w-full h-56 bg-white flex items-center justify-center text-gray-500">
+                            No Image Available
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Digital Product Details -->
+                <div class="bg-white dark:bg-gray-700 rounded-lg p-4">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Digital Product Details</h3>
+                    <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                        {% if product.product_type %}
+                            <li>Product Type: {{ product.get_product_type_display }}</li>
+                        {% endif %}
+                        
+                        {% if product.status %}
+                            <li>Status: {{ product.get_status_display }}</li>
+                        {% endif %}
+                
+                        {% if product.number_of_pages %}
+                            <li>Number of Pages: {{ product.number_of_pages }}</li>
+                        {% endif %}
+                        
+                        {% if has_purchased %}
+                            <li>Download Limit: {{ order_item.downloads_remaining }}</li>
+                            {% if order_item.download_count < order_item.downloads_remaining %}
+                                <li>File: <a href="{% url 'shop:secure_download' order_item.id %}" class="text-blue-600 hover:underline">Download</a></li>
+                            {% else %}
+                                <li>Download limit reached</li>
+                            {% endif %}
+                        {% endif %}
+                
+                        {% if product.get_preview_url %}
+                            <li>Preview: <a href="{{ product.get_preview_url }}" 
+                                            target="_blank" 
+                                            class="text-blue-600 hover:underline inline-flex items-center">
+                                <span>View Preview PDF</span>
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                </svg>
+                            </a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!-- Add to Cart Form -->
+                {% if product.status == "publish" %}
+                    <form method="post" action="{% url 'shop:cart_add' product.id %}" class="space-y-8">
+                        {% csrf_token %}
+                        <div class="flex items-center space-x-4">
+                            <input type="number" name="quantity" value="1" min="1" max="99"
+                                class="w-20 px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            <button type="submit" 
+                                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300">
+                            Add to Cart
+                        </button>
+                        </div>
+                    </form>
+                {% elif product.is_coming_soon %}
+                    <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4">
+                        <p class="text-yellow-700">
+                            <span class="font-bold">Coming Soon!</span> This item will be available for purchase shortly.
+                        </p>
+                    </div>
+                {% elif product.is_fully_booked %}
+                    <div class="bg-red-100 border-l-4 border-red-500 p-4">
+                        <p class="text-red-700">
+                            <span class="font-bold">Fully Booked!</span> This item is currently at capacity.
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+            <!-- Right Column - Product Info -->
+            <div class="space-y-4">
+                <!-- Title -->
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ product.title }}</h1>
+                
+                <!-- Price and Availability -->
+                <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4">
+                    <span class="text-3xl font-bold text-gray-900 dark:text-white">£{{ product.current_price|floatformat:2|default:"0.00" }}</span>
+                    {% if product.status == "publish" %}
+                        <span class="px-3 py-1 text-sm text-green-800 bg-green-100 rounded-full">Available</span>
+                    {% elif product.is_coming_soon %}
+                        <span class="px-3 py-1 text-sm text-yellow-800 bg-yellow-100 rounded-full">Coming Soon</span>
+                    {% elif product.is_fully_booked %}
+                        <span class="px-3 py-1 text-sm text-red-800 bg-red-100 rounded-full">Fully Booked</span>
+                    {% else %}
+                        <span class="px-3 py-1 text-sm text-red-800 bg-red-100 rounded-full">Not Available</span>
+                    {% endif %}
+                </div>
+                <!-- Description -->
+                <div class="prose dark:prose-invert max-w-none mt-4"> 
+                    {{ product.description|safe|default:"No description available" }}
+                </div>
+            </div>
+        </div>
+        <!-- Reviews Section starts -->
+        <div class="mt-16 bg-white rounded-lg shadow-lg p-6">
+            <div class="border-b pb-4 mb-4">
+                <h3 class="text-2xl mb-4">Customer Reviews</h3>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center">
+                        <span class="text-2xl mr-2">{{ product.average_rating|floatformat:1 }}</span>
+                        <div class="flex">
+                            {% for i in "12345"|make_list %}
+                                {% if forloop.counter <= product.average_rating %}
+                                    <svg class="w-5 h-5 text-yellow-400 fill-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                    </svg>
+                                {% else %}
+                                    <svg class="w-5 h-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                    </svg>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <span class="text-gray-600">Based on {{ product.total_reviews }} reviews</span>
+                </div>
+            </div>
+
+            {% if user.is_authenticated %}
+                {% if form %}
+                    <form method="post" action="{% url 'shop:add_review' product.id %}" class="mb-8">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-2">Rating</label>
+                            <div class="flex gap-2">
+                                {% for value, label in form.rating.field.choices %}
+                                    {% if value <= 5 %}
+                                        <input type="radio" name="rating" value="{{ value }}" id="rating{{ value }}" 
+                                                class="hidden peer" required>
+                                        <label for="rating{{ value }}" 
+                                                class="cursor-pointer p-1 hover:scale-110 transition-transform">
+                                            <svg class="w-6 h-6 text-gray-300 hover:text-yellow-400 peer-checked:text-yellow-400 peer-checked:fill-yellow-400"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                            </svg>
+                                        </label>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-2">Comment</label>
+                            {{ form.comment }}
+                        </div>
+
+                        <button type="submit" 
+                                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                            Submit Review
+                        </button>
+                    </form>
+                {% else %}
+                    <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                        <p>You've already reviewed this product or need to purchase it first to leave a review.</p>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                    <p>Please <a href="{% url 'profiles:login' %}?next={{ request.path }}" 
+                            class="text-blue-600 hover:underline">log in</a> to write a review.</p>
+                </div>
+            {% endif %}
+
+            <div class="space-y-4">
+                {% for review in product.reviews.all %}
+                    <div class="border-b last:border-0 pb-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <div class="flex">
+                                    {% with ''|center:5 as range %}
+                                        {% for _ in range %}
+                                            <svg class="w-5 h-5 {% if forloop.counter <= review.rating %}text-yellow-400 fill-yellow-400{% else %}text-gray-300{% endif %}"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                            </svg>
+                                        {% endfor %}
+                                    {% endwith %}
+                                </div>
+                                <span class="text-sm text-gray-600 block mt-1">by {{ review.user.profile.first_name }}</span>
+                            </div>
+                            <div class="text-sm text-gray-500">{{ review.created|timesince }} ago</div>
+                        </div>
+                        <p class="text-gray-700">{{ review.comment }}</p>
+                        {% if review.verified_purchase %}
+                            <span class="inline-flex items-center mt-2 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Verified Purchase
+                            </span>
+                        {% endif %}
+                    </div>
+                {% empty %}
+                    <div class="text-center py-6 text-gray-500">
+                        <p>No reviews yet. Be the first to review this product!</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- Reviews section ends-->
+        
+        <!-- Related Products -->
+        {% if related_products %}
+            <div class="mt-16">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Related Products</h2>
+                <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    {% for related in related_products %}
+                        <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                            {% if related.get_image_url %}
+                                <img src="{{ related.get_image_url }}" 
+                                    alt="{{ related.title|default:'Related Product' }}" 
+                                    class="w-full h-48 object-cover rounded-t-lg">
+                            {% else %}
+                                <div class="w-full h-48  flex items-center justify-center text-gray-500">
+                                    No Image Available
+                                </div>
+                            {% endif %}
+                            <div class="p-5">
+                                <h3 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    <a href="{{ related.get_absolute_url }}">{{ related.title }}</a>
+                                </h3>
+                                <p class="mb-3 text-gray-600 dark:text-gray-400">
+                                    {{ related.description|safe|truncatewords:15|default:"No description available" }}
+                                </p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold text-gray-900 dark:text-white">
+                                        £{{ related.current_price|floatformat:2|default:"0.00" }}
+                                    </span>
+                                    <a href="{{ related.get_absolute_url }}" 
+                                       class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800">
+                                        View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        
+    </div>
+</div>
+{% endblock %}

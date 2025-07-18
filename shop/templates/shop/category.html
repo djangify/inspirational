@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-12">
+    <!-- Title -->
+    <h1 class="text-3xl font-bold mb-6">{{ category.name }}</h1>
+
+    <!-- Category Description -->
+    {% if category.description %}
+    <div class="mb-8 prose dark:prose-invert max-w-none">
+        {{ category.description|safe }}
+    </div>
+    {% endif %}
+
+    <!-- Horizontal Scrollable Tabs -->
+    <div class="bg-white shadow rounded-lg p-4 overflow-x-auto mb-8">
+        <div class="flex space-x-4">
+            <!-- All Products Tab -->
+            <a href="{% url 'shop:product_list' %}" 
+               class="text-blue-600 hover:bg-gray-100 hover:text-blue-800 transition-all duration-300 px-4 py-2 rounded-lg whitespace-nowrap {% if not current_category %}bg-gray-200 font-semibold{% endif %}">
+                All Products
+            </a>
+
+            <!-- Dynamic Category Tabs -->
+            {% for cat in categories %}
+            <a href="{{ cat.get_absolute_url }}" 
+               class="text-blue-600 hover:bg-gray-100 hover:text-blue-800 transition-all duration-300 px-4 py-2 rounded-lg whitespace-nowrap {% if category.id == cat.id %}bg-gray-200 font-semibold{% endif %}">
+                {{ cat.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    {% if products %}
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {% for product in products %}
+        <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            {% if product.preview_image %}
+            <img src="{{ product.preview_image.url }}" alt="{{ product.title }}" class="w-full h-56 object-cover">
+            {% else %}
+            <div class="w-full h-56 bg-gray-200 flex items-center justify-center text-gray-500">
+                No Image Available
+            </div>
+            {% endif %}
+            <div class="p-6">
+                <h2 class="text-lg font-bold text-gray-900 mb-2">
+                    <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                </h2>
+                <p class="text-sm text-gray-600 mb-4">
+                    {{ product.description|truncatewords:15|safe }}
+                </p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">£{{ product.current_price|floatformat:2 }}</span>
+                    <a href="{{ product.get_absolute_url }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if products.has_other_pages %}
+    <div class="mt-12">
+        <nav class="flex justify-center space-x-2">
+            {% if products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}" class="px-4 py-2 bg-gray-100 border rounded hover:bg-gray-200">Previous</a>
+            {% endif %}
+
+            {% for num in products.paginator.page_range %}
+            {% if products.number == num %}
+            <span class="px-4 py-2 bg-blue-600 text-white border rounded">{{ num }}</span>
+            {% else %}
+            <a href="?page={{ num }}" class="px-4 py-2 bg-gray-100 border rounded hover:bg-gray-200">{{ num }}</a>
+            {% endif %}
+            {% endfor %}
+
+            {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}" class="px-4 py-2 bg-gray-100 border rounded hover:bg-gray-200">Next</a>
+            {% endif %}
+        </nav>
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="text-center py-16">
+        <p class="text-gray-600 dark:text-gray-400">No products found in this category.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
