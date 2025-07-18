@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     "core",
     "shop",
     "news",
+    "prompt",
+    "accounts",
 ]
 
 MIDDLEWARE = [

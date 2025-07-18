@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+    <div class="mb-6 flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Your Writing Sessions</h1>
+        <a href="{% url 'prompt:writing_progress' %}" class="text-purple-600 hover:text-blue-800 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+            </svg>
+            Back to Progress Tracker
+        </a>
+    </div>
+
+    <!-- Stats summary -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">Writing Summary</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Total Sessions</p>
+                <p class="text-2xl font-bold text-blue-800">{{ total_sessions }}</p>
+            </div>
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Total Minutes</p>
+                <p class="text-2xl font-bold text-blue-800">{{ total_minutes }}</p>
+            </div>
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Total Words</p>
+                <p class="text-2xl font-bold text-blue-800">{{ total_words }}</p>
+            </div>
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Avg Minutes/Session</p>
+                <p class="text-2xl font-bold text-blue-800">{{ avg_minutes }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter controls -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">Filter Sessions</h2>
+        <form method="get" action="{% url 'prompt:session_list' %}" class="space-y-4 md:space-y-0 md:flex md:items-end md:space-x-4">
+            <div class="flex-1">
+                <label for="date_from" class="block text-sm font-medium text-gray-700 mb-1">From Date</label>
+                <input type="date" id="date_from" name="date_from" value="{{ date_from|date:'Y-m-d' }}"
+                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="flex-1">
+                <label for="date_to" class="block text-sm font-medium text-gray-700 mb-1">To Date</label>
+                <input type="date" id="date_to" name="date_to" value="{{ date_to|date:'Y-m-d' }}"
+                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="flex-1">
+                <label for="mood" class="block text-sm font-medium text-gray-700 mb-1">Session Mood</label>
+                <select id="mood" name="mood" 
+                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option value="all" {% if mood == 'all' %}selected{% endif %}>All Moods</option>
+                    <option value="very_negative" {% if mood == 'very_negative' %}selected{% endif %}>Very Difficult</option>
+                    <option value="negative" {% if mood == 'negative' %}selected{% endif %}>Difficult</option>
+                    <option value="neutral" {% if mood == 'neutral' %}selected{% endif %}>Neutral</option>
+                    <option value="positive" {% if mood == 'positive' %}selected{% endif %}>Enjoyable</option>
+                    <option value="very_positive" {% if mood == 'very_positive' %}selected{% endif %}>Very Enjoyable</option>
+                </select>
+            </div>
+            <div class="md:flex-none">
+                <button type="submit" class="w-full md:w-auto bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+                    Apply Filters
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Session List -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-4">All Writing Sessions</h2>
+        
+        {% if page_obj %}
+            <div class="space-y-4">
+                {% for session in page_obj %}
+                    <div class="border rounded-lg p-4 relative">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-medium text-gray-800">
+                                    {{ session.date|date:"D, j M Y" }} - {{ session.minutes_spent }} minutes
+                                </h3>
+                                {% if session.word_count %}
+                                    <p class="text-sm text-gray-600">{{ session.word_count }} words</p>
+                                {% endif %}
+                                {% if session.notes %}
+                                    <p class="text-sm text-gray-600 mt-1">{{ session.notes }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="flex space-x-2">
+                                <a href="{% url 'prompt:edit_session' session.id %}?from=list" class="text-purple-600 hover:text-blue-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                    </svg>
+                                </a>
+                                <a href="{% url 'prompt:delete_session' session.id %}?from=list" class="text-red-600 hover:text-red-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Mood indicator -->
+                        <div class="mt-2 flex items-center">
+                            <span class="text-xs text-gray-500 mr-2">Session mood:</span>
+                            <div class="flex">
+                                {% if session.mood == 'very_negative' %}
+                                    <span class="text-xs px-2 py-1 bg-red-100 text-red-800 rounded-full">Very Difficult</span>
+                                {% elif session.mood == 'negative' %}
+                                    <span class="text-xs px-2 py-1 bg-red-50 text-red-700 rounded-full">Difficult</span>
+                                {% elif session.mood == 'neutral' %}
+                                    <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded-full">Neutral</span>
+                                {% elif session.mood == 'positive' %}
+                                    <span class="text-xs px-2 py-1 bg-green-50 text-green-700 rounded-full">Enjoyable</span>
+                                {% elif session.mood == 'very_positive' %}
+                                    <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">Very Enjoyable</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Prompt used (if any) -->
+                        {% if session.prompt_used %}
+                            <div class="mt-2 text-xs text-gray-500">
+                                <span>Prompt used:</span>
+                                <span class="italic">"{{ session.prompt_used.text|truncatechars:100 }}"</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination -->
+            {% if page_obj.has_other_pages %}
+                <div class="flex justify-center mt-6">
+                    <nav class="inline-flex rounded-md shadow-sm" aria-label="Pagination">
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}{% if date_from %}&date_from={{ date_from|date:'Y-m-d' }}{% endif %}{% if date_to %}&date_to={{ date_to|date:'Y-m-d' }}{% endif %}{% if mood != 'all' %}&mood={{ mood }}{% endif %}" 
+                               class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Previous</span>
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        {% else %}
+                            <span class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-gray-100 text-sm font-medium text-gray-400 cursor-not-allowed">
+                                <span class="sr-only">Previous</span>
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                        {% endif %}
+                        
+                        {% for i in page_obj.paginator.page_range %}
+                            {% if page_obj.number == i %}
+                                <span class="relative inline-flex items-center px-4 py-2 border border-blue-500 bg-blue-50 text-sm font-medium text-purple-600">
+                                    {{ i }}
+                                </span>
+                            {% else %}
+                                <a href="?page={{ i }}{% if date_from %}&date_from={{ date_from|date:'Y-m-d' }}{% endif %}{% if date_to %}&date_to={{ date_to|date:'Y-m-d' }}{% endif %}{% if mood != 'all' %}&mood={{ mood }}{% endif %}" 
+                                   class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                    {{ i }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}{% if date_from %}&date_from={{ date_from|date:'Y-m-d' }}{% endif %}{% if date_to %}&date_to={{ date_to|date:'Y-m-d' }}{% endif %}{% if mood != 'all' %}&mood={{ mood }}{% endif %}" 
+                               class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Next</span>
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        {% else %}
+                            <span class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-gray-100 text-sm font-medium text-gray-400 cursor-not-allowed">
+                                <span class="sr-only">Next</span>
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                        {% endif %}
+                    </nav>
+                </div>
+            {% endif %}
+            
+        {% else %}
+            <div class="text-center py-12 bg-gray-50 rounded-lg">
+                <p class="text-gray-600 mb-4">You haven't recorded any writing sessions yet.</p>
+                <a href="{% url 'prompt:writing_progress' %}" class="inline-block bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+                    Record Your First Session
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

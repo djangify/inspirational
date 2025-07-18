@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+    <div class="mb-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Edit Writing Goal</h1>
+        <a href="{% url 'prompt:writing_progress' %}" class="text-purple-600 hover:text-blue-800 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+            </svg>
+            Back to Progress
+        </a>
+    </div>
+
+    <!-- Edit Goal Form -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <form method="post" action="{% url 'prompt:edit_goal' goal.id %}">
+            {% csrf_token %}
+            
+            <div class="space-y-4">
+                <!-- Goal type field -->
+                <div>
+                    <label for="{{ form.goal_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        Goal Type
+                    </label>
+                    {{ form.goal_type }}
+                    {% if form.goal_type.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.goal_type.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Target value field -->
+                <div>
+                    <label for="{{ form.target_value.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        Target Value
+                    </label>
+                    {{ form.target_value }}
+                    {% if form.target_value.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.target_value.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Frequency field -->
+                <div>
+                    <label for="{{ form.frequency.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        Frequency
+                    </label>
+                    {{ form.frequency }}
+                    {% if form.frequency.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.frequency.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Start date field -->
+                <div>
+                    <label for="{{ form.start_date.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        Start Date
+                    </label>
+                    {{ form.start_date }}
+                    {% if form.start_date.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.start_date.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- End date field (optional) -->
+                <div>
+                    <label for="{{ form.end_date.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        End Date (Optional)
+                    </label>
+                    {{ form.end_date }}
+                    <p class="mt-1 text-xs text-gray-500">Leave blank for ongoing goals</p>
+                    {% if form.end_date.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.end_date.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Notes field (optional) -->
+                <div>
+                    <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        Notes (Optional)
+                    </label>
+                    {{ form.notes }}
+                    {% if form.notes.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.notes.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Active checkbox -->
+                <div class="flex items-center">
+                    {{ form.active }}
+                    <label for="{{ form.active.id_for_label }}" class="ml-2 block text-sm text-gray-700">
+                        Active
+                    </label>
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <a href="{% url 'prompt:delete_goal' goal.id %}" class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+                        Delete Goal
+                    </a>
+                    <div>
+                        <a href="{% url 'prompt:writing_progress' %}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md mr-3">
+                            Cancel
+                        </a>
+                        <button type="submit" class="bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

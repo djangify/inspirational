@@ -1,0 +1,481 @@
+{% load custom_filters %}
+{% load static %}
+
+{% block content %}{% endblock %} 
+
+<div class="max-w-7xl mx-auto mt-16 mb-12 px-4">
+        <!-- Accordion Header -->
+        <button class="accordion-header w-full flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none" data-target="stats-content">
+          <h2 class="text-xl font-semibold">Writing Statistics</h2>
+          <svg class="accordion-icon h-6 w-6 transform text-gray-500 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        
+        <!-- Accordion Content -->
+        <div id="stats-content" class="accordion-content hidden border-t border-gray-200 p-6">
+    <!-- Time period selector -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">Time Period: {{ title }}</h2>
+        <div class="flex flex-wrap gap-2">
+            <a href="{% url 'prompt:stats' %}?period=week" class="tab-button {% if period == 'week' %}active{% endif %}">
+                This Week
+            </a>
+            <a href="{% url 'prompt:stats' %}?period=month" class="tab-button {% if period == 'month' %}active{% endif %}">
+                This Month
+            </a>
+            <a href="{% url 'prompt:stats' %}?period=year" class="tab-button {% if period == 'year' %}active{% endif %}">
+                This Year
+            </a>
+            <a href="{% url 'prompt:stats' %}?period=all" class="tab-button {% if period == 'all' %}active{% endif %}">
+                All Time
+            </a>
+            <button id="custom-range-btn" class="tab-button {% if period == 'custom' %}active{% endif %}">
+                Custom Range
+            </button>
+        </div>
+        
+        <!-- Custom date range form (initially hidden) -->
+        <div id="custom-range-form" class="mt-4 {% if period != 'custom' %}hidden{% endif %}">
+            <form method="get" action="{% url 'prompt:stats' %}" class="flex flex-wrap gap-4 items-end">
+                <input type="hidden" name="period" value="custom">
+                
+                <div>
+                    <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" value="{{ start_date|date:'Y-m-d' }}" 
+                           class="rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                </div>
+                
+                <div>
+                    <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                    <input type="date" id="end_date" name="end_date" value="{{ end_date|date:'Y-m-d' }}" 
+                           class="rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                </div>
+                
+                <div>
+                    <button type="submit" class="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-md text-sm font-medium">
+                        Apply Range
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Overview Stats -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">Writing Overview</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Total Sessions</p>
+                <p class="text-2xl font-bold text-blue-800">{{ stats.total_sessions }}</p>
+            </div>
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Total Minutes</p>
+                <p class="text-2xl font-bold text-blue-800">{{ stats.total_minutes }}</p>
+            </div>
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Total Words</p>
+                <p class="text-2xl font-bold text-blue-800">{{ stats.total_words }}</p>
+            </div>
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Avg Minutes/Session</p>
+                <p class="text-2xl font-bold text-blue-800">{{ stats.avg_minutes }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Mood Distribution -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-lg font-semibold mb-4">Session Mood Distribution</h2>
+            {% if mood_counts %}
+                <div id="mood-chart" class="chart-container"></div>
+            {% else %}
+                <div class="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
+                    <p class="text-gray-500">No data available</p>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Day of Week Distribution -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-lg font-semibold mb-4">Writing Days Distribution</h2>
+            {% if day_counts %}
+                <div id="day-chart" class="chart-container"></div>
+            {% else %}
+                <div class="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
+                    <p class="text-gray-500">No data available</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Time Series Chart -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">Writing Over Time</h2>
+        <div class="mb-4">
+            <div class="flex space-x-2">
+                <button id="tab-minutes" class="tab-button active">Minutes</button>
+                <button id="tab-words" class="tab-button">Words</button>
+                <button id="tab-sessions" class="tab-button">Sessions</button>
+            </div>
+        </div>
+        
+        <div id="panel-minutes" class="tab-panel active">
+            {% if time_series %}
+                <div id="minutes-chart" class="chart-container"></div>
+            {% else %}
+                <div class="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
+                    <p class="text-gray-500">No data available</p>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div id="panel-words" class="tab-panel">
+            {% if time_series %}
+                <div id="words-chart" class="chart-container"></div>
+            {% else %}
+                <div class="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
+                    <p class="text-gray-500">No data available</p>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div id="panel-sessions" class="tab-panel">
+            {% if time_series %}
+                <div id="sessions-chart" class="chart-container"></div>
+            {% else %}
+                <div class="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
+                    <p class="text-gray-500">No data available</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Writing Insights -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-4">Writing Insights</h2>
+        {% if stats.total_sessions > 0 %}
+            <div class="space-y-4">
+                <div class="p-4 bg-blue-50 rounded-lg">
+                    <h3 class="font-medium text-blue-800">Writing Consistency</h3>
+                    <p class="text-gray-700 mt-1">
+                        {% if day_counts %}
+                                You write most often on 
+                            {% with most_frequent_day=day_counts.items|dictsort:"1"|last %}
+                                <span class="font-medium">{{ most_frequent_day.0 }}s</span>
+                                ({{ most_frequent_day.1 }} sessions).
+                            {% endwith %} 
+                        {% endif %}
+                        Your average session lasts 
+                        <span class="font-medium">{{ stats.avg_minutes }} minutes</span>.
+                    </p>
+                </div>
+                
+                <div class="p-4 bg-green-50 rounded-lg">
+                    <h3 class="font-medium text-green-800">Writing Experience</h3>
+                    <p class="text-gray-700 mt-1">
+                        {% if mood_counts %}
+                            {% with total_positive=mood_counts.positive|default:0|add:mood_counts.very_positive|default:0 %}
+                            {% if total_positive > stats.total_sessions|intdiv:2 %}
+                                Most of your writing sessions are enjoyable, with 
+                                <span class="font-medium">{{ total_positive }} positive sessions</span> recorded.
+                            {% else %}
+                                You have a mix of writing experiences, with 
+                                <span class="font-medium">{{ total_positive }} positive sessions</span> recorded.
+                            {% endif %}
+                            {% endwith %}
+                            Keep track of what makes sessions more enjoyable to improve your writing experience.
+                        {% endif %}
+                    </p>
+                </div>
+                
+                <div class="p-4 bg-yellow-50 rounded-lg">
+                    <h3 class="font-medium text-yellow-800">Words and Productivity</h3>
+                    <p class="text-gray-700 mt-1">
+                        {% if stats.total_words > 0 %}
+                            You've written approximately 
+                            <span class="font-medium">{{ stats.total_words }} words</span>
+                            across your tracked sessions, averaging 
+                            <span class="font-medium">{{ stats.avg_words }} words</span> per session.
+                            {% if stats.avg_words >= 250 %}
+                                That's an excellent rate - keep up the great work!
+                            {% elif stats.avg_words >= 100 %}
+                                That's a solid rate - your memoir is growing steadily.
+                            {% else %}
+                                Every word counts in memoir writing - quality over quantity!
+                            {% endif %}
+                        {% else %}
+                            Try tracking your word count to see your progress over time. Even a few hundred words per session will build up quickly!
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center py-8 bg-gray-50 rounded-lg">
+                <p class="text-gray-600 mb-4">You haven't recorded any writing sessions for this time period yet.</p>
+                <a href="{% url 'prompt:writing_progress' %}" class="inline-block bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+                    Record Your First Session
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+</div>
+</div>
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Custom date range toggle
+        const customRangeBtn = document.getElementById('custom-range-btn');
+        const customRangeForm = document.getElementById('custom-range-form');
+        
+        if (customRangeBtn && customRangeForm) {
+            customRangeBtn.addEventListener('click', function() {
+                customRangeForm.classList.toggle('hidden');
+            });
+        }
+        
+        // Chart data
+        const timeSeriesData = {{ time_series|safe }};
+        const moodCounts = {{ mood_counts|default:'{}' |safe }};
+        const dayCounts = {{ day_counts|default:'{}' |safe }};
+        
+        // Tab switching
+        const tabButtons = document.querySelectorAll('[id^="tab-"]');
+        const tabPanels = document.querySelectorAll('[id^="panel-"]');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons and panels
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanels.forEach(panel => panel.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding panel
+                this.classList.add('active');
+                const panelId = this.id.replace('tab-', 'panel-');
+                document.getElementById(panelId).classList.add('active');
+            });
+        });
+        
+        // Create charts if data exists
+        if (timeSeriesData && timeSeriesData.length > 0) {
+            // Format data for charts
+            const dates = timeSeriesData.map(item => item.date);
+            const minutesData = timeSeriesData.map(item => item.minutes);
+            const wordsData = timeSeriesData.map(item => item.words);
+            const sessionsData = timeSeriesData.map(item => item.count);
+            
+            // Minutes chart
+            new Chart(document.getElementById('minutes-chart'), {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Minutes',
+                        data: minutesData,
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Minutes'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Words chart
+            new Chart(document.getElementById('words-chart'), {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Words',
+                        data: wordsData,
+                        borderColor: 'rgb(16, 185, 129)',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Words'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Sessions chart
+            new Chart(document.getElementById('sessions-chart'), {
+                type: 'bar',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Sessions',
+                        data: sessionsData,
+                        backgroundColor: 'rgba(96, 165, 250, 0.8)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            },
+                            title: {
+                                display: true,
+                                text: 'Number of Sessions'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Mood distribution chart
+        if (moodCounts && Object.keys(moodCounts).length > 0) {
+            const moodLabels = {
+                'very_negative': 'Very Difficult',
+                'negative': 'Difficult',
+                'neutral': 'Neutral',
+                'positive': 'Enjoyable',
+                'very_positive': 'Very Enjoyable'
+            };
+            
+            const moodColors = {
+                'very_negative': 'rgba(239, 68, 68, 0.8)',
+                'negative': 'rgba(252, 165, 165, 0.8)',
+                'neutral': 'rgba(209, 213, 219, 0.8)',
+                'positive': 'rgba(110, 231, 183, 0.8)',
+                'very_positive': 'rgba(16, 185, 129, 0.8)'
+            };
+            
+            // Create arrays for chart data
+            const moodLabelsArray = [];
+            const moodCountsArray = [];
+            const moodColorsArray = [];
+            
+            // Ensure we display all mood categories in a specific order
+            const moodOrder = ['very_negative', 'negative', 'neutral', 'positive', 'very_positive'];
+            
+            moodOrder.forEach(mood => {
+                moodLabelsArray.push(moodLabels[mood]);
+                moodCountsArray.push(moodCounts[mood] || 0);
+                moodColorsArray.push(moodColors[mood]);
+            });
+            
+            new Chart(document.getElementById('mood-chart'), {
+                type: 'pie',
+                data: {
+                    labels: moodLabelsArray,
+                    datasets: [{
+                        data: moodCountsArray,
+                        backgroundColor: moodColorsArray,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Day of week distribution chart
+        if (dayCounts && Object.keys(dayCounts).length > 0) {
+            // Create arrays for chart data in day order
+            const dayOrder = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const dayLabelsArray = [];
+            const dayCountsArray = [];
+            
+            dayOrder.forEach(day => {
+                dayLabelsArray.push(day);
+                dayCountsArray.push(dayCounts[day] || 0);
+            });
+            
+            new Chart(document.getElementById('day-chart'), {
+                type: 'bar',
+                data: {
+                    labels: dayLabelsArray,
+                    datasets: [{
+                        label: 'Sessions',
+                        data: dayCountsArray,
+                        backgroundColor: 'rgba(79, 70, 229, 0.8)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            },
+                            title: {
+                                display: true,
+                                text: 'Number of Sessions'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
+
+

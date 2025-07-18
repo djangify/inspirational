@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Journal Prompt Generator - Daily Writing Prompts for Journaling{% endblock %}
+
+{% block meta_description %}Use our free journal prompt generator to discover inspiring writing prompts for your daily journaling practice. Find prompts for self-reflection, personal growth, and memoir writing.{% endblock %}
+
+{% block content %}
+    {% include "components/prompt_hero.html" %}
+    {% include "components/writing_tracker_info.html" %}
+
+    <!-- Main content section -->
+    <section class="bg-white py-12">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-6 text-center">Why Use a Journal Prompt Generator?</h2>
+            
+            <div class="prose prose-lg mx-auto mb-8 font-light lg:text-lg">
+                <p class="mb-4 py-4">Journal writing is a powerful tool for emotional well-being. A good writing prompt does more than just give you something to write about. It invites exploration, encourages deeper thinking, and often leads to unexpected insights. Our generator offers prompts across various categories and you can filter by the time you have available. This flexibility ensures you always find the right prompt for your mood and schedule.</p>
+                
+                <h3 class="text-2xl font-bold mt-8 mb-4">Setting Writing Goals</h3>
+                
+                <p class="mb-4 py-4">Consistency is key to developing any habit, including journal writing. By setting realistic, measurable goals, you're more likely to maintain your writing practice over time. Our writing tracker lets you set goals based on minutes spent writing, word count, or number of sessions per week or month.</p>
+                
+                <p class="mb-4 py-4">Tracking your progress provides motivation and accountability. There's something deeply satisfying about seeing your writing streak grow.Even short, 10-minute daily sessions can lead to meaningful insights when practiced consistently.</p>
+                
+                <h3 class="text-2xl font-bold mt-8 mb-4">Why Register?</h3>
+                
+                <p class="mb-4 py-4">Creating a free account unlocks additional features to enhance your writing journey. You'll be able to save your favorite prompts, track your writing progress, and build a consistent writing habit with our goal-setting tools. Our writing tracker helps you monitor your progress and set achievable goals. You can record your writing sessions, track your mood, and see patterns in your writing practice over time.</p>
+            
+            </div>
+        </div>
+    </section>
+
+    <!-- Two column section for Today's Prompt and Recently Added -->
+    <section class="bg-gray-50 py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Today's Prompt -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-purple-600">Today's Prompt</h2>
+                    <blockquote class="relative p-4 text-xl italic border-l-4 border-purple-600 bg-blue-50 mb-6">
+                        <p class="mb-2">Think about a time when you overcame a significant obstacle. What strengths did you discover within yourself during that challenge? How have those strengths served you since then?</p>
+                    </blockquote>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-sm text-gray-600">Category: Personal Growth</span>
+                        <span class="text-sm text-gray-600">Time: Medium (15-20 minutes)</span>
+                    </div>
+                </div>
+                
+                <!-- Recently Added Prompts -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-green-600">Recently Added Prompts</h2>
+                    <ul class="space-y-4">
+                        <li class="border-b pb-4">
+                            <p class="italic text-gray-800">Describe your ideal morning routine. What elements would make it perfect for your wellbeing and productivity?</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs text-gray-600">Category: Daily Reflection</span>
+                                <span class="text-xs text-gray-600">Added: March 31, 2025</span>
+                            </div>
+                        </li>
+                        <li class="border-b pb-4">
+                            <p class="italic text-gray-800">What is a family tradition that has significant meaning to you? How has it shaped your identity?</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs text-gray-600">Category: Family Memories</span>
+                                <span class="text-xs text-gray-600">Added: March 27, 2025</span>
+                            </div>
+                        </li>
+                        <li>
+                            <p class="italic text-gray-800">Write about a place you've never been but would love to visit. What draws you to this location? What would you hope to experience there?</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs text-gray-600">Category: Lifestyle</span>
+                                <span class="text-xs text-gray-600">Added: March 22, 2025</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to action section -->
+    <section class="bg-purple-600 text-white py-12">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Start Your Writing Journey Today</h2>
+            <p class="text-xl mb-8">Use our prompt generator regularly and track your progress to build a meaningful writing practice.</p>
+            {% if not user.is_authenticated %}
+                <a href="{% url 'accounts:register' %}" class="inline-block bg-white text-purple-600 hover:bg-gray-100 font-bold py-3 px-6 rounded-lg transition duration-200">
+                    Create Free Account
+                </a>
+            {% else %}
+                <a href="{% url 'prompt:writing_progress' %}" class="inline-block bg-white text-blue-600 hover:bg-gray-100 font-bold py-3 px-6 rounded-lg transition duration-200">
+                    Track Your Progress
+                </a>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

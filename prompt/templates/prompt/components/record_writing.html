@@ -1,0 +1,78 @@
+<h2 class="text-xl font-semibold mb-4">Record Writing Session</h2>
+<form method="post" action="{% url 'prompt:writing_progress' %}">
+    {% csrf_token %}
+    
+    <div class="space-y-4">
+        <!-- Date field -->
+        <div>
+            <label for="{{ session_form.date.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                Date
+            </label>
+            {{ session_form.date }}
+            {% if session_form.date.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ session_form.date.errors.0 }}</p>
+            {% endif %}
+        </div>
+        
+        <!-- Minutes spent field -->
+        <div>
+            <label for="{{ session_form.minutes_spent.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                Minutes Spent
+            </label>
+            {{ session_form.minutes_spent }}
+            {% if session_form.minutes_spent.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ session_form.minutes_spent.errors.0 }}</p>
+            {% endif %}
+        </div>
+        
+        <!-- Word count field (optional) -->
+        <div>
+            <label for="{{ session_form.word_count.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                Word Count (Optional)
+            </label>
+            {{ session_form.word_count }}
+            {% if session_form.word_count.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ session_form.word_count.errors.0 }}</p>
+            {% endif %}
+        </div>
+        
+        <!-- Mood field -->
+        <div>
+            <label for="{{ session_form.mood.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                How was your writing session?
+            </label>
+            {{ session_form.mood }}
+            {% if session_form.mood.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ session_form.mood.errors.0 }}</p>
+            {% endif %}
+        </div>
+        
+        <!-- Prompt used field (optional) -->
+        <div>
+            <label for="{{ session_form.prompt_used.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                Prompt Used (Optional)
+            </label>
+            {{ session_form.prompt_used }}
+            {% if session_form.prompt_used.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ session_form.prompt_used.errors.0 }}</p>
+            {% endif %}
+        </div>
+        
+        <!-- Notes field (optional) -->
+        <div>
+            <label for="{{ session_form.notes.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                Notes (Optional)
+            </label>
+            {{ session_form.notes }}
+            {% if session_form.notes.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ session_form.notes.errors.0 }}</p>
+            {% endif %}
+        </div>
+        
+        <div class="flex justify-end">
+            <button type="submit" class="bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+                Save Session
+            </button>
+        </div>
+    </div>
+</form>

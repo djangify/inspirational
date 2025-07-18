@@ -1,0 +1,80 @@
+{% load static %}
+
+<!-- Member Resources Section -->
+<div class="bg-white shadow-md rounded-lg overflow-hidden mt-4 lg:text-lg">
+  <!-- Accordion Header -->
+  <button
+    class="accordion-header w-full flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none"
+    data-target="resources-content"
+  >
+    <h2 class="text-xl font-semibold">Free Member Resources</h2>
+    <svg
+      class="accordion-icon h-6 w-6 transform text-gray-500 transition-transform duration-200"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 9l-7 7-7-7"
+      />
+    </svg>
+  </button>
+
+  <!-- Accordion Content -->
+  <div
+    id="resources-content"
+    class="accordion-content hidden border-t border-gray-200 p-6"
+  >
+    {% if member_resources %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ">
+      {% for resource in member_resources %}
+      <div
+        class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200"
+      >
+        <a href="{{ resource.file.url }}" class="block" target="_blank">
+          <img
+            src="{{ resource.thumbnail.url }}"
+            alt="{{ resource.title }}"
+            class="w-full h-40 object-contain"
+          />
+          <div class="p-4">
+            <h3 class="font-medium text-gray-900 mb-1">{{ resource.title }}</h3>
+            <p class="text-md text-gray-600 mb-2">
+              {{ resource.description|truncatechars:60 }}
+            </p>
+            <span class="inline-flex items-center text-purple-600 text-sm">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 mr-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+                />
+              </svg>
+              Download PDF
+            </span>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-8">
+      <p class="text-gray-600 mb-2">No resources available yet.</p>
+      <p class="text-gray-600">
+        Check back soon for free writing guides and templates!
+      </p>
+    </div>
+    {% endif %}
+  </div>
+</div>

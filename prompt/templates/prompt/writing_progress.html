@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">Writing Progress Tracker</h1>
+
+    <!-- Mobile-first responsive grid with 2 columns on larger screens -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Left Column: Create Goal & Recent Sessions -->
+        <div>
+            <!-- Create New Writing Goal -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                {% include "prompt/components/add_goal.html" %}
+            </div>
+            <!-- Recent Sessions -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                {% include "prompt/components/recent_sessions.html" %}
+            </div>
+        </div>
+        
+        <!-- Right Column: Record Writing Session & Monthly Stats -->
+        <div>
+            <!-- Record Writing Session Form -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                {% include "prompt/components/record_writing.html" %}
+            </div>
+            <br>
+            <!-- Monthly Stats -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                {% include "prompt/components/monthly_stats.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script src="{% static 'js/tailwind-calendar.js' %}"></script>
+<script>
+    // Make calendar data available to the external script
+    const calendarData = {{ calendar_data|safe }};
+    
+    // Initialize calendar on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof initCalendarControls === 'function') {
+            initCalendarControls();
+        }
+    });
+</script>
+{% endblock %}

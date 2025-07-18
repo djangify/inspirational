@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-8 px-4">
+    <h1 class="text-3xl font-bold mb-2">{{ category.name }}</h1>
+    {% if category.description %}
+        <p class="text-gray-600 mb-8">{{ category.description }}</p>
+    {% endif %}
+    
+    <div class="grid grid-cols-1 gap-6">
+        {% for prompt in prompts %}
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <blockquote class="relative p-4 text-xl italic border-l-4 border-blue-600 bg-blue-50 mb-4">
+                    <p>{{ prompt.text }}</p>
+                </blockquote>
+                
+                <div class="flex flex-wrap justify-between items-center mt-4">
+                    <div>
+                        <span class="font-medium text-gray-800">Time:</span>
+                        <span class="ml-2">{{ prompt.get_difficulty_display }}</span>
+                    </div>
+                    <div>
+                        <span class="font-medium text-gray-800">Type:</span>
+                        <span class="ml-2">{{ prompt.get_prompt_type_display }}</span>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center text-gray-600">No prompts found in this category.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

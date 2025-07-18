@@ -1,0 +1,77 @@
+{% load static %}
+
+<!-- Saved/Favourite Prompts Section -->
+<div class="bg-white shadow-md rounded-lg overflow-hidden">
+  <!-- Accordion Header -->
+  <button
+  class="accordion-header w-full flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none"
+  data-target="saved-prompts-content"
+>
+  <h2 class="text-xl font-semibold">Saved Prompts</h2>
+  <svg
+    class="accordion-icon h-6 w-6 transform text-gray-500 transition-transform duration-200"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M19 9l-7 7-7-7"
+    />
+  </svg>
+</button>
+  
+  <!-- Accordion Content -->
+  <div id="saved-prompts-content" class="accordion-content hidden border-t border-gray-200 p-6">
+    {% if favourite_prompts %}
+    <div class="space-y-4">
+      {% for prompt in favourite_prompts %}
+      <div class="border rounded-lg p-4 relative">
+        <div class="prose prose-lg">
+          <p class="text-gray-900">{{ prompt.text }}</p>
+        </div>
+        <div class="flex justify-between items-center mt-4">
+          <div>
+            <span class="text-sm font-medium text-purple-600">Category:</span>
+            <span class="text-sm ml-1">{{ prompt.category.name }}</span>
+          </div>
+          <div>
+            <span class="text-sm font-medium text-purple-600">Time:</span>
+            <span class="text-sm ml-1">{{ prompt.get_difficulty_display }}</span>
+          </div>
+        </div>
+        <!-- Remove from favourites button -->
+        
+        <a href="{% url 'accounts:favourite_prompt' prompt.id %}" class="absolute top-2 right-2 text-red-600 hover:text-red-800">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-8">
+      <p class="text-gray-600 mb-4">You haven't saved any prompts yet.</p>
+      
+        <a href="{% url 'core:home' %}"
+        class="inline-block bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md transition duration-200"
+      >
+        Explore Writing Prompts
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>
