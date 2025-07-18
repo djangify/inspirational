@@ -1,0 +1,179 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- profiles/templates/profiles/signup.html -->
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div
+    class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+  >
+    <a
+      href="#"
+      class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+    >
+      REGISTER HERE
+    </a>
+    <p class="mb-6">
+      It's free. You can save the prompts you love and get access to free
+      resources.
+    </p>
+    <div
+      class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+    >
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1
+          class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+        >
+          Create an account
+        </h1>
+
+        {% if messages %} {% for message in messages %}
+        <div
+          class="p-4 mb-4 text-sm {% if message.tags == 'error' %}text-red-800 bg-red-50{% else %}text-green-800 bg-green-50{% endif %} rounded-lg"
+        >
+          {{ message }}
+        </div>
+        {% endfor %} {% endif %} {% if form.errors %}
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50">
+          {% for field in form %} {% for error in field.errors %}
+          <p class="font-medium">{{ error }}</p>
+          {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+          <p class="font-medium">{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <form class="space-y-4 md:space-y-6" method="POST">
+          {% csrf_token %}
+
+          <div>
+            <label
+              for="first_name"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >First Name</label
+            >
+            <input
+              type="text"
+              name="first_name"
+              id="first_name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Olivia"
+              required
+              value="{{ form.first_name.value|default:'' }}"
+            />
+          </div>
+
+          <div>
+            <label
+              for="username"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Username</label
+            >
+            <input
+              type="text"
+              name="username"
+              id="username"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="oliviajones"
+              required
+              value="{{ form.username.value|default:'' }}"
+            />
+          </div>
+
+          <div>
+            <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Email address</label
+            >
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="name@youremail.com"
+              required
+              value="{{ form.email.value|default:'' }}"
+            />
+          </div>
+
+          <div>
+            <label
+              for="password1"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Password</label
+            >
+            <input
+              type="password"
+              name="password1"
+              id="password1"
+              placeholder="••••••••"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              for="password2"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Confirm password</label
+            >
+            <input
+              type="password"
+              name="password2"
+              id="password2"
+              placeholder="••••••••"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div class="flex items-start">
+            <div class="flex items-center h-5">
+              <input
+                id="terms"
+                aria-describedby="terms"
+                type="checkbox"
+                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                required
+              />
+            </div>
+            <div class="ml-3 text-sm">
+              <label
+                for="terms"
+                class="font-light text-gray-500 dark:text-gray-300"
+              >
+                I accept the
+                <a
+                  class="font-medium text-purple-600 hover:underline dark:text-purple-700"
+                  href="/policy/terms-conditions"
+                  target="_blank"
+                >
+                  Terms and Conditions
+                </a>
+              </label>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-700 dark:hover:bg-purple-800 dark:focus:ring-primary-800"
+          >
+            Sign Up
+          </button>
+
+          <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+            Already have an account?
+            <a
+              href="{% url 'accounts:login' %}"
+              class="font-medium text-purple-600 hover:underline dark:text-purple-700"
+            >
+              Log in
+            </a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

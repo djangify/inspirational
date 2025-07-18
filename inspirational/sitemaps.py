@@ -2,6 +2,7 @@ from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 from news.models import Post
 from shop.models import Category, Product
+from prompt.models import PromptCategory
 
 
 class StaticViewSitemap(Sitemap):
@@ -52,3 +53,14 @@ class ShopProductSitemap(Sitemap):
 
     def lastmod(self, obj):
         return obj.updated
+
+
+class PromptCategorySitemap(Sitemap):
+    changefreq = "monthly"
+    priority = 0.6
+
+    def items(self):
+        return PromptCategory.objects.all()
+
+    def location(self, obj):
+        return obj.get_absolute_url()

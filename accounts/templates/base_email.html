@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Inspirational Guidance</title>
+  </head>
+  <body
+    style="
+      font-family: Arial, sans-serif;
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+    "
+  >
+    <table
+      role="presentation"
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+    >
+      <tr>
+        <td align="center" style="padding: 20px 0">
+          <table
+            role="presentation"
+            width="600"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            style="
+              background-color: #ffffff;
+              border-radius: 8px;
+              overflow: hidden;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            "
+          >
+            <!-- Header -->
+            <tr>
+              <td
+                style="
+                  padding: 20px;
+                  background-color: #ffffff;
+                  text-align: center;
+                "
+              >
+                <img
+                  src="{{ site_url }}/static/images/pen-logo.jpg"
+                  alt="Inspirational Guidance"
+                  width="150"
+                  style="max-width: 100%"
+                />
+              </td>
+            </tr>
+
+            <!-- Content -->
+            {% block content %}{% endblock %}
+
+            <!-- Footer -->
+            <tr>
+              <td
+                style="
+                  padding: 20px;
+                  background-color: #f1f5f9;
+                  text-align: center;
+                  font-size: 12px;
+                  color: #64748b;
+                "
+              >
+                <p style="margin-top: 0">
+                    Inspirational Guidance supports your personal growth with practical life skills, guides, eBooks, and gentle encouragement to help you navigate everyday challenges.
+                </p>
+                <p style="margin-bottom: 10px">
+                  © {% now "Y" %} Inspirational Guidance. All rights reserved.
+                </p>
+
+                <p style="margin-bottom: 10px">
+                  Inspirational Guidance<br />
+                  Monument Business Park<br />
+                  Unit 13, Monument Street<br />
+                  Birmingham B37 4FH<br />
+                  United Kingdom
+                </p>
+
+                <div
+                  style="
+                    margin-top: 15px;
+                    border-top: 1px solid #e2e8f0;
+                    padding-top: 15px;
+                    text-align: left;
+                  "
+                >
+                  <p style="margin-bottom: 5px">
+                    This email was sent to {{ email }}. You're receiving this
+                    email because you have an account with Inspirational Guidance.
+                  </p>
+
+                  <p style="margin-bottom: 5px">
+                    Your privacy is important to us. Under the General Data
+                    Protection Regulation (GDPR), you have the right to:
+                  </p>
+                  <ul
+                    style="
+                      margin-top: 5px;
+                      margin-bottom: 10px;
+                      padding-left: 20px;
+                    "
+                  >
+                    <li>Access your personal data</li>
+                    <li>Rectify inaccurate personal data</li>
+                    <li>Request erasure of your personal data</li>
+                    <li>Object to processing of your personal data</li>
+                  </ul>
+
+                  <p style="margin-bottom: 5px">
+                    For any privacy-related queries, please contact:<br />
+                   inspire@inspirationalguidance.com
+                  </p>
+
+                  <p style="margin-bottom: 0">
+                    This is a transactional email (e.g. account activation,
+                    password resets, purchase confirmations, account updates,
+                    etc.) and does not require an unsubscribe link.
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

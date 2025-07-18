@@ -2,12 +2,18 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
-from inspirational.sitemaps import ShopCategorySitemap, ShopProductSitemap, NewsSitemap
+from inspirational.sitemaps import (
+    ShopCategorySitemap,
+    ShopProductSitemap,
+    NewsSitemap,
+    PromptCategorySitemap,
+)
 
 sitemaps = {
     "shop_categories": ShopCategorySitemap,
     "shop_products": ShopProductSitemap,
     "news": NewsSitemap,
+    "prompt_categories": PromptCategorySitemap,
 }
 
 urlpatterns = [
@@ -15,6 +21,9 @@ urlpatterns = [
     path("", include("core.urls")),
     path("shop/", include("shop.urls", namespace="shop")),
     path("news/", include("news.urls", namespace="news")),
+    path("accounts/", include("accounts.urls", namespace="accounts")),
+    path("prompt/", include("prompt.urls")),
+    # Sitemap and robots.txt
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
     path(
         "robots.txt",

@@ -1,0 +1,71 @@
+{% extends "base.html" %} 
+
+{% block content %}
+<div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6 lg:text-lg">
+  <h1 class="text-3xl font-bold mb-6 text-center">Your Profile</h1>
+
+  <!-- Secondary navigation -->
+  <div class="profile-nav mb-6">
+    <ul class="flex flex-wrap justify-center gap-4 text-sm">
+      <li>
+        <a href="#account" class="text-purple-600 hover:text-purple-700"
+          >Account Info</a
+        >
+      </li>
+      <li>
+        <a href="#writing" class="text-purple-600 hover:text-purple-700"
+          >Summary</a
+        >
+      </li>
+      {% comment %} <li>
+        <a href="#stats" class="text-purple-600 hover:text-purple-700">Stats</a>
+      </li> {% endcomment %}
+
+      <li>
+        <a href="#saved-prompts" class="text-purple-600 hover:text-purple-700"
+          >Prompts</a
+        >
+      </li>
+      <li>
+        <a href="#resources" class="text-purple-600 hover:text-purple-700"
+          >Resources</a
+        >
+      </li>
+      <li>
+        <a href="{% url 'prompt:writing_progress' %}" class="text-purple-600 hover:text-purple-700"
+          >Tracker</a
+        >
+      </li>
+    </ul>
+  </div>
+
+  <!-- Include each component -->
+  <div id="account">
+    {% include "prompt/components/profile_account_info.html" %}
+  </div>
+  
+  <div id="writing" class="mt-8">
+    {% include "prompt/components/profile_writing_tracker.html" %}
+  </div>
+
+
+  <div id="resources" class="mt-8">
+    {% include "prompt/components/writing_tips.html" %}
+  </div>
+
+  {% comment %} <div id="stats" class="mt-8">
+    {% include "prompt/components/stats.html" %}
+  </div> {% endcomment %}
+
+  <div id="saved-prompts" class="mt-8">
+    {% include "prompt/components/profile_saved_prompts.html" %}
+  </div>
+
+  <div id="resources" class="mt-8">
+    {% include "prompt/components/profile_resources.html" %}
+  </div>
+
+</div>
+
+
+{% endblock %}

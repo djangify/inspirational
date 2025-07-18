@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto my-12 px-4">
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="bg-red-50 border-b border-red-100 px-6 py-4">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-12 w-12 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h1 class="text-2xl font-bold text-red-800">Verification Link Invalid</h1>
+                    <p class="text-red-600">We couldn't verify your email address.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="px-6 py-8">
+            <p class="mb-4">The email verification link you clicked is no longer valid or has expired. Verification links are valid for 24 hours after registration.</p>
+            
+            <p class="mb-6">There are a few possible reasons for this:</p>
+            
+            <ul class="list-disc pl-8 mb-6 space-y-2">
+                <li>The verification link has expired (valid for 24 hours)</li>
+                <li>You have already verified your email address</li>
+                <li>The verification link was incorrectly copied or modified</li>
+            </ul>
+            
+            <div class="mt-8 flex flex-col sm:flex-row sm:justify-center gap-4">
+                <a href="{% url 'accounts:register' %}" class="bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-6 rounded-md text-center transition-colors">
+                    Register Again
+                </a>
+                <a href="{% url 'accounts:login' %}" class="bg-gray-500 hover:bg-gray-700 text-gray-800 font-medium py-2 px-6 rounded-md text-center transition-colors">
+                    Try Logging In
+                </a>
+            </div>
+            
+            <p class="mt-6 text-sm text-gray-600 text-center">
+                If you're continuing to experience issues, please contact our support team.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
