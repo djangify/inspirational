@@ -16,7 +16,7 @@
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold">Active Writing Goals</h2>
         <a href="{% url 'prompt:writing_progress' %}">
-          <button class="bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-sm flex items-center">
+          <button class="bg-teal-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-sm flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
             </svg>
@@ -39,7 +39,7 @@
                   {% endif %}
                 </div>
                 <div class="flex space-x-2">
-                  <a href="{% url 'prompt:edit_goal' goal.id %}" class="text-purple-600 hover:text-blue-800">
+                  <a href="{% url 'prompt:edit_goal' goal.id %}" class="text-teal-700 hover:text-blue-800">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                     </svg>
@@ -63,7 +63,7 @@
                   {% endif %}
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-2.5">
-                  <div class="bg-purple-700 h-2.5 rounded-full" style="width: {{ goal.progress_percentage }}%"></div>
+                  <div class="bg-teal-700 h-2.5 rounded-full" style="width: {{ goal.progress_percentage }}%"></div>
                 </div>
               </div>
             </div>
@@ -74,7 +74,7 @@
           <p class="text-gray-600 mb-4">You haven't set any writing goals yet.</p>
           <p class="text-sm text-gray-500">Setting goals can help you build a consistent writing habit.</p>
           <div class="mt-4">
-            <button class="inline-block bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+            <button class="inline-block bg-teal-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
               <a href="{% url 'prompt:add_goal' %}" class="...">Create Your First Goal</a>
               
             </button>
@@ -87,7 +87,7 @@
     <div class="bg-white rounded-lg shadow-md p-6">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold">Recent Writing Sessions</h2>
-        <a href="{% url 'prompt:session_list' %}" class="text-purple-600 hover:text-blue-800 flex items-center text-sm">
+        <a href="{% url 'prompt:session_list' %}" class="text-teal-700 hover:text-blue-800 flex items-center text-sm">
           View all sessions
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -112,7 +112,7 @@
                   {% endif %}
                 </div>
                 <div class="flex space-x-2">
-                  <a href="{% url 'prompt:edit_session' session.id %}" class="text-purple-600 hover:text-blue-800">
+                  <a href="{% url 'prompt:edit_session' session.id %}" class="text-teal-700 hover:text-blue-800">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                     </svg>
@@ -157,7 +157,7 @@
         <div class="text-center py-8 bg-gray-50 rounded-lg">
           <p class="text-gray-600 mb-4">You haven't recorded any writing sessions yet.</p>
           <p class="text-sm text-gray-500 mb-8">Record your writing sessions to track your progress and build a writing habit.</p>
-          <a href="{% url 'prompt:writing_progress' %}" class="inline-block bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+          <a href="{% url 'prompt:writing_progress' %}" class="inline-block bg-teal-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
             Record Your First Session
           </a>
         </div>

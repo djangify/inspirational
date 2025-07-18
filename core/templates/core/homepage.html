@@ -4,12 +4,15 @@
 {% block content %}
 <div class="container mx-auto bg-white px-6 py-12">
     <!-- Title -->
-    <h1 class="text-3xl text-center mb-12 font-bold">
-       Inspriational Guidance Self-Help Center
+    <h1 class="text-3xl text-center mb-8 font-semibold">
+       Self-Help Tools for Personal Growth & Everyday Calm
     </h1>
+        <h2 class="text-2xl text-accent text-center mb-12">
+       Build confidence, habits, and focus—one printable guide at a time.
+    </h2>
 
     <!-- Category Filter Section -->
-    <div class="bg-white shadow rounded-lg p-4 mb-8">
+    <div class="bg-white rounded-lg p-4 mb-8">
         <!-- Mobile Filter Button (hidden on larger screens) -->
         <button id="filterToggle" 
                 data-collapse-toggle="categories-grid"
@@ -25,7 +28,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 <!-- All Products Tab -->
                 <a href="{% url 'shop:product_list' %}" 
-                   class="text-center text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg {% if not current_category %}bg-blue-100 font-semibold{% endif %}">
+                   class="text-center text-teal-700 hover:bg-blue-50 px-4 py-2 rounded-lg {% if not current_category %}bg-slate-100 font-semibold{% endif %}">
                     All Products
                 </a>
                 

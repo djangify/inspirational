@@ -36,8 +36,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Today's Prompt -->
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <h2 class="text-2xl font-bold mb-4 text-purple-600">Today's Prompt</h2>
-                    <blockquote class="relative p-4 text-xl italic border-l-4 border-purple-600 bg-blue-50 mb-6">
+                    <h2 class="text-2xl font-bold mb-4 text-teal-700">Today's Prompt</h2>
+                    <blockquote class="relative p-4 text-xl italic border-l-4 border-teal-700 bg-blue-50 mb-6">
                         <p class="mb-2">Think about a time when you overcame a significant obstacle. What strengths did you discover within yourself during that challenge? How have those strengths served you since then?</p>
                     </blockquote>
                     <div class="flex justify-between items-center mt-4">
@@ -78,12 +78,12 @@
     </section>
 
     <!-- Call to action section -->
-    <section class="bg-purple-600 text-white py-12">
+    <section class="bg-teal-700 text-white py-12">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-4">Start Your Writing Journey Today</h2>
             <p class="text-xl mb-8">Use our prompt generator regularly and track your progress to build a meaningful writing practice.</p>
             {% if not user.is_authenticated %}
-                <a href="{% url 'accounts:register' %}" class="inline-block bg-white text-purple-600 hover:bg-gray-100 font-bold py-3 px-6 rounded-lg transition duration-200">
+                <a href="{% url 'accounts:register' %}" class="inline-block bg-white text-teal-700 hover:bg-gray-100 font-bold py-3 px-6 rounded-lg transition duration-200">
                     Create Free Account
                 </a>
             {% else %}
