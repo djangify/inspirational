@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tinymce",
     "rest_framework",
+    "widget_tweaks",
     "core",
     "shop",
     "news",

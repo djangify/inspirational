@@ -17,8 +17,14 @@
       <!-- Desktop Navigation & Search -->
       <div class="hidden md:flex items-center space-x-6">
         <a href="{% url 'shop:product_list' %}" class="text-slate-700 hover:text-teal-700 font-medium">Shop</a>
-        <a href="{% url 'accounts:login' %}" class="text-slate-700 hover:text-teal-700 font-medium">Login</a>
-        <a href="{% url 'accounts:register' %}" class="text-slate-700 hover:text-teal-700 font-medium">Register</a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'accounts:profile' %}" class="text-slate-700 hover:text-teal-700 font-medium">Profile</a>
+          <a href="{% url 'accounts:logout' %}" class="text-slate-700 hover:text-teal-700 font-medium">Logout</a>
+        {% else %}
+          <a href="{% url 'accounts:login' %}" class="text-slate-700 hover:text-teal-700 font-medium">Login</a>
+          <a href="{% url 'accounts:register' %}" class="text-slate-700 hover:text-teal-700 font-medium">Register</a>
+        {% endif %}
+
 
         <!-- Search Bar -->
         <form method="get" class="relative">
@@ -99,8 +105,14 @@
     <!-- Mobile Dropdown Menu -->
     <div id="mobile-menu" class="md:hidden hidden pt-4 pb-6 space-y-3">
       <a href="{% url 'shop:product_list' %}" class="block text-slate-700 hover:text-teal-700 font-medium">Shop</a>
-      <a href="{% url 'accounts:login' %}" class="block text-slate-700 hover:text-teal-700 font-medium">Login</a>
-      <a href="{% url 'accounts:register' %}" class="block text-slate-700 hover:text-teal-700 font-medium">Register</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'accounts:profile' %}" class="block text-slate-700 hover:text-teal-700 font-medium">Profile</a>
+        <a href="{% url 'accounts:logout' %}" class="block text-slate-700 hover:text-teal-700 font-medium">Logout</a>
+      {% else %}
+        <a href="{% url 'accounts:login' %}" class="block text-slate-700 hover:text-teal-700 font-medium">Login</a>
+        <a href="{% url 'accounts:register' %}" class="block text-slate-700 hover:text-teal-700 font-medium">Register</a>
+      {% endif %}
+
 
       <!-- Mobile Search -->
       <form method="get" class="px-2">

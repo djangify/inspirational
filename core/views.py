@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import ContactForm
+from .models import SupportMessage
 
 
 def homepage(request):
@@ -45,3 +48,25 @@ def contact(request):
         "meta_description": "We provide self-help guides and teach practical life skills",
     }
     return render(request, "core/contact.html", context)
+
+
+def support_view(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Save to the database only (admin area)
+            SupportMessage.objects.create(
+                name=form.cleaned_data["name"],
+                email=form.cleaned_data["email"],
+                subject=form.cleaned_data["subject"],
+                message=form.cleaned_data["message"],
+            )
+
+            messages.success(
+                request, "Thank you for your message. We'll respond within 24 hours."
+            )
+            return redirect("support")
+    else:
+        form = ContactForm()
+
+    return render(request, "core/support.html", {"form": form})
