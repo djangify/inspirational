@@ -1,0 +1,93 @@
+<footer class="bg-slate-900 text-white mt-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-8">
+
+      <!-- Company Info + Newsletter -->
+      <div class="md:col-span-2">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-8 h-8 bg-teal-600 rounded flex items-center justify-center">
+            <span class="text-white font-bold text-lg">IG</span>
+          </div>
+          <span class="text-xl font-semibold">Inspirational Guidance</span>
+        </div>
+        <p class="text-slate-400 text-sm mb-4">
+          Practical tools and encouragement for your personal growth journey.
+        </p>
+        <h3 class="font-semibold mb-2 mt-6">Stay Updated</h3>
+        <p class="text-slate-400 text-sm mb-3">Subscribe for new prompts and product updates.</p>
+        <form class="flex" aria-label="Newsletter subscription">
+          <input 
+            type="email" 
+            placeholder="Enter your email"
+            class="flex-1 px-3 py-2 bg-slate-800 border border-slate-700 rounded-l-md focus:ring-2 focus:ring-teal-500 focus:border-transparent text-sm"
+          >
+          <button 
+            type="submit"
+            class="bg-teal-600 hover:bg-teal-700 px-4 py-2 rounded-r-md transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="font-semibold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="{% url 'core:homepage' %}" class="text-slate-400 hover:text-white">Home</a></li>
+          <li><a href="/shop/" class="text-slate-400 hover:text-white">Shop</a></li>
+          <li><a href="{% url 'news:list' %}" class="text-slate-400 hover:text-white">News</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <h3 class="font-semibold mb-4">Resources</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="{% url 'prompt:journal_prompt_generator' %}" class="text-slate-400 hover:text-white">Journal Prompt Help</a></li>
+        </ul>
+      </div>
+
+      <!-- Pages -->
+      <div>
+        <h3 class="font-semibold mb-4">Pages</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about/" class="text-slate-400 hover:text-white">About</a></li>
+          <li><a href="/contact/" class="text-slate-400 hover:text-white">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal & Access -->
+      <div>
+        <h3 class="font-semibold mb-4">Legal & Access</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="{% url 'core:privacy_policy' %}" class="text-slate-400 hover:text-white">Privacy Policy</a></li>
+          <li><a href="{% url 'core:cookie_policy' %}" class="text-slate-400 hover:text-white">Cookie Policy</a></li>
+          <li><a href="{% url 'core:terms_conditions' %}" class="text-slate-400 hover:text-white">Terms & Conditions</a></li>
+          <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white">Login</a></li>
+          <li><a href="{% url 'accounts:register' %}" class="text-slate-400 hover:text-white">Register</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-slate-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-slate-400 text-sm">© 2025 Inspirational Guidance. All rights reserved.</p>
+      <div class="flex space-x-6 mt-4 md:mt-0">
+        <a href="https://www.instagram.com" target="_blank" class="text-slate-400 hover:text-white" title="Instagram">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2.2c3.2 0 3.584.012 4.849.07 1.366.062 2.633.313 3.608 1.287.975.975 1.225 2.243 1.287 3.608.058 1.265.07 1.65.07 4.85s-.012 3.585-.07 4.85c-.062 1.365-.313 2.633-1.287 3.608-.975.975-2.243 1.225-3.608 1.287-1.265.058-1.65.07-4.849.07s-3.585-.012-4.85-.07c-1.365-.062-2.633-.313-3.608-1.287-.975-.975-1.225-2.243-1.287-3.608C2.212 15.635 2.2 15.25 2.2 12s.012-3.585.07-4.85c.062-1.365.313-2.633 1.287-3.608.975-.975 2.243-1.225 3.608-1.287C8.415 2.212 8.8 2.2 12 2.2m0-2.2C8.735 0 8.332.014 7.052.072 5.771.13 4.63.368 3.683 1.316 2.737 2.263 2.5 3.405 2.442 4.686 2.385 5.966 2.37 6.37 2.37 10c0 3.63.015 4.034.072 5.314.058 1.281.296 2.423 1.243 3.37.947.948 2.089 1.186 3.37 1.244C8.332 20.986 8.735 21 12 21s3.668-.014 4.948-.072c1.281-.058 2.423-.296 3.37-1.244.947-.947 1.186-2.089 1.244-3.37.057-1.28.072-1.684.072-5.314 0-3.63-.015-4.034-.072-5.314-.058-1.281-.296-2.423-1.244-3.37C19.371.368 18.229.13 16.948.072 15.668.014 15.265 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.45a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/>
+          </svg>
+        </a>
+        <a href="https://www.youtube.com" target="_blank" class="text-slate-400 hover:text-white" title="YouTube">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23.498 6.186a2.948 2.948 0 0 0-2.075-2.084C19.483 3.5 12 3.5 12 3.5s-7.483 0-9.423.602a2.948 2.948 0 0 0-2.075 2.084A30.73 30.73 0 0 0 0 12a30.73 30.73 0 0 0 .502 5.814 2.948 2.948 0 0 0 2.075 2.084C4.517 20.5 12 20.5 12 20.5s7.483 0 9.423-.602a2.948 2.948 0 0 0 2.075-2.084A30.73 30.73 0 0 0 24 12a30.73 30.73 0 0 0-.502-5.814zM9.75 15.02V8.98l6.25 3.02-6.25 3.02z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

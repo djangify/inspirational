@@ -1,0 +1,83 @@
+<!-- Start block -->
+<section class="bg-white dark:bg-gray-900 mt-16">
+    <div class="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-24 lg:px-6">
+        <h2 class="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+        <div class="max-w-screen-md mx-auto">
+            <div class="space-y-2">
+                <!-- Question 1 -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <button class="accordion-header w-full flex justify-between items-center p-6 font-medium text-left text-gray-900 focus:outline-none" data-target="accordion-body-1">
+                        <span class="text-lg">What's the difference between journal and memoir prompts?</span>
+                        <svg class="accordion-icon h-6 w-6 transform text-gray-500 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                            
+                    </button>
+                    <div id="accordion-body-1" class="accordion-content border-t border-gray-200">
+                        <div class="p-6">
+                            <p class="text-gray-500 dark:text-gray-400">Journal prompts focus on present reflections and daily experiences, while memoir prompts help you explore and capture memories from your past. Some prompts work well for both purposes.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 2 -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <button class="accordion-header w-full flex justify-between items-center p-6 font-medium text-left text-gray-900 focus:outline-none" data-target="accordion-body-2">
+                        <span class="text-lg">I didn't receive my verification email. What should I do?</span>
+                        <svg class="accordion-icon h-6 w-6 transform text-gray-500 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <div id="accordion-body-2" class="accordion-content hidden border-t border-gray-200">
+                        <div class="p-6">
+                            <p class="text-gray-500 dark:text-gray-400">Please check your spam or junk folder. If you still don't see it, you can request a new verification email by contacting us at admin@penandipublishing.co.uk.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 3 -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <button class="accordion-header w-full flex justify-between items-center p-6 font-medium text-left text-gray-900 focus:outline-none" data-target="accordion-body-3">
+                        <span class="text-lg">How does the writing progress tracker work?</span>
+                        <svg class="accordion-icon h-6 w-6 transform text-gray-500 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <div id="accordion-body-3" class="accordion-content hidden border-t border-gray-200">
+                        <div class="p-6">
+                            <p class="mb-4 text-gray-500 dark:text-gray-400">Our "Writing Progress" Tracker helps you set writing goals and record your writing sessions. It provides statistics and visualizations to monitor your progress over time.</p>
+                            <p class="mb-4 text-gray-500 dark:text-gray-400">To use the Writing Progress Tracker, select "Create New Writing Goal." Choose a goal type (time, words, or sessions), set a target value, and select a frequency (daily, weekly, or monthly).</p>
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">You need to be logged in to use this feature:</p>
+                            <ul class="pl-5 text-gray-500 list-disc dark:text-gray-400 space-y-2">
+                                <li><a href="{% url 'accounts:register' %}" class="text-purple-600 dark:text-purple-500 hover:underline">SIGN UP HERE</a></li>
+                                <li><a href="{% url 'accounts:login' %}" class="text-purple-600 dark:text-purple-500 hover:underline">LOGIN HERE</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 4 -->
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <button class="accordion-header w-full flex justify-between items-center p-6 font-medium text-left text-gray-900 focus:outline-none" data-target="accordion-body-4">
+                        <span class="text-lg">What types of notebooks do you offer?</span>
+                        <svg class="accordion-icon h-6 w-6 transform text-gray-500 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <div id="accordion-body-4" class="accordion-content hidden border-t border-gray-200">
+                        <div class="p-6">
+                            <p class="mb-4 text-gray-500 dark:text-gray-400">We offer lined paperback journals in various designs, including general writing journals, memoir-specific notebooks, gratitude journals, and creative writing notebooks.</p>
+                            <p class="mb-4 text-gray-500 dark:text-gray-400">Our paperback notebooks are available on ALL Amazon sites including, Amazon UK and Amazon USA.</p>
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">You can visit:</p>
+                            <ul class="pl-5 text-gray-500 list-disc dark:text-gray-400 space-y-2">
+                                <li><a href="https://www.amazon.co.uk/stores/Pen-And-I-Publishing/author/B0849ZQQS7" class="text-purple-600 dark:text-purple-500 hover:underline">Amazon UK</a></li>
+                                <li><a href="https://www.amazon.com/stores/Pen-And-I-Publishing/author/B0849ZQQS7" class="text-purple-600 dark:text-purple-500 hover:underline">Amazon USA</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>               
+    </div>
+  </section>
+  <!-- End block -->

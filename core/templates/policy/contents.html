@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Contents - Inspirational Guidance{% endblock %}
+
+{% block content %}
+<div class="bg-white py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Table of Contents -->
+        <div class="mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-8">Redirects Page</h1>
+            <p class="text-gray-600 mb-6">
+                As of July 2025, Inspirational Guidance has a new site layout. If the link you clicked brought you here, use this page to find what you're looking for.
+            </p>
+            <p class="text-sm text-gray-500 mb-6">Last updated: July 2025</p>
+            <div class="bg-gray-50 p-6 rounded-lg">
+                <h2 class="text-lg font-semibold mb-4">Contents:</h2>
+                <nav class="space-y-2">
+                    <a href="{% url 'shop:product_list' %}" class="block text-blue-600 hover:text-blue-800">1. Shop</a>
+                    <a href="{% url 'shop:product_list' %}" class="block text-blue-600 hover:text-blue-800">2. Digital Products</a>
+                    <a href="{% url 'accounts:register' %}" class="block text-blue-600 hover:text-blue-800">3. Register</a>
+                    <a href="{% url 'accounts:login' %}" class="block text-blue-600 hover:text-blue-800">4. Login</a>
+                    <a href="{% url 'news:list' %}" class="block text-blue-600 hover:text-blue-800">5. News / Blog</a>
+                    <a href="#contact" class="block text-blue-600 hover:text-blue-800">6. Contact Information</a>
+                </nav>
+            </div>
+        </div>
+
+        <section id="contact" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">6. Contact Information</h2>
+            <p class="mb-4">For questions about these terms or assistance:</p>
+            <ul class="list-disc pl-6 mb-4 text-gray-700">
+                <li>Email: <a href="mailto:inspire@inspirationalguidance.com" class="text-blue-600 hover:underline">inspire@inspirationalguidance.com</a></li>
+                <li>Use our <a href="/contact/" class="text-blue-600 hover:underline">contact form</a> on the website</li>
+            </ul>
+            <p class="mb-4 text-gray-600">We aim to respond to all inquiries within 2 business days.</p>
+        </section>
+    </div>
+</div>
+{% endblock %}

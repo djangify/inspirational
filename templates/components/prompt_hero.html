@@ -1,0 +1,89 @@
+<div class="grid max-w-4xl px-4 pt-10 pb-8 mx-auto gap-4 lg:py-16">
+  <div class="place-self-center">
+    <h1 class="text-3xl font-bold mb-6 text-center">Journal Prompt Generator</h1>
+    <div class="text-center rounded-lg p-4">
+        <p class="py-2 lg:text-lg"> Welcome! Our journal prompt generator provides prompts for journal and memoir writing. It has been designed to spark your creativity and guide your writing practice. Choose from a variety of categories, difficulty levels, and prompt types. Whether you're looking for a quick journaling exercise or a deep dive into your memories, we've got you covered.</p>
+    </div>
+  </div>
+  <div class="flex justify-center">
+    <div class="flex flex-wrap justify-center gap-4 mb-6 max-w-xl mx-auto">
+        <!-- Category Filter -->
+        <div class="w-full sm:w-auto">
+            <label for="category" class="block text-sm font-medium text-gray-700 mb-1 text-center">Category</label>
+            <select id="category" class="w-full rounded-md border-gray-300 shadow-sm">
+                <option value="">All Categories</option>
+                <!-- Categories will be populated by JavaScript -->
+            </select>
+        </div>
+        
+        <!-- Difficulty Filter -->
+        <div class="w-full sm:w-auto">
+            <label for="difficulty" class="block text-sm font-medium text-gray-700 mb-1 text-center">Time Required</label>
+            <select id="difficulty" class="w-full rounded-md border-gray-300 shadow-sm">
+                <option value="">Any Length</option>
+                <option value="easy">Quick (5-10 minutes)</option>
+                <option value="medium">Medium (15-20 minutes)</option>
+                <option value="deep">Deep Dive (30+ minutes)</option>
+            </select>
+        </div>
+        
+        <!-- Type Filter -->
+        <div class="w-full sm:w-auto">
+            <label for="promptType" class="block text-sm font-medium text-gray-700 mb-1 text-center">Prompt Type</label>
+            <select id="promptType" class="w-full rounded-md border-gray-300 shadow-sm">
+                <option value="">All Types</option>
+                <option value="journal">Daily Journal</option>
+                <option value="memoir">Memoir/Memory</option>
+                <option value="both">Both</option>
+            </select>
+        </div>
+        <div class="w-full flex justify-center">
+            <button id="generateBtn" class="hover:bg-purple-900 text-white bg-purple-700 font-medium py-2 px-4 rounded-md transition duration-200">
+              Generate Prompt
+            </button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Prompt Card - Initially hidden -->
+<div id="promptCard" class="bg-white shadow-md rounded-lg p-6 mb-8 hidden relative max-w-2xl mx-auto">
+  <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-medium text-gray-900">Your Writing Prompt</h3>
+      <!-- Add a favourite button for logged-in users -->
+      {% if user.is_authenticated %}
+          <button id="favouriteBtn" class="text-yellow-500 hover:text-yellow-600 bg-white rounded-full p-1.5 shadow-sm hover:shadow z-10 transform hover:scale-110 transition-all duration-200" data-prompt-id="">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+              </svg>
+          </button>
+      {% endif %}
+  </div>
+  <div class="max-w-screen-xl mx-auto">
+      <blockquote class="relative p-4 text-xl italic border-l-4 border-purple-700 bg-blue-50 mb-6">
+          <p id="promptText" class="mb-2">Your writing prompt will appear here.</p>
+      </blockquote>
+      
+      <div class="flex flex-wrap justify-between items-center mt-8 mb-4">
+          <div class="mb-2 md:mb-0">
+              <span class="font-medium text-gray-800">Category:</span>
+              <span id="promptCategory" class="ml-2">General</span>
+          </div>
+          <div>
+              <span class="font-medium text-gray-800">Time Required:</span>
+              <span id="promptDifficulty" class="ml-2">Medium (15-20 minutes)</span>
+          </div>
+      </div>
+      
+      <div class="flex justify-center mt-8">
+          <button id="newPromptBtn" class="bg-yellow-500  hover:bg-yellow-600  text-white font-medium py-2 px-4 rounded-md transition duration-200">
+              Get Another Prompt
+          </button>
+      </div>
+  </div>
+</div>
+
+<!-- Hidden input to store current prompt ID -->
+<input type="hidden" id="current-prompt-id" value="">
+</div>
+<!-- End of main content -->
