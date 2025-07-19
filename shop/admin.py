@@ -3,7 +3,15 @@ from django.utils.html import format_html
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 import requests
-from .models import Category, Product, ProductImage, Order, OrderItem, ProductReview
+from .models import (
+    Category,
+    Product,
+    ProductImage,
+    Order,
+    OrderItem,
+    ProductReview,
+    Purchase,
+)
 
 
 @admin.register(Category)
@@ -246,6 +254,9 @@ class OrderAdmin(admin.ModelAdmin):
             {"fields": ("payment_intent_id",), "classes": ("collapse",)},
         ),
     )
+
+
+admin.site.register(Purchase)
 
 
 @admin.register(ProductReview)

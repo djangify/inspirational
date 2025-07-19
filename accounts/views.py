@@ -10,7 +10,7 @@ from django.utils.html import strip_tags
 from django.conf import settings
 from django.urls import reverse
 from prompt.models import WritingPrompt
-from shop.models import Product
+from shop.models import Product, Purchase
 from .forms import UserRegistrationForm, UserProfileForm
 from .models import EmailVerificationToken, MemberResource
 from prompt.models_tracker import WritingGoal, WritingSession
@@ -156,6 +156,9 @@ def profile_view(request):
     # Get favourite products
     favourite_products = request.user.profile.favourite_products.all()
 
+    # Get purchased products
+    purchased_count = Purchase.objects.filter(user=request.user).count()
+
     # Get member resources
     member_resources = MemberResource.objects.filter(is_active=True).order_by(
         "-created_at"
@@ -175,10 +178,12 @@ def profile_view(request):
         {
             "form": form,
             "favourite_prompts": favourite_prompts,
+            "favourite_prompts_count": favourite_prompts.count(),
             "favourite_products": favourite_products,
             "member_resources": member_resources,
             "active_goals": active_goals,
             "recent_sessions": recent_sessions,
+            "purchased_count": purchased_count,
         },
     )
 
@@ -205,7 +210,7 @@ def add_favourite_prompt(request, prompt_id):
         )
 
     # Otherwise redirect back to referring page
-    return redirect(request.META.get("HTTP_REFERER", "core:home"))
+    return redirect(request.META.get("HTTP_REFERER", "core:homepage"))
 
 
 @login_required
