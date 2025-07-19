@@ -5,23 +5,23 @@ document.addEventListener('DOMContentLoaded', function () {
     button.addEventListener('click', function (e) {
       e.preventDefault();
 
-      const form = this.closest('form');
-      const formData = new FormData(form);
-      const productSlug = this.getAttribute('data-product-slug');
-
-      // Show loading state
+      const productSlug = this.dataset.productSlug;
       const originalText = this.innerHTML;
+
       this.innerHTML = '⏳ Saving...';
       this.disabled = true;
 
-      fetch(form.action, {
-        method: 'POST',
+      const formData = new FormData();
+      formData.append("csrfmiddlewaretoken", this.dataset.csrf);
+
+      fetch(this.dataset.actionUrl, {
+        method: "POST",
         body: formData,
         headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+          "X-Requested-With": "XMLHttpRequest"
         }
       })
+
         .then(response => response.json())
         .then(data => {
           if (data.status === 'success') {

@@ -208,7 +208,7 @@ def add_favourite_prompt(request, prompt_id):
         messages.success(request, "Prompt added to your profile.")
 
     # If the request is AJAX, return a JSON response
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+    if request.headers.get("x-requested-with", "").lower() == "xmlhttprequest":
         return JsonResponse(
             {
                 "status": "success",
@@ -222,22 +222,20 @@ def add_favourite_prompt(request, prompt_id):
 
 @login_required
 def add_favourite_product(request, product_slug):
-    product = get_object_or_404(
-        Product, slug=product_slug
-    )  # Fixed: Product instead of SaveProduct
+    product = get_object_or_404(Product, slug=product_slug)
     user_profile = request.user.profile
 
     if product in user_profile.favourite_products.all():
         user_profile.favourite_products.remove(product)
-        messages.success(request, "Product removed from your favourites.")
         is_favourite = False
+        messages.success(request, "Product removed from your favourites.")
     else:
         user_profile.favourite_products.add(product)
-        messages.success(request, "Product added to your favourites.")
         is_favourite = True
+        messages.success(request, "Product added to your favourites.")
 
-    # If the request is AJAX, return a JSON response
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+    # Properly detect AJAX request, case-insensitive
+    if request.headers.get("x-requested-with", "").lower() == "xmlhttprequest":
         return JsonResponse(
             {
                 "status": "success",
@@ -245,5 +243,5 @@ def add_favourite_product(request, product_slug):
             }
         )
 
-    # Otherwise redirect back to referring page
+    # Fallback: normal browser form submission
     return redirect(request.META.get("HTTP_REFERER", "core:homepage"))

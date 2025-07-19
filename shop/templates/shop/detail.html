@@ -122,17 +122,18 @@
 
           <!-- Wishlist / Share -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-            <form method="POST" action="{% url 'accounts:add_to_wishlist' product.slug %}" class="inline">
-              {% csrf_token %}
-                  <button type="submit"
-                    class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg text-gray-900 bg-yellow-300 favourite-btn whitespace-nowrap" data-product-slug="{{ product.slug }}">
-                    {% if product in user.profile.favourite_products.all %}
-                        ❤️ Remove from Wish List
-                    {% else %}
-                        🤍 Add To Wish List
-                    {% endif %}
-                  </button>
-            </form>
+            <button
+              class="favourite-btn bg-amber-400"
+              data-product-slug="{{ product.slug }}"
+              data-action-url="{% url 'accounts:add_to_wishlist' product.slug %}"
+              data-csrf="{{ csrf_token }}"
+            >
+              {% if product in user.profile.favourite_products.all %}
+                  ❤️ Remove from Wish List
+              {% else %}
+                  🤍 Add To Wish List
+              {% endif %}
+            </button>
             <button
               class="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
               🔗 Share
