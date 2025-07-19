@@ -1,31 +1,15 @@
-{% load static %}
+{% extends "base.html" %}
+{% load static %} 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Inspirational Guidance – Coming Soon</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      background-color: #ffffff;
-    }
-    img {
-      max-width: 950px;
-      width: 100%;
-      max-height: 80vh;
-      height: auto;
-      display: block;
-      object-fit: contain;
-    }
-  </style>
-</head>
-<body>
-  <img src="{% static 'images/igsoon.webp' %}" alt="Coming Soon">
-</body>
-</html>
+{% block content %}
+<div class="container mx-auto bg-white px-6 py-12">
+    <!-- Title -->
+    <h1 class="text-3xl text-center mb-8 font-semibold">
+        Inspirational Guidance 
+    </h1>
+        <h2 class="text-2xl text-center mb-12 font-accent">
+        welcome
+    </h2>
+
+   
+{% endblock %}

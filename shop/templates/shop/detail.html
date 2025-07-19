@@ -186,7 +186,7 @@
                 {% endif %}
             {% else %}
                 <div class="mb-6 p-4 bg-gray-50 rounded-lg">
-                    <p>Please <a href="{% url 'profiles:login' %}?next={{ request.path }}" 
+                    <p>Please <a href="{% url 'accounts:login' %}?next={{ request.path }}" 
                             class="text-teal-700 hover:underline">log in</a> to write a review.</p>
                 </div>
             {% endif %}
