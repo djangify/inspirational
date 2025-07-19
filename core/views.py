@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ContactForm
 from .models import SupportMessage
+from django.contrib.auth.decorators import login_required
 
 
 def homepage(request):
@@ -39,17 +40,7 @@ def about(request):
     return render(request, "core/about.html", context)
 
 
-def contact(request):
-    """
-    View for the contact page
-    """
-    context = {
-        "title": "Contact Inspirational Guidance",
-        "meta_description": "We provide self-help guides and teach practical life skills",
-    }
-    return render(request, "core/contact.html", context)
-
-
+@login_required
 def support_view(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
