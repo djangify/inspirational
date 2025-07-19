@@ -21,7 +21,7 @@
 
             <!-- Product Type Badge -->
             <div class="absolute top-4 left-4">
-            <span class="px-3 py-1 text-sm font-semibold rounded-full bg-purple-100 text-purple-800">
+            <span class="px-3 py-1 text-sm font-semibold rounded-full bg-teal-100 text-teal-800">
                 {{ product.get_product_type_display }}
             </span>
             </div>
@@ -36,6 +36,13 @@
 
         <!-- Additional Thumbnails -->
         <div class="flex mt-4 gap-4">
+          <!-- Always include main image as first thumbnail -->
+          <img
+              src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
+              data-src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
+              alt="{{ product.title }}"
+              class="w-20 h-20 object-cover border-2 border-teal-700 rounded hover:shadow-md cursor-pointer product-thumbnail active-thumbnail"
+          />
             {% if product.image %}
                 <!-- Include main image as a thumbnail -->
                 <img
@@ -103,7 +110,7 @@
                 class="w-16 px-3 py-2 border border-gray-300 rounded text-center">
             </div>
             <button type="submit"
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+              class="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
               Add to Cart
             </button>
           </form>
@@ -115,10 +122,17 @@
 
           <!-- Wishlist / Share -->
           <div class="grid grid-cols-2 gap-3 mt-4">
-            <button id="wishlist-btn"
-              class="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-              ❤️ Wishlist
-            </button>
+            <form method="POST" action="{% url 'accounts:add_to_wishlist' product.slug %}" class="inline">
+              {% csrf_token %}
+                  <button type="submit"
+                    class="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors favourite-btn" data-product-slug="{{ product.slug }}">
+                    {% if product in user.profile.favourite_products.all %}
+                        ❤️ Remove from Wish List
+                    {% else %}
+                        🤍 Add to Wish List
+                    {% endif %}
+                  </button>
+            </form>
             <button
               class="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
               🔗 Share
@@ -160,7 +174,7 @@
                 {% endif %}
               </div>
               <div class="p-4">
-                <h3 class="font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                <h3 class="font-semibold text-gray-900 mb-2 group-hover:text-teal-700 transition-colors">
                   {{ item.title }}
                 </h3>
                 <div class="flex items-center space-x-2">
@@ -180,30 +194,32 @@
   </div>
 </div>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const mainImage = document.getElementById("main-product-image");
-    const defaultSrc = mainImage.getAttribute("data-default-src");
     const thumbnails = document.querySelectorAll(".product-thumbnail");
 
     thumbnails.forEach((thumb) => {
-      thumb.addEventListener("click", function () {
-        const newSrc = this.getAttribute("data-src");
-        mainImage.setAttribute("src", newSrc || defaultSrc);
-      });
+        thumb.addEventListener("click", function () {
+            // Remove active class from all thumbnails
+            thumbnails.forEach(t => {
+                t.classList.remove("active-thumbnail", "border-purple-500", "border-2");
+                t.classList.add("border");
+            });
+
+            // Add active class to clicked thumbnail
+            this.classList.add("active-thumbnail", "border-purple-500", "border-2");
+            this.classList.remove("border");
+
+            // Update main image
+            const newSrc = this.getAttribute("data-src");
+            if (newSrc) {
+                mainImage.setAttribute("src", newSrc);
+            }
+        });
     });
-  });
+});
 </script>
 {% block scripts %}
-<script>
-  const mainImage = document.getElementById('main-product-image');
-  const thumbnails = document.querySelectorAll('.product-thumbnail');
-
-  thumbnails.forEach((thumb) => {
-    thumb.addEventListener('click', () => {
-      mainImage.src = thumb.dataset.src;
-    });
-  });
-</script>
+<script src="{% static 'js/favourite-products.js' %}"></script>
 {% endblock %}
-
 {% endblock %}

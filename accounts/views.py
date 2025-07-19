@@ -10,6 +10,7 @@ from django.utils.html import strip_tags
 from django.conf import settings
 from django.urls import reverse
 from prompt.models import WritingPrompt
+from shop.models import Product
 from .forms import UserRegistrationForm, UserProfileForm
 from .models import EmailVerificationToken, MemberResource
 from prompt.models_tracker import WritingGoal, WritingSession
@@ -152,6 +153,9 @@ def profile_view(request):
     # Get favourite prompts
     favourite_prompts = request.user.profile.favourite_prompts.all()
 
+    # Get favourite products
+    favourite_products = request.user.profile.favourite_products.all()
+
     # Get member resources
     member_resources = MemberResource.objects.filter(is_active=True).order_by(
         "-created_at"
@@ -171,6 +175,7 @@ def profile_view(request):
         {
             "form": form,
             "favourite_prompts": favourite_prompts,
+            "favourite_products": favourite_products,
             "member_resources": member_resources,
             "active_goals": active_goals,
             "recent_sessions": recent_sessions,
@@ -201,3 +206,32 @@ def add_favourite_prompt(request, prompt_id):
 
     # Otherwise redirect back to referring page
     return redirect(request.META.get("HTTP_REFERER", "core:home"))
+
+
+@login_required
+def add_favourite_product(request, product_slug):
+    product = get_object_or_404(
+        Product, slug=product_slug
+    )  # Fixed: Product instead of SaveProduct
+    user_profile = request.user.profile
+
+    if product in user_profile.favourite_products.all():
+        user_profile.favourite_products.remove(product)
+        messages.success(request, "Product removed from your favourites.")
+        is_favourite = False
+    else:
+        user_profile.favourite_products.add(product)
+        messages.success(request, "Product added to your favourites.")
+        is_favourite = True
+
+    # If the request is AJAX, return a JSON response
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        return JsonResponse(
+            {
+                "status": "success",
+                "is_favourite": is_favourite,
+            }
+        )
+
+    # Otherwise redirect back to referring page
+    return redirect(request.META.get("HTTP_REFERER", "core:homepage"))
