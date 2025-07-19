@@ -68,6 +68,9 @@ def product_detail(request, slug):
         has_purchased = bool(order_item)
         review_form = ProductReviewForm() if product.can_review(request.user) else None
 
+    # fetch additional images
+    images = product.images.all()
+
     return render(
         request,
         "shop/detail.html",
@@ -78,6 +81,7 @@ def product_detail(request, slug):
             "order_item": order_item,
             "stripe_publishable_key": settings.STRIPE_PUBLISHABLE_KEY,
             "form": review_form,
+            "images": images,
         },
     )
 

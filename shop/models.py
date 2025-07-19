@@ -212,6 +212,19 @@ class Product(models.Model):
         return has_purchased and not has_reviewed
 
 
+class ProductImage(models.Model):
+    product = models.ForeignKey(
+        Product, related_name="images", on_delete=models.CASCADE
+    )
+    image = models.ImageField(upload_to="products/")
+    alt_text = models.CharField(max_length=255, blank=True, null=True)
+    is_primary = models.BooleanField(default=False)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
+
+
 class GuestDetails(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)

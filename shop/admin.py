@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 import requests
-from .models import Category, Product, Order, OrderItem, ProductReview
+from .models import Category, Product, ProductImage, Order, OrderItem, ProductReview
 
 
 @admin.register(Category)
@@ -11,6 +11,13 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ["name", "slug"]
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ["name", "description"]
+
+
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    extra = 1
+    fields = ["image", "alt_text", "order"]
+    ordering = ["order"]
 
 
 @admin.register(Product)
@@ -32,7 +39,7 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ["public_id", "purchase_count", "display_preview"]
     list_editable = ["order"]
-
+    inlines = [ProductImageInline]
     fieldsets = (
         (
             None,
@@ -183,6 +190,8 @@ class ProductAdmin(admin.ModelAdmin):
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     raw_id_fields = ["product"]
+    fields = ["image", "alt_text", "order"]
+    ordering = ["order"]
     extra = 0
 
 
