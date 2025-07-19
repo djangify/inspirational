@@ -14,6 +14,7 @@
             <img
             id="main-product-image"
             src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
+            data-default-src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
             alt="{{ product.title }}"
             class="w-full h-[550px] object-contain mx-auto transition duration-300"
             />
@@ -33,19 +34,28 @@
             {% endif %}
         </div>
 
-        <!-- Thumbnails -->
-        {% if product.images.all %}
-        <div class="flex flex-wrap gap-3 justify-start">
+        <!-- Additional Thumbnails -->
+        <div class="flex mt-4 gap-4">
+            {% if product.image %}
+                <!-- Include main image as a thumbnail -->
+                <img
+                src="{{ product.image.url }}"
+                data-src="{{ product.image.url }}"
+                alt="{{ product.title }}"
+                class="w-20 h-20 object-cover border rounded hover:shadow-md cursor-pointer product-thumbnail"
+                />
+            {% endif %}
+
             {% for img in product.images.all %}
-            <img
+                <img
                 src="{{ img.image.url }}"
-                alt="{{ img.alt_text|default:"Thumbnail" }}"
-                class="thumbnail w-20 h-20 object-cover border rounded cursor-pointer hover:ring-2 ring-teal-500 transition"
-                data-full="{{ img.image.url }}"
-            />
+                data-src="{{ img.image.url }}"
+                alt="{{ img.alt_text|default:'Additional product image' }}"
+                class="w-20 h-20 object-cover border rounded hover:shadow-md cursor-pointer product-thumbnail"
+                />
             {% endfor %}
-        </div>
-        {% endif %}
+            </div>
+        
         </div>
 
         <!-- Product Info Section -->
@@ -172,14 +182,28 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const mainImage = document.getElementById("main-product-image");
-    const thumbnails = document.querySelectorAll(".thumbnail");
+    const defaultSrc = mainImage.getAttribute("data-default-src");
+    const thumbnails = document.querySelectorAll(".product-thumbnail");
 
     thumbnails.forEach((thumb) => {
-      thumb.addEventListener("click", () => {
-        const fullImage = thumb.getAttribute("data-full");
-        mainImage.src = fullImage;
+      thumb.addEventListener("click", function () {
+        const newSrc = this.getAttribute("data-src");
+        mainImage.setAttribute("src", newSrc || defaultSrc);
       });
     });
   });
 </script>
+{% block scripts %}
+<script>
+  const mainImage = document.getElementById('main-product-image');
+  const thumbnails = document.querySelectorAll('.product-thumbnail');
+
+  thumbnails.forEach((thumb) => {
+    thumb.addEventListener('click', () => {
+      mainImage.src = thumb.dataset.src;
+    });
+  });
+</script>
+{% endblock %}
+
 {% endblock %}
