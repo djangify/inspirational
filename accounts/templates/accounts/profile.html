@@ -158,7 +158,7 @@
 
 <!-- profile.html template - Display favourite products -->
 <div id="saved-products" class="tab-content">
-    <h2 class="text-xl font-semibold mb-4">Your Wish List</h2>
+    <h2 class="text-xl font-semibold mb-4">Your WANT! List</h2>
     {% if favourite_products %}
         <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mt-8">
             {% for product in favourite_products %}
@@ -171,7 +171,7 @@
             {% endfor %}
         </div>
     {% else %}
-        <p class="text-gray-600">You haven't added any products to your favourites yet.</p>
+        <p class="text-gray-600">You haven't added any products to your want list yet.</p>
     {% endif %}
 </div>
 

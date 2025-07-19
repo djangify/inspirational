@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
           if (data.status === 'success') {
             // Update button text based on favourite status
             if (data.is_favourite) {
-              this.innerHTML = '❤️ Remove from Favourites';
+              this.innerHTML = '❤️ Remove from Wish List';
               this.classList.add('bg-red-50', 'border-red-300');
             } else {
-              this.innerHTML = '🤍 Add to Favourites';
+              this.innerHTML = '🤍 Add to Wish List';
               this.classList.remove('bg-red-50', 'border-red-300');
             }
           } else {

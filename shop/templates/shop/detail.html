@@ -16,7 +16,7 @@
             src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
             data-default-src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
             alt="{{ product.title }}"
-            class="w-full h-[550px] object-contain mx-auto transition duration-300"
+            class="w-full h-[650px] object-contain mx-auto transition duration-300"
             />
 
             <!-- Product Type Badge -->
@@ -121,15 +121,15 @@
           {% endif %}
 
           <!-- Wishlist / Share -->
-          <div class="grid grid-cols-2 gap-3 mt-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
             <form method="POST" action="{% url 'accounts:add_to_wishlist' product.slug %}" class="inline">
               {% csrf_token %}
                   <button type="submit"
-                    class="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors favourite-btn" data-product-slug="{{ product.slug }}">
+                    class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg text-gray-900 bg-yellow-300 favourite-btn whitespace-nowrap" data-product-slug="{{ product.slug }}">
                     {% if product in user.profile.favourite_products.all %}
                         ❤️ Remove from Wish List
                     {% else %}
-                        🤍 Add to Wish List
+                        🤍 Add To Wish List
                     {% endif %}
                   </button>
             </form>
