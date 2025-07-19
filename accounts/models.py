@@ -11,6 +11,7 @@ from datetime import timedelta
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    verified = models.BooleanField(default=False)
     bio = models.TextField(max_length=500, blank=True)
     favourite_prompts = models.ManyToManyField(
         WritingPrompt, blank=True, related_name="favorited_by"

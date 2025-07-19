@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_email.html" %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto my-12 px-4">
@@ -12,7 +12,7 @@
                 </div>
                 <div class="ml-4">
                     <h1 class="text-2xl font-bold text-green-800">Email Successfully Verified</h1>
-                    <p class="text-green-600">Your account is now active!</p>
+                    <p class="text-teal-700">Your account is now active!</p>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
             </ul>
             
             <div class="mt-8 flex flex-col sm:flex-row sm:justify-center gap-4">
-                <a href="{% url 'core:homepage' %}" class="bg-teal-700 hover:bg-purple-800 text-white font-medium py-2 px-6 rounded-md text-center transition-colors">
+                <a href="{% url 'core:homepage' %}" class="bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-6 rounded-md text-center transition-colors">
                     Start Writing
                 </a>
                 <a href="{% url 'accounts:profile' %}" class="bg-gray-500 hover:bg-gray-700 text-gray-800 font-medium py-2 px-6 rounded-md text-center transition-colors">

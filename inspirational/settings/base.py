@@ -155,13 +155,7 @@ STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET", default="whsec_placeholder"
 
 
 # Email verification settings
-# EMAIL_VERIFICATION_TOKEN_EXPIRY = 24  # hours
-# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
-# Email settings for verification
-# EMAIL_VERIFICATION_URL = env(
-#     "EMAIL_VERIFICATION_URL", default="http://localhost:8000/api/v1/auth/verify-email"
-# )
 # Email settings
 EMAIL_HOST = env("EMAIL_HOST", default="")
 EMAIL_PORT = env("EMAIL_PORT", default=587)
@@ -171,6 +165,7 @@ EMAIL_USE_TLS = env("EMAIL_USE_TLS", default=True)
 DEFAULT_FROM_EMAIL = env(
     "DEFAULT_FROM_EMAIL", default="noreply@inspirationalguidance.com"
 )
+
 
 # Database
 DATABASES = {

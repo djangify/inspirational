@@ -61,11 +61,11 @@
       <p class="text-md font-semibold text-gray-400 italic">Coming Soon</p>
     </div>
 
-    <!-- Account Status -->
+   <!-- Account Status -->
     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
       <p class="text-sm text-gray-600">Account Status</p>
-      <p class="text-lg font-semibold {% if user.is_verified %}text-green-600{% else %}text-yellow-600{% endif %}">
-        {% if user.is_verified %}Active{% else %}Unverified{% endif %}
+      <p class="text-lg font-semibold {% if user.profile.verified %}text-teal-700{% else %}text-yellow-600{% endif %}">
+        {% if user.profile.verified %}Active{% else %}Unverified{% endif %}
       </p>
     </div>
   </div>
