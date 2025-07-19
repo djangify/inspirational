@@ -85,21 +85,28 @@ def verification_sent(request):
 def verify_email(request, token):
     try:
         verification_token = EmailVerificationToken.objects.get(token=token)
+
         if verification_token.is_valid():
             user = verification_token.user
             user.is_active = True
             user.save()
+
+            # Mark the profile as verified
+            user.profile.verified = True
+            user.profile.save()
+
+            # Clean up the token
             verification_token.delete()
 
-            # Option to automatically log in the user after verification
+            # Optional: Automatically log them in
             # login(request, user)
 
             return render(request, "accounts/email/email_verified.html")
+
         else:
-            # Token expired
             return render(request, "accounts/email/email_verification_invalid.html")
+
     except EmailVerificationToken.DoesNotExist:
-        # Invalid token
         return render(request, "accounts/email/email_verification_invalid.html")
 
 
