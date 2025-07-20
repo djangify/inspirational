@@ -22,7 +22,12 @@ class UserRegistrationForm(UserCreationForm):
         min_length=2,
         error_messages={"min_length": "First name must be at least 2 characters long."},
     )
-    last_name = forms.CharField(required=False, help_text="Optional. Your last name.")
+    last_name = forms.CharField(
+        required=True,
+        help_text="Your last name.",
+        min_length=2,
+        error_messages={"min_length": "Last name must be at least 2 characters long."},
+    )
 
     class Meta:
         model = User

@@ -10,7 +10,7 @@ from django.utils.html import strip_tags
 from django.conf import settings
 from django.urls import reverse
 from prompt.models import WritingPrompt
-from shop.models import Product, Purchase
+from shop.models import Product, OrderItem
 from .forms import UserRegistrationForm, UserProfileForm
 from .models import EmailVerificationToken, MemberResource
 from prompt.models_tracker import WritingGoal, WritingSession
@@ -157,6 +157,8 @@ def profile_view(request):
     else:
         form = UserProfileForm(instance=request.user.profile)
 
+    user = request.user
+
     # Get favourite prompts
     favourite_prompts = request.user.profile.favourite_prompts.all()
 
@@ -164,7 +166,9 @@ def profile_view(request):
     favourite_products = request.user.profile.favourite_products.all()
 
     # Get purchased products
-    purchased_count = Purchase.objects.filter(user=request.user).count()
+    purchased_count = (
+        OrderItem.objects.filter(order__user=user).values("product").distinct().count()
+    )
 
     # Get member resources
     member_resources = MemberResource.objects.filter(is_active=True).order_by(

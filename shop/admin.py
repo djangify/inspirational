@@ -198,8 +198,8 @@ class ProductAdmin(admin.ModelAdmin):
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     raw_id_fields = ["product"]
-    fields = ["image", "alt_text", "order"]
-    ordering = ["order"]
+    fields = ["product", "quantity", "price_paid_pence", "order", "downloads_remaining"]
+    ordering = ["id"]
     extra = 0
 
 
@@ -211,44 +211,26 @@ class OrderAdmin(admin.ModelAdmin):
         "order_id",
         "user__username",
         "email",
-        "guest_details__first_name",
-        "guest_details__last_name",
     ]
     inlines = [OrderItemInline]
-    readonly_fields = ["order_id", "payment_intent_id", "guest_details_display"]
+    readonly_fields = ["order_id", "payment_intent_id"]
 
     def get_customer_name(self, obj):
         if obj.user:
-            return f"{obj.user.profile.first_name}"
-        elif hasattr(obj, "guest_details"):
-            return (
-                f"{obj.guest_details.first_name} {obj.guest_details.last_name} (Guest)"
-            )
-        return "No name provided"
+            # Access first_name and last_name directly on the User model
+            if obj.user.first_name and obj.user.last_name:
+                return f"{obj.user.first_name} {obj.user.last_name}"
+            elif obj.user.first_name:
+                return obj.user.first_name
+            else:
+                return obj.user.username
+
+        return "No user assigned"
 
     get_customer_name.short_description = "Customer"
 
-    def guest_details_display(self, obj):
-        if hasattr(obj, "guest_details"):
-            return format_html(
-                "<strong>Name:</strong> {} {}<br>"
-                "<strong>Email:</strong> {}<br>"
-                "<strong>Phone:</strong> {}",
-                obj.guest_details.first_name,
-                obj.guest_details.last_name,
-                obj.guest_details.email,
-                obj.guest_details.phone or "Not provided",
-            )
-        return "No guest details"
-
-    guest_details_display.short_description = "Guest Details"
-
     fieldsets = (
         (None, {"fields": ("order_id", "user", "email", "status", "paid")}),
-        (
-            "Guest Information",
-            {"fields": ("guest_details_display",), "classes": ("collapse",)},
-        ),
         (
             "Payment Information",
             {"fields": ("payment_intent_id",), "classes": ("collapse",)},

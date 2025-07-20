@@ -20,17 +20,10 @@
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <meta property="og:image" content="{% static 'images/placeholder.png' %}" />
     {% endblock %}
-
-    {% comment %} <link 
-        rel="stylesheet" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
-        crossorigin="anonymous" 
-        referrerpolicy="no-referrer"
-    /> {% endcomment %}
     
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+    <script src="https://js.stripe.com/v3/"></script>
      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
     <title>{% block title %}Self-Help eCommerce Store{% endblock %}</title>
