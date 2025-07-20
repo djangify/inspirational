@@ -1,95 +1,77 @@
-<h2 class="text-xl font-semibold mb-4">Create New Writing Goal</h2>  
-    <!-- Add Goal Form -->
-    <div class="bg-white rounded-lg shadow-md p-6">
-        <form method="post" action="{% url 'prompt:add_goal' %}">
-            {% csrf_token %}
-            
-            <div class="space-y-4">
-                <!-- Goal type field -->
-                <div>
-                    <label for="{{ goal_form.goal_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Goal Type
-                    </label>
-                    {{ goal_form.goal_type }}
-                    {% if goal_form.goal_type.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ goal_form.goal_type.errors.0 }}</p>
-                    {% endif %}
-                </div>
-                
-                <!-- Target value field -->
-                <div>
-                    <label for="{{ goal_form.target_value.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Target Value
-                    </label>
-                    {{ goal_form.target_value }}
-                    {% if goal_form.target_value.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ goal_form.target_value.errors.0 }}</p>
-                    {% endif %}
-                </div>
-                
-                <!-- Frequency field -->
-                <div>
-                    <label for="{{ goal_form.frequency.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Frequency
-                    </label>
-                    {{ goal_form.frequency }}
-                    {% if goal_form.frequency.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ goal_form.frequency.errors.0 }}</p>
-                    {% endif %}
-                </div>
-                
-                <!-- Start date field -->
-                <div>
-                    <label for="{{ goal_form.start_date.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Start Date
-                    </label>
-                    {{ goal_form.start_date }}
-                    {% if goal_form.start_date.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ goal_form.start_date.errors.0 }}</p>
-                    {% endif %}
-                </div>
-                
-                <!-- End date field (optional) -->
-                <div>
-                    <label for="{{ goal_form.end_date.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        End Date (Optional)
-                    </label>
-                    {{ goal_form.end_date }}
-                    <p class="mt-1 text-xs text-gray-500">Leave blank for ongoing goals</p>
-                    {% if goal_form.end_date.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ goal_form.end_date.errors.0 }}</p>
-                    {% endif %}
-                </div>
-                
-                <!-- Notes field (optional) -->
-                <div>
-                    <label for="{{ goal_form.notes.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Notes (Optional)
-                    </label>
-                    {{ goal_form.notes }}
-                    {% if goal_form.notes.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ goal_form.notes.errors.0 }}</p>
-                    {% endif %}
-                </div>
-                
-                <!-- Active checkbox -->
-                <div class="flex items-center">
-                    {{ goal_form.active }}
-                    <label for="{{ goal_form.active.id_for_label }}" class="ml-2 block text-sm text-gray-700">
-                        Active
-                    </label>
-                </div>
-                
-                <div class="flex justify-end mt-8">
-                    <a href="{% url 'prompt:writing_progress' %}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md mr-3 transition duration-200">
-                        Cancel
-                    </a>
-                    <button type="submit" class="bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
-                        Save Goal
-                    </button>
-                </div>
-            </div>
-        </form>
+{% load widget_tweaks %}
+
+<h2 class="text-xl font-semibold mb-4">Create New Writing Goal</h2>
+<div class="bg-white rounded-lg  p-6 max-w-2xl mx-auto">
+  <form method="post" action="{% url 'prompt:add_goal' %}">
+    {% csrf_token %}
+
+    <div class="space-y-4">
+      <!-- Goal type field -->
+      <div>
+        <label for="{{ goal_form.goal_type.id_for_label }}" class="block text md px-4 text-gray-700 mb-1">Goal Type</label>
+        {{ goal_form.goal_type|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
+        {% if goal_form.goal_type.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ goal_form.goal_type.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Target value field -->
+      <div>
+        <label for="{{ goal_form.target_value.id_for_label }}" class="block text md px-4 text-gray-700 mb-1">Target Value</label>
+        {{ goal_form.target_value|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
+        {% if goal_form.target_value.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ goal_form.target_value.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Frequency field -->
+      <div>
+        <label for="{{ goal_form.frequency.id_for_label }}" class="block text md px-4 text-gray-700 mb-1">Frequency</label>
+        {{ goal_form.frequency|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
+        {% if goal_form.frequency.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ goal_form.frequency.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Start date -->
+      <div>
+        <label for="{{ goal_form.start_date.id_for_label }}" class="block text md px-4 text-gray-700 mb-1">Start Date</label>
+        {{ goal_form.start_date|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
+        {% if goal_form.start_date.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ goal_form.start_date.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- End date -->
+      <div>
+        <label for="{{ goal_form.end_date.id_for_label }}" class="block text md px-4 text-gray-700 mb-1">End Date (Optional)</label>
+        {{ goal_form.end_date|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
+        <p class="mt-1 text-xs text-gray-500">Leave blank for ongoing goals</p>
+        {% if goal_form.end_date.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ goal_form.end_date.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Notes -->
+      <div>
+        <label for="{{ goal_form.notes.id_for_label }}" class="block text md px-4 text-gray-700 mb-1">Notes (Optional)</label>
+        {{ goal_form.notes|add_class:"w-full min-h-[8rem] rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
+        {% if goal_form.notes.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ goal_form.notes.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Active -->
+      <div class="flex items-center">
+        {{ goal_form.active|add_class:"h-5 w-5 text-teal-600" }}
+        <label for="{{ goal_form.active.id_for_label }}" class="ml-2 block text-sm text-gray-700">Active</label>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex justify-end mt-8">
+        <a href="{% url 'prompt:writing_progress' %}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md mr-3 transition duration-200">Cancel</a>
+        <button type="submit" class="bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">Save Goal</button>
+      </div>
     </div>
-
-
+  </form>
+</div>

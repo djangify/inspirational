@@ -117,13 +117,7 @@ class WritingSession(models.Model):
     word_count = models.PositiveIntegerField(
         default=0, help_text="Approximately how many words did you write? (Optional)"
     )
-    prompt_used = models.ForeignKey(
-        "WritingPrompt",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="writing_sessions",
-    )
+    prompt_used = models.TextField(blank=True, null=True)
     mood = models.CharField(
         max_length=15,
         choices=MOOD_CHOICES,

@@ -6,11 +6,12 @@
     </div>
   </div>
   <div class="flex justify-center">
-    <div class="flex flex-wrap justify-center gap-4 mb-6 max-w-xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 max-w-xl mx-auto">
         <!-- Category Filter -->
         <div class="w-full sm:w-auto">
-            <label for="category" class="block text-sm font-medium text-gray-700 mb-1 text-center">Category</label>
-            <select id="category" class="w-full rounded-md border-gray-300 shadow-sm">
+            <label for="category" class="block text-md font-medium text-gray-700 mb-1 text-center">Category</label>
+            <select id="category" class="w-full h-12 text-center rounded-md border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-700">
+
                 <option value="">All Categories</option>
                 <!-- Categories will be populated by JavaScript -->
             </select>
@@ -18,8 +19,8 @@
         
         <!-- Difficulty Filter -->
         <div class="w-full sm:w-auto">
-            <label for="difficulty" class="block text-sm font-medium text-gray-700 mb-1 text-center">Time Required</label>
-            <select id="difficulty" class="w-full rounded-md border-gray-300 shadow-sm">
+            <label for="difficulty" class="block text-md font-medium text-gray-700 mb-1 text-center">Time Required</label>
+            <select id="difficulty" class="w-full h-12 text-center rounded-md border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-700">
                 <option value="">Any Length</option>
                 <option value="easy">Quick (5-10 minutes)</option>
                 <option value="medium">Medium (15-20 minutes)</option>
@@ -29,8 +30,8 @@
         
         <!-- Type Filter -->
         <div class="w-full sm:w-auto">
-            <label for="promptType" class="block text-sm font-medium text-gray-700 mb-1 text-center">Prompt Type</label>
-            <select id="promptType" class="w-full rounded-md border-gray-300 shadow-sm">
+            <label for="promptType" class="block text-md font-medium text-gray-700 mb-1 text-center">Prompt Type</label>
+            <select id="promptType" class="w-full h-12 text-center rounded-md border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-700">
                 <option value="">All Types</option>
                 <option value="journal">Daily Journal</option>
                 <option value="memoir">Memoir/Memory</option>
