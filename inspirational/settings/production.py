@@ -48,6 +48,8 @@ USE_X_FORWARDED_HOST = True
 USE_X_FORWARDED_PORT = True
 
 
+SITE_URL = "https://inspirationalguidance.com"
+
 # Logging Configuration
 LOGGING = {
     "version": 1,

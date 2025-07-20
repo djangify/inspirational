@@ -58,7 +58,7 @@ def send_verification_email(request, user):
             "email": user.email,
         }
 
-        subject = "Verify your email for Pen and I Publishing"
+        subject = "Verify your email for Inspirational Guidance"
         html_message = render_to_string(
             "accounts/email/email_verification_email.html", context
         )

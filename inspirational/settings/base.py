@@ -179,6 +179,9 @@ DATABASES = {
 # Site name for emails
 SITE_NAME = "Inspirational Guidance"
 
+SITE_URL = "https://inspirationalguidance.com"
+
+
 # Updated TinyMCE configuration for base.py
 
 TINYMCE_DEFAULT_CONFIG = {
