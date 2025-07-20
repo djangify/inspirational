@@ -12,11 +12,13 @@ from django.views.decorators.csrf import csrf_exempt
 import stripe
 import os
 import logging
+from django.db.models import Q
 import mimetypes
 from wsgiref.util import FileWrapper
 from shop.forms import GuestDetailsForm, ProductReviewForm
 from .emails import send_order_confirmation_email, send_download_link_email
 from .cart import Cart
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -26,9 +28,16 @@ logger = logging.getLogger("shop")
 
 def product_list(request):
     categories = Category.objects.all()
+    query = request.GET.get("q", "").strip()
+
     products = Product.objects.filter(
         is_active=True, status__in=["publish", "soon", "full"]
     ).order_by("order", "-created")
+
+    if query:
+        products = products.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
     paginator = Paginator(products, 18)
     page = request.GET.get("page")
     products = paginator.get_page(page)
@@ -41,6 +50,7 @@ def product_list(request):
             "categories": categories,
             "current_category": None,
             "stripe_publishable_key": settings.STRIPE_PUBLISHABLE_KEY,
+            "query": query,
         },
     )
 
