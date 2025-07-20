@@ -67,6 +67,7 @@ package-lock.json
 .vscode/
 *.swp
 *.swo
+protected_media
 .DS_Store
 *.sublime-workspace
 *.sublime-project

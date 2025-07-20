@@ -461,7 +461,10 @@ def secure_download(request, order_item_id):
     # Check download limits for digital products only
     if order_item.product.product_type == "download":
         if order_item.download_count >= order_item.downloads_remaining:
-            raise PermissionDenied("Download limit exceeded")
+            messages.error(
+                request, "You have reached your download limit for this product."
+            )
+            return redirect("accounts:profile")
 
         # Decrement downloads_remaining and increment download_count
         order_item.downloads_remaining -= 1
@@ -481,18 +484,11 @@ def secure_download(request, order_item_id):
     content_type = content_type or "application/octet-stream"
 
     # Open the file
-    with open(file_path, "rb") as file_obj:
-        response = FileResponse(FileWrapper(file_obj), content_type=content_type)
-        response["Content-Disposition"] = (
-            f'attachment; filename="{os.path.basename(file_path)}"'
-        )
-        return response
-
-    # Set content disposition
+    file_obj = open(file_path, "rb")
+    response = FileResponse(FileWrapper(file_obj), content_type=content_type)
     response["Content-Disposition"] = (
         f'attachment; filename="{os.path.basename(file_path)}"'
     )
-
     return response
 
 

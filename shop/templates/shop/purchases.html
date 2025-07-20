@@ -36,10 +36,18 @@
                                 <div class="text-right">
                                     <p class="text-gray-900 dark:text-white">£{{ item.price|floatformat:2  }}</p>
                                     {% if item.product.files or item.product.get_download_url %}
-                                    <a href="{% url 'shop:secure_download' item.id %}" 
-                                       class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm">
-                                        Download
-                                    </a>
+                                    <div class="flex flex-col items-end">
+                                        <a href="{% url 'shop:secure_download' item.id %}" 
+                                        class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm mb-1">
+                                            Download
+                                        </a>
+                                        {% if item.product.product_type == "download" %}
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                            Downloads left: {{ item.downloads_remaining }} / {{ item.download_count|add:item.downloads_remaining }}
+                                        </p>
+                                        {% endif %}
+                                    </div>
+
                                     {% endif %}
                                 </div>
                             </div>

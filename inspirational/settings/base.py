@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import environ
 
+
 # Initialize environment variables
 env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -181,6 +182,7 @@ SITE_NAME = "Inspirational Guidance"
 
 SITE_URL = "https://inspirationalguidance.com"
 
+PROTECTED_MEDIA_ROOT = env("PROTECTED_MEDIA_ROOT")
 
 # Updated TinyMCE configuration for base.py
 
