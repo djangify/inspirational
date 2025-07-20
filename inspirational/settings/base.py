@@ -59,10 +59,6 @@ AUTHENTICATION_BACKENDS = [
     "accounts.authentication.EmailAuthBackend",
 ]
 
-
-# needed during development only
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
