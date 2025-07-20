@@ -82,6 +82,7 @@ def product_detail(request, slug):
             "stripe_publishable_key": settings.STRIPE_PUBLISHABLE_KEY,
             "form": review_form,
             "images": images,
+            "request": request,
         },
     )
 

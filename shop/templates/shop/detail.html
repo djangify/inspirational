@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
+{% block head %}
+  {{ block.super }}
+  <meta property="og:title" content="{{ product.title }}" />
+  <meta property="og:description" content="{{ product.description|truncatewords:20 }}" />
+  <meta property="og:image" content="{{ product.get_image_url|default:'https://inspirationalguidance.com/static/images/placeholder.png' }}" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:type" content="product" />
+
+  <!-- Optional: Twitter (X) Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ product.title }}" />
+  <meta name="twitter:description" content="{{ product.description|truncatewords:20 }}" />
+  <meta name="twitter:image" content="{{ product.get_image_url|default:'https://inspirationalguidance.com/static/images/placeholder.png' }}" />
+{% endblock %}
 
 {% block content %}
 <div class="min-h-screen bg-slate-50">
@@ -134,10 +148,29 @@
                   🤍 Add To Wish List
               {% endif %}
             </button>
-            <button
-              class="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-              🔗 Share
-            </button>
+            <!--share button-->
+            <div class="relative">
+              <button
+                id="share-toggle"
+                type="button"
+                class="flex items-center justify-center w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                🔗 Share
+              </button>
+
+              <div
+                id="share-options"
+                class="absolute z-10 hidden bg-white border border-gray-200 rounded-lg shadow-md mt-2 w-64"
+              >
+                <ul class="text-sm text-gray-700 p-2">
+                  <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="block px-4 py-2 hover:bg-gray-100">📘 Facebook</a></li>
+                  <li><a href="https://x.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ product.title }}" target="_blank" class="block px-4 py-2 hover:bg-gray-100">🐦 X</a></li>
+                  <li><a href="https://wa.me/?text={{ product.title }} {{ request.build_absolute_uri }}" target="_blank" class="block px-4 py-2 hover:bg-gray-100">📱 WhatsApp</a></li>
+                  <li><a href="mailto:?subject={{ product.title }}&body=Check out this product: {{ request.build_absolute_uri }}" class="block px-4 py-2 hover:bg-gray-100">✉️ Email</a></li>
+                </ul>
+              </div>
+            </div>
+
           </div>
 
           <!-- Trust Icons -->
@@ -218,6 +251,24 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const shareToggle = document.getElementById("share-toggle");
+    const shareOptions = document.getElementById("share-options");
+
+    if (shareToggle) {
+        shareToggle.addEventListener("click", function () {
+            shareOptions.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!shareToggle.contains(e.target) && !shareOptions.contains(e.target)) {
+                shareOptions.classList.add("hidden");
+            }
+        });
+    }
 });
 </script>
 {% block scripts %}
