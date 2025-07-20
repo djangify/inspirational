@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load widget_tweaks %}
 {% block content %}
-<div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+<div class="max-w-screen-xl border border-teal-700 px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6 mt-8">
     <div class="mb-6 flex justify-between items-center">
         <h1 class="text-2xl font-bold">Edit Writing Session</h1>
         {% if request.GET.from == 'list' %}
@@ -23,17 +23,17 @@
     </div>
 
     <!-- Edit Session Form -->
-    <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="bg-white rounded-lg  p-6">
         <form method="post" action="{% url 'prompt:edit_session' session.id %}{% if request.GET.from == 'list' %}?return_to_list=true{% endif %}">
             {% csrf_token %}
             
-            <div class="space-y-4">
+            <div class="space-y-4 px-4">
                 <!-- Date field -->
                 <div>
-                    <label for="{{ form.date.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="{{ form.date.id_for_label }}" class="block text-md  text-gray-700 mb-1">
                         Date
                     </label>
-                    {{ form.date }}
+                    {{ form.date|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
                     {% if form.date.errors %}
                         <p class="mt-1 text-sm text-red-600">{{ form.date.errors.0 }}</p>
                     {% endif %}
@@ -41,10 +41,10 @@
                 
                 <!-- Minutes spent field -->
                 <div>
-                    <label for="{{ form.minutes_spent.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="{{ form.minutes_spent.id_for_label }}" class="block text-md  text-gray-700 mb-1">
                         Minutes Spent
                     </label>
-                    {{ form.minutes_spent }}
+                    {{ form.minutes_spent|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
                     {% if form.minutes_spent.errors %}
                         <p class="mt-1 text-sm text-red-600">{{ form.minutes_spent.errors.0 }}</p>
                     {% endif %}
@@ -52,10 +52,10 @@
                 
                 <!-- Word count field (optional) -->
                 <div>
-                    <label for="{{ form.word_count.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="{{ form.word_count.id_for_label }}" class="block text-md  text-gray-700 mb-1">
                         Word Count (Optional)
                     </label>
-                    {{ form.word_count }}
+                    {{ form.word_count|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
                     {% if form.word_count.errors %}
                         <p class="mt-1 text-sm text-red-600">{{ form.word_count.errors.0 }}</p>
                     {% endif %}
@@ -63,10 +63,10 @@
                 
                 <!-- Mood field -->
                 <div>
-                    <label for="{{ form.mood.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="{{ form.mood.id_for_label }}" class="block text-md  text-gray-700 mb-1">
                         How was your writing session?
                     </label>
-                    {{ form.mood }}
+                    {{ form.mood|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
                     {% if form.mood.errors %}
                         <p class="mt-1 text-sm text-red-600">{{ form.mood.errors.0 }}</p>
                     {% endif %}
@@ -74,10 +74,10 @@
                 
                 <!-- Prompt used field (optional) -->
                 <div>
-                    <label for="{{ form.prompt_used.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="{{ form.prompt_used.id_for_label }}" class="block text-md  text-gray-700 mb-1">
                         Prompt Used (Optional)
                     </label>
-                    {{ form.prompt_used }}
+                    {{ form.prompt_used|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
                     {% if form.prompt_used.errors %}
                         <p class="mt-1 text-sm text-red-600">{{ form.prompt_used.errors.0 }}</p>
                     {% endif %}
@@ -85,10 +85,10 @@
                 
                 <!-- Notes field (optional) -->
                 <div>
-                    <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="{{ form.notes.id_for_label }}" class="block text-md  text-gray-700 mb-1">
                         Notes (Optional)
                     </label>
-                    {{ form.notes }}
+                    {{ form.notes|add_class:"w-full min-h-[8rem] px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
                     {% if form.notes.errors %}
                         <p class="mt-1 text-sm text-red-600">{{ form.notes.errors.0 }}</p>
                     {% endif %}
