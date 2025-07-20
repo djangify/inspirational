@@ -52,7 +52,7 @@
                 </p>
                 <div class="flex justify-between items-center">
                     <span class="text-xl font-bold text-gray-900">£{{ product.current_price|floatformat:2 }}</span>
-                    <a href="{{ product.get_absolute_url }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                    <a href="{{ product.get_absolute_url }}" class="bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-800 transition duration-300">
                         View Details
                     </a>
                 </div>
@@ -71,7 +71,7 @@
 
             {% for num in products.paginator.page_range %}
             {% if products.number == num %}
-            <span class="px-4 py-2 bg-blue-600 text-white border rounded">{{ num }}</span>
+            <span class="px-4 py-2 bg-teal-700 text-white border rounded">{{ num }}</span>
             {% else %}
             <a href="?page={{ num }}" class="px-4 py-2 bg-gray-100 border rounded hover:bg-gray-200">{{ num }}</a>
             {% endif %}

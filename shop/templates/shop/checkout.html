@@ -59,13 +59,13 @@
                         <!-- Stripe Elements will create input elements here -->
                     </div>
                     <div class="mb-4">
-                        <label for="postal-code" class="block text-sm font-medium text-gray-700">Postcode</label>
-                        <input type="text" id="postal-code" class="mt-1 p-2 w-full border border-gray-300 rounded-md" placeholder="Enter your postcode">
+                        <label for="postal-code" class="block text-sm font-medium text-gray-700">Zip/Postcode</label>
+                        <input type="text" id="postal-code" class="mt-1 p-2 w-full border border-gray-300 rounded-md" placeholder="Enter your zip or postcode">
                     </div>
                     <div id="card-errors" class="text-red-600 text-sm mb-4" role="alert"></div>
                 </div>
                 <button type="submit" 
-                        class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50"
+                        class="w-full px-6 py-3 bg-teal-700 text-white rounded-lg hover:bg-teal-800 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50"
                         id="submit-button">
                     Pay £{{ cart.get_total_price|floatformat:2 }}
                 </button>
