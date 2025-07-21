@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 
 from shop.cart import Cart
-from inspirational import settings
+from django.conf import settings
 from .models import Post, Category
 from django.utils import timezone
 
