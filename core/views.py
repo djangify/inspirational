@@ -3,10 +3,29 @@ from django.contrib import messages
 from .forms import ContactForm
 from .models import SupportMessage
 from django.contrib.auth.decorators import login_required
+from shop.models import Product, ProductReview
+from news.models import Post
+from django.utils.timezone import now
 
 
 def homepage(request):
-    return render(request, "core/homepage.html")
+    products = Product.objects.filter(featured=True, is_active=True, status="publish")[
+        :4
+    ]
+    reviews = ProductReview.objects.select_related("product", "user").order_by("?")[:3]
+    blog_posts = Post.objects.filter(publish_date__lte=now()).order_by("-publish_date")[
+        :3
+    ]
+
+    return render(
+        request,
+        "core/homepage.html",
+        {
+            "products": products,
+            "reviews": reviews,
+            "blog_posts": blog_posts,
+        },
+    )
 
 
 def privacy_view(request):

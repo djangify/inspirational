@@ -1,47 +1,187 @@
-  {% extends "base.html" %}
-{% load static %} 
+{% extends "base.html" %}
+{% load static %}
+{% load video_tags %}
+
+{% block title %}Home - Inspirational Guidance{% endblock %}
 
 {% block content %}
-<div class="container mx-auto bg-white px-6 py-12">
-    <!-- Title -->
-    <h1 class="text-3xl text-center mb-8 font-semibold">
-        Inspirational Guidance 
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+  <!-- Welcome Message -->
+  <div class="text-center">
+    <h1 class="text-2xl sm:text-3xl tracking-wide text-teal-700 uppercase">
+      Welcome to Inspirational Guidance
     </h1>
-        <h2 class="text-2xl text-center mb-12 font-accent">
-        welcome
-    </h2>
+    <p class="mt-2 text-lg text-gray-700">
+      Practical tools and encouragement for your personal growth journey.
+    </p>
+  </div>
 
-   
-{% endblock %} 
 
-{% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Inspirational Guidance – Coming Soon</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      background-color: #ffffff;
-    }
-    img {
-      max-width: 950px;
-      width: 100%;
-      max-height: 80vh;
-      height: auto;
-      display: block;
-      object-fit: contain;
-    }
-  </style>
-</head>
-<body>
-  <img src="{% static 'images/igsoon.webp' %}" alt="Coming Soon">
-</body>
-</html>
+  <!-- Category Navigation -->
+  <section>
+  {% comment %} <h2 class="text-xl font-semibold mb-6 text-gray-800">Start Your Journey</h2> {% endcomment %}
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+    <!-- Introvert Guides -->
+    <a href="{% url 'shop:category' slug='introverts' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A7 7 0 0112 5v0a7 7 0 016.879 12.804M12 17v.01" />
+      </svg>
+      <h3 class="mt-2 text-lg font-bold">Introvert Guides</h3>
+      <p class="text-sm text-gray-600">Build calm, confident momentum from within.</p>
+    </a>
+
+    <!-- Mindfulness -->
+    <a href="{% url 'shop:category' slug='meditation' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.105 0 2-.672 2-1.5S13.105 5 12 5s-2 .672-2 1.5S10.895 8 12 8zM12 8v9M12 17H7.5a1.5 1.5 0 000 3h9a1.5 1.5 0 000-3H12z" />
+      </svg>
+      <h3 class="mt-2 text-lg font-bold">Mindfulness & Focus</h3>
+      <p class="text-sm text-gray-600">Practical tips for everyday mental clarity.</p>
+    </a>
+
+    <!-- Journaling Prompts -->
+    <a href="{% url 'shop:category' slug='self-help' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+      </svg>
+      <h3 class="mt-2 text-lg font-bold">Journaling Prompts</h3>
+      <p class="text-sm text-gray-600">Daily reflections to guide your goals.</p>
+    </a>
+
+  </div>
+</section>
+
+  <!-- Featured Products - Best Sellers -->
+    
+  {% if products %}
+  <section class="container mx-auto px-6 py-12">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Best Sellers</h2>
+    <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+      {% for product in products %}
+      <div class="bg-white border border-slate-50 shadow-sm hover:shadow-lg transition duration-300 overflow-hidden flex flex-col">
+        <a href="{{ product.get_absolute_url }}">
+          {% if product.get_image_url %}
+          <img src="{{ product.get_image_url }}" alt="{{ product.title }}"
+              class="w-full h-80 object-contain">
+          {% else %}
+          <div class="w-full bg-white h-80 flex items-center justify-center text-gray-500">
+            No Image Available
+          </div>
+          {% endif %}
+        </a>
+        <div class="p-4 flex-1 flex flex-col">
+          <h2 class="text-md font-semibold text-gray-900 leading-tight min-h-[2.5rem]">
+            <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+          </h2>
+          <p class="text-sm text-gray-600 mb-2 line-clamp-2 min-h-[2.75rem]">
+            {{ product.description|truncatewords:15|safe }}
+          </p>
+          <div class="flex items-center justify-between mt-4">
+            <span class="text-lg font-bold text-gray-900">
+              £{{ product.current_price|floatformat:2 }}
+            </span>
+            <div class="flex items-center text-yellow-500 space-x-1">
+              {% if product.average_rating %}
+                {% for i in "12345"|make_list %}
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.562-.954L10 0l2.948 5.956 6.562.954-4.755 4.635 1.123 6.545z"
+                    {% if forloop.counter <= product.average_rating %}
+                      class="fill-current"
+                    {% else %}
+                      class="text-gray-300"
+                    {% endif %}>
+                  </path>
+                </svg>
+                {% endfor %}
+                <span class="text-sm text-gray-600">({{ product.reviews.count }})</span>
+              {% else %}
+                <div class="h-5"></div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+    <!-- Testimonials -->
+    {% if reviews %}
+    <section>
+      <h2 class="text-xl font-semibold mb-6 text-gray-800">What Others Are Saying</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {% for review in reviews %}
+        <div class="bg-white border p-4 rounded-lg shadow-sm">
+          <div class="flex items-center mb-2">
+            {% for i in "12345"|slice:":review.rating"|make_list %}
+            <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09L5.82 12.545.944 8.91l6.455-.955L10 2l2.6 5.955 6.455.955-4.876 3.635 1.698 5.545z"/></svg>
+            {% endfor %}
+          </div>
+          <p class="text-sm text-gray-700 italic">“{{ review.comment|truncatewords:20 }}”</p>
+          <p class="mt-2 text-sm text-gray-500">– {{ review.user.username }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+  <!-- About / Mission -->
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div>
+      <h2 class="text-xl font-semibold mb-4 text-gray-800">About Inspirational Guidance</h2>
+      <p class="text-gray-700 mb-4">
+        We believe growth doesn’t have to be loud. At Inspirational Guidance, we offer quiet encouragement,
+        practical tools, and focused guidance — especially for introverts, deep thinkers, and calm creators.
+      </p>
+      <p class="text-gray-700">
+        Our resources are rooted in compassion, clarity, and the belief that your voice matters — even when it's quiet. The site blends real human intent with AI-powered support — thoughtfully crafted, not artificially rushed.
+      </p>
+    </div>
+    <div>
+      <img src="{% static 'images/diana-morgan.webp' %}" alt="Diana Morgan" class="rounded-xl shadow-md object-cover w-full h-72 md:h-80">
+    </div>
+  </section>
+
+  <!-- Latest Blog Posts Section -->
+  <div class="max-w-7xl mx-auto mt-16 mb-12 px-4">
+    <h2 class="text-3xl font-bold  mb-2">From the Journal</h2>
+    <p class="text-gray-600 mb-8">Stories, ideas, and tools for living with calm, clarity, and quiet focus.</p>
+    {% if blog_posts %}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {% for post in blog_posts %}
+          <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+            <a href="{{ post.get_absolute_url }}" class="block">
+              <div class="h-48 overflow-hidden">
+                {% if post.image %}
+                  <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
+                {% elif post.external_image_url %}
+                  <img src="{{ post.external_image_url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
+                {% elif post.youtube_url %}
+                  {% with post.youtube_url|youtube_id as video_id %}
+                    <img src="https://img.youtube.com/vi/{{ video_id }}/maxresdefault.jpg"
+                        alt="{{ post.title }}"
+                        class="w-full h-full object-cover"
+                        onerror="this.onerror=null; this.src='https://img.youtube.com/vi/{{ video_id }}/hqdefault.jpg';">
+                  {% endwith %}
+                {% endif %}
+              </div>
+              <div class="p-4">
+                <h3 class="text-lg font-bold text-gray-900 mb-2">{{ post.title }}</h3>
+                <p class="text-sm text-gray-700 mb-3">{{ post.content|striptags|truncatewords:18 }}</p>
+                <span class="text-[#227c81] hover:text-teal-700 text-sm font-medium">Read more →</span>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-center text-gray-500">No posts available yet.</p>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
