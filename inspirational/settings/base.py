@@ -184,6 +184,8 @@ SITE_URL = "https://inspirationalguidance.com"
 
 PROTECTED_MEDIA_ROOT = env("PROTECTED_MEDIA_ROOT")
 
+PASSWORD_RESET_TIMEOUT = 3600
+
 # Updated TinyMCE configuration for base.py
 
 TINYMCE_DEFAULT_CONFIG = {
