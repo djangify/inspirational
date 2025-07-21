@@ -32,8 +32,10 @@
   <body class="text-lg 2xl:max-w-screen-2xl 2xl:mx-auto 2xl:bg-primary flex flex-col min-h-screen">
     {% include 'components/navbar.html' %}
     
-    {% block content %}
-    {% endblock %}
+    <main class="flex-1">
+      {% block content %}
+      {% endblock %}
+    </main>
 
     {% include 'components/footer.html' %}
 
