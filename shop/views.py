@@ -1,5 +1,5 @@
 # shop/views.py
-from .models import Category, GuestDetails, Product, Order, OrderItem
+from .models import Category, Product, Order, OrderItem
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -223,43 +223,30 @@ def payment_success(request):
             messages.error(request, "Payment was not successful.")
             return redirect("shop:cart_detail")
 
+        if not request.user.is_authenticated:
+            messages.error(request, "You must be logged in to complete checkout.")
+            return redirect("accounts:login")
+
+        email = request.user.email
+
+        # Prevent duplicate order creation on refresh
+        existing_order = Order.objects.filter(
+            payment_intent_id=payment_intent_id
+        ).first()
+        if existing_order:
+            return redirect("shop:order_detail", order_id=existing_order.order_id)
+
         cart = Cart(request)
-        guest_details = request.session.get("guest_details", {})
-
-        # Get email safely
-        email = None
-        if request.user.is_authenticated:
-            email = request.user.email
-        elif guest_details:
-            email = guest_details.get("email")
-
-        if not email:
-            logger.error("No email found for order creation")
-            messages.error(request, "User email not found.")
-            return redirect("shop:cart_detail")
 
         # Create order
         order = Order.objects.create(
-            user=request.user if request.user.is_authenticated else None,
+            user=request.user,
             email=email,
             payment_intent_id=payment_intent_id,
             paid=True,
             status="completed",
         )
-        logger.info(f"Order {order.order_id} created successfully")
 
-        # Handle guest details
-        if not request.user.is_authenticated and guest_details:
-            GuestDetails.objects.create(
-                order=order,
-                first_name=guest_details.get("first_name", ""),
-                last_name=guest_details.get("last_name", ""),
-                email=guest_details.get("email", ""),
-                phone=guest_details.get("phone", ""),
-            )
-            request.session.pop("guest_details", None)
-
-        # Create order items and send download emails
         for item in cart:
             OrderItem.objects.create(
                 order=order,
@@ -269,38 +256,26 @@ def payment_success(request):
                 downloads_remaining=item["product"].download_limit,
             )
 
-            # Increment purchase count for the product
             product = item["product"]
             product.purchase_count += item["quantity"]
             product.save()
 
-            logger.info(
-                f"Order item created for product {item['product'].title} in order {order.order_id}"
-            )
-
-        # Send order confirmation email
         try:
             send_order_confirmation_email(order)
         except Exception as e:
-            logger.error(
-                f"Failed to send order confirmation email for order {order.order_id}: {str(e)}"
-            )
+            logger.error(f"Failed to send order confirmation email: {str(e)}")
 
         cart.clear()
-        logger.info(f"Order {order.order_id} completed successfully")
 
-        return render(
-            request,
-            "shop/success.html",
-            {"order": order, "is_guest": not request.user.is_authenticated},
-        )
+        return render(request, "shop/success.html", {"order": order})
 
     except stripe.error.StripeError as e:
-        logger.error(f"Stripe error processing payment: {str(e)}")
-        messages.error(request, f"Error processing payment: {str(e)}")
+        logger.error(f"Stripe error: {str(e)}")
+        messages.error(request, f"Error: {str(e)}")
         return redirect("shop:cart_detail")
+
     except Exception as e:
-        logger.error(f"Unexpected error in payment success: {str(e)}")
+        logger.error(f"Unexpected error: {str(e)}")
         messages.error(request, "There was an error processing your order.")
         return redirect("shop:cart_detail")
 
@@ -434,12 +409,16 @@ def handle_successful_payment(payment_intent):
         order.status = "completed"
         order.save()
 
-        # Send emails for each order item
         try:
             for order_item in order.items.all():
                 send_download_link_email(order_item)
         except Exception as e:
             print(f"Error sending download emails in webhook: {str(e)}")
+
+        try:
+            send_order_confirmation_email(order)
+        except Exception as e:
+            print(f"Error sending order confirmation email: {str(e)}")
 
 
 def handle_failed_payment(payment_intent):

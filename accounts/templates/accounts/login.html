@@ -41,10 +41,9 @@
           <p class="text-sm font-light text-gray-500 dark:text-gray-400">
             Don't have an account yet? <a href="{% url 'accounts:register' %}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Register</a>
           </p>
-          <p><a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+          <p><a href="{% url 'accounts:password_reset' %}" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
           </div></p>
         </div>
-
         </form>
       </div>
     </div>

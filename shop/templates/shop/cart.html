@@ -4,9 +4,12 @@
 <div class="container max-w-5xl mx-auto px-4 py-8">
     <div class="mx-auto">
         <h1 class="text-2xl md:text-3xl font-bold mb-8 text-gray-900 dark:text-white">Shopping Cart</h1>
+        {% comment %} <p class="text-teal-700 text-md">
+            Your downloads will be available in your account area. Please <a href="{% url 'accounts:register' %}" class="font-bold text-red-800 underline hover:underline mb-8">Register for an account </a> or <a href="{% url 'accounts:login' %}" class="font-bold underline hover:underline">LOGIN HERE</a> before completing this purchase.
+        </p> {% endcomment %}
 
         {% if cart %}
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+        <div class="bg-white mt-8 dark:bg-gray-800 rounded-lg shadow-lg">
             <!-- Desktop Cart Items -->
             <div class="hidden md:block">
                 {% for item in cart %}
