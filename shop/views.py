@@ -372,7 +372,7 @@ def order_history(request):
 @login_required
 def order_detail(request, order_id):
     order = get_object_or_404(Order, order_id=order_id, user=request.user)
-    return render(request, "shop/order_detail.html", {"order": order})
+    return render(request, "shop/purchases.html", {"order": order})
 
 
 @csrf_exempt

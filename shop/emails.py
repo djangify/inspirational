@@ -34,7 +34,7 @@ def send_order_confirmation_email(order):
         }
 
         html_content = render_to_string(
-            "account/email/order_confirmation.html", context
+            "accounts/email/order_confirmation.html", context
         )
         text_content = strip_tags(html_content)
 
@@ -92,7 +92,7 @@ def send_download_link_email(order_item):
         else:
             to_email = order_item.order.email
 
-        html_content = render_to_string("account/email/download_link.html", context)
+        html_content = render_to_string("accounts/email/download_link.html", context)
         text_content = strip_tags(html_content)
 
         subject = f"Your Download Link - {order_item.product.title}"
