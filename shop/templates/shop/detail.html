@@ -175,6 +175,11 @@
 
           <!-- Trust Icons -->
           <div class="border-t pt-6">
+            {% if has_purchased and order_item %}
+              <div class="bg-teal-50 border border-teal-700 text-teal-900 font-semibold p-4 rounded mb-4">
+                ✅ You purchased this product on {{ order_item.order.created|date:"j M Y" }} (Order ID: {{ order_item.order.order_id }})
+              </div>
+            {% endif %}
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-600">
               <div class="flex items-center"><span class="text-green-500 mr-2">✔</span>Secure Payment</div>
               <div class="flex items-center"><span class="text-blue-500 mr-2">↩</span>Easy Downloads</div>

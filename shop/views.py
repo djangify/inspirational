@@ -234,7 +234,7 @@ def payment_success(request):
             payment_intent_id=payment_intent_id
         ).first()
         if existing_order:
-            return redirect("shop:order_detail", order_id=existing_order.order_id)
+            return redirect("shop:purchases")
 
         cart = Cart(request)
 

@@ -10,7 +10,7 @@
 <h3>Order Details:</h3>
 <ul>
 {% for item in items %}
-    <li>{{ item.product.title }} - Quantity: {{ item.quantity }} - Price: £{{ order.get_total_cost|floatformat:2 }} </li>
+    <li>{{ item.name }} - Quantity: {{ item.quantity }} </li>
 {% endfor %}
 </ul>
 
