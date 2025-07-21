@@ -13,7 +13,7 @@
         <p class="text-slate-400 text-sm mb-4">
           Practical tools and encouragement for your personal growth journey.
         </p>
-        <h3 class="font-semibold mb-2 mt-6">Stay Updated</h3>
+        {% comment %} <h3 class="font-semibold mb-2 mt-6">Stay Updated</h3>
         <p class="text-slate-400 text-sm mb-3">Subscribe for new prompts and product updates.</p>
         <form class="flex" aria-label="Newsletter subscription">
           <input 
@@ -29,7 +29,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
             </svg>
           </button>
-        </form>
+        </form> {% endcomment %}
       </div>
 
       <!-- Links -->
@@ -38,7 +38,7 @@
         <ul class="space-y-2 text-sm">
           <li><a href="{% url 'core:homepage' %}" class="text-slate-400 hover:text-white">Home</a></li>
           <li><a href="/shop/" class="text-slate-400 hover:text-white">Shop</a></li>
-          <li><a href="{% url 'news:list' %}" class="text-slate-400 hover:text-white">News</a></li>
+          <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white">Login</a></li>
         </ul>
       </div>
 
@@ -47,6 +47,7 @@
         <h3 class="font-semibold mb-4">Resources</h3>
         <ul class="space-y-2 text-sm">
           <li><a href="{% url 'prompt:journal_prompt_generator' %}" class="text-slate-400 hover:text-white">Journal Prompt Help</a></li>
+          <li><a href="{% url 'news:list' %}" class="text-slate-400 hover:text-white">From The Journal</a></li>
         </ul>
       </div>
 
@@ -56,6 +57,8 @@
         <ul class="space-y-2 text-sm">
           <li><a href="/about/" class="text-slate-400 hover:text-white">About</a></li>
           <li><a href="/support/" class="text-slate-400 hover:text-white">Contact</a></li>
+          
+          <li><a href="{% url 'accounts:register' %}" class="text-slate-400 hover:text-white">Register</a></li>
         </ul>
       </div>
 
@@ -66,8 +69,7 @@
           <li><a href="{% url 'core:privacy_policy' %}" class="text-slate-400 hover:text-white">Privacy Policy</a></li>
           <li><a href="{% url 'core:cookie_policy' %}" class="text-slate-400 hover:text-white">Cookie Policy</a></li>
           <li><a href="{% url 'core:terms_conditions' %}" class="text-slate-400 hover:text-white">Terms & Conditions</a></li>
-          <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white">Login</a></li>
-          <li><a href="{% url 'accounts:register' %}" class="text-slate-400 hover:text-white">Register</a></li>
+ 
         </ul>
       </div>
 

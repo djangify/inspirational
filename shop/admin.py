@@ -247,3 +247,8 @@ class ProductReviewAdmin(admin.ModelAdmin):
     list_filter = ["rating", "verified_purchase", "created"]
     search_fields = ["product__title", "user__username", "comment"]
     readonly_fields = ["verified_purchase"]
+
+    def save_model(self, request, obj, form, change):
+        # Automatically mark all admin-created reviews as verified
+        obj.verified_purchase = True
+        super().save_model(request, obj, form, change)

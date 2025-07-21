@@ -12,11 +12,14 @@ def homepage(request):
     products = Product.objects.filter(featured=True, is_active=True, status="publish")[
         :4
     ]
+
     reviews = ProductReview.objects.select_related("product", "user").order_by("?")[:3]
     blog_posts = Post.objects.filter(publish_date__lte=now()).order_by("-publish_date")[
         :3
     ]
-
+    featured_product = Product.objects.filter(
+        featured=True, is_active=True, status="publish"
+    ).first()
     return render(
         request,
         "core/homepage.html",
@@ -24,6 +27,7 @@ def homepage(request):
             "products": products,
             "reviews": reviews,
             "blog_posts": blog_posts,
+            "featured_product": featured_product,
         },
     )
 
