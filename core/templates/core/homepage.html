@@ -122,7 +122,7 @@
             {% endfor %}
           </div>
           <p class="text-sm text-gray-700 italic">“{{ review.comment|truncatewords:20 }}”</p>
-          <p class="mt-2 text-sm text-gray-500">– {{ review.user.username }}</p>
+          <p class="mt-2 text-sm text-gray-500">– {{ review.user.first_name }}</p>
         </div>
         {% endfor %}
       </div>

@@ -1,7 +1,11 @@
        <!-- Reviews Section starts -->
         <div class="mt-16 bg-slate-50 border border-teal-700 p-6">
             <div class="border-b pb-4 mb-4">
-                <h3 class="text-2xl mb-4">Customer Reviews</h3>
+                
+                <h3 class="text-2xl mb-2">Customer Reviews</h3>
+                    <p class="text-sm font-semibold text-gray-500 mb-4">
+                    Only verified buyers can leave a review. Your feedback helps others decide!
+                    </p>
                 <div class="flex items-center gap-4">
                     <div class="flex items-center">
                         <span class="text-2xl mr-2">{{ product.average_rating|floatformat:1 }}</span>
@@ -29,23 +33,23 @@
                         {% csrf_token %}
                         <div class="mb-4">
                             <label class="block text-sm font-medium mb-2">Rating</label>
-                            <div class="flex gap-2">
-                                {% for value, label in form.rating.field.choices %}
-                                    {% if value <= 5 %}
-                                        <input type="radio" name="rating" value="{{ value }}" id="rating{{ value }}" 
-                                                class="hidden peer" required>
-                                        <label for="rating{{ value }}" 
-                                                class="cursor-pointer p-1 hover:scale-110 transition-transform">
-                                            <svg class="w-6 h-6 text-gray-300 hover:text-yellow-400 peer-checked:text-yellow-400 peer-checked:fill-yellow-400"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                                            </svg>
-                                        </label>
-                                    {% endif %}
+                            <div id="star-rating" class="flex gap-2">
+                                {% for value in "12345" %}
+                                <input type="radio" name="rating" value="{{ value }}" id="rating{{ value }}" class="hidden" />
+                                <label for="rating{{ value }}" class="cursor-pointer" data-rating="{{ value }}">
+                                    <svg class="w-6 h-6 star transition"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 
+                                            0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 
+                                            4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 
+                                            00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 
+                                            1 0 00-.363-1.118L2.98 10.101c-.784-.57-.38-1.81.588-1.81h4.915a1 1 
+                                            0 00.95-.69l1.519-4.674z" />
+                                    </svg>
+                                </label>
                                 {% endfor %}
                             </div>
-                        </div>
+                            </div>
 
                         <div class="mb-4">
                             <label class="block text-sm font-medium mb-2">Comment</label>
@@ -85,7 +89,8 @@
                                         {% endfor %}
                                     {% endwith %}
                                 </div>
-                                <span class="text-sm text-gray-600 block mt-1">by {{ review.user.profile.first_name }}</span>
+                                <span class="text-sm text-gray-600 block mt-1">by {{ review.user.first_name }}</span>
+                                
                             </div>
                             <div class="text-sm text-gray-500">{{ review.created|timesince }} ago</div>
                         </div>

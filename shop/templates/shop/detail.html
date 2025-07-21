@@ -100,14 +100,27 @@
             {% endif %}
           </div>
 
+         
           <!-- Reviews -->
-          <div class="text-yellow-400 flex items-center gap-1 mt-1">
-            {% comment %} Placeholder: replace with actual review average and count later {% endcomment %}
-            {% for i in "12345" %}
-                <svg class="w-5 h-5 fill-yellow-400 stroke-yellow-400" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782L19.868 24 12 19.896 4.132 24l2.934-9.008L1.132 9.21l8.2-1.192z"/></svg>
-            {% endfor %}
-            <span class="ml-2 text-sm text-gray-600">(Be the first to review)</span>
+          <div class="flex items-center gap-1 mt-1">
+            <div class="flex">
+              {% for i in "12345"|make_list %}
+                  {% if forloop.counter <= product.average_rating %}
+                      <svg class="w-5 h-5 text-yellow-400 fill-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782L19.868 24 12 19.896 4.132 24l2.934-9.008L1.132 9.21l8.2-1.192z"/>
+                      </svg>
+                  {% else %}
+                      <svg class="w-5 h-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782L19.868 24 12 19.896 4.132 24l2.934-9.008L1.132 9.21l8.2-1.192z"/>
+                      </svg>
+                  {% endif %}
+              {% endfor %}
             </div>
+            <span class="ml-2 text-sm text-gray-600">
+              ({{ product.total_reviews }} review{{ product.total_reviews|pluralize }})
+            </span>
+          </div>
+
 
           <!-- Description -->
           <div class="prose prose-gray max-w-none text-lg text-gray-600">
@@ -192,8 +205,9 @@
             </div>
           </div>
         </div>
-
       </div>
+      <!--reviews box-->
+      {% include 'components/reviews.html' %}
 
       <!-- Related Products -->
       {% if related_products %}
@@ -276,6 +290,37 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const labels = document.querySelectorAll("#star-rating label");
+
+    labels.forEach(label => {
+      label.addEventListener("click", function () {
+        const ratingValue = this.getAttribute("data-rating");
+
+        // Set the corresponding radio input to checked
+        const radio = document.getElementById(`rating${ratingValue}`);
+        if (radio) radio.checked = true;
+
+        // Reset all stars first
+        labels.forEach(l => {
+          l.querySelector("svg").classList.remove("fill-yellow-400", "text-yellow-400");
+          l.querySelector("svg").classList.add("fill-gray-300", "text-gray-300");
+        });
+
+        // Highlight stars up to the one selected
+        for (let i = 0; i < ratingValue; i++) {
+          const star = document.querySelector(`#rating${i + 1} + label svg`);
+          if (star) {
+            star.classList.remove("fill-gray-300", "text-gray-300");
+            star.classList.add("fill-yellow-400", "text-yellow-400");
+          }
+        }
+      });
+    });
+  });
+</script>
+
 {% block scripts %}
 <script src="{% static 'js/favourite-products.js' %}"></script>
 {% endblock %}
