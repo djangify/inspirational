@@ -1,0 +1,205 @@
+[
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What physical sensations are you noticing right now?",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": [
+        "body awareness",
+        "present moment"
+      ]
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What helps you stay grounded when you're overwhelmed?",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": [
+        "mindfulness",
+        "coping",
+        "calm"
+      ]
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine a calm river. Describe how it feels to be there.",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": [
+        "visualisation",
+        "relaxation",
+        "imagery"
+      ]
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Take 3 deep breaths. What thoughts or feelings show up?",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": [
+        "breathwork",
+        "focus",
+        "awareness"
+      ]
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What would your ideal life feel like?",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": [
+        "dream life",
+        "values",
+        "vision"
+      ]
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What daily action would bring you closer to who you are?",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": [
+        "identity",
+        "clarity",
+        "alignment"
+      ]
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What’s one small win from today?",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": [
+        "growth",
+        "motivation",
+        "celebration"
+      ]
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am becoming someone who...",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": [
+        "self-belief",
+        "empowerment",
+        "growth"
+      ]
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What’s one habit that helped you today?",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": [
+        "routine",
+        "habit",
+        "consistency"
+      ]
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What’s one small thing you can repeat today with love?",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": [
+        "compassion",
+        "self-love",
+        "ritual"
+      ]
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a ritual that helps you feel grounded.",
+      "category": "Daily Practice",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": [
+        "ritual",
+        "mindfulness",
+        "consistency"
+      ]
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I feel confident when I...",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": [
+        "social confidence",
+        "strength",
+        "identity"
+      ]
+    }
+  }
+]

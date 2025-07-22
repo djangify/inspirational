@@ -56,7 +56,9 @@ class WritingPrompt(models.Model):
     difficulty = models.CharField(
         max_length=15, choices=DIFFICULTY_CHOICES, default="medium"
     )
-    prompt_type = models.CharField(max_length=15, choices=TYPE_CHOICES, default="both")
+    prompt_type = models.CharField(
+        max_length=15, choices=TYPE_CHOICES, default="journal"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name="prompts")

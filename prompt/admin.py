@@ -9,10 +9,12 @@ class TagAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
+@admin.register(PromptCategory)
 class PromptCategoryAdmin(admin.ModelAdmin):
-    list_display = ("name", "description")
-    prepopulated_fields = {"slug": ("name",)}
-    search_fields = ("name",)
+    list_display = ("name", "sub_category", "slug")
+    list_filter = ("sub_category",)
+    search_fields = ("name", "sub_category")
+    fields = ("name", "sub_category", "slug", "description")
 
 
 @admin.register(WritingPrompt)
@@ -22,6 +24,7 @@ class WritingPromptAdmin(admin.ModelAdmin):
     list_filter = ("category", "writing_styles", "tags", "active")
     search_fields = ("text",)
     filter_horizontal = ("writing_styles", "tags")
+    exclude = ("prompt_type",)
 
     def text_preview(self, obj):
         return obj.text[:50] + ("..." if len(obj.text) > 50 else "")
@@ -103,6 +106,6 @@ class WritingSessionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Tag, TagAdmin)
-admin.site.register(PromptCategory, PromptCategoryAdmin)
+
 admin.site.register(WritingGoal, WritingGoalAdmin)
 admin.site.register(WritingSession, WritingSessionAdmin)

@@ -13,6 +13,8 @@ from .serializers import (
     WritingPromptSerializer,
 )
 import random
+from .models import WritingStyle
+from .serializers import WritingStyleSerializer
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
@@ -57,6 +59,12 @@ class WritingPromptViewSet(
             queryset = queryset.filter(prompt_type__in=prompt_types)
 
         return queryset
+
+
+class WritingStyleViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = WritingStyle.objects.all().order_by("name")
+    serializer_class = WritingStyleSerializer
+    permission_classes = [permissions.AllowAny]
 
 
 @api_view(["GET"])

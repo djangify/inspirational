@@ -1,3 +1,4 @@
+{% load static %}
 <div class="grid max-w-4xl px-4 pt-10 pb-8 mx-auto gap-4 lg:py-16">
   <div class="place-self-center">
     <h1 class="text-3xl font-bold mb-6 text-center">Journal Prompt Generator</h1>
@@ -27,9 +28,18 @@
                 <option value="deep">Deep Dive (30+ minutes)</option>
             </select>
         </div>
+
+        <!-- Writing Style Filter -->
+        <div class="w-full sm:w-auto">
+            <label for="writingStyle" class="block text-md font-medium text-gray-700 mb-1 text-center">Writing Style</label>
+            <select id="writingStyle" class="w-full h-12 text-center rounded-md border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-700">
+                <option value="">All Styles</option>
+                <!-- Populated dynamically with JS -->
+            </select>
+        </div>
         
         <!-- Type Filter -->
-        <div class="w-full sm:w-auto">
+        {% comment %} <div class="w-full sm:w-auto">
             <label for="promptType" class="block text-md font-medium text-gray-700 mb-1 text-center">Prompt Type</label>
             <select id="promptType" class="w-full h-12 text-center rounded-md border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-700">
                 <option value="">All Types</option>
@@ -37,7 +47,9 @@
                 <option value="memoir">Memoir/Memory</option>
                 <option value="both">Both</option>
             </select>
-        </div>
+        </div> {% endcomment %}
+
+        <!-- Prompt Button -->
         <div class="w-full flex justify-center">
             <button id="generateBtn" class="hover:bg-teal-900 text-white bg-teal-700 font-medium py-2 px-4 rounded-md transition duration-200">
               Generate Prompt
@@ -75,7 +87,11 @@
               <span id="promptDifficulty" class="ml-2">Medium (15-20 minutes)</span>
           </div>
       </div>
-      
+      <!-- Tag Badges -->
+        <div id="promptTags" class="flex flex-wrap gap-2 mt-2">
+        <!-- Tags will be dynamically inserted -->
+        </div>
+         <!-- Get another prompt -->
       <div class="flex justify-center mt-8">
           <button id="newPromptBtn" class="bg-yellow-500  hover:bg-yellow-600  text-white font-medium py-2 px-4 rounded-md transition duration-200">
               Get Another Prompt
@@ -83,7 +99,7 @@
       </div>
   </div>
 </div>
-
+<script src="{% static 'js/category-filter.js' %}"></script>
 <!-- Hidden input to store current prompt ID -->
 <input type="hidden" id="current-prompt-id" value="">
 </div>

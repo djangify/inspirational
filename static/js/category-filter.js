@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
+  // Category toggle logic
   const filterToggle = document.querySelector('[data-collapse-toggle="categories-grid"]');
   const categoriesGrid = document.getElementById('categories-grid');
   const filterIcon = document.getElementById('filterIcon');
@@ -6,21 +7,34 @@ document.addEventListener('DOMContentLoaded', function () {
   if (filterToggle && categoriesGrid && filterIcon) {
     filterToggle.addEventListener('click', function () {
       categoriesGrid.classList.toggle('hidden');
-      // Rotate the arrow icon
       filterIcon.style.transform = categoriesGrid.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
     });
 
-    // Show grid by default on larger screens
     function handleResize() {
-      if (window.innerWidth >= 1024) { // lg breakpoint
+      if (window.innerWidth >= 1024) {
         categoriesGrid.classList.remove('hidden');
       } else {
         categoriesGrid.classList.add('hidden');
       }
     }
 
-    // Initial check and listen for window resizes
     handleResize();
     window.addEventListener('resize', handleResize);
   }
+
+  // Writing style dropdown loader
+  fetch("/prompt/api/writing-styles/")
+    .then(response => response.json())
+    .then(data => {
+      const styleSelect = document.getElementById("writingStyle");
+      if (!styleSelect) return;
+
+      data.forEach(style => {
+        const option = document.createElement("option");
+        option.value = style.name;
+        option.textContent = style.name;
+        styleSelect.appendChild(option);
+      });
+    })
+    .catch(error => console.error("Failed to load writing styles:", error));
 });
