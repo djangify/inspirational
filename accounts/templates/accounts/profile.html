@@ -1,207 +1,57 @@
-{% extends "base.html" %} 
+{% extends "accounts/dashboard_layout.html" %}
 
-{% block content %}
-<div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6 lg:text-lg">
-   <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, {{ user.first_name|default:user.username }}</h1>
-  <p class="text-gray-600 text-base">This is your personal space for tracking progress, downloading content, and staying on track.</p>
+{% block dashboard_content %}
+<div class="max-w-3xl mx-auto  bg-white p-6 border border-teal-700 rounded-lg shadow space-y-6">
 
-  <!-- Secondary navigation -->
-  <div class="profile-nav mb-6">
-    <ul class="flex flex-wrap justify-center gap-4 text-sm">
-      <li>
-        <a href="#account" class="text-teal-700 hover:text-teal-700"
-          >Account Info</a
-        >
-      </li>
-      <li>
-        <a href="#writing" class="text-teal-700 hover:text-teal-700"
-          >Summary</a
-        >
-      </li>
-      {% comment %} <li>
-        <a href="#stats" class="text-teal-700 hover:text-teal-700">Stats</a>
-      </li> {% endcomment %}
+<!-- Profile Information -->
+<div class="bg-white p-6 mb-8 lg:text-lg">
+  <h2 class="text-2xl mb-4">Account Information</h2>
 
-      <li>
-        <a href="#saved-prompts" class="text-teal-700 hover:text-teal-700"
-          >Prompts</a
-        >
-      </li>
-      <li>
-        <a href="#resources" class="text-teal-700 hover:text-teal-700"
-          >Resources</a
-        >
-      </li>
-      <li>
-        <a href="{% url 'prompt:writing_progress' %}" class="text-teal-700 hover:text-teal-700"
-          >Tracker</a
-        >
-      </li>
-    </ul>
-  </div>
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
 
-  <!-- Include each component -->
-  <!-- Top Stats -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <!-- Purchased Products -->
-    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-      <p class="text-sm text-gray-600">Purchased Products</p>
-      <p class="text-2xl font-semibold text-gray-900">{{ purchased_count }}</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Username</label
+        >
+        <p class="text-gray-900 rounded-md border border-gray-300 py-2 px-3">
+          {{ user.username }}
+        </p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Email</label
+        >
+        <p class="text-gray-900 rounded-md border border-gray-300 py-2 px-3">
+          {{ user.email }}
+        </p>
+      </div>
     </div>
 
-    <!-- Saved Prompts -->
-    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-      <p class="text-sm text-gray-600">Saved Prompts</p>
-      <p class="text-2xl font-semibold text-gray-900">{{ favourite_prompts|length }}</p>
-    </div>
-    
-    <!-- Active Courses -->
-    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-      <p class="text-sm text-gray-600">Active Courses</p>
-      <p class="text-md font-semibold text-gray-400 italic">Coming Soon</p>
-    </div>
-
-   <!-- Account Status -->
-    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-      <p class="text-sm text-gray-600">Account Status</p>
-      <p class="text-lg font-semibold {% if user.profile.verified %}text-teal-700{% else %}text-yellow-600{% endif %}">
-        {% if user.profile.verified %}Active{% else %}Unverified{% endif %}
+    <div>
+      <label
+        for="{{ form.bio.id_for_label }}"
+        class="block text-sm font-medium text-gray-700 mb-1"
+      >
+        About You
+      </label>
+      {{ form.bio }}
+      <p class="text-gray-500 text-xs mt-1">
+        Share a bit about yourself and your writing interests
       </p>
     </div>
-  </div>
 
-  <!-- Quick Actions -->
-<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-  <h2 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-
-  <!-- Top Actions -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-    <a href="{% url 'shop:purchases' %}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
-      <svg class="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-      </svg>
-      <div>
-        <p class="font-medium text-gray-900">My Orders</p>
-        <p class="text-sm text-gray-600">Download Orders</p>
-      </div>
-    </a>
-
-    <a href="#account" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
-      <svg
-                class="w-6 h-6 text-teal-600 mr-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                ></path>
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-      <div>
-        <p class="font-medium text-gray-900">Update Profile</p>
-        <p class="text-sm text-gray-600">Edit your info</p>
-      </div>
-    </a>
-
-    <a href="/support" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
-      <svg class="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M5.636 5.636l3.536 3.536m0 5.656l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      <div>
-        <p class="font-medium text-gray-900">Get Support</p>
-        <p class="text-sm text-gray-600">Help & FAQs</p>
-      </div>
-    </a>
-  </div>
-
-  <!-- Bottom Actions -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    <a href="{% url 'shop:product_list' %}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
-      <svg class="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-      </svg>
-      <div>
-        <p class="font-medium text-gray-900">Browse Shop</p>
-        <p class="text-sm text-gray-600">Explore our store</p>
-      </div>
-    </a>
-
-    <a href="{% url 'shop:order_history' %}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
-      <svg class="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-      </svg>
-      <div>
-        <p class="font-medium text-gray-900">Order History</p>
-        <p class="text-sm text-gray-600">Past Orders</p>
-      </div>
-    </a>
-
-    <a href="/prompt/writing-progress/" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
-      <svg class="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-      <div>
-        <p class="font-medium text-gray-900">Tracker</p>
-        <p class="text-sm text-gray-600">Set Your Goals</p>
-      </div>
-    </a>
-  </div>
+    <div class="flex justify-end mt-6">
+      <button
+        type="submit"
+        class="bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-4 rounded-md transition duration-200"
+      >
+        Save Changes
+      </button>
+    </div>
+  </form>
 </div>
-
-<!-- profile.html template - Display favourite products -->
-<div id="saved-products" class="tab-content">
-    <h2 class="text-xl font-semibold mb-4">Your Wish List</h2>
-    {% if favourite_products %}
-        <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mt-8">
-            {% for product in favourite_products %}
-                <div class="border border-slate-200 rounded-lg p-4 hover:shadow-md">
-                    <img src="{{ product.get_image_url }}" alt="{{ product.title }}" class="w-full h-48 object-cover rounded mb-2">
-                    <h4 class="font-medium">{{ product.title }}</h4>
-                    <p class="text-gray-600">${{ product.price }}</p>
-                    <a href="{% url 'shop:product_detail' product.slug %}" class="text-blue-600 hover:underline">View Product</a>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p class="text-gray-600">You haven't added any products to your want list yet.</p>
-    {% endif %}
-</div>
-
-   <div id="saved-prompts" class="mt-8">
-    {% include "prompt/components/profile_saved_prompts.html" %}
-  </div>
-  
-  <div id="writing" class="mt-8">
-    {% include "prompt/components/profile_writing_tracker.html" %}
-  </div>
-
-
-  <div id="resources" class="mt-8">
-    {% include "prompt/components/writing_tips.html" %}
-  </div>
-
-  {% comment %} <div id="stats" class="mt-8">
-    {% include "prompt/components/stats.html" %}
-  </div> {% endcomment %}
-
- 
-  <div id="resources" class="mt-8">
-    {% include "prompt/components/profile_resources.html" %}
-  </div>
-
-    <div id="account">
-    {% include "prompt/components/profile_account_info.html" %}
-  </div>
-
-</div>
-
 
 {% endblock %}

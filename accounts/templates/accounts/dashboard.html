@@ -1,0 +1,49 @@
+{% extends 'accounts/dashboard_layout.html' %}
+
+{% block dashboard_content %}
+<div class="max-w-screen-xl mx-auto p-4 sm:p-6 lg:p-8 bg-white rounded-xl mt-16 space-y-12">
+
+  <h1 class="text-2xl font-bold text-gray-900">
+    Welcome back, {{ user.first_name|default:user.username }}
+  </h1>
+  <p class="text-gray-600 text-base">This is your personal space for tracking progress, downloading content, and staying on track.</p>
+
+  <!-- Stats section -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    {% include 'accounts/includes/dashboard_stats.html' %}
+  </div>
+
+  <!-- Quick actions -->
+  <div>
+    <h2 class="text-xl font-semibold mb-4">Quick Actions</h2>
+    {% include 'accounts/includes/dashboard_quick_actions.html' %}
+  </div>
+
+  <!-- Recent Activity -->
+  <div>
+    <h2 class="text-xl font-semibold mb-4">Your Wish List</h2>
+    {% include 'accounts/includes/dashboard_wishlist.html' %}
+  </div>
+
+  <div>
+    <h2 class="text-xl font-semibold mb-4">Saved Prompts</h2>
+    {% include 'prompt/components/profile_saved_prompts.html' %}
+  </div>
+
+  <div>
+    <h2 class="text-xl font-semibold mb-4">Writing Tracker</h2>
+    {% include 'prompt/components/profile_writing_tracker.html' %}
+  </div>
+
+  <div>
+    <h2 class="text-xl font-semibold mb-4">Resources</h2>
+    {% include 'prompt/components/profile_resources.html' %}
+  </div>
+
+  <div>
+    <h2 class="text-xl font-semibold mb-4">Account Info</h2>
+    {% include 'prompt/components/profile_account_info.html' %}
+  </div>
+
+</div>
+{% endblock %}

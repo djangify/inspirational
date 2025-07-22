@@ -147,6 +147,44 @@ def logout_view(request):
 
 
 @login_required
+def dashboard_view(request):
+    user = request.user
+
+    # Get purchased products
+    purchased_count = (
+        OrderItem.objects.filter(order__user=user).values("product").distinct().count()
+    )
+
+    # Get saved prompts
+    favourite_prompts = user.profile.favourite_prompts.all()
+
+    # Get saved products
+    favourite_products = user.profile.favourite_products.all()
+
+    # Member resources
+    member_resources = MemberResource.objects.filter(is_active=True).order_by(
+        "-created_at"
+    )
+
+    # Writing goals
+    active_goals = WritingGoal.objects.filter(user=user, active=True)
+
+    # Recent writing sessions
+    recent_sessions = WritingSession.objects.filter(user=user).order_by("-date")[:3]
+
+    context = {
+        "purchased_count": purchased_count,
+        "favourite_prompts": favourite_prompts,
+        "favourite_products": favourite_products,
+        "member_resources": member_resources,
+        "active_goals": active_goals,
+        "recent_sessions": recent_sessions,
+    }
+
+    return render(request, "accounts/dashboard.html", context)
+
+
+@login_required
 def profile_view(request):
     if request.method == "POST":
         form = UserProfileForm(request.POST, instance=request.user.profile)
@@ -157,46 +195,7 @@ def profile_view(request):
     else:
         form = UserProfileForm(instance=request.user.profile)
 
-    user = request.user
-
-    # Get favourite prompts
-    favourite_prompts = request.user.profile.favourite_prompts.all()
-
-    # Get favourite products
-    favourite_products = request.user.profile.favourite_products.all()
-
-    # Get purchased products
-    purchased_count = (
-        OrderItem.objects.filter(order__user=user).values("product").distinct().count()
-    )
-
-    # Get member resources
-    member_resources = MemberResource.objects.filter(is_active=True).order_by(
-        "-created_at"
-    )
-
-    # Get active writing goals for the user
-    active_goals = WritingGoal.objects.filter(user=request.user, active=True)
-
-    # Get recent writing sessions for the user
-    recent_sessions = WritingSession.objects.filter(user=request.user).order_by(
-        "-date"
-    )[:3]
-
-    return render(
-        request,
-        "accounts/profile.html",
-        {
-            "form": form,
-            "favourite_prompts": favourite_prompts,
-            "favourite_prompts_count": favourite_prompts.count(),
-            "favourite_products": favourite_products,
-            "member_resources": member_resources,
-            "active_goals": active_goals,
-            "recent_sessions": recent_sessions,
-            "purchased_count": purchased_count,
-        },
-    )
+    return render(request, "accounts/profile.html", {"form": form})
 
 
 @login_required

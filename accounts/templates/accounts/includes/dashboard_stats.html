@@ -1,0 +1,30 @@
+<!-- Dashboard Stats: Purchased, Saved, Courses, Account -->
+  <!-- Top Stats -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Purchased Products -->
+    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+      <p class="text-sm text-gray-600">Purchased Products</p>
+      <p class="text-2xl font-semibold text-gray-900">{{ purchased_count }}</p>
+    </div>
+
+    <!-- Saved Prompts -->
+    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+      <p class="text-sm text-gray-600">Saved Prompts</p>
+      <p class="text-2xl font-semibold text-gray-900">{{ favourite_prompts|length }}</p>
+    </div>
+    
+    <!-- Active Courses -->
+    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+      <p class="text-sm text-gray-600">Active Courses</p>
+      <p class="text-md font-semibold text-gray-400 italic">Coming Soon</p>
+    </div>
+
+   <!-- Account Status -->
+    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+      <p class="text-sm text-gray-600">Account Status</p>
+      <p class="text-lg font-semibold {% if user.profile.verified %}text-teal-700{% else %}text-yellow-600{% endif %}">
+        {% if user.profile.verified %}Active{% else %}Unverified{% endif %}
+      </p>
+    </div>
+  </div>
+

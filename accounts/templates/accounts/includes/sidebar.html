@@ -1,0 +1,53 @@
+<div class=" flex flex-col justify-between">
+  <div class="flex flex-col items-center pt-10 space-y-6">
+    <!-- Logo and Name -->
+    <div class="flex flex-col items-center">
+      <div class="w-12 h-12 bg-teal-700 rounded-full flex items-center justify-center">
+        <span class="text-white text-xl font-semibold">IG</span>
+      </div>
+      <span class="text-lg font-semibold text-slate-800 uppercase mt-2 text-center">Inspirational Guidance</span>
+    </div>
+
+    <!-- Navigation Links -->
+    <ul class="w-full px-4 space-y-2">
+      <li><a href="{% url 'accounts:dashboard' %}" class="block w-full hover:bg-gray-200 py-2 px-4 rounded-lg text-center">Dashboard</a></li>
+      <li><a href="{% url 'shop:purchases' %}" class="block w-full hover:bg-gray-200 py-2 px-4 rounded-lg text-center">My Orders</a></li>
+      <li><a href="{% url 'shop:product_list' %}" class="block w-full hover:bg-gray-200 py-2 px-4 rounded-lg text-center">Shop</a></li>
+      <li><a href="{% url 'prompt:writing_progress' %}" class="block w-full hover:bg-gray-200 py-2 px-4 rounded-lg text-center">Tracker</a></li>
+      <li><a href="{% url 'accounts:profile' %}" class="block w-full hover:bg-gray-200 py-2 px-4 rounded-lg text-center">Profile Info</a></li>
+      <li><a href="/support" class="block w-full hover:bg-gray-200 py-2 px-4 rounded-lg text-center">Support</a></li>
+    </ul>
+  </div>
+
+  <!-- Bottom Section -->
+  <div class="px-4 pb-6 space-y-4">
+    <a href="/support" class="flex items-center justify-center w-full px-4 py-2 bg-teal-700 text-white text-sm rounded hover:bg-teal-800">
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M5.636 5.636l3.536 3.536m0 5.656l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+      </svg>
+      Contact Support
+    </a>
+  <!--user info and logout-->
+
+    
+    <div class="p-4 border-t pt-5 border-gray-200">
+      <div
+        class="flex items-center space-x-3 text-gray-700 hover:scale-[1.02] transition-all duration-300 pt-10"
+      >
+        <i class="fas fa-user-circle text-xl"></i>
+        <div>
+          <div class="text-md font-medium">{{ user.username }}</div>
+          <div class="text-sm text-gray-500">{{ user.email }}</div>
+        </div>
+      </div>
+      <a
+        href="{% url 'accounts:logout' %}"
+        class="mt-4 flex items-center justify-center w-full px-4 py-2 text-red-600 border border-red-600 rounded-lg hover:bg-red-50"
+      >
+        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+      </a>
+    </div>
+
+  </div>
+</div>
