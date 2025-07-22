@@ -13,9 +13,10 @@ class PromptCategory(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
     slug = models.SlugField(unique=True)
+    sub_category = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.sub_category}" if self.sub_category else self.name
 
     def get_absolute_url(self):
         from django.urls import reverse
@@ -25,6 +26,14 @@ class PromptCategory(models.Model):
     class Meta:
         verbose_name_plural = "Prompt categories"
         ordering = ["name"]
+
+
+class WritingStyle(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class WritingPrompt(models.Model):
@@ -51,6 +60,9 @@ class WritingPrompt(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name="prompts")
+    writing_styles = models.ManyToManyField(
+        WritingStyle, blank=True, related_name="prompts"
+    )
 
     def __str__(self):
         return self.text[:50] + ("..." if len(self.text) > 50 else "")

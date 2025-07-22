@@ -16,7 +16,14 @@
 {% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-slate-50">
+{% if request.user.is_authenticated %}
+  <!-- Logged-in users see a clean, compact header -->
+  {% include "accounts/includes/logged_in_public_header.html" %}
+{% else %}
+  <!-- Logged-out users see the public navigation -->
+  {% include "includes/navbar.html" %}
+{% endif %}
+<div class="min-h-screen mt-16 bg-slate-50">
   <div class="container mx-auto px-4 py-12">
     <div class="max-w-6xl mx-auto">
       <div class="lg:grid lg:grid-cols-2 gap-12 space-y-8 lg:space-y-0">

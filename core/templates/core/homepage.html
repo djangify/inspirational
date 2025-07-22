@@ -5,9 +5,16 @@
 {% block title %}Home - Inspirational Guidance{% endblock %}
 
 {% block content %}
+{% if request.user.is_authenticated %}
+  <!-- Logged-in users see a clean, compact header -->
+  {% include "accounts/includes/logged_in_public_header.html" %}
+{% else %}
+  <!-- Logged-out users see the public navigation -->
+  {% include "includes/navbar.html" %}
+{% endif %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
 
-  <!-- Welcome Message -->
+  <!-- Welcomse Message -->
   {% comment %} <div class="text-center">
     <h1 class="text-2xl sm:text-3xl tracking-wide text-teal-700 uppercase">
       Welcome to Inspirational Guidance

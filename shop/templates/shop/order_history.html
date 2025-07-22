@@ -1,7 +1,16 @@
 <!-- shop/templates/shop/order_history.html -->
-{% extends "accounts/dashboard_layout.html" %}
+{% extends "base.html" %}
+{% load static %}
 
-{% block dashboard_content %}
+{% block content %}
+{% if request.user.is_authenticated %}
+  <!-- Logged-in users see a clean, compact header -->
+  {% include "accounts/includes/logged_in_public_header.html" %}
+{% else %}
+  <!-- Logged-out users see the public navigation -->
+  {% include "includes/navbar.html" %}
+{% endif %}
+
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-4xl mx-auto">
         <h1 class="text-3xl font-bold mb-8 text-gray-900">My Orders</h1>

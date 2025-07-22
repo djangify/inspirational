@@ -2,6 +2,13 @@
 {% load static %}
 
 {% block content %}
+{% if request.user.is_authenticated %}
+  <!-- Logged-in users see a clean, compact header -->
+  {% include "accounts/includes/logged_in_public_header.html" %}
+{% else %}
+  <!-- Logged-out users see the public navigation -->
+  {% include "includes/navbar.html" %}
+{% endif %}
 <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
     <h1 class="text-3xl font-bold mb-6 text-center">Writing Progress Tracker</h1>
 
