@@ -2,204 +2,2601 @@
   {
     "model": "prompt.writingprompt",
     "fields": {
-      "text": "What physical sensations are you noticing right now?",
-      "category": "Mindfulness",
+      "text": "If you had unlimited time and resources to explore Daily Practice, where would you start and why?",
+      "category": "Daily Practice",
       "difficulty": "medium",
       "prompt_type": "journal",
       "writing_styles": [
-        "Reflection"
+        "Exploration"
       ],
-      "tags": [
-        "body awareness",
-        "present moment"
-      ]
+      "tags": []
     }
   },
   {
     "model": "prompt.writingprompt",
     "fields": {
-      "text": "What helps you stay grounded when you're overwhelmed?",
-      "category": "Mindfulness",
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Life Purpose.",
+      "category": "Life Purpose",
       "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Visualize a space where you feel deeply connected to Intentional Living. What does it look, sound, and feel like?",
+      "category": "Intentional Living",
+      "difficulty": "deep",
       "prompt_type": "journal",
       "writing_styles": [
         "Grounding"
       ],
-      "tags": [
-        "mindfulness",
-        "coping",
-        "calm"
-      ]
+      "tags": []
     }
   },
   {
     "model": "prompt.writingprompt",
     "fields": {
-      "text": "Imagine a calm river. Describe how it feels to be there.",
+      "text": "Visualize a space where you feel deeply connected to Life Purpose. What does it look, sound, and feel like?",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Intentional Living.",
+      "category": "Intentional Living",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine you're mentoring someone new to Meditation. What advice and encouragement would you offer?",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Meditation shaped an important decision in your life. What did you learn from it?",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Think back to a challenge related to Meditation. How did you handle it, and what would you do differently now?",
+      "category": "Meditation",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Intentional Living — something you can revisit daily.",
+      "category": "Intentional Living",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Confidence Building. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Confidence Building",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Mindfulness. What does it say?",
+      "category": "Mindfulness",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Life Purpose.",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Meditation journey. What makes it effective?",
       "category": "Meditation",
       "difficulty": "easy",
       "prompt_type": "journal",
       "writing_styles": [
         "Grounding"
       ],
-      "tags": [
-        "visualisation",
-        "relaxation",
-        "imagery"
-      ]
+      "tags": []
     }
   },
   {
     "model": "prompt.writingprompt",
     "fields": {
-      "text": "Take 3 deep breaths. What thoughts or feelings show up?",
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Meditation.",
+      "category": "Meditation",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "If you had unlimited time and resources to explore Confidence Building, where would you start and why?",
+      "category": "Confidence Building",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Choose one specific way you’ll honour Confidence Building today, and outline the steps you’ll take.",
+      "category": "Confidence Building",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Think back to a challenge related to Intentional Living. How did you handle it, and what would you do differently now?",
+      "category": "Intentional Living",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Intentional Living.",
+      "category": "Intentional Living",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Life Purpose shaped an important decision in your life. What did you learn from it?",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "If you had unlimited time and resources to explore Meditation, where would you start and why?",
+      "category": "Meditation",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a powerful affirmation that supports your growth in Mindfulness. Repeat it three times aloud.",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Intentional Living — something you can revisit daily.",
+      "category": "Intentional Living",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Daily Practice evolved over the past year?",
+      "category": "Daily Practice",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Meditation evolved over the past year?",
+      "category": "Meditation",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine you're mentoring someone new to Confidence Building. What advice and encouragement would you offer?",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What unexplored questions do you have about Life Purpose? Let your curiosity guide your writing.",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Affirm your worth in the context of Meditation using positive, present-tense statements.",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Think back to a challenge related to Confidence Building. How did you handle it, and what would you do differently now?",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Affirm your worth in the context of Life Purpose using positive, present-tense statements.",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Intentional Living. What does it say?",
+      "category": "Intentional Living",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Confidence Building shaped an important decision in your life. What did you learn from it?",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Meditation shaped an important decision in your life. What did you learn from it?",
+      "category": "Meditation",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Daily Practice.",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Intentional Living. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Intentional Living",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "If you had unlimited time and resources to explore Confidence Building, where would you start and why?",
+      "category": "Confidence Building",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine you're mentoring someone new to Meditation. What advice and encouragement would you offer?",
+      "category": "Meditation",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Confidence Building journey. What makes it effective?",
+      "category": "Confidence Building",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Daily Practice.",
+      "category": "Daily Practice",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Visualize a space where you feel deeply connected to Daily Practice. What does it look, sound, and feel like?",
+      "category": "Daily Practice",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine you're mentoring someone new to Life Purpose. What advice and encouragement would you offer?",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Intentional Living. What does it say?",
+      "category": "Intentional Living",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Confidence Building.",
+      "category": "Confidence Building",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Choose one specific way you’ll honour Confidence Building today, and outline the steps you’ll take.",
+      "category": "Confidence Building",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Choose one specific way you’ll honour Meditation today, and outline the steps you’ll take.",
       "category": "Meditation",
       "difficulty": "easy",
       "prompt_type": "journal",
       "writing_styles": [
         "Intention"
       ],
-      "tags": [
-        "breathwork",
-        "focus",
-        "awareness"
-      ]
+      "tags": []
     }
   },
   {
     "model": "prompt.writingprompt",
     "fields": {
-      "text": "What would your ideal life feel like?",
+      "text": "Choose one specific way you’ll honour Mindfulness today, and outline the steps you’ll take.",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Daily Practice evolved over the past year?",
+      "category": "Daily Practice",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Meditation evolved over the past year?",
+      "category": "Meditation",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Confidence Building. What does it say?",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Mindfulness evolved over the past year?",
+      "category": "Mindfulness",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Life Purpose shaped an important decision in your life. What did you learn from it?",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Confidence Building evolved over the past year?",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Intentional Living. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Intentional Living",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Think back to a challenge related to Daily Practice. How did you handle it, and what would you do differently now?",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Daily Practice.",
+      "category": "Daily Practice",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Think back to a challenge related to Intentional Living. How did you handle it, and what would you do differently now?",
+      "category": "Intentional Living",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Visualize a space where you feel deeply connected to Intentional Living. What does it look, sound, and feel like?",
+      "category": "Intentional Living",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Visualize a space where you feel deeply connected to Mindfulness. What does it look, sound, and feel like?",
+      "category": "Mindfulness",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Confidence Building.",
+      "category": "Confidence Building",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Mindfulness. What does it say?",
+      "category": "Mindfulness",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Intentional Living.",
+      "category": "Intentional Living",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Life Purpose.",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Life Purpose — something you can revisit daily.",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Daily Practice.",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Meditation. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Meditation",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Intentional Living shaped an important decision in your life. What did you learn from it?",
+      "category": "Intentional Living",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "If you had unlimited time and resources to explore Life Purpose, where would you start and why?",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Daily Practice journey. What makes it effective?",
+      "category": "Daily Practice",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Meditation.",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Life Purpose.",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Mindfulness — something you can revisit daily.",
+      "category": "Mindfulness",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Affirm your worth in the context of Meditation using positive, present-tense statements.",
+      "category": "Meditation",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "If you had unlimited time and resources to explore Mindfulness, where would you start and why?",
+      "category": "Mindfulness",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a powerful affirmation that supports your growth in Life Purpose. Repeat it three times aloud.",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Confidence Building. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Confidence Building.",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Choose one specific way you’ll honour Confidence Building today, and outline the steps you’ll take.",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Confidence Building journey. What makes it effective?",
+      "category": "Confidence Building",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Daily Practice journey. What makes it effective?",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Affirm your worth in the context of Life Purpose using positive, present-tense statements.",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Mindfulness journey. What makes it effective?",
+      "category": "Mindfulness",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Daily Practice. What does it say?",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Daily Practice journey. What makes it effective?",
+      "category": "Daily Practice",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Mindfulness.",
+      "category": "Mindfulness",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine you're mentoring someone new to Life Purpose. What advice and encouragement would you offer?",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Intentional Living.",
+      "category": "Intentional Living",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What intention can you set for the next 7 days that aligns with your values around Meditation?",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What intention can you set for the next 7 days that aligns with your values around Meditation?",
+      "category": "Meditation",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Choose one specific way you’ll honour Mindfulness today, and outline the steps you’ll take.",
+      "category": "Mindfulness",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Life Purpose.",
       "category": "Life Purpose",
       "difficulty": "deep",
       "prompt_type": "journal",
       "writing_styles": [
         "Exploration"
       ],
-      "tags": [
-        "dream life",
-        "values",
-        "vision"
-      ]
+      "tags": []
     }
   },
   {
     "model": "prompt.writingprompt",
     "fields": {
-      "text": "What daily action would bring you closer to who you are?",
-      "category": "Life Purpose",
+      "text": "Write a powerful affirmation that supports your growth in Confidence Building. Repeat it three times aloud.",
+      "category": "Confidence Building",
       "difficulty": "medium",
-      "prompt_type": "journal",
-      "writing_styles": [
-        "Reflection"
-      ],
-      "tags": [
-        "identity",
-        "clarity",
-        "alignment"
-      ]
-    }
-  },
-  {
-    "model": "prompt.writingprompt",
-    "fields": {
-      "text": "What’s one small win from today?",
-      "category": "Confidence Building",
-      "difficulty": "easy",
-      "prompt_type": "journal",
-      "writing_styles": [
-        "Reflection"
-      ],
-      "tags": [
-        "growth",
-        "motivation",
-        "celebration"
-      ]
-    }
-  },
-  {
-    "model": "prompt.writingprompt",
-    "fields": {
-      "text": "I am becoming someone who...",
-      "category": "Confidence Building",
-      "difficulty": "easy",
       "prompt_type": "journal",
       "writing_styles": [
         "Affirmation"
       ],
-      "tags": [
-        "self-belief",
-        "empowerment",
-        "growth"
-      ]
+      "tags": []
     }
   },
   {
     "model": "prompt.writingprompt",
     "fields": {
-      "text": "What’s one habit that helped you today?",
+      "text": "Visualize a space where you feel deeply connected to Meditation. What does it look, sound, and feel like?",
+      "category": "Meditation",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Daily Practice evolved over the past year?",
       "category": "Daily Practice",
       "difficulty": "easy",
       "prompt_type": "journal",
       "writing_styles": [
         "Reflection"
       ],
-      "tags": [
-        "routine",
-        "habit",
-        "consistency"
-      ]
+      "tags": []
     }
   },
   {
     "model": "prompt.writingprompt",
     "fields": {
-      "text": "What’s one small thing you can repeat today with love?",
+      "text": "Visualize a space where you feel deeply connected to Daily Practice. What does it look, sound, and feel like?",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Confidence Building evolved over the past year?",
+      "category": "Confidence Building",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Confidence Building. What does it say?",
+      "category": "Confidence Building",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Mindfulness shaped an important decision in your life. What did you learn from it?",
+      "category": "Mindfulness",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine you're mentoring someone new to Confidence Building. What advice and encouragement would you offer?",
+      "category": "Confidence Building",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What intention can you set for the next 7 days that aligns with your values around Intentional Living?",
+      "category": "Intentional Living",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Choose one specific way you’ll honour Life Purpose today, and outline the steps you’ll take.",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Affirm your worth in the context of Daily Practice using positive, present-tense statements.",
+      "category": "Daily Practice",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Meditation. What does it say?",
+      "category": "Meditation",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Life Purpose. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Life Purpose. What does it say?",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Choose one specific way you’ll honour Daily Practice today, and outline the steps you’ll take.",
+      "category": "Daily Practice",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Life Purpose journey. What makes it effective?",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Mindfulness — something you can revisit daily.",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Mindfulness shaped an important decision in your life. What did you learn from it?",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Intentional Living evolved over the past year?",
+      "category": "Intentional Living",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Confidence Building — something you can revisit daily.",
+      "category": "Confidence Building",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Daily Practice. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Daily Practice",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "If you had unlimited time and resources to explore Daily Practice, where would you start and why?",
+      "category": "Daily Practice",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Intentional Living.",
+      "category": "Intentional Living",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Visualize a space where you feel deeply connected to Confidence Building. What does it look, sound, and feel like?",
+      "category": "Confidence Building",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What unexplored questions do you have about Meditation? Let your curiosity guide your writing.",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Intentional Living journey. What makes it effective?",
+      "category": "Intentional Living",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Daily Practice. What does it say?",
+      "category": "Daily Practice",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Meditation. What does it say?",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Visualize a space where you feel deeply connected to Life Purpose. What does it look, sound, and feel like?",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Life Purpose.",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What intention can you set for the next 7 days that aligns with your values around Daily Practice?",
+      "category": "Daily Practice",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Intentional Living.",
+      "category": "Intentional Living",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a powerful affirmation that supports your growth in Meditation. Repeat it three times aloud.",
+      "category": "Meditation",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a powerful affirmation that supports your growth in Intentional Living. Repeat it three times aloud.",
+      "category": "Intentional Living",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What unexplored questions do you have about Life Purpose? Let your curiosity guide your writing.",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Intentional Living.",
+      "category": "Intentional Living",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Mindfulness.",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Confidence Building.",
+      "category": "Confidence Building",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Visualize a space where you feel deeply connected to Intentional Living. What does it look, sound, and feel like?",
+      "category": "Intentional Living",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Confidence Building.",
+      "category": "Confidence Building",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Visualize a space where you feel deeply connected to Confidence Building. What does it look, sound, and feel like?",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Affirm your worth in the context of Confidence Building using positive, present-tense statements.",
+      "category": "Confidence Building",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a letter from your future self thanking you for committing to Mindfulness. What does it say?",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Daily Practice — something you can revisit daily.",
+      "category": "Daily Practice",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Choose one specific way you’ll honour Daily Practice today, and outline the steps you’ll take.",
       "category": "Daily Practice",
       "difficulty": "easy",
       "prompt_type": "journal",
       "writing_styles": [
         "Intention"
       ],
-      "tags": [
-        "compassion",
-        "self-love",
-        "ritual"
-      ]
+      "tags": []
     }
   },
   {
     "model": "prompt.writingprompt",
     "fields": {
-      "text": "Describe a ritual that helps you feel grounded.",
+      "text": "Imagine you're mentoring someone new to Daily Practice. What advice and encouragement would you offer?",
       "category": "Daily Practice",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Confidence Building shaped an important decision in your life. What did you learn from it?",
+      "category": "Confidence Building",
       "difficulty": "medium",
       "prompt_type": "journal",
       "writing_styles": [
-        "Grounding"
+        "Reflection"
       ],
-      "tags": [
-        "ritual",
-        "mindfulness",
-        "consistency"
-      ]
+      "tags": []
     }
   },
   {
     "model": "prompt.writingprompt",
     "fields": {
-      "text": "I feel confident when I...",
+      "text": "Reflect on a time when Meditation shaped an important decision in your life. What did you learn from it?",
+      "category": "Meditation",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Daily Practice — something you can revisit daily.",
+      "category": "Daily Practice",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Life Purpose shaped an important decision in your life. What did you learn from it?",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Intentional Living.",
+      "category": "Intentional Living",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Think back to a challenge related to Life Purpose. How did you handle it, and what would you do differently now?",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What unexplored questions do you have about Confidence Building? Let your curiosity guide your writing.",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Affirm your worth in the context of Confidence Building using positive, present-tense statements.",
       "category": "Confidence Building",
       "difficulty": "easy",
       "prompt_type": "journal",
       "writing_styles": [
         "Affirmation"
       ],
-      "tags": [
-        "social confidence",
-        "strength",
-        "identity"
-      ]
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Meditation — something you can revisit daily.",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Affirm your worth in the context of Life Purpose using positive, present-tense statements.",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Mindfulness — something you can revisit daily.",
+      "category": "Mindfulness",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What unexplored questions do you have about Meditation? Let your curiosity guide your writing.",
+      "category": "Meditation",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Daily Practice.",
+      "category": "Daily Practice",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Mindfulness evolved over the past year?",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What unexplored questions do you have about Mindfulness? Let your curiosity guide your writing.",
+      "category": "Mindfulness",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Confidence Building.",
+      "category": "Confidence Building",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Meditation evolved over the past year?",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Visualize a space where you feel deeply connected to Meditation. What does it look, sound, and feel like?",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Life Purpose journey. What makes it effective?",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "If you had unlimited time and resources to explore Meditation, where would you start and why?",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Intentional Living shaped an important decision in your life. What did you learn from it?",
+      "category": "Intentional Living",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Intentional Living. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Intentional Living",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Life Purpose.",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine you're mentoring someone new to Daily Practice. What advice and encouragement would you offer?",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What unexplored questions do you have about Daily Practice? Let your curiosity guide your writing.",
+      "category": "Daily Practice",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine you're mentoring someone new to Meditation. What advice and encouragement would you offer?",
+      "category": "Meditation",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a powerful affirmation that supports your growth in Confidence Building. Repeat it three times aloud.",
+      "category": "Confidence Building",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What unexplored questions do you have about Meditation? Let your curiosity guide your writing.",
+      "category": "Meditation",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "If you had unlimited time and resources to explore Life Purpose, where would you start and why?",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Affirm your worth in the context of Mindfulness using positive, present-tense statements.",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Life Purpose journey. What makes it effective?",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Visualize a space where you feel deeply connected to Life Purpose. What does it look, sound, and feel like?",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a powerful affirmation that supports your growth in Intentional Living. Repeat it three times aloud.",
+      "category": "Intentional Living",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "If you had unlimited time and resources to explore Intentional Living, where would you start and why?",
+      "category": "Intentional Living",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Mindfulness.",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Create a conversation between you and your inner critic about your journey with Daily Practice.",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Mindfulness. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Daily Practice. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Daily Practice",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine you're mentoring someone new to Mindfulness. What advice and encouragement would you offer?",
+      "category": "Mindfulness",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Mindfulness.",
+      "category": "Mindfulness",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Confidence Building.",
+      "category": "Confidence Building",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "If you had unlimited time and resources to explore Life Purpose, where would you start and why?",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Reflect on a time when Mindfulness shaped an important decision in your life. What did you learn from it?",
+      "category": "Mindfulness",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Affirm your worth in the context of Mindfulness using positive, present-tense statements.",
+      "category": "Mindfulness",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Choose one specific way you’ll honour Intentional Living today, and outline the steps you’ll take.",
+      "category": "Intentional Living",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What unexplored questions do you have about Confidence Building? Let your curiosity guide your writing.",
+      "category": "Confidence Building",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Exploration"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What intention can you set for the next 7 days that aligns with your values around Mindfulness?",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Choose one specific way you’ll honour Life Purpose today, and outline the steps you’ll take.",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Life Purpose — something you can revisit daily.",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "In what ways has your understanding of Life Purpose evolved over the past year?",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What intention can you set for the next 7 days that aligns with your values around Life Purpose?",
+      "category": "Life Purpose",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a powerful affirmation that supports your growth in Confidence Building. Repeat it three times aloud.",
+      "category": "Confidence Building",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine you're mentoring someone new to Mindfulness. What advice and encouragement would you offer?",
+      "category": "Mindfulness",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Life Purpose. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Life Purpose",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Imagine you're mentoring someone new to Mindfulness. What advice and encouragement would you offer?",
+      "category": "Mindfulness",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Dialogue"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Confidence Building. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Confidence Building",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What intention can you set for the next 7 days that aligns with your values around Daily Practice?",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Write a powerful affirmation that supports your growth in Daily Practice. Repeat it three times aloud.",
+      "category": "Daily Practice",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "I am aligning more each day with Meditation. Describe what this alignment feels like in your body and thoughts.",
+      "category": "Meditation",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Affirmation"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Describe a daily practice that helps you feel grounded in your Mindfulness journey. What makes it effective?",
+      "category": "Mindfulness",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Think back to a challenge related to Meditation. How did you handle it, and what would you do differently now?",
+      "category": "Meditation",
+      "difficulty": "medium",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Reflection"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Meditation.",
+      "category": "Meditation",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "What intention can you set for the next 7 days that aligns with your values around Life Purpose?",
+      "category": "Life Purpose",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "Craft a sentence that captures your purpose in practicing Daily Practice — something you can revisit daily.",
+      "category": "Daily Practice",
+      "difficulty": "easy",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Intention"
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "fields": {
+      "text": "List three grounding rituals that bring you back to your core values around Mindfulness.",
+      "category": "Mindfulness",
+      "difficulty": "deep",
+      "prompt_type": "journal",
+      "writing_styles": [
+        "Grounding"
+      ],
+      "tags": []
     }
   }
 ]

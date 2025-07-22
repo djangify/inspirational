@@ -1,7 +1,10 @@
 // favourite-products.js
+
 document.addEventListener('DOMContentLoaded', function () {
   // Handle favourite button clicks
-  document.querySelectorAll('.favourite-btn').forEach(button => {
+  const buttons = document.querySelectorAll('.favourite-btn');
+
+  buttons.forEach(button => {
     button.addEventListener('click', function (e) {
       e.preventDefault();
 
@@ -21,11 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
           "X-Requested-With": "XMLHttpRequest"
         }
       })
-
         .then(response => response.json())
         .then(data => {
           if (data.status === 'success') {
-            // Update button text based on favourite status
             if (data.is_favourite) {
               this.innerHTML = '❤️ Remove from Wish List';
               this.classList.add('bg-red-50', 'border-red-300');
@@ -33,10 +34,11 @@ document.addEventListener('DOMContentLoaded', function () {
               this.innerHTML = '🤍 Add to Wish List';
               this.classList.remove('bg-red-50', 'border-red-300');
             }
+          } else if (data.status === 'unauthenticated') {
+            window.location.href = data.redirect_url;
           } else {
-            // Restore original text on error
             this.innerHTML = originalText;
-            alert('Something went wrong. Please try again.');
+            console.error('Unexpected response:', data);
           }
         })
         .catch(error => {
@@ -56,22 +58,20 @@ document.addEventListener('DOMContentLoaded', function () {
     savedProductsLink.addEventListener('click', function (e) {
       e.preventDefault();
 
-      // Hide all tab contents
       document.querySelectorAll('.tab-content').forEach(tab => {
         tab.style.display = 'none';
       });
 
-      // Show saved products tab
       const savedProductsTab = document.getElementById('saved-products');
       if (savedProductsTab) {
         savedProductsTab.style.display = 'block';
       }
 
-      // Update active tab styling
       document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.classList.remove('text-teal-800', 'font-semibold');
         link.classList.add('text-teal-700');
       });
+
       this.classList.add('text-teal-800', 'font-semibold');
       this.classList.remove('text-teal-700');
     });

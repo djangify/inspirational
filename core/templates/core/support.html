@@ -2,13 +2,7 @@
 {% load widget_tweaks %}
 {% block content %}
 
-{% if request.user.is_authenticated %}
-  <!-- Logged-in users see a clean, compact header -->
-  {% include "accounts/includes/logged_in_public_header.html" %}
-{% else %}
-  <!-- Logged-out users see the public navigation -->
-  {% include "includes/navbar.html" %}
-{% endif %}
+
 
 <main class="px-6 py-16 mx-auto max-w-4xl lg:px-8">
   

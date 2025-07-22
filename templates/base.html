@@ -28,15 +28,13 @@
     {% block extra_meta %}{% endblock %}
   </head>
   <body class="text-lg 2xl:max-w-screen-2xl 2xl:mx-auto 2xl:bg-primary flex flex-col min-h-screen">
-    {% if user.is_authenticated %}
-      {% if '/news/' in request.path or '/policy/policies/' in request.path or '/quick_start/' in request.path %}
-        {% include 'accounts/includes/logged_in_public_header.html' %}
-      {% endif %}
-    {% else %}
-      {% include 'components/navbar.html' %}
-    {% endif %}
-
-
+ {% if show_navbar|default:True %}
+  {% if request.user.is_authenticated %}
+    {% include "accounts/includes/logged_in_public_header.html" %}
+  {% else %}
+    {% include "components/navbar.html" %}
+  {% endif %}
+{% endif %}
   
     <main class="flex-1">
       {% block content %}
@@ -74,6 +72,10 @@
         <!-- Scripts -->
     <script src="{% static 'js/accordion.js' %}"></script>
     <script src="{% static 'js/messages.js' %}"></script>
+    <script src="{% static 'js/category-filter.js' %}"></script>
+    <script src="{% static 'js/prompt-generator.js' %}"></script>
+    <script src="{% static 'js/favourite-prompt.js' %}"></script>
+    <script src="{% static 'js/favourite-products.js' %}"></script>
     
     {% block scripts %}{% endblock %}
   </body>

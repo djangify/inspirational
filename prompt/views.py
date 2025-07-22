@@ -34,20 +34,19 @@ class WritingPromptViewSet(
 ):  # Changed to ReadOnlyModelViewSet
     queryset = WritingPrompt.objects.filter(active=True)
     serializer_class = WritingPromptSerializer
-    permission_classes = [permissions.AllowAny]  # Changed to AllowAny
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
-        """
-        Allow filtering by query parameters
-        """
         queryset = WritingPrompt.objects.filter(active=True)
 
         # Get query parameters
         category_slug = self.request.query_params.get("category__slug", None)
         difficulty = self.request.query_params.get("difficulty", None)
         prompt_type = self.request.query_params.get("prompt_type__in", None)
+        writing_style = self.request.query_params.get("writing_style", None)
+        tags = self.request.query_params.get("tags", None)
 
-        # Apply filters if provided
+        # Apply filters
         if category_slug:
             queryset = queryset.filter(category__slug=category_slug)
 
@@ -57,6 +56,13 @@ class WritingPromptViewSet(
         if prompt_type:
             prompt_types = prompt_type.split(",")
             queryset = queryset.filter(prompt_type__in=prompt_types)
+
+        if writing_style:
+            queryset = queryset.filter(writing_styles__name__iexact=writing_style)
+
+        if tags:
+            tag_list = tags.split(",")
+            queryset = queryset.filter(tags__name__in=tag_list).distinct()
 
         return queryset
 

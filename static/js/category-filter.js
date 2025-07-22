@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Category toggle logic
+  // Category toggle logic (for visual filter grid, not dropdown)
   const filterToggle = document.querySelector('[data-collapse-toggle="categories-grid"]');
   const categoriesGrid = document.getElementById('categories-grid');
   const filterIcon = document.getElementById('filterIcon');
@@ -22,12 +22,15 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('resize', handleResize);
   }
 
-  // Writing style dropdown loader
+  // Populate Writing Style dropdown
   fetch("/prompt/api/writing-styles/")
     .then(response => response.json())
     .then(data => {
       const styleSelect = document.getElementById("writingStyle");
       if (!styleSelect) return;
+
+      // Remove existing dynamic options (keep only the first)
+      styleSelect.querySelectorAll("option:not(:first-child)").forEach(opt => opt.remove());
 
       data.forEach(style => {
         const option = document.createElement("option");
@@ -35,6 +38,27 @@ document.addEventListener("DOMContentLoaded", function () {
         option.textContent = style.name;
         styleSelect.appendChild(option);
       });
+    });
+
+  // Populate Category dropdown
+  fetch("/prompt/api/categories/")
+    .then(response => response.json())
+    .then(data => {
+      const categorySelect = document.getElementById("category");
+      if (!categorySelect) return;
+
+      // Remove dynamic options except the first
+      categorySelect.querySelectorAll("option:not(:first-child)").forEach(opt => opt.remove());
+
+      const categories = data.results || data;
+      categories.forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat.slug;
+        option.textContent = cat.name;
+        categorySelect.appendChild(option);
+      });
     })
-    .catch(error => console.error("Failed to load writing styles:", error));
+    .catch(error => {
+      console.error("Failed to load categories:", error);
+    });
 });

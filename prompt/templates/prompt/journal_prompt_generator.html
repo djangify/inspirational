@@ -1,27 +1,30 @@
 {% extends "base.html" %}
 {% load static %}
 
-
-
 {% block title %}Journal Prompt Generator - Daily Writing Prompts for Journaling{% endblock %}
 
 {% block meta_description %}Use our free journal prompt generator to discover inspiring writing prompts for your daily journaling practice. Find prompts for self-reflection, personal growth, and memoir writing.{% endblock %}
 
 {% block content %}
-{% if request.user.is_authenticated %}
-  <!-- Logged-in users see a clean, compact header -->
-  {% include "accounts/includes/logged_in_public_header.html" %}
-{% else %}
-  <!-- Logged-out users see the public navigation -->
-  {% include "includes/navbar.html" %}
-{% endif %}
 
-    {% include "prompt/components/prompt_hero.html" %}
+
+<div class="grid max-w-4xl   px-4 pt-10 pb-8 mx-auto gap-4 lg:py-16">
+  <div class="place-self-center">
+    <h1 class="text-3xl font-bold mb-6 text-center">Journal Prompt Generator</h1>
+    <div class="text-center rounded-lg p-4">
+        <p class="py-2 lg:text-lg"> Welcome! Our journal prompt generator provides prompts for journal and memoir writing. It has been designed to spark your creativity and guide your writing practice. Choose from a variety of categories, difficulty levels, and prompt types. Whether you're looking for a quick journaling exercise or a deep dive into your memories, we've got you covered.</p>
+        <p class="py-2 lg:text-lg"> Just click the "Generate Prompt" button if you want a random prompt or select from  category, time required and different styles. Enjoy!</p>
+    </div>
+  </div>   
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
+     {% include "prompt/components/prompt_hero.html" %}
+    </div>
 
     <!-- Main content section -->
-    <section class="bg-white py-12">
-        <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-6 text-center">Why Use a Journal Prompt Generator?</h2>
+    <section class="bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-center">Why Use a Journal Prompt Generator?</h2>
             
             <div class="prose prose-lg mx-auto mb-8 font-light lg:text-lg">
                 <p class="mb-4 py-4">Journal writing is a powerful tool for emotional well-being. A good writing prompt does more than just give you something to write about. It invites exploration, encourages deeper thinking, and often leads to unexpected insights. Our generator offers prompts across various categories and you can filter by the time you have available. This flexibility ensures you always find the right prompt for your mood and schedule.</p>

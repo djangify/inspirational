@@ -5,24 +5,9 @@
 {% block title %}Home - Inspirational Guidance{% endblock %}
 
 {% block content %}
-{% if request.user.is_authenticated %}
-  <!-- Logged-in users see a clean, compact header -->
-  {% include "accounts/includes/logged_in_public_header.html" %}
-{% else %}
-  <!-- Logged-out users see the public navigation -->
-  {% include "includes/navbar.html" %}
-{% endif %}
+
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
 
-  <!-- Welcomse Message -->
-  {% comment %} <div class="text-center">
-    <h1 class="text-2xl sm:text-3xl tracking-wide text-teal-700 uppercase">
-      Welcome to Inspirational Guidance
-    </h1>
-    <p class="mt-2 text-lg text-gray-700">
-      Practical tools and encouragement for your personal growth journey.
-    </p>
-  </div> {% endcomment %}
 
 <section class="bg-slate-50 py-12">
   <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
@@ -133,7 +118,11 @@
     </div>
   </section>
   {% endif %}
-
+  <section class="my-12">
+    <div class="max-w-7xl mx-auto px-4">
+      {% include "prompt/components/prompt_hero.html" %}
+    </div>
+  </section>
   <!-- About / Mission -->
   <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
     <div>
@@ -150,9 +139,7 @@
       <img src="{% static 'images/diana-morgan.webp' %}" alt="Diana Morgan" class="rounded-xl shadow-md object-cover w-full h-72 md:h-80">
     </div>
   </section>
-  <div>
-      <img src="{% static 'images/quiet.png' %}" alt="Diana Morgan" class="w-full h-auto  object-cover">
-    </div>
+ 
 
       <!-- Testimonials -->
     {% if reviews %}
@@ -201,7 +188,7 @@
               <div class="p-4">
                 <h3 class="text-lg font-bold text-gray-900 mb-2">{{ post.title }}</h3>
                 <p class="text-sm text-gray-700 mb-3">{{ post.content|striptags|truncatewords:18 }}</p>
-                <span class="text-[#227c81] hover:text-teal-700 text-sm font-medium">Read more →</span>
+                <span class="text-teal-700 hover:text-teal-700 text-sm font-medium">Read more →</span>
               </div>
             </a>
           </div>
@@ -213,4 +200,5 @@
   </div>
 
 </div>
+
 {% endblock %}
