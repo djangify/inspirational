@@ -1,0 +1,188 @@
+<header class="bg-slate-50 border-b border-gray-200">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between py-4">
+      <!-- Logo and Brand -->
+      <div class="flex items-center">
+        <a href="{% url 'core:homepage' %}" class="flex items-center">
+          <img
+            src="/static/images/ig-header-logo.png"
+            class="h-8 mr-3"
+            alt="Inspirational Guidance Logo"
+          />
+          <span class="self-center text-xl font-semibold whitespace-nowrap">
+            Inspirational Guidance
+          </span>
+        </a>
+      </div>
+
+      <!-- Navigation Links (Desktop) -->
+      <div class="hidden md:flex md:items-center space-x-6">
+        <nav class="flex items-center space-x-8 mr-8">
+          <a
+            href="#"
+            class="text-gray-700 hover:text-teal-700 font-medium px-2 py-1 {% if '/documentation/' in request.path %}text-teal-700{% endif %}"
+          >
+            Docs
+          </a>
+          <a
+            href="/news/"
+            class="text-gray-700 hover:text-teal-700 font-medium px-2 py-1 {% if '/news/' in request.path %}text-teal-700{% endif %}"
+          >
+            Blog
+          </a>
+        </nav>
+
+        <div class="flex items-center space-x-6">
+          <a
+            href="{% url 'accounts:dashboard' %}"
+            class="bg-teal-700 text-white font-medium rounded-lg px-5 py-2 hover:bg-teal-700 transition-colors"
+          >
+            Dashboard
+          </a>
+
+          <!-- User Menu (Desktop) -->
+          <div class="relative" x-data="{ open: false }">
+            <button
+              type="button"
+              class="flex items-center text-gray-700 hover:text-teal-700"
+              id="user-menu-button"
+              @click="open = !open"
+            >
+              <div
+                class="h-8 w-8 rounded-full  bg-teal-100 flex items-center justify-center text-teal-700 mr-2"
+              >
+                <span class="font-medium">{{ user.username.0|upper }}</span>
+              </div>
+              <span class="font-medium mr-1 hidden sm:inline">
+                {{ user.username }}
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div
+              id="user-dropdown"
+              class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            >
+              <div class="px-4 py-2 text-sm text-gray-700 border-b">
+                <p class="font-medium truncate">{{ user.email }}</p>
+              </div>
+              <a
+                href="{% url 'accounts:profile' %}"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Profile
+              </a>
+              <a
+                href="{% url 'accounts:dashboard' %}"
+                class="block px-4 py-2 text-sm bg-teal-100 text-gray-700 hover:bg-gray-100"
+              >
+                Dashboard
+              </a>
+              <a
+                href="{% url 'accounts:logout' %}"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Sign out
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button
+        type="button"
+        class="md:hidden text-gray-700 hover:text-gray-900 focus:outline-none"
+        id="mobile-menu-button"
+      >
+        <svg
+          class="h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="hidden md:hidden pb-3" id="mobile-menu">
+      <nav class="space-y-2">
+        <a
+          href="#"
+          class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/documentation/' in request.path %}text-teal-700 font-medium{% endif %}"
+        >
+          Documentation
+        </a>
+        <a
+          href="/news/"
+          class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/news/' in request.path %}text-teal-700 font-medium{% endif %}"
+        >
+          Blog
+        </a>
+        <a
+          href="{% url 'accounts:dashboard' %}"
+          class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md"
+        >
+          Dashboard
+        </a>
+        <a
+          href="{% url 'accounts:profile' %}"
+          class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md"
+        >
+          Profile
+        </a>
+        <a
+          href="{% url 'accounts:logout' %}"
+          class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md"
+        >
+          Sign out
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.getElementById("mobile-menu-button").addEventListener("click", function () {
+    document.getElementById("mobile-menu").classList.toggle("hidden");
+  });
+
+  document.getElementById("user-menu-button").addEventListener("click", function () {
+    document.getElementById("user-dropdown").classList.toggle("hidden");
+  });
+
+  document.addEventListener("click", function (event) {
+    const dropdown = document.getElementById("user-dropdown");
+    const button = document.getElementById("user-menu-button");
+    if (
+      dropdown &&
+      !dropdown.classList.contains("hidden") &&
+      !dropdown.contains(event.target) &&
+      !button.contains(event.target)
+    ) {
+      dropdown.classList.add("hidden");
+    }
+  });
+</script>
