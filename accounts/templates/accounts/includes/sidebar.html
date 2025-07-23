@@ -3,14 +3,14 @@
 
   <div class="flex flex-col items-center pt-10 space-y-6">
     <!-- Logo and Name -->
-    <div class="flex flex-col items-center">
+    {% comment %} <div class="flex flex-col items-center">
       <img
             src="/static/images/ig-header-logo.png"
             class="h-8 mr-3"
             alt="Inspirational Guidance Logo"
           />
       <span class="text-lg font-semibold text-slate-800 uppercase mt-2 text-center">Inspirational Guidance</span>
-    </div>
+    </div> {% endcomment %}
 
     <!-- Navigation Links -->
     <ul class="w-full px-4 space-y-2">
@@ -19,12 +19,12 @@
       <li><a href="{% url 'shop:product_list' %}" class="block w-full hover:bg-gray-200 py-2 px-4 rounded-lg text-center">Shop</a></li>
       <li><a href="{% url 'prompt:writing_progress' %}" class="block w-full hover:bg-gray-200 py-2 px-4 rounded-lg text-center">Tracker</a></li>
       <li><a href="{% url 'accounts:profile' %}" class="block w-full hover:bg-gray-200 py-2 px-4 rounded-lg text-center">Profile Info</a></li>
-      <li><a href="/support" class="block w-full hover:bg-gray-200 py-2 px-4 rounded-lg text-center">Support</a></li>
+      
     </ul>
   </div>
 
   <!-- Bottom Section -->
-  <div class="px-4 pb-6 space-y-4">
+  <div class="px-4 pb-6 mt-16 space-y-4">
     <a href="/support" class="flex items-center justify-center w-full px-4 py-2 bg-teal-700 text-white text-sm rounded hover:bg-teal-800">
       <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -47,7 +47,7 @@
       </div>
       <a
         href="{% url 'accounts:logout' %}"
-        class="mt-4 flex items-center justify-center w-full px-4 py-2 text-red-600 border border-red-600 rounded-lg hover:bg-red-50"
+        class="mt-8 flex items-center justify-center w-full px-4 py-2 text-red-600 border border-red-600 rounded-lg hover:bg-red-50"
       >
         <i class="fas fa-sign-out-alt mr-2"></i> Logout
       </a>

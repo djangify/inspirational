@@ -3,9 +3,11 @@
 {% block content %}
 
 <!-- Show public header on small screens -->
-<div class="lg:hidden">
-  {% include "accounts/includes/logged_in_public_header.html" %}
-</div>
+{% comment %} {% if show_navbar|default:True %}
+  <div class="lg:hidden">
+    {% include "accounts/includes/logged_in_public_header.html" %}
+  </div>
+{% endif %} {% endcomment %}
 
 <div class="flex min-h-screen bg-white">
   <div class="hidden lg:block w-64 bg-slate-50 p-6 border-r">

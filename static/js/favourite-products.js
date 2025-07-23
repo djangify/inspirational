@@ -24,7 +24,14 @@ document.addEventListener('DOMContentLoaded', function () {
           "X-Requested-With": "XMLHttpRequest"
         }
       })
-        .then(response => response.json())
+        .then(async response => {
+          const contentType = response.headers.get("content-type");
+          if (response.ok && contentType && contentType.includes("application/json")) {
+            return response.json();
+          } else {
+            throw new Error("Invalid JSON response");
+          }
+        })
         .then(data => {
           if (data.status === 'success') {
             if (data.is_favourite) {
@@ -38,13 +45,11 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.href = data.redirect_url;
           } else {
             this.innerHTML = originalText;
-            console.error('Unexpected response:', data);
           }
         })
         .catch(error => {
           console.error('Error:', error);
           this.innerHTML = originalText;
-          alert('Something went wrong. Please try again.');
         })
         .finally(() => {
           this.disabled = false;
@@ -52,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Handle tab switching for saved products
+  // Optional: Handle tab switching for saved products
   const savedProductsLink = document.querySelector('a[href="#saved-products"]');
   if (savedProductsLink) {
     savedProductsLink.addEventListener('click', function (e) {

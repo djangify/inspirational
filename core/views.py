@@ -52,17 +52,6 @@ def content_view(request):
     return render(request, template_name)
 
 
-def about(request):
-    """
-    View for the About page
-    """
-    context = {
-        "title": "About Inspirational Guidance",
-        "meta_description": "Inspirational Guidance provides self-help guides and teach practical life skills",
-    }
-    return render(request, "core/about.html", context)
-
-
 @login_required
 def support_view(request):
     if request.method == "POST":
