@@ -12,7 +12,17 @@ def news_list(request):
         status="published", publish_date__lte=timezone.now()
     ).select_related("category")
 
-    paginator = Paginator(posts, 12)
+    # Get featured posts (limit to 5)
+    featured_posts = posts.filter(featured=True).order_by("-publish_date")[:5]
+
+    # Get list of featured IDs
+    featured_ids = [post.id for post in featured_posts]
+
+    # Filter regular posts after featured have been determined
+    regular_posts = posts.exclude(id__in=featured_ids)
+
+    # Paginate the regular posts
+    paginator = Paginator(regular_posts, 12)
     page = request.GET.get("page")
     posts = paginator.get_page(page)
 
@@ -22,6 +32,7 @@ def news_list(request):
         "title": "News",
         "meta_description": "Latest news and updates from Stream English",
         "debug": settings.DEBUG,
+        "featured_posts": featured_posts,
     }
     return render(request, "news/list.html", context)
 
@@ -30,18 +41,14 @@ def category_list(request, slug):
     category = get_object_or_404(Category, slug=slug)
     posts = Post.objects.filter(
         category=category, status="published", publish_date__lte=timezone.now()
-    ).order_by("-publish_date")  # Add explicit ordering
-
-    paginator = Paginator(posts, 12)
-    page = request.GET.get("page")
-    posts = paginator.get_page(page)
+    ).order_by("-publish_date")
 
     context = {
         "category": category,
         "posts": posts,
         "categories": Category.objects.all(),
         "title": f"{category.name} - News",
-        "meta_description": f"Latest news and updates about {category.name} from Stream English",
+        "meta_description": f"Latest news and updates about {category.name} from Inspirational Guidance",
     }
 
     return render(request, "news/category.html", context)

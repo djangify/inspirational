@@ -16,9 +16,18 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ["title", "category", "status", "publish_date", "display_thumbnail"]
-    list_filter = ["status", "category", "created", "publish_date"]
-    search_fields = ["title", "content", "meta_title", "meta_description"]
+    list_display = [
+        "title",
+        "category",
+        "status",
+        "featured",
+        "publish_date",
+        "display_thumbnail",
+    ]
+    list_editable = ["featured"]
+    list_filter = ["status", "category", "featured", "created", "publish_date"]
+
+    search_fields = ["title", "content", "featured", "meta_title", "meta_description"]
     prepopulated_fields = {"slug": ("title",)}
     date_hierarchy = "publish_date"
     readonly_fields = ["display_media"]
@@ -34,6 +43,7 @@ class PostAdmin(admin.ModelAdmin):
                     "content",
                     "status",
                     "publish_date",
+                    "featured",
                 ),
             },
         ),

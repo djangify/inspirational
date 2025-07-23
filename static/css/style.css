@@ -1,0 +1,30 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  /* 1 */
+  border-width: 0;
+  /* 2 */
+  border-style: solid;
+  /* 2 */
+  border-color: #E5E7EB;
+  /* 2 */
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+/* Social Share */
+.social-share a {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.social-share {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  /* This creates even spacing */
+}

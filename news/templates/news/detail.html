@@ -43,8 +43,11 @@
             {% endif %}
         {% endif %}
 
-
-        <div class="prose prose-lg text-gray-800 leading-relaxed">
+        <div class="mb-6">
+            <p class="text-sm text-gray-600 mb-2">Thanks, for sharing:</p>
+            {% include 'components/social_share.html' %}
+        </div>
+        <div class="prose prose-lg text-gray-800">
             {{ post.content|safe }}
         </div>
         {% if post.resource_type != 'none' and post.resource %}
