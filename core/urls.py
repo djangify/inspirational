@@ -2,6 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 from .views import homepage, support_view
 
+
 app_name = "core"
 
 urlpatterns = [
@@ -41,3 +42,6 @@ urlpatterns = [
         name="ai_disclaimer",
     ),
 ]
+handler404 = "core.views.handler404"
+handler500 = "core.views.handler500"
+handler403 = "core.views.handler403"
