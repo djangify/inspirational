@@ -15,6 +15,7 @@ class WritingGoalForm(forms.ModelForm):
         model = WritingGoal
         fields = [
             "goal_type",
+            "goal_label",
             "target_value",
             "frequency",
             "start_date",
@@ -58,6 +59,10 @@ class WritingGoalForm(forms.ModelForm):
         self.fields["target_value"].widget.attrs["placeholder"] = (
             "e.g., 30 minutes, 500 words, etc."
         )
+        self.fields["goal_label"].widget.attrs["class"] += " w-full"
+        self.fields["goal_label"].widget.attrs["placeholder"] = (
+            "Optional custom label for this goal"
+        )
 
     def clean(self):
         cleaned_data = super().clean()
@@ -91,8 +96,8 @@ class WritingSessionForm(forms.ModelForm):
             "prompt_used": forms.Textarea(
                 attrs={
                     "rows": 5,
-                    "placeholder": "Paste or type your writing prompt here...",
-                    "class": "resize-y min-h-[80px]",
+                    "placeholder": "What did you accomplish during this session?",
+                    "class": "resize-y min-h-[100px]",
                 }
             ),
         }

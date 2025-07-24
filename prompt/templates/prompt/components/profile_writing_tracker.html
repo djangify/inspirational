@@ -32,8 +32,9 @@
               <div class="flex justify-between items-start">
                 <div>
                   <h3 class="font-semibold text-gray-800">
-                    {{ goal.get_goal_type_display }}: {{ goal.target_value }} per {{ goal.get_frequency_display }}
+                    {{ goal.goal_label|default:goal.get_goal_type_display }}: {{ goal.target_value }} per {{ goal.get_frequency_display }}
                   </h3>
+
                   {% if goal.notes %}
                     <p class="text-sm text-gray-600 mt-1">{{ goal.notes }}</p>
                   {% endif %}

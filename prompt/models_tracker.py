@@ -22,11 +22,24 @@ class WritingGoal(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="writing_goals"
     )
-    goal_type = models.CharField(max_length=10, choices=TYPE_CHOICES, default="time")
+    goal_type = models.CharField(
+        max_length=10,
+        choices=TYPE_CHOICES,
+        default="time",
+        help_text="Used for tracking writing progress",
+    )
+
+    goal_label = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Optional custom label (e.g., Read 10 pages, Drink water)",
+    )
+
     target_value = models.PositiveIntegerField(
         validators=[MinValueValidator(1)],
-        help_text="Target value (minutes, words, or sessions)",
+        help_text="Target value (e.g., 30 minutes, 10 sessions, 1000 words)",
     )
+
     frequency = models.CharField(
         max_length=10, choices=FREQUENCY_CHOICES, default="daily"
     )
@@ -45,7 +58,8 @@ class WritingGoal(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.get_goal_type_display()} goal for {self.user.username}: {self.target_value} per {self.frequency}"
+        label = self.goal_label or self.get_goal_type_display()
+        return f"{label} goal for {self.user.username}: {self.target_value} per {self.frequency}"
 
     def is_current(self):
         """Check if the goal is current (not past end_date)"""

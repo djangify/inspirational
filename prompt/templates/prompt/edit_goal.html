@@ -4,7 +4,7 @@
 {% block content %}
 <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
     <div class="mb-6 flex justify-between items-center">
-        <h1 class="text-2xl font-bold">Edit Writing Goal</h1>
+        <h1 class="text-2xl font-bold">Edit Goal</h1>
         <a href="{% url 'prompt:writing_progress' %}" class="text-teal-700 hover:text-blue-800 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
@@ -29,7 +29,17 @@
                         <p class="mt-1 text-sm text-red-600">{{ form.goal_type.errors.0 }}</p>
                     {% endif %}
                 </div>
-                
+                <!-- Goal label field -->
+                <div>
+                    <label for="{{ form.goal_label.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        Custom Goal Label (Optional)
+                    </label>
+                    {{ form.goal_label }}
+                    {% if form.goal_label.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.goal_label.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
                 <!-- Target value field -->
                 <div>
                     <label for="{{ form.target_value.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
@@ -44,14 +54,15 @@
                 <!-- Frequency field -->
                 <div>
                     <label for="{{ form.frequency.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Frequency
+                        Tracking Period
                     </label>
                     {{ form.frequency }}
                     {% if form.frequency.errors %}
                         <p class="mt-1 text-sm text-red-600">{{ form.frequency.errors.0 }}</p>
                     {% endif %}
+                    
                 </div>
-                
+                <p class="mt-1 text-xs text-gray-500">E.g. “Go to the gym 4 times per week”</p>
                 <!-- Start date field -->
                 <div>
                     <label for="{{ form.start_date.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">

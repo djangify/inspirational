@@ -1,4 +1,4 @@
-<h2 class="text-xl font-semibold">Recent Writing Sessions</h2>
+<h2 class="text-xl font-semibold">Recent Progress Sessions</h2>
     <a href="{% url 'prompt:session_list' %}" class="text-teal-700 hover:text-blue-800 flex items-center text-sm">
         View all sessions
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
@@ -37,7 +37,7 @@
                 
                 <!-- Mood indicator -->
                 <div class="mt-2 flex items-center">
-                    <span class="text-xs text-gray-500 mr-2">Session mood:</span>
+                    <span class="text-xs text-gray-500 mr-2">How you felt:</span>
                     <div class="flex">
                         {% if session.mood == 'very_negative' %}
                             <span class="text-xs px-2 py-1 bg-red-100 text-red-800 rounded-full">Very Difficult</span>
@@ -56,8 +56,8 @@
                 <!-- Prompt used (if any) -->
                 {% if session.prompt_used %}
                     <div class="mt-2 text-xs text-gray-500">
-                        <span>Prompt used:</span>
-                        <span class="italic">"{{ session.prompt_used.text|truncatechars:60 }}"</span>
+                        <span>What you accomplished:</span>
+                        <span class="italic">"{{ session.prompt_used|truncatechars:60 }}"</span>
                     </div>
                 {% endif %}
             </div>
