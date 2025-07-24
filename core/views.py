@@ -32,24 +32,21 @@ def homepage(request):
     )
 
 
-def privacy_view(request):
-    template_name = "policy/privacy.html"
-    return render(request, template_name)
-
-
-def terms_view(request):
-    template_name = "policy/terms-conditions.html"
-    return render(request, template_name)
-
-
-def cookie_view(request):
-    template_name = "policy/cookies.html"
-    return render(request, template_name)
-
-
-def content_view(request):
-    template_name = "policy/contents.html"
-    return render(request, template_name)
+def about(request):
+    products = Product.objects.filter(featured=True, is_active=True, status="publish")[
+        :4
+    ]
+    featured_product = Product.objects.filter(
+        featured=True, is_active=True, status="publish"
+    ).first()
+    return render(
+        request,
+        "core/about.html",
+        {
+            "products": products,
+            "featured_product": featured_product,
+        },
+    )
 
 
 @login_required

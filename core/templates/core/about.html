@@ -1,86 +1,84 @@
-{% extends "base.html" %}
-{% load static %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <section class="mb-16">
+    <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-teal-700 dark:text-white mb-6 text-center">
+      About Inspirational Guidance
+    </h1>
 
-{% block content %}
-<div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
-            <h1 class="text-3xl font-bold text-gray-900 mb-6">About Inspirational Guidance</h1>
-            
-            <div class="lg:text-lg text-gray-700 mb-10">
-                <p class="mb-4">Welcome to Inspirational Guidance, where we believe that everyone has stories worth telling. We're not about creating polished bestsellers—we're about helping you capture the everyday magic of your life's journey.</p>
-                
-                <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-800">Our Philosophy</h2>
-                <p>Your life is a collection of extraordinary moments disguised as ordinary days. At Inspirational Guidance, we believe these moments deserve to be written down—not necessarily for the world to read, but for you to reflect upon and for your loved ones to treasure.</p>
-                
-                <p>Whether you're jotting down childhood memories, reflecting on life lessons, or simply describing your day, writing is a powerful tool for:</p>
-                <!-- List -->
-                <ul role="list" class="pt-8 space-y-5">
-                  <li class="flex space-x-3">
-                      <!-- Icon -->
-                      <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Personal reflection and growth</span>
-                  </li>
-                  <li class="flex space-x-3">
-                      <!-- Icon -->
-                      <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Preserving family stories for future generations</span>
-                  </li>
-                  <li class="flex space-x-3">
-                      <!-- Icon -->
-                      <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Making sense of life's journey</span>
-                  </li>
-                  <li class="flex space-x-3">
-                      <!-- Icon -->
-                      <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Finding joy in everyday experiences</span>
-                  </li>
-                  <li class="flex space-x-3">
-                      <!-- Icon -->
-                      <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                      <span class="text-base font-medium leading-tight text-gray-900 dark:text-white mb-4">Creating a legacy that lasts beyond a lifetime</span>
-                  </li>
-              </ul>
-                <p class="mb-4">We believe that writing is a deeply personal journey, and we are here to support you every step of the way. Our goal is to provide you with the tools and inspiration you need to make writing a regular part of your life.</p>
-                
-                <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-800">What We Offer</h2>
-                <p class="mb-4">Our writing prompt generator helps to spark your memory and imagination. Whether you have five minutes or an hour, our carefully crafted prompts will help you begin writing about the moments that matter.</p>
-                
-                <p class="mb-4">We also offer beautiful, thoughtfully designed journals that make capturing your stories a joy. Our blog provides tips, encouragement, and inspiration for your memoir and journaling journey.</p>
-                
-                <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-800">Our Story</h2>
-                <p class="mb-4">Inspirational Guidance was born from the realisation that too many family stories are lost with each passing generation. We started with a simple mission: to help people preserve their memories in their own words, not for fame or fortune, but for the priceless gift of shared experiences.</p>
-                
-                <p class="mb-4">Based in the UK, we bring a warm, approachable perspective to memoir writing that embraces the British tradition of storytelling with a cup of tea in hand and a focus on the quietly meaningful moments of life.</p>
-                
-                <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-800">Join Us</h2>
-                <p class="mb-4">Whether you're writing for yourself, your children, or your grandchildren yet to be born, we invite you to pick up your pen. Your story matters, and we're here to help you tell it, one prompt at a time.</p>
-            </div>
-  
-            <div class="mt-20 bg-gray-50 lg:text-lg rounded-lg p-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Why Our Notebooks?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div class="bg-white p-6 rounded-lg shadow">
-                    <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">Quality Materials</h3>
-                    <p class="text-gray-600">Our paperback notebooks feature high-quality paper that prevents bleed-through and durable bindings built to last.</p>
-                  </div>
-                  <div class="bg-white p-6 rounded-lg shadow">
-                    <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">Thoughtful Design</h3>
-                    <p class="text-gray-600">Each notebook is carefully designed to inspire your writing journey with elegant layouts and beautiful covers.</p>
-                  </div>
-                  <div class="bg-white p-6 rounded-lg shadow">
-                    <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">Perfect Gift</h3>
-                    <p class="text-gray-600">Our notebooks make meaningful gifts for yourself and loved ones who enjoy writing or want to preserve their memories.</p>
-                  </div>
-                </div>
-              </div>
-      
-            <div class="mt-10 mb-6 text-center">
-                <h3 class="text-xl font-medium text-gray-900 mb-4">Start Your Writing Journey Today</h3>
-                <a href="{% url 'prompt:journal_prompt_generator' %}" class="inline-block bg-teal-700 hover:bg-teal-800 text-white font-medium py-3 px-6 rounded-md transition duration-200">
-                    Try Our Prompt Generator
-                </a>
-            </div>
-        </div>
+    <!-- Video Placeholder -->
+    <div class="aspect-w-16 aspect-h-9 mb-10">
+      <iframe src="https://www.youtube.com/embed/HXfRhy9vWxo" title="How to Build Momentum" frameborder="0" allowfullscreen class="w-full h-full rounded-lg shadow-md"></iframe>
     </div>
+
+    <p class="text-gray-700 mb-4 max-w-3xl mx-auto text-center">
+      Inspirational Guidance is a printable-first personal growth hub offering practical tools to help women build self-confidence, develop self-reliance, and live with purpose — quietly.
+    </p>
+    <p class="text-gray-700 mb-4 max-w-3xl mx-auto text-center">
+      We focus on what’s working. No glow-ups, no noise — just grounded guidance and calm encouragement, especially for women going through change.
+    </p>
+  </section>
+
+  <section class="mb-16">
+    <h2 class="text-2xl font-semibold text-teal-700 mb-4">What Makes Us Different</h2>
+    <ul class="list-disc list-inside text-gray-700 space-y-2">
+      <li>We’re not here to transform you. We’re here to support you.</li>
+      <li>No influencers. No pressure. Just printable tools that help.</li>
+      <li>We use Appreciative Inquiry — we build from what’s already working.</li>
+      <li>Some tools are serious. Some are silly. All are made with care.</li>
+    </ul>
+    <p class="mt-4 text-gray-700">
+      Our tagline says it best: <strong>Tools to help you build self-confidence, develop self-reliance, and live with purpose.</strong>
+    </p>
+  </section>
+
+  <section class="mb-16">
+    <h2 class="text-2xl font-semibold text-teal-700 mb-4">Who Is Diana Morgan?</h2>
+    <p class="text-gray-700 mb-4">
+      Diana Morgan is the editor behind every product, prompt, and page. She’s not here to be followed — she’s here to support. Her goal is to make practical personal growth feel calm, capable, and doable.
+    </p>
+    <p class="text-gray-700 mb-4">
+      She’s not a life coach. More of a printable strategist with a soft spot for A4.
+    </p>
+  </section>
+
+  <section class="mb-16">
+    <h2 class="text-2xl font-semibold text-teal-700 mb-4">A Personal Note from Diane Corriette</h2>
+    <p class="text-gray-700 mb-4">
+      Hi — I’m Diane Corriette. I’ve always been drawn to personal growth, and this site is the most honest version of that I’ve ever created. I’m an introvert who prefers to stay behind the scenes, and AI has given me a way to rebuild this platform without needing to be the face of it.
+    </p>
+    <p class="text-gray-700 mb-4">
+      I’m real. I exist. I’ve trained in NLP and mindfulness, and if you search my name, you’ll find me. This is my voice, my creativity, and my lived experience — just not my face.
+    </p>
+  </section>
+
+  <section class="mb-16">
+    <h2 class="text-2xl font-semibold text-teal-700 mb-4">Our Transparency Commitment</h2>
+    <p class="text-gray-700 mb-4">
+      Some of the content on this site is written with the help of AI — but every word is reviewed and edited by me, Diane. I use AI to remove the heavy lifting of content creation and to repurpose my ideas faster and more clearly.
+    </p>
+    <p class="text-gray-700 mb-4">
+      Nothing here is generated without thought. AI is my assistant, not my voice.
+    </p>
+    <p class="text-gray-600 text-sm">
+      You’ll also find a full <a href="{% url 'core:ai_disclaimer' %}" class="underline text-teal-700 hover:text-teal-900">AI Disclaimer</a> on our policy pages.
+    </p>
+  </section>
+
+  <!-- Bonus Info Box -->
+  <div class="mt-20 bg-gray-50 lg:text-lg rounded-lg p-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Why Choose Inspirational Guidance?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">Designed for Real Life</h3>
+        <p class="text-gray-600">Our downloads fit into your day, not the other way around. They’re flexible, forgiving, and fuss-free.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">Emotionally Intelligent</h3>
+        <p class="text-gray-600">We balance strategy with softness. No pressure, just practical tools made for real emotions.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">Quietly Powerful</h3>
+        <p class="text-gray-600">This isn’t loud personal growth. It’s slow, sustainable, and centered on what matters most to you.</p>
+      </div>
+    </div>
+  </div>
 </div>
-{% endblock %}

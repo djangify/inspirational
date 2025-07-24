@@ -104,7 +104,7 @@
     
   {% if products %}
   <section class="container mx-auto px-6 py-12">
-    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 dark:text-gray-100 mb-6">
+    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 mb-8  dark:text-gray-100">
       Best Sellers
     </h2>
 
@@ -158,33 +158,45 @@
     </div>
   </section>
   {% endif %}
-  <section class="my-12">
+      <!--journal prompt generator-->
+      <section class="my-12">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 dark:text-white mb-4 text-center">
+      Journal & Affirmation Prompt Generator
+    </h2>
+    <p class="text-center text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+      Generate focused prompts for journaling or affirmations — tailored by category, time, and style. Save your favourites when logged in. Perfect for days when your brain’s too full to think but too busy to rest.
+    </p>
+
     <div class="max-w-7xl mx-auto px-4">
       {% include "prompt/components/prompt_hero.html" %}
     </div>
   </section>
-  <!-- About / Mission -->
-  <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+  <!--About Inspirational Guidance-->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24 mb-12 items-center border-t border-gray-200 pt-12">
     <div>
-      <h2 class="text-xl font-semibold mb-4 text-gray-800">About Inspirational Guidance</h2>
+      <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-teal-700 dark:text-white mb-4">About Inspirational Guidance</h2>
+
       <p class="text-gray-700 mb-4">
-        I believe growth doesn’t have to be loud. At Inspirational Guidance, I offer quiet encouragement and
-        practical, downloadable tools to support you — especially for introverts, deep thinkers, and calm creators.
-      </p>
-      <p class="text-gray-700">
-        My resources are rooted in compassion, clarity, and the belief that your voice matters — even when it's quiet. The site blends real human intent with AI-powered support — thoughtfully crafted, not artificially rushed.
+       Our digital downloads are made for women growing through change — midlife, motherhood, burnout, reinvention — or just that quiet tug that says: “Something needs to shift.”  These resources are rooted in helping you think about your own needs — without guilt, spreadsheets, or colour-coded life hacks. </p> 
+       
+        <p class="text-gray-700 mb-4">
+        Inspirational Guidance is edited by AI Assistant Diana Morgan — a grounded "voice" behind the scenes. No influencers. No noise. Just tools that help.
+        </p>
+        <a href="{% url 'core:about' %}" class="inline-block mt-2 text-teal-700 font-medium underline hover:text-teal-900">Find out more about Diana</a>
       </p>
     </div>
     <div>
       <img src="{% static 'images/diana-morgan.webp' %}" alt="Diana Morgan" class="rounded-xl shadow-md object-cover w-full h-72 md:h-80">
     </div>
   </section>
- 
+
 
       <!-- Testimonials -->
+    
     {% if reviews %}
     <section>
-      <h2 class="text-xl font-semibold mb-6 text-gray-800">What Others Are Saying</h2>
+    <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-teal-700 dark:text-white mb-4">What Others Are Saying</h2>
+      <p class="text-gray-700 mb-4">
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {% for review in reviews %}
         <div class="bg-white border border-teal-700 p-4 rounded-md shadow-sm">
@@ -203,9 +215,13 @@
 
 
   <!-- Latest Blog Posts Section -->
-  <div class="max-w-7xl mx-auto mt-16 mb-12 px-4">
-    <h2 class="text-3xl font-light text-teal-700  mb-2">From the Journal</h2>
-    <p class="text-gray-600 mb-8">Stories, ideas, and tools for living with calm, clarity, and quiet focus.</p>
+  <div class="max-w-7xl mx-auto mt-24 mb-12 px-4">
+   <a href="{% url 'news:list' %}" class="hover:text-teal-800">
+    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 dark:text-gray-100 mb-6">
+      Personal Growth Blog
+    </h2>
+    </a>
+    <p class="text-gray-600 mb-8">Explore personal growth tips, journal prompts, and mindful reflections on building self-confidence, developing self-reliance, intentional living and more. Edited by Diana Morgan.</p>
     {% if blog_posts %}
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {% for post in blog_posts %}

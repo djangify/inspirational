@@ -37,8 +37,8 @@
         <h3 class="font-semibold mb-4">Links</h3>
         <ul class="space-y-2 text-sm">
           <li><a href="{% url 'core:homepage' %}" class="text-slate-400 hover:text-white">Home</a></li>
-          <li><a href="/shop/" class="text-slate-400 hover:text-white">Shop</a></li>
-          <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white">Login</a></li>
+          <li><a href="/shop/" class="text-slate-400 hover:text-white">Workbooks and Guides</a></li>
+          <li><a href="{% url 'core:about' %}" class="text-slate-400 hover:text-white">About</a></li>
         </ul>
       </div>
 
@@ -47,7 +47,8 @@
         <h3 class="font-semibold mb-4">Resources</h3>
         <ul class="space-y-2 text-sm">
           <li><a href="{% url 'prompt:journal_prompt_generator' %}" class="text-slate-400 hover:text-white">Journal Prompt Help</a></li>
-          <li><a href="{% url 'news:list' %}" class="text-slate-400 hover:text-white">From The Journal</a></li>
+          <li><a href="{% url 'news:list' %}" class="text-slate-400 hover:text-white">Personal Growth Blog</a></li>
+          <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white">Login</a></li>
         </ul>
       </div>
 
@@ -69,6 +70,8 @@
           <li><a href="{% url 'core:privacy_policy' %}" class="text-slate-400 hover:text-white">Privacy Policy</a></li>
           <li><a href="{% url 'core:cookie_policy' %}" class="text-slate-400 hover:text-white">Cookie Policy</a></li>
           <li><a href="{% url 'core:terms_conditions' %}" class="text-slate-400 hover:text-white">Terms & Conditions</a></li>
+          <li><a href="{% url 'core:affiliate' %}" class="text-slate-400 hover:text-white">Affiliate Disclaimer</a></li>
+          <li><a href="{% url 'core:ai_disclaimer' %}" class="text-slate-400 hover:text-white">AI Disclaimer</a></li>
  
         </ul>
       </div>
