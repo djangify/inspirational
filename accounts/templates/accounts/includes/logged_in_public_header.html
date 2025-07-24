@@ -20,10 +20,11 @@
         <nav class="flex items-center space-x-8 mr-8">
           <a
             href="#"
-            class="text-gray-700 hover:text-teal-700 font-medium px-2 py-1 {% if '/documentation/' in request.path %}text-teal-700{% endif %}"
+            class="text-gray-700 hover:text-teal-700 font-medium px-2 py-1 {% url 'shop:product_list' %} text-teal-700"
           >
-            Docs
+            Shop
           </a>
+          
           <a
             href="/news/"
             class="text-gray-700 hover:text-teal-700 font-medium px-2 py-1 {% if '/news/' in request.path %}text-teal-700{% endif %}"
@@ -80,24 +81,13 @@
               <div class="px-4 py-2 text-sm text-gray-700 border-b">
                 <p class="font-medium truncate">{{ user.email }}</p>
               </div>
-              <a
-                href="{% url 'accounts:profile' %}"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                Profile
-              </a>
-              <a
-                href="{% url 'accounts:dashboard' %}"
-                class="block px-4 py-2 text-sm bg-teal-100 text-gray-700 hover:bg-gray-100"
-              >
-                Dashboard
-              </a>
-              <a
-                href="{% url 'accounts:logout' %}"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                Sign out
-              </a>
+              <a href="{% url 'shop:purchases' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Orders</a>
+              
+              <a href="{% url 'prompt:writing_progress' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tracker</a>
+              <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile Info</a>
+              <a href="/support" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Contact Support</a>
+              <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Sign out</a>
+
             </div>
           </div>
         </div>

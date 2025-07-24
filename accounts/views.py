@@ -150,6 +150,9 @@ def logout_view(request):
 def dashboard_view(request):
     user = request.user
 
+    # Get Goal Summary
+    goal_count = WritingGoal.objects.filter(user=user, active=True).count()
+
     # Get purchased products
     purchased_count = (
         OrderItem.objects.filter(order__user=user).values("product").distinct().count()
@@ -179,6 +182,7 @@ def dashboard_view(request):
         "member_resources": member_resources,
         "active_goals": active_goals,
         "recent_sessions": recent_sessions,
+        "goal_count": goal_count,
     }
 
     return render(request, "accounts/dashboard.html", context)
