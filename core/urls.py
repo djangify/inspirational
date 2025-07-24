@@ -32,8 +32,8 @@ urlpatterns = [
     ),
     path(
         "policy/affiliate/",
-        TemplateView.as_view(template_name="policy/affiliate_disclosure.html"),
-        name="affiliate_disclosure",
+        TemplateView.as_view(template_name="policy/affiliate.html"),
+        name="affiliate",
     ),
     path(
         "policy/ai-disclaimer/",
