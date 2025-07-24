@@ -2,7 +2,7 @@
 {% load static %}
 {% load video_tags %}
 
-{% block title %}Home - Inspirational Guidance{% endblock %}
+{% block title %}Practical resources for self-confidence and self-reliance {% endblock %}
 
 {% block content %}
 
@@ -14,60 +14,100 @@
     
     <!-- Text Block -->
     <div class="text-center lg:text-left">
-      <h1 class="text-3xl sm:text-4xl font-light text-slate-900 mb-4">
-        Tools to help you build self-confidence, develop self-reliance, and live with purpose.
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white mb-6">
+        Practical resources to help you build self-confidence, develop self-reliance, and live with purpose.
       </h1>
+
       <p class="text-2xl sm:text-lg text-gray-700 mb-8 mt-4 max-w-xl mx-auto lg:mx-0">
-     You’ve spent years keeping it together for everyone else. Now it’s your turn.  
-     Inspirational Guidance offers calm, grounded tools to help you feel like yourself again — without the noise, pressure, or performative “glow ups.”
+       
+    Ready to build confidence, strengthen your self-reliance, and start living with purpose? Inspirational Guidance gives you practical tools to take action — no overwhelm, no fluff, and definitely no performative “glow ups.” Just real results, on your terms.
       </p>
       <a href="{% url 'shop:product_list' %}" class="inline-block bg-teal-700 text-white text-2xl px-6 py-3 rounded hover:bg-teal-800 transition">
-        View Our Shop
+        Browse Guides & Workbooks
       </a>
     </div>
 
     <!-- Image Block -->
     <div>
-      <img src="{% static 'images/bookgirl.png' %}" alt="Diana Morgan" class="w-full h-auto  object-cover">
+      <img src="{% static 'images/bookgirl.png' %}" alt="confidence for women" class="w-full h-auto  object-cover">
     </div>
 
   </div>
 </section>
 
-  <!-- Category Navigation -->
-  <section>
  
-  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- Resource Section -->
 
-    <!-- Introvert Guides -->
-    <a href="{% url 'shop:category' slug='introverts' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
-       
-      <h3 class="mt-2 text-lg font-bold">Introvert Guides</h3>
-      <p class="text-sm text-gray-600">Build calm, confident momentum from within.</p>
-    </a>
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
 
-    <!-- Mindfulness -->
-    <a href="{% url 'shop:category' slug='meditation' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
-      
-      <h3 class="mt-2 text-lg font-bold">Mindfulness & Focus</h3>
-      <p class="text-sm text-gray-600">Practical tips for everyday mental clarity.</p>
-    </a>
+      <!-- Build Self-Confidence -->
+      <a href="{% url 'shop:category' slug='confidence' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 00-3 3v1H9v3H6v3h3v-3h3v-3h3a3 3 0 003-3 3 3 0 00-3-3z" />
+        </svg>
 
-    <!-- Journaling Prompts -->
-    <a href="{% url 'shop:category' slug='self-help' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
-      
-      <h3 class="mt-2 text-lg font-bold">Journaling Prompts</h3>
-      <p class="text-sm text-gray-600">Daily reflections to guide your goals.</p>
-    </a>
+        <h3 class="mt-2 text-lg font-bold">Build Self-Confidence</h3>
+        <p class="text-sm text-gray-600">Down-to-earth tools to help you back yourself — no pep talks needed.</p>
+      </a>
 
-  </div>
-</section>
+      <!-- Develop Self-Reliance -->
+      <a href="{% url 'shop:category' slug='self-reliance' %}" class="flex flex-col p-6 bg-slate-50 border rounded-lg hover:border-teal-600 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2s-3 1.343-3 3 1.343 3 3 3zm0 14s-8-4-8-10V7l8-4 8 4v5c0 6-8 10-8 10z" />
+        </svg>
+        <h3 class="mt-2 text-lg font-bold">Develop Self-Reliance</h3>
+        <p class="text-sm text-gray-600">Guides to help you trust your judgment and get things done your way.</p>
+      </a>
+
+      <!-- Life Purpose Resources -->
+      <a href="{% url 'shop:category' slug='life-purpose' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        <h3 class="mt-2 text-lg font-bold">Life Purpose Resources</h3>
+        <p class="text-sm text-gray-600">Find clarity, direction, and meaning — without overthinking it all.</p>
+      </a>
+
+      <!-- Quietly You: For Introverts -->
+      <a href="{% url 'shop:category' slug='introverts' %}" class="flex flex-col bg-slate-50 p-6 border rounded-lg hover:border-teal-600 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0112 21.5c-4.28 0-8.08-2.239-10.16-5.922L12 14z" />
+        </svg>
+        <h3 class="mt-2 text-lg font-bold">Quietly You</h3>
+        <p class="text-sm text-gray-600">Resources for introverts who prefer quiet momentum over loud motivation.</p>
+      </a>
+
+      <!-- It's Your Turn Now -->
+      <a href="{% url 'shop:category' slug='your-turn' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 8H7a2 2 0 01-2-2V6a2 2 0 012-2h4l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2z" />
+        </svg>
+        <h3 class="mt-2 text-lg font-bold">It's Your Turn Now</h3>
+        <p class="text-sm text-gray-600">Smart, slightly cheeky guides for women reclaiming time, space, and joy.</p>
+      </a>
+
+      <!-- Join Us: Free Resources -->
+      <a href="{% url 'accounts:register' %}" class="flex flex-col bg-slate-50 p-6 border rounded-lg  hover:border-teal-600 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.364-6.364l-1.414 1.414M6.05 17.95l-1.414 1.414m12.728 0l1.414-1.414M6.05 6.05L4.636 7.464" />
+        </svg>
+        <h3 class="mt-2 text-lg  font-bold">Join Us</h3>
+        <p class="text-sm text-gray-600">You get access to exclusive resources. Save your journal prompts. Track your personal growth.</p>
+      </a>
+
+    </section>
+
+
 
   <!-- Featured Products - Best Sellers -->
     
   {% if products %}
   <section class="container mx-auto px-6 py-12">
-    <h2 class="text-3xl font-light text-teal-700 dark:text-gray-400 mb-6">Best Sellers</h2>
+    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 dark:text-gray-100 mb-6">
+      Best Sellers
+    </h2>
+
     
     <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
       {% for product in products %}
