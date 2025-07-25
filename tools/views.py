@@ -7,3 +7,7 @@ def tools_home(request):
 
 def calming_game(request):
     return render(request, "tools/calming_game.html")
+
+
+def tap_to_calm(request):
+    return render(request, "tools/tap_to_calm.html")
