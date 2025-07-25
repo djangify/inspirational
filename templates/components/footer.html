@@ -38,7 +38,7 @@
         <ul class="space-y-2 text-sm">
           <li><a href="{% url 'core:homepage' %}" class="text-slate-400 hover:text-white">Home</a></li>
           <li><a href="/shop/" class="text-slate-400 hover:text-white">Workbooks and Guides</a></li>
-          <li><a href="#" class="text-slate-400 hover:text-white">Circles</a></li>
+          <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white">Login</a></li>
         </ul>
       </div>
 
@@ -48,7 +48,8 @@
         <ul class="space-y-2 text-sm">
           <li><a href="{% url 'prompt:journal_prompt_generator' %}" class="text-slate-400 hover:text-white">Journal Prompt Help</a></li>
           <li><a href="{% url 'news:list' %}" class="text-slate-400 hover:text-white">Personal Growth Blog</a></li>
-          <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white">Login</a></li>
+          
+          <li><a href="{% url 'core:circles' %}" class="text-slate-400 hover:text-white">Circles</a></li>
         </ul>
       </div>
 

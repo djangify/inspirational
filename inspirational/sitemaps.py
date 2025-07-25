@@ -15,6 +15,7 @@ class StaticViewSitemap(Sitemap):
             "core:about",
             "core:support",
             "core:contact",
+            "core:circles",
             "prompt:journal_prompt_generator",
             "privacy_policy",
             "cookie_policy",

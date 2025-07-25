@@ -1,15 +1,16 @@
+{% load static %}
 <header class="bg-slate-50 border-b border-gray-200">
   <div class="container mx-auto px-4">
     <div class="flex items-center justify-between py-4">
       <!-- Logo and Brand -->
       <div class="flex items-center">
-        <a href="{% url 'core:homepage' %}" class="flex items-center">
+        <a href="{% url 'core:homepage' %}" class="flex items-center gap-3 text-gray-900">
           <img
-            src="/static/images/ig-header-logo.png"
-            class="h-8 mr-3"
+            src="{% static 'images/ig-header-logo.png' %}"
+            class="h-8 w-auto"
             alt="Inspirational Guidance Logo"
           />
-          <span class="self-center text-xl font-semibold whitespace-nowrap">
+          <span class="text-xl font-semibold whitespace-nowrap">
             Inspirational Guidance
           </span>
         </a>
