@@ -15,6 +15,8 @@ class StaticViewSitemap(Sitemap):
             "core:about",
             "core:support",
             "core:contact",
+            "tools:index",  #  Mindful Tools index page (/tools/)
+            "tools:calming_game",
             "prompt:journal_prompt_generator",
             "privacy_policy",
             "cookie_policy",

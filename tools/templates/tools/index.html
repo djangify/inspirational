@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Mindful Tools – Reduce Anxiety & Refocus{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 py-16 text-center">
+  <h1 class="text-4xl font-bold mb-4">Mindful Tools</h1>
+  <p class="text-gray-700 mb-10">
+    Interactive tools to help reduce anxiety, improve focus, and create calm—one small moment at a time.
+  </p>
+
+  <div class="grid gap-6 sm:grid-cols-2">
+    
+    <!-- Game Card -->
+    <div class="border border-slate-200 rounded-lg p-6 hover:shadow transition text-left">
+      <h2 class="text-xl font-semibold mb-2">Stress‑Relief Game</h2>
+      <p class="text-gray-600 text-sm mb-4">
+        Play a calming game to reset your focus in under 60 seconds.
+      </p>
+      <a href="https://circles.todiane.com" target="_blank" rel="noopener noreferrer"
+         class="inline-block text-white bg-teal-700 hover:bg-teal-800 px-4 py-2 rounded text-sm font-medium">
+        Launch Game
+      </a>
+      <p class="text-sm text-gray-400 mt-2">
+        <a href="{% url 'tools:calming_game' %}" class="underline hover:text-teal-600">
+          Learn more about the game →
+        </a>
+      </p>
+    </div>
+
+    <!-- Placeholder for future tools -->
+    <div class="block border border-dashed border-gray-300 rounded-lg p-6 text-gray-400 text-sm">
+      More tools coming soon...
+    </div>
+  </div>
+</div>
+{% endblock %}

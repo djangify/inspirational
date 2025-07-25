@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "news",
     "prompt",
     "accounts",
+    "tools",
 ]
 
 MIDDLEWARE = [

@@ -25,6 +25,7 @@ urlpatterns = [
     path("news/", include("news.urls", namespace="news")),
     path("accounts/", include("accounts.urls", namespace="accounts")),
     path("prompt/", include("prompt.urls")),
+    path("tools/", include("tools.urls", namespace="tools")),
     # Sitemap and robots.txt
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
     path(
