@@ -5,13 +5,12 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.1.11",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11"
   },
   "scripts": {
     "build": "tailwindcss -i ./static/src/input.css -o ./static/css/output.css --minify",
-    "watch": "npx tailwindcss -i ./static/src/input.css -o ./static/css/output.css --watch"
+    "dev": "npx tailwindcss -i ./static/src/input.css -o ./static/css/output.css --watch"
   }
 }

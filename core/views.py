@@ -11,7 +11,6 @@ from django.views.decorators.http import require_GET
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.http import Http404
-from datetime import datetime
 
 
 def homepage(request):
@@ -121,9 +120,3 @@ def robots_txt(request):
         f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
-
-
-def circles_view(request):
-    return render(
-        request, "core/circles.html", {"timestamp": datetime.now().timestamp()}
-    )

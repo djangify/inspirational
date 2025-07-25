@@ -1,7 +1,6 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from .views import homepage, support_view
-from . import views
 
 app_name = "core"
 
@@ -41,7 +40,6 @@ urlpatterns = [
         TemplateView.as_view(template_name="policy/ai_disclaimer.html"),
         name="ai_disclaimer",
     ),
-    path("circles/", views.circles_view, name="circles"),
 ]
 handler404 = "core.views.handler404"
 handler500 = "core.views.handler500"

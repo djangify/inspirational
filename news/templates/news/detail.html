@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <!-- news/templates/news/detail.html -->
-
-<section class="px-6 bg-secondary text-text md:p-16">
+<section class="bg-secondary  text-text ">
     {% include 'news/components/breadcrumb.html' %}
-<div class="mx-auto max-w-4xl px-6 sm:px-8 lg:px-12">
-    <div class="bg-white p-8 rounded-lg shadow-sm">
-        <header class="mb-8">
+    <div class="mx-auto max-w-7xl px-4 sm:px-8 lg:px-16">
+        <div class="p-4 sm:p-6 shadow-sm">
+        <header class="mb-8">  
             <h1 class="text-4xl font-bold">{{ post.title }}</h1>
             <div class="mt-2 text-gray-600">
                 {{ post.publish_date|date:"F j, Y" }} | 
@@ -17,32 +15,33 @@
             </div>
         </header>
         
-        {% if post.youtube_url %}
-            <!-- Show video only -->
-            <div class="mb-8">
-                <div class="relative w-full" style="padding-top: 56.25%">
-                    <iframe 
-                        class="absolute inset-0 w-full h-full rounded-lg shadow-lg"
-                        src="{{ post.get_youtube_embed_url }}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
+            {% if post.youtube_url %}
+                <!-- Show video only -->
+                <div class="mb-8">
+                    <div class="relative w-full" style="padding-top: 56.25%">
+                        <iframe 
+                            class="absolute inset-0 w-full h-full rounded-lg shadow-lg"
+                            src="{{ post.get_youtube_embed_url }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
                 </div>
-            </div>
-        {% else %}
+            {% else %}
             <!-- Only show image if there's no video -->
-            {% if post.external_image_url %}
-                <div class="mb-8">
-                    <img src="{{ post.external_image_url }}" alt="{{ post.title }}" class="w-full h-auto rounded-lg shadow-sm">
-                </div>
-            {% elif post.image %}
-                <div class="mb-8">
-                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-auto rounded-lg shadow-sm">
-                </div>
-            {% endif %}
-        {% endif %}
-
+                <div class="w-full max-w-2xl mx-auto">
+                    {% if post.external_image_url %}
+                        <div class="mb-8">
+                            <img src="{{ post.external_image_url }}" alt="{{ post.title }}" class="w-full h-auto rounded-lg shadow-sm">
+                        </div>
+                    {% elif post.image %}
+                        <div class="mb-8">
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-auto rounded-lg shadow-sm">
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
         <div class="mb-6">
             <p class="text-sm text-gray-600 mb-2">Thanks, for sharing:</p>
             {% include 'components/social_share.html' %}
