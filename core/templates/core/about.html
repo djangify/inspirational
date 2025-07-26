@@ -5,16 +5,18 @@
 {% block content %}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-  <section class="mb-16">
-    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">About Inspirational Guidance</h1>
+ 
+    
     <!-- About Hero Section with Video -->
-    <section class="bg-white py-16">
+    <section class="bg-white pb-12 sm:pt-12 sm:pb-16 lg:pt-16 lg:pb-20">
+      
       <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+       
           <!-- Left Column: Text -->
         <div>
-          
+           <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">About Inspirational Guidance</h1>
           <p class="text-gray-700 text-lg mb-4">
-            Inspirational Guidance is a printable-first personal growth hub offering practical tools to help women build self-confidence, develop self-reliance, and live with purpose — quietly.
+            Inspirational Guidance is a printable-first personal growth hub offering practical tools to help women build self-confidence, strengthen self-reliance, and live with purpose — or as we like to say, come home to yourself.
           </p>
           <p class="text-gray-700">
             Our goal is to support you in taking grounded action, building emotional steadiness, and reclaiming space in your life without hype or pressure. It's personal growth for real life.
@@ -24,44 +26,18 @@
         <!-- Right Column: Video -->
         <div>
           <div class="aspect-w-16 aspect-h-9">
-            <iframe
-              src="https://www.youtube.com/embed/-T8w4xiPS-E?si=smKP4_wnZLbF48kK"
-              title="How to Build Momentum"
-              frameborder="0"
-              allowfullscreen
-              class="w-full h-full rounded-lg shadow-md">
-            </iframe>
+            <a href="https://youtu.be/liFyRf5KEuA?si=WOFFYUeRy2I501oD" target="_blank" rel="noopener">
+            <img src="https://img.youtube.com/vi/liFyRf5KEuA/hqdefault.jpg" alt="How to Build Momentum" class="rounded-lg shadow-md w-full h-auto">
+          </a>
           </div>
+          <p class="text-gray-400 mt-4 text-sm">Video by @helloinnerlight on YouTube</p>
         </div>
 
       </div>
     </section>
 
-  
-
    <!-- About IG Section -->
-    
-      <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Section - Reformatted</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'accent': '#14b8a6', // teal-500
-                        'secondary': '#f8fafc', // slate-50
-                        'text': '#334155' // slate-700
-                    }
-                }
-            }
-        }
-    </script>
-</head>
+
 <body class="bg-gray-100 p-4">
     <!-- About Section -->
     <section id="about" class="scroll-mt-16 mb-16 p-6 flex flex-col gap-y-10 bg-secondary text-text lg:gap-x-10 lg:flex-row-reverse *:basis-full md:p-16 2xl:rounded">
@@ -75,11 +51,11 @@
         
             <div class="space-y-5 lg:self-center xl:space-y-10">
                 <p>
-                    We're not here to transform you. We're here to support you. No influencers. No pressure. Just printable tools that help you build from what's already working in your life.
+                    We’re not here to reinvent you, we’re here to help you reconnect. You’re not lost. You’re just coming home to yourself.
                 </p>
                 <p>
-                    We use Appreciative Inquiry — we build from what's already working. Some tools are serious. Some are silly. All are made with care to help you develop genuine self-confidence and self-reliance.
-                    Our tagline says it best: <strong>Tools to help you build self-confidence, develop self-reliance, and live with purpose.</strong>
+                    We use Appreciative Inquiry. We build from what's already working. Some tools are serious. Some are silly. All are made with care to help you develop genuine self-confidence and self-reliance.
+                    Our tagline says it best: <strong>Tools to help you build self-confidence, strengthen self-reliance, and live with purpose.</strong> Because real growth isn’t about fixing what’s broken, it’s about strengthening what’s quietly working.
                 </p>
                 <p>
                     <a class="uppercase p-2 border-2 border-teal-700 self-start hover:text-accent transition-colors cursor-pointer text-xs rounded sm:text-lg mt-8 sm:px-4" href="{% url 'shop:product_list' %}">Our Workbook and Guides</a>
@@ -103,7 +79,7 @@
                     <strong>Nothing here is generated without thought. AI is my assistant, not my voice.</strong>
                 </p>
                 <p class="text-center">
-                    <a class="uppercase p-2 border-2 border-teal-700 self-start hover:text-accent transition-colors cursor-pointer text-xs rounded sm:text-sm mt-4 sm:px-4" href="/ai-policy/">AI Policy</a>
+                    <a class="uppercase p-2 border-2 border-teal-700 self-start hover:text-accent transition-colors cursor-pointer text-xs rounded sm:text-sm mt-4 sm:px-4" href="policy/ai-policy/">AI Policy</a>
                 </p>
             </div>
         </div>
@@ -111,11 +87,6 @@
 </body>
 </html>
 
-
-  
-
-
-  <!--Diana and Diane-->
   <!-- Who Is Diana Morgan -->
 <section class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20 items-center">
   <!-- Image Left -->
@@ -126,10 +97,10 @@
   <div>
     <h2 class="text-2xl font-semibold text-teal-700 mb-4">Who Is Diana Morgan?</h2>
     <p class="text-gray-700 mb-4">
-      Diana Morgan is the AI Assistant/Editor behind every product, prompt, and page. She is here to support you if you get stuck. Her goal is to make practical personal growth feel calm, capable, and doable. No spotlight. No pressure. Just tools that help you build confidence, develop self-reliance, and live with purpose — in your own way.
+      Diana Morgan is the AI Assistant/Editor behind every product, prompt, and page. She is here to support you if you get stuck. Her goal is to make practical personal growth feel calm, capable, and doable. No spotlight. No pressure. Just tools that help you build confidence, develop self-reliance, and live with purpose in your own way.
     </p>
     <p class="text-gray-700">
-      She’s not a life coach. More of a printable strategist with a soft spot for A4.
+      She’s not a life coach. More of a printable strategist with a soft spot for A4. If you’ve ever felt disconnected or unsure of what’s next, Diana’s here to guide you back, gently, to your own wisdom.
     </p>
   </div>
 </section>
@@ -140,10 +111,10 @@
   <div class="order-2 md:order-1">
     <h2 class="text-2xl font-semibold text-teal-700 mb-4">A Personal Note from Diane Corriette</h2>
     <p class="text-gray-700 mb-4">
-      Hi — I’m Diane Corriette. I’ve always been drawn to personal growth, and this site is the most honest version of that I’ve ever created. I’m an introvert who prefers to stay behind the scenes, and AI has given me a way to rebuild this platform without needing to be the face of it.
+      Hi. I am Diane Corriette. I have always been drawn to personal growth, and this site is the most honest version of that I’ve ever created. I’m an introvert who prefers to stay behind the scenes, and AI has given me a way to rebuild this platform without needing to be the face of it.
     </p>
     <p class="text-gray-700 mb-4">
-      I’m real. I exist. I’ve trained in NLP, Life Coaching and mindfulness, and if you search my name, you’ll find me. This is my voice, my creativity, and my lived experience — just not my face. Whether you're new here or returning, this space is for you — if you're ready to put yourself back on your own list.
+      I’m real. I exist. I’ve trained in NLP, Life Coaching and mindfulness, and if you search my name, you’ll find me. <strong> This is my voice, my creativity, and my lived experience, shared in a way that finally feels like coming home to myself. </strong> Whether you're new here or returning, this space is for you — if you're ready to put yourself back on your own list.
     </p>
     <p class="text-gray-700">The photo is of me in my happy place. I would much rather be wearing walking boots and cargo pants, than a dress and makeup!</p>
     <div class="pt-6 mt-6 space-y-4 border-t border-gray-200 dark:border-gray-700">
@@ -184,8 +155,8 @@
         <p class="text-gray-600">Our downloads fit into your day, not the other way around. They’re flexible, forgiving, and fuss-free.</p>
       </div>
       <div class="bg-white p-6 rounded-lg shadow">
-        <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">Emotionally Intelligent</h3>
-        <p class="text-gray-600">We balance strategy with softness. No pressure, just practical tools made for real emotions.</p>
+        <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">A Place to Come Home To</h3>
+        <p class="text-gray-600">If you’ve felt out of step with yourself, this space was made to guide you gently back to your clarity and purpose.</p>
       </div>
       <div class="bg-white p-6 rounded-lg shadow">
         <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">Quietly Powerful</h3>
