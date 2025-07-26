@@ -41,8 +41,9 @@ We’re here to remind you you’re allowed to take up space — even if that me
                     {% endif %}
                 </div>
                 
-                <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">
-                    {{ main_post.content|striptags|truncatewords:50 }}
+                <p class="prose prose-lg text-gray-500 sm:text-xl dark:text-gray-400">
+                    {{ main_post.content|striptags|truncatewords_html:50|safe }}
+
                 </p>
                 
                 <div class="pt-6 mt-6 space-y-4 border-t border-gray-200 dark:border-gray-700">
@@ -61,7 +62,7 @@ We’re here to remind you you’re allowed to take up space — even if that me
                 {% for post in featured_posts|slice:"1:3" %}
                 <div class="h-64 overflow-hidden bg-white border border-teal-700 rounded-lg shadow-sm p-4 flex flex-col justify-between">
 
-                    <div class="h-28 mb-3 transform lg:scale-75 overflow-hidden rounded-md">
+                    <div class="flex-1 mb-3 overflow-hidden rounded-md">
                         <h3 class="text-md font-semibold mb-1">
                         <a href="{{ post.get_absolute_url }}" class="text-gray-900 hover:text-teal-700 dark:text-white dark:hover:text-teal-500">
                             {{ post.title }}
@@ -83,6 +84,7 @@ We’re here to remind you you’re allowed to take up space — even if that me
                     
                 </div>
                 {% endfor %}
+                
             </div>
         </div>
     </section>
