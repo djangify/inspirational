@@ -28,7 +28,7 @@
     <title>{% block title %}Build Self-Confidence. Develop Self-Reliance. Live Your Purpose{% endblock %}</title>
     {% block extra_meta %}{% endblock %}
   </head>
-  <body class="text-lg 2xl:max-w-screen-2xl 2xl:mx-auto 2xl:bg-primary flex flex-col min-h-screen">
+  <body class="text-lg bg-white flex flex-col min-h-screen">
 
     <!--logic for header when logged in-->
     {% if request.user.is_authenticated %}
@@ -38,6 +38,7 @@
     {% endif %}
   
     <main class="flex-1">
+      
       {% block content %}
       {% endblock %}
     </main>
