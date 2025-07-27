@@ -20,11 +20,11 @@ ALLOWED_HOSTS = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DATABASE_NAME"),
-        "USER": env("DATABASE_USER"),
-        "PASSWORD": env("DATABASE_PASSWORD"),
-        "HOST": env("DATABASE_HOST", default="localhost"),
-        "PORT": env("DATABASE_PORT", default="5432"),
+        "NAME": env("DATABASE_NAME"),  # noqa: F405
+        "USER": env("DATABASE_USER"),  # noqa: F405
+        "PASSWORD": env("DATABASE_PASSWORD"),  # noqa: F405
+        "HOST": env("DATABASE_HOST", default="localhost"),  # noqa: F405
+        "PORT": env("DATABASE_PORT", default="5432"),  # noqa: F405
     }
 }
 
@@ -96,3 +96,5 @@ AUTHENTICATION_BACKENDS = [
     "accounts.backends.EmailOrUsernameModelBackend",
     "django.contrib.auth.backends.ModelBackend",  # Keep as fallback
 ]
+
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"

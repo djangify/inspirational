@@ -38,7 +38,13 @@
         <ul class="space-y-2 text-sm">
           <li><a href="{% url 'core:homepage' %}" class="text-slate-400 hover:text-white">Home</a></li>
           <li><a href="/shop/" class="text-slate-400 hover:text-white">Workbooks and Guides</a></li>
-          <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white">Login</a></li>
+          {% if not request.user.is_authenticated %}
+              <li><a href="{% url 'accounts:register' %}" class="text-slate-400 hover:text-white">Register</a></li>
+              <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white">Login</a></li>
+          {% endif %}
+          {% if request.user.is_authenticated %}
+              <li><a href="{% url 'accounts:logout' %}" class="text-slate-400 hover:text-white">Logout</a></li>
+          {% endif %}
         </ul>
       </div>
 
@@ -60,7 +66,7 @@
           <li><a href="{% url 'core:homepage' %}" class="text-slate-400 hover:text-white">Home</a></li>
           <li><a href="/about/" class="text-slate-400 hover:text-white">About</a></li>
           <li><a href="/support/" class="text-slate-400 hover:text-white">Contact</a></li>
-          <li><a href="{% url 'accounts:register' %}" class="text-slate-400 hover:text-white">Register</a></li>
+          
         </ul>
       </div>
 

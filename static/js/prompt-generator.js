@@ -112,30 +112,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function bindSaveButton() {
-    if (!favouriteBtn) return;
-    favouriteBtn.addEventListener("click", function () {
-      const promptId = this.dataset.promptId;
-      fetch(`/prompt/api/save-prompt/${promptId}/`, {
-        method: "POST",
-        headers: {
-          "X-CSRFToken": getCookie("csrftoken"),
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.saved) {
-            this.classList.add("text-yellow-500");
-            showToast("Prompt saved!");
-          } else {
-            this.classList.remove("text-yellow-500");
-            showToast("Prompt removed!");
-          }
-        });
-    });
-  }
-
   function waitForCategoryOptions(callback) {
     const interval = setInterval(() => {
       const categorySelect = document.getElementById("category");
@@ -149,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function initPromptGenerator() {
     if (generateBtn) generateBtn.addEventListener("click", generatePrompt);
     if (newPromptBtn) newPromptBtn.addEventListener("click", generatePrompt);
-    bindSaveButton();
+    // Removed bindSaveButton(); because the function was deleted
     if (promptCard) promptCard.classList.add("hidden");
   }
 

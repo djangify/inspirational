@@ -46,9 +46,24 @@ class WritingPromptViewSet(
         writing_style = self.request.query_params.get("writing_style", None)
         tags = self.request.query_params.get("tags", None)
 
-        # Apply filters
+        ALLOWED_AFFIRMATION_CATEGORIES = [
+            "confidence-building",
+            "intentional-living",
+            "life-purpose",
+            "daily-practice",
+            "mindfulness",
+            "self-discovery",
+            "meditation",
+        ]
+
+        # Apply category filter first
         if category_slug:
             queryset = queryset.filter(category__slug=category_slug)
+
+            # Affirmation filtering logic
+            if writing_style and writing_style.lower() == "affirmation":
+                if category_slug not in ALLOWED_AFFIRMATION_CATEGORIES:
+                    return WritingPrompt.objects.none()
 
         if difficulty:
             queryset = queryset.filter(difficulty=difficulty)
