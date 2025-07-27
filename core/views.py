@@ -4,6 +4,8 @@ from .forms import ContactForm
 from .models import SupportMessage
 from django.contrib.auth.decorators import login_required
 from shop.models import Product, ProductReview
+from news.models import Category as NewsCategory
+from shop.models import Category as ShopCategory
 from news.models import Post, Category
 from django.utils.timezone import now
 from django.http import HttpResponse
@@ -120,3 +122,49 @@ def robots_txt(request):
         f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+def quietly_you_page(request):
+    news_category = get_object_or_404(NewsCategory, slug="quietly-you")
+    shop_category = get_object_or_404(ShopCategory, slug="quietly-you")
+
+    posts = Post.objects.filter(category=news_category, status="published").order_by(
+        "-publish_date"
+    )[:6]
+    products = Product.objects.filter(category=shop_category, is_active=True).order_by(
+        "-created"
+    )[:8]
+
+    return render(
+        request,
+        "core/quietly-you.html",
+        {
+            "posts": posts,
+            "products": products,
+            "category": news_category,
+            "shop_category": shop_category,
+        },
+    )
+
+
+def my_turn_now_page(request):
+    news_category = get_object_or_404(NewsCategory, slug="my-turn-now")
+    shop_category = get_object_or_404(ShopCategory, slug="my-turn-now")
+
+    posts = Post.objects.filter(category=news_category, status="published").order_by(
+        "-publish_date"
+    )[:6]
+    products = Product.objects.filter(category=shop_category, is_active=True).order_by(
+        "-created"
+    )[:8]
+
+    return render(
+        request,
+        "core/my-turn-now.html",
+        {
+            "posts": posts,
+            "products": products,
+            "category": news_category,
+            "shop_category": shop_category,
+        },
+    )
