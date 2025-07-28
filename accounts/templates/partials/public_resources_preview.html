@@ -1,0 +1,42 @@
+<div class="mt-20 bg-gray-50 lg:text-lg rounded-lg p-8">
+  <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 dark:text-white mb-4 text-center">A Few Of Our Free Resources</h2>
+
+  {% if resources %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-5xl mx-auto gap-6">
+
+      {% for resource in resources %}
+      <div class="bg-white p-4 border border-teal-700 shadow-sm max-w-sm w-full mx-auto">
+        <img src="{{ resource.thumbnail.url }}" alt="{{ resource.title }}" class="w-full h-40 object-contain mb-3">
+        <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">{{ resource.title }}</h3>
+        <p class="text-gray-600 mb-3">{{ resource.description|truncatechars:90 }}</p>
+        <a href="{{ resource.file.url }}" class="text-teal-700 text-sm font-medium inline-flex items-center" target="_blank" rel="noopener noreferrer">
+          Download Now
+          <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center text-gray-600">No resources available at the moment. Please check back soon.</p>
+  {% endif %}
+
+  <div class="mt-6 text-center">
+    {% if user.is_authenticated %}
+      <a href="{% url 'accounts:dashboard' %}" class="inline-flex items-center text-base font-medium text-teal-700 hover:text-teal-800">
+        Browse all free resources
+        <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </a>
+    {% else %}
+      <a href="{% url 'accounts:register' %}" class="inline-flex items-center text-base font-medium text-teal-700 hover:text-teal-800">
+        Want more? Join to access the full collection
+        <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </a>
+    {% endif %}
+  </div>
+</div>

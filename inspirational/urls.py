@@ -20,7 +20,7 @@ sitemaps = {
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("core.urls")),
+    path("", include("core.urls", namespace="core")),
     path("shop/", include("shop.urls", namespace="shop")),
     path("news/", include("news.urls", namespace="news")),
     path("accounts/", include("accounts.urls", namespace="accounts")),

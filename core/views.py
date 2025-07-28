@@ -125,24 +125,20 @@ def robots_txt(request):
 
 
 def quietly_you_page(request):
-    news_category = get_object_or_404(NewsCategory, slug="quietly-you")
-    shop_category = get_object_or_404(ShopCategory, slug="quietly-you")
-
-    posts = Post.objects.filter(category=news_category, status="published").order_by(
-        "-publish_date"
-    )[:6]
-    products = Product.objects.filter(category=shop_category, is_active=True).order_by(
-        "-created"
-    )[:8]
+    # Blog logic only
+    news_categories = NewsCategory.objects.filter(
+        slug__in=["quietly-you", "mental-fitness", "self-reliance"]
+    )
+    posts = Post.objects.filter(
+        category__in=news_categories, status="published"
+    ).order_by("-publish_date")[:6]
 
     return render(
         request,
         "core/quietly-you.html",
         {
             "posts": posts,
-            "products": products,
-            "category": news_category,
-            "shop_category": shop_category,
+            "category_slugs": ["quietly-you", "mental-fitness", "self-reliance"],
         },
     )
 

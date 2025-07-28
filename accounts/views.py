@@ -252,3 +252,12 @@ def add_favourite_product(request, product_slug):
 
     # Fallback: normal browser form submission
     return redirect(request.META.get("HTTP_REFERER", "core:homepage"))
+
+
+def public_resources_preview(request):
+    resources = MemberResource.objects.filter(is_active=True).order_by("-created_at")[
+        :3
+    ]
+    return render(
+        request, "partials/public_resources_preview.html", {"resources": resources}
+    )

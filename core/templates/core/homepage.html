@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load video_tags %}
+{% load resource_tags %}
 
 {% block title %}Resources to build self-confidence and strengthen self-reliance. Welcome Home. {% endblock %}
 {% block content %}
@@ -218,11 +219,14 @@
     {% endif %}
   </div>
 
+  <!-- Latest free resources -->
+  {% public_resources_preview %}
+
   <!-- Latest Blog Posts Section -->
-  <section class="w-full bg-slate-50 py-16">
+  <section class="w-full bg-white py-16">
     <div class="max-w-7xl mx-auto">
       <a href="{% url 'news:list' %}" class="hover:text-teal-800">
-      <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-teal-700 dark:text-white">
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 dark:text-white mb-4 text-center">
       Personal Growth Blog
       </h2>
       </a>

@@ -59,6 +59,8 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 @admin.register(MemberResource)
 class MemberResourceAdmin(admin.ModelAdmin):
-    list_display = ("title", "created_at", "is_active")
+    list_display = ("title", "created_at", "is_active", "order")
+    list_editable = ("order",)
     list_filter = ("is_active", "created_at")
     search_fields = ("title", "description")
+    ordering = ("order",)

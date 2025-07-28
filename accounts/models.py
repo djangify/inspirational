@@ -66,6 +66,10 @@ class MemberResource(models.Model):
     thumbnail = models.ImageField(upload_to="member_resources/thumbnails/")
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "-created_at"]
 
     def __str__(self):
         return self.title
