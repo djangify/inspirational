@@ -20,15 +20,15 @@
       <div class="hidden md:flex md:items-center space-x-6">
         <nav class="flex items-center space-x-8 mr-8">
           <a
-            href="#"
+            href="/shop/"
             class="text-gray-700 hover:text-teal-700 font-medium px-2 py-1 {% url 'shop:product_list' %} text-teal-700"
           >
             Shop
           </a>
           
           <a
-            href="/news/"
-            class="text-gray-700 hover:text-teal-700 font-medium px-2 py-1 {% if '/news/' in request.path %}text-teal-700{% endif %}"
+            href="/blog/"
+            class="text-gray-700 hover:text-teal-700 font-medium px-2 py-1 {% if '/blog/' in request.path %}text-teal-700{% endif %}"
           >
             Blog
           </a>
