@@ -48,7 +48,7 @@ def about(request):
     ).first()
     return render(
         request,
-        "core/about.html",
+        "core/develop-self-reliance.html",
         {
             "products": products,
             "featured_product": featured_product,

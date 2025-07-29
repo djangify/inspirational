@@ -7,9 +7,13 @@ app_name = "core"
 urlpatterns = [
     path("", homepage, name="homepage"),
     path("support/", support_view, name="support"),
-    path("quietly-you/", quietly_you_page, name="quietly_you_page"),
-    path("my-turn-now/", my_turn_now_page, name="my_turn_now_page"),
-    path("about/", TemplateView.as_view(template_name="core/about.html"), name="about"),
+    path("quietly-you/", quietly_you_page, name="quietly"),
+    path("my-turn-now/", my_turn_now_page, name="myturn"),
+    path(
+        "develop-self-reliance/",
+        TemplateView.as_view(template_name="core/develop-self-reliance.html"),
+        name="about",
+    ),
     # Policy pages from templates/policy/
     path(
         "policy/privacy/",
