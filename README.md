@@ -18,6 +18,11 @@ This Django-powered site offers journal prompts, calming tools, goal tracker and
 
 Inspirational Guidance is a personal growth platform with a soul. It was created to support quiet, thoughtful women who want to return to a life that feels meaningful — one decision, one prompt, one purpose-led moment at a time.
 
+Take a look at the getting started guide for new members.
+
+[![Getting Started](https://img.shields.io/badge/-Getting_Started_Guide-blue?style=for-the-badge)](https://github.com/djangify/inspirational/blob/main/getting-started-inspirational-guidance.pdf)
+
+
 ### 🎯 Core Features
 
 - ✅ Guided journal prompts
