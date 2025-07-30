@@ -45,4 +45,15 @@ Inspirational Guidance is a personal growth platform with a soul. It was created
 ---
 
 ## 📦 Project Layout
-
+```
+inspirational/
+├── accounts/ # User profiles, login, dashboard
+├── prompts/ # Affirmations, journaling prompts & filters
+├── shop/ # Digital product management & Stripe checkout
+├── tracker/ # Goal tracking models & views
+├── tools/ # Calming circle & bubble pop tools
+├── templates/ # HTML templates with Tailwind
+├── static/ # CSS, images, JS
+├── config/ # Project settings and URLs
+└── manage.py
+```
