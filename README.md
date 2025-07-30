@@ -57,3 +57,79 @@ inspirational/
 ├── config/ # Project settings and URLs
 └── manage.py
 ```
+
+---
+
+## 🛠 Tech Stack
+
+This project is built with:
+
+| Tech | Purpose |
+|------|---------|
+| **Django 5.2** | Backend framework powering the platform |
+| **PostgreSQL** | Database for storing users, prompts, goals, orders |
+| **Django REST Framework (DRF)** | API for dynamic frontend features and prompt generation |
+| **Tailwind CSS** | Frontend styling framework for clean, minimalist UI |
+| **HTMX** | For dynamic front-end interactions without React |
+| **Stripe** | Handles checkout and payment processing |
+| **Self-hosted VPS (Hetzner)** | Ubuntu-based deployment environment |
+
+Optional tools used in development:
+- `django-allauth` for authentication and email verification
+- `django-cleanup` for file management
+- `python-decouple` for environment management
+
+---
+
+## 📦 Features Overview
+
+### 🔐 Member Dashboard
+- Access purchased/free resources
+- Save journal prompts
+- Add products to a wishlist
+- Track goals & update progress
+- Access calming tools and profile management
+
+### 📘 Free Resource Library
+Includes printable journals, checklists, quote cards, and audio-guided reflection tools. The library is regularly updated and is available to all signed-up members.
+
+### 🎯 Goal Tracker
+A self-directed tool to set and track intentional goals. Built for emotional resilience — not just performance.
+
+### 🎧 Voice Tools (planned feature)
+A future update will allow members to record and play back affirmations in their own voice.
+
+---
+
+🌐 Deployment
+This project is deployed to a self-hosted VPS running Ubuntu, using:
+
+Gunicorn as the application server
+
+Nginx as the reverse proxy
+
+PostgreSQL installed and managed via systemd
+
+Certbot/Let’s Encrypt for SSL certificates
+
+
+🙋‍♀️ Contributor Notes
+This project was created and is actively maintained by Diane Corriette, a full-stack developer and writer focused on building calm, purposeful tools for personal growth. She has the help of AI Assistant Diana Morgan.
+
+```
+
+✨ License
+This project is closed-source for commercial use. Code contributions are welcome but will be governed by internal license terms for derivative and AI-assisted work. Contact us for collaboration opportunities.
+```
+---
+
+🤝 Acknowledgements
+Built with ❤️ using Django
+
+Styling inspired by the minimalism and clarity of Tailwind CSS
+
+Hosted on Hetzner for full control and security
+
+Developed in alignment with the philosophy of “coming home to yourself”
+
+
