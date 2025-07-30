@@ -10,7 +10,7 @@
 
 Welcome to the GitHub repository for [Inspirational Guidance](https://www.inspirationalguidance.com) — a calm and capable platform designed to help women **live with purpose**.
 
-This Django-powered site offers journal prompts, calming tools, voice affirmations, and printable resources — all supporting intentional living for women navigating change, burnout, reinvention, and rediscovery.
+This Django-powered site offers journal prompts, calming tools, goal tracker and printable resources — all supporting intentional living for women navigating change, burnout, reinvention, and rediscovery.
 
 ---
 
