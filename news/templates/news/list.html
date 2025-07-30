@@ -124,5 +124,46 @@ We’re here to remind you you’re allowed to take up space — even if that me
         </article>
         {% endfor %}
     </div>
+    <div>   
+        <!-- Pagination -->
+        {% if posts.has_other_pages %}
+            <div class="flex justify-center mt-12">
+                <div class="inline-flex rounded-md shadow-sm">
+                    {% if posts.has_previous %}
+                        <a href="?page={{ posts.previous_page_number }}" class="px-4 py-2 rounded-l-md border border-teal-600 text-teal-600 hover:bg-teal-700 hover:text-white transition-colors">
+                            Previous
+                        </a>
+                    {% else %}
+                        <span class="px-4 py-2 rounded-l-md border border-gray-300 text-gray-400 cursor-not-allowed">
+                            Previous
+                        </span>
+                    {% endif %}
+                    
+                    {% for i in posts.paginator.page_range %}
+                        {% if posts.number == i %}
+                            <span class="px-4 py-2 border-t border-b border-teal-600 bg-teal-700 text-white">
+                                {{ i }}
+                            </span>
+                        {% else %}
+                            <a href="?page={{ i }}" class="px-4 py-2 border-t border-b border-teal-600 text-teal-600 hover:bg-teal-700 hover:text-white transition-colors">
+                                {{ i }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if posts.has_next %}
+                        <a href="?page={{ posts.next_page_number }}" class="px-4 py-2 rounded-r-md border border-teal-600 text-teal-600 hover:bg-teal-700 hover:text-white transition-colors">
+                            Next
+                        </a>
+                    {% else %}
+                        <span class="px-4 py-2 rounded-r-md border border-gray-300 text-gray-400 cursor-not-allowed">
+                            Next
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+            
 </div>
 {% endblock %}

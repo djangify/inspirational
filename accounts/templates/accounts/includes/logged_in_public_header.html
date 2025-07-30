@@ -10,17 +10,17 @@
             class="h-8 w-auto"
             alt="Inspirational Guidance Logo"
           />
-          <span class="text-lg font-semibold whitespace-nowrap">
+          <!-- Hide site name on mobile -->
+          <span class="text-xl font-semibold whitespace-nowrap hidden md:inline">
             Inspirational Guidance
           </span>
         </a>
       </div>
 
-
       <!-- Cart Icon: always visible, centered between logo and hamburger on mobile -->
       <div class="md:hidden">
         <a href="{% url 'shop:cart_detail' %}" class="relative text-slate-700 hover:text-teal-700">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.2 6h12.4M10 21a1 1 0 11-2 0 1 1 0 012 0zm8 0a1 1 0 11-2 0 1 1 0 012 0z" />
           </svg>
@@ -41,10 +41,17 @@
           >
             Shop
           </a>
+          <a
+            href="/blog/"
+            class="text-gray-700 hover:text-teal-700 font-medium px-2 py-1 {% if '/blog/' in request.path %}text-teal-700{% endif %}"
+          >
+            Blog
+          </a>
         </nav>
+
         <!-- Cart Icon (Desktop) -->
         <a href="{% url 'shop:cart_detail' %}" class="relative text-slate-700 hover:text-teal-700">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.2 6h12.4M10 21a1 1 0 11-2 0 1 1 0 012 0zm8 0a1 1 0 11-2 0 1 1 0 012 0z" />
           </svg>
@@ -89,11 +96,30 @@
             <div class="px-4 py-2 text-sm text-gray-700 border-b">
               <p class="font-medium truncate">{{ user.email }}</p>
             </div>
-            <a href="{% url 'shop:purchases' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Orders</a>
-            <a href="{% url 'prompt:writing_progress' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tracker</a>
-            <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile Info</a>
-            <a href="/support" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Contact Support</a>
-            <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Sign out</a>
+            <a href="{% url 'accounts:dashboard' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md font-medium">
+              Dashboard
+            </a>
+            <a href="{% url 'shop:purchases' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md font-medium">
+              My Orders
+            </a>
+            <a href="{% url 'prompt:writing_progress' %}" class="block font-medium py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">
+              Tracker
+            </a>
+            <a href="{% url 'accounts:profile' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md font-medium">
+              Profile Info
+            </a>
+            <a href="/blog/" class="block font-medium py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/blog/' in request.path %}text-teal-700 {% endif %}">
+              Blog
+            </a>
+            <a href="{% url 'shop:product_list' %}" class="block font-medium py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/shop/' in request.path %}text-teal-700 {% endif %}">
+              Shop
+            </a>
+            <a href="/support" class="block font-medium py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">
+              Contact Support
+            </a>
+            <a href="{% url 'accounts:logout' %}" class="block font-medium py-2 px-4 text-red-600 hover:bg-red-50 rounded-md">
+              Sign out
+            </a>
           </div>
         </div>
       </div>
@@ -113,22 +139,30 @@
     <!-- Mobile Menu -->
     <div class="hidden md:hidden pb-3" id="mobile-menu">
       <nav class="space-y-2">
-        <a href="{% url 'accounts:dashboard' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">
-          Dashboard
-        </a>
-        <a href="{% url 'accounts:profile' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">
-          Profile
-        </a>
-        
-        <a href="/blog/" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/blog/' in request.path %}text-teal-700 font-medium{% endif %}">
-          Blog
-        </a>
-        <a href="{% url 'shop:product_list' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/shop/' in request.path %}text-teal-700 font-medium{% endif %}">
-          Shop
-        </a>
-        <a href="{% url 'accounts:logout' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">
-          Sign out
-        </a>
+        <a href="{% url 'accounts:dashboard' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md font-medium">
+              Dashboard
+            </a>
+            <a href="{% url 'shop:purchases' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md font-medium">
+              My Orders
+            </a>
+            <a href="{% url 'prompt:writing_progress' %}" class="block font-medium py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">
+              Tracker
+            </a>
+            <a href="{% url 'accounts:profile' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md font-medium">
+              Profile Info
+            </a>
+            <a href="/blog/" class="block font-medium py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/blog/' in request.path %}text-teal-700 {% endif %}">
+              Blog
+            </a>
+            <a href="{% url 'shop:product_list' %}" class="block font-medium py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/shop/' in request.path %}text-teal-700 {% endif %}">
+              Shop
+            </a>
+            <a href="/support" class="block font-medium py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">
+              Contact Support
+            </a>
+            <a href="{% url 'accounts:logout' %}" class="block font-medium py-2 px-4 text-red-600 hover:bg-red-50 rounded-md">
+              Sign out
+            </a>
       </nav>
     </div>
   </div>

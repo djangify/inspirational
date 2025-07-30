@@ -3,22 +3,21 @@
 {% load video_tags %}
 {% load resource_tags %}
 
-{% block title %}Resources to build self-confidence and develop self-reliance. Welcome Home. {% endblock %}
+{% block title %}Build self-confidence. Live with Purpose. Develop self-reliance. {% endblock %}
 {% block content %}
 
-<section class="bg-slate-50 w-full">
+
+<section class="bg-slate-50 w-full pt-16 pb-10 px-6 sm:px-10">
   <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
-    
     <!-- Text Block -->
     <div class="text-center lg:text-left">
-      <h1 class="text-4xl sm:text-5xl font-serif font-medium text-gray-900 leading-tight mb-6">
+      <h1 class="text-4xl sm:text-5xl font-serif font-medium text-gray-900 leading-tight mt-8 mb-6">
         Resources that build self-confidence, develop self-reliance, and help you live with purpose.
       </h1>
 
-      <p class="text-lg sm:text-xl text-gray-700 mb-6 max-w-xl">
-
-      Inspirational Guidance helps millennial and Gen X women rebuild and realign with what truly matters. One step at a time.
-      Our downloads, prompts, and guides are designed to support women who’ve been strong for everyone else, and are now making space for themselves. You don’t need to find yourself. You’re already here. Welcome home.
+      <p class=" mb-8 text-gray-700 lg:mb-8 md:text-xl lg:text-xl sm:text-xl">
+      Inspirational Guidance supports millennial and Gen X women to rebuild and realign with what truly matters. One step at a time.
+      Our downloads, prompts, and guides are designed to support women who’ve been strong for everyone else, and are now making space for themselves. 
       </p>
       <a href="{% url 'shop:product_list' %}" class="inline-block bg-teal-700 text-white text-2xl px-6 py-3 rounded hover:bg-teal-800 transition">
         Browse Guides & Workbooks
@@ -26,8 +25,9 @@
     </div>
 
     <!-- Image Block -->
-    <div>
-      <img src="{% static 'images/bookgirl.png' %}" alt="confidence for women" class="w-full h-auto  object-cover">
+    <div class="lg:mt-0 lg:col-span-5 lg:flex">
+      <img src="{% static 'images/bookgirl.png' %}" alt="confidence for women">
+      
     </div>
 
   </div>
@@ -64,7 +64,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
           <h3 class="mt-2 text-lg font-bold">Life Purpose Resources</h3>
-          <p class="text-sm text-gray-600">>Find clarity and meaning without losing yourself in the noise — or in someone else’s version of success.</p>
+          <p class="text-sm text-gray-600">Find clarity and meaning without losing yourself in the noise — or in someone else’s version of success.</p>
         </a>
 
         <!-- Quietly You: For Introverts -->
@@ -163,7 +163,7 @@
         Journal & Affirmation Prompt Generator
       </h2>
       <p class="text-center text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-        Generate focused prompts for journaling or affirmations — tailored by category, time, and style. Save your favourites when logged in. Perfect for days when your brain’s too full to think but too busy to rest.
+        Generate focused prompts for journaling — tailored by category, time, and style. There is an option to save prompts when logged in. Perfect for days when your brain is too full to think but too busy to rest.
       </p>
 
       <div class="max-w-7xl mx-auto px-4">
@@ -181,7 +181,7 @@
        Our digital downloads are for women navigating change — midlife, motherhood, burnout, reinvention — or just that quiet tug that says: “I don’t feel like myself anymore. Something needs to shift.” 
       </p>
       <p class="text-gray-700 mb-4">
-       These resources are here to help you return to your voice, your pace, and your priorities — without guilt, overwhelm, or colour-coded to-do lists. 
+       These resources are here to empower you to return to your voice, your pace, and your priorities — without guilt, overwhelm, or colour-coded to-do lists. 
       </p> 
        
       <p class="text-gray-700 mb-4">
