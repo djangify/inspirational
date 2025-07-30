@@ -30,20 +30,6 @@ Inspirational Guidance is a personal growth platform with a soul. It was created
 
 ---
 
-## 🛠 Tech Stack
-
-| Tech | Purpose |
-|------|---------|
-| **Django 5.2** | Main backend framework |
-| **PostgreSQL** | Database (relational) |
-| **Django REST Framework (DRF)** | API endpoints for dynamic content |
-| **Tailwind CSS** | Utility-first front-end styling |
-| **HTMX** | Interactive UX without full JS frameworks |
-| **Stripe** | Secure checkout + webhook-based order updates |
-| **Hetzner VPS** | Self-hosted, Ubuntu-based Linux server |
-
----
-
 ## 📦 Project Layout
 ```
 inspirational/
@@ -112,6 +98,7 @@ PostgreSQL installed and managed via systemd
 
 Certbot/Let’s Encrypt for SSL certificates
 
+---
 
 🙋‍♀️ Contributor Notes
 This project was created and is actively maintained by Diane Corriette, a full-stack developer and writer focused on building calm, purposeful tools for personal growth. She has the help of AI Assistant Diana Morgan.
@@ -132,4 +119,9 @@ Hosted on Hetzner for full control and security
 
 Developed in alignment with the philosophy of “coming home to yourself”
 
+---
 
+Diane Corriette
+https://www.djangify.com 
+
+https://www.inspirationalguidance.com
