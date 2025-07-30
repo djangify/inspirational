@@ -57,11 +57,19 @@ class ProductAdmin(admin.ModelAdmin):
                     "title",
                     "slug",
                     "category",
-                    "description",
                     "product_type",
                     "number_of_pages",
                     "status",
                     "is_active",
+                )
+            },
+        ),
+        (
+            "Sales Copy",
+            {
+                "fields": (
+                    "description",
+                    "long_description",
                 )
             },
         ),

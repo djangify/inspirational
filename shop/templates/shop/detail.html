@@ -16,7 +16,6 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="min-h-screen mt-16 bg-slate-50">
   <div class="container mx-auto px-4 py-12">
     <div class="max-w-7xl mx-auto">
@@ -24,60 +23,126 @@
 
         <!-- Product Image Section -->
         <div class="space-y-4">
-        <!-- Main Image -->
-        <div class="relative bg-slate-50 overflow-hidden">
+          <div class="relative bg-slate-50 overflow-hidden">
             <img
-            id="main-product-image"
-            src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
-            data-default-src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
-            alt="{{ product.title }}"
-            class="w-full h-[650px] object-contain mx-auto transition duration-300"
+              id="main-product-image"
+              src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
+              data-default-src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
+              alt="{{ product.title }}"
+              class="w-full h-[650px] object-contain mx-auto transition duration-300"
             />
 
-            <!-- Product Type Badge -->
             <div class="absolute top-4 left-4">
-            <span class="px-3 py-1 text-sm font-semibold rounded-full bg-teal-100 text-teal-800">
+              <span class="px-3 py-1 text-sm font-semibold rounded-full bg-teal-100 text-teal-800">
                 {{ product.get_product_type_display }}
-            </span>
+              </span>
             </div>
 
-            <!-- Sale Badge -->
             {% if product.is_on_sale %}
             <div class="absolute top-4 right-4">
-            <span class="px-3 py-1 text-sm font-bold bg-red-500 text-white rounded-full">SALE</span>
+              <span class="px-3 py-1 text-sm font-bold bg-red-500 text-white rounded-full">SALE</span>
             </div>
             {% endif %}
-        </div>
+          </div>
 
-        <!-- Additional Thumbnails -->
-        <div class="flex mt-4 gap-4">
-          <!-- Always include main image as first thumbnail -->
-          <img
+          <div class="flex mt-4 gap-4">
+            <img
               src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
               data-src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
               alt="{{ product.title }}"
               class="w-20 h-20 object-cover border-2 border-teal-700 rounded hover:shadow-md cursor-pointer product-thumbnail active-thumbnail"
-          />
+            />
             {% if product.image %}
-                <!-- Include main image as a thumbnail -->
-                <img
-                src="{{ product.image.url }}"
-                data-src="{{ product.image.url }}"
-                alt="{{ product.title }}"
-                class="w-20 h-20 object-cover border rounded hover:shadow-md cursor-pointer product-thumbnail"
-                />
+            <img
+              src="{{ product.image.url }}"
+              data-src="{{ product.image.url }}"
+              alt="{{ product.title }}"
+              class="w-20 h-20 object-cover border rounded hover:shadow-md cursor-pointer product-thumbnail"
+            />
+            {% endif %}
+            {% for img in product.images.all %}
+            <img
+              src="{{ img.image.url }}"
+              data-src="{{ img.image.url }}"
+              alt="{{ img.alt_text|default:'Additional product image' }}"
+              class="w-20 h-20 object-cover border rounded hover:shadow-md cursor-pointer product-thumbnail"
+            />
+            {% endfor %}
+          </div>
+
+          <div class="space-y-6 pt-6">
+            {% if product.status == "publish" %}
+            <form method="post" action="{% url 'shop:cart_add' product.id %}" class="space-y-4">
+              {% csrf_token %}
+              <div class="flex items-center space-x-4">
+                <label class="text-sm font-medium text-gray-700">Quantity:</label>
+                <input type="number" name="quantity" value="1" min="1" max="10"
+                  class="w-16 px-3 py-2 border border-gray-300 rounded text-center">
+              </div>
+              <button type="submit"
+                class="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+                Add to Cart
+              </button>
+            </form>
+            {% else %}
+            <div class="text-yellow-700 bg-yellow-50 border border-yellow-200 p-4 rounded">
+              This product is <strong>{{ product.get_status_display }}</strong>.
+            </div>
             {% endif %}
 
-            {% for img in product.images.all %}
-                <img
-                src="{{ img.image.url }}"
-                data-src="{{ img.image.url }}"
-                alt="{{ img.alt_text|default:'Additional product image' }}"
-                class="w-20 h-20 object-cover border rounded hover:shadow-md cursor-pointer product-thumbnail"
-                />
-            {% endfor %}
+                     <!-- Wishlist / Share -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+            <button
+              class="favourite-btn bg-amber-400 w-full text-center py-3 rounded-xl shadow-md font-semibold transition duration-200 hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-300"
+
+              data-product-slug="{{ product.slug }}"
+              data-action-url="{% url 'accounts:add_to_wishlist' product.slug %}"
+              data-csrf="{{ csrf_token }}"
+            >
+              {% if product in user.profile.favourite_products.all %}
+                  ❤️ Remove from Wish List
+              {% else %}
+                  🤍 Add To Wish List
+              {% endif %}
+            </button>
+            <!-- Share button -->
+            <div class="relative">
+              <button
+                id="share-toggle"
+                type="button"
+                class="flex items-center justify-center w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                🔗 Share
+              </button>
+              <div id="share-options" class="absolute z-10 hidden bg-white border border-gray-200 rounded-lg shadow-md mt-2 w-64">
+                <ul class="text-sm text-gray-700 p-2">
+                  <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="block px-4 py-2 hover:bg-gray-100">📘 Facebook</a></li>
+                  <li><a href="https://x.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ product.title }}" target="_blank" class="block px-4 py-2 hover:bg-gray-100">🐦 X</a></li>
+                  <li><a href="https://wa.me/?text={{ product.title }} {{ request.build_absolute_uri }}" target="_blank" class="block px-4 py-2 hover:bg-gray-100">📱 WhatsApp</a></li>
+                  <li><a href="mailto:?subject={{ product.title }}&body=Check out this product: {{ request.build_absolute_uri }}" class="block px-4 py-2 hover:bg-gray-100">✉️ Email</a></li>
+                </ul>
+              </div>
             </div>
-        
+          </div>
+
+            <div class="border-t pt-6">
+              {% if has_purchased and order_item %}
+              <div class="bg-teal-50 border border-teal-700 text-teal-900 font-semibold p-4 rounded mb-4">
+                ✅ You purchased this product on {{ order_item.order.created|date:"j M Y" }} (Order ID: {{ order_item.order.order_id }})
+              </div>
+              {% endif %}
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-600">
+                <div class="flex items-center"><span class="text-green-500 mr-2">✔</span>Secure Payment</div>
+                <div class="flex items-center"><span class="text-blue-500 mr-2">↩</span>Easy Downloads</div>
+                <div class="flex items-center">
+                  <svg class="w-5 h-5 text-purple-600 mr-2" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A9.003 9.003 0 0112 15c2.157 0 4.124.763 5.879 2.032M15 11a3 3 0 11-6 0 3 3 0 016 0zM12 3.75a8.25 8.25 0 100 16.5 8.25 8.25 0 000-16.5z" />
+                  </svg>
+                  <span><a href="{% url 'accounts:register' %}" class="hover:text-teal-700">Register Here</a></span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Product Info Section -->
@@ -91,7 +156,6 @@
             </h1>
           </div>
 
-          <!-- Pricing -->
           <div class="flex items-center space-x-4">
             <span class="text-4xl font-bold text-gray-900">
               £{{ product.current_price }}
@@ -101,20 +165,18 @@
             {% endif %}
           </div>
 
-         
-          <!-- Reviews -->
           <div class="flex items-center gap-1 mt-1">
             <div class="flex">
               {% for i in "12345"|make_list %}
-                  {% if forloop.counter <= product.average_rating %}
-                      <svg class="w-5 h-5 text-yellow-400 fill-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                          <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782L19.868 24 12 19.896 4.132 24l2.934-9.008L1.132 9.21l8.2-1.192z"/>
-                      </svg>
-                  {% else %}
-                      <svg class="w-5 h-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                          <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782L19.868 24 12 19.896 4.132 24l2.934-9.008L1.132 9.21l8.2-1.192z"/>
-                      </svg>
-                  {% endif %}
+                {% if forloop.counter <= product.average_rating %}
+                  <svg class="w-5 h-5 text-yellow-400 fill-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782L19.868 24 12 19.896 4.132 24l2.934-9.008L1.132 9.21l8.2-1.192z"/>
+                  </svg>
+                {% else %}
+                  <svg class="w-5 h-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782L19.868 24 12 19.896 4.132 24l2.934-9.008L1.132 9.21l8.2-1.192z"/>
+                  </svg>
+                {% endif %}
               {% endfor %}
             </div>
             <span class="ml-2 text-sm text-gray-600">
@@ -122,95 +184,43 @@
             </span>
           </div>
 
-
-          <!-- Description -->
           <div class="prose prose-gray max-w-none text-lg text-gray-600">
             {{ product.description|safe }}
           </div>
 
-          <!-- Purchase & Quantity -->
-          {% if product.status == "publish" %}
-          <form method="post" action="{% url 'shop:cart_add' product.id %}" class="space-y-4">
-            {% csrf_token %}
-            <div class="flex items-center space-x-4">
-              <label class="text-sm font-medium text-gray-700">Quantity:</label>
-              <input type="number" name="quantity" value="1" min="1" max="10"
-                class="w-16 px-3 py-2 border border-gray-300 rounded text-center">
-            </div>
-            <button type="submit"
-              class="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
-              Add to Cart
-            </button>
-          </form>
-          {% else %}
-          <div class="text-yellow-700 bg-yellow-50 border border-yellow-200 p-4 rounded">
-            This product is <strong>{{ product.get_status_display }}</strong>.
-          </div>
-          {% endif %}
-
-          <!-- Wishlist / Share -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-            <button
-              class="favourite-btn bg-amber-400"
-              data-product-slug="{{ product.slug }}"
-              data-action-url="{% url 'accounts:add_to_wishlist' product.slug %}"
-              data-csrf="{{ csrf_token }}"
-            >
-              {% if product in user.profile.favourite_products.all %}
-                  ❤️ Remove from Wish List
-              {% else %}
-                  🤍 Add To Wish List
-              {% endif %}
-            </button>
-            <!--share button-->
-            <div class="relative">
-              <button
-                id="share-toggle"
-                type="button"
-                class="flex items-center justify-center w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-              >
-                🔗 Share
-              </button>
-
-              <div
-                id="share-options"
-                class="absolute z-10 hidden bg-white border border-gray-200 rounded-lg shadow-md mt-2 w-64"
-              >
-                <ul class="text-sm text-gray-700 p-2">
-                  <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="block px-4 py-2 hover:bg-gray-100">📘 Facebook</a></li>
-                  <li><a href="https://x.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ product.title }}" target="_blank" class="block px-4 py-2 hover:bg-gray-100">🐦 X</a></li>
-                  <li><a href="https://wa.me/?text={{ product.title }} {{ request.build_absolute_uri }}" target="_blank" class="block px-4 py-2 hover:bg-gray-100">📱 WhatsApp</a></li>
-                  <li><a href="mailto:?subject={{ product.title }}&body=Check out this product: {{ request.build_absolute_uri }}" class="block px-4 py-2 hover:bg-gray-100">✉️ Email</a></li>
-                </ul>
-              </div>
+          <div class="mt-6 border-t pt-6">
+            <div class="accordion-header flex items-center justify-between cursor-pointer" data-target="product-long-description">
+              <h3 class="text-lg font-semibold text-teal-700">More Product Info Here</h3>
+              <svg class="w-5 h-5 transition-transform accordion-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
             </div>
 
-          </div>
+            <!-- lONGER Product description -->
+            <div id="product-long-description" class="hidden mt-4 prose text-gray-600">
+              {{ product.long_description|safe }}
 
-          <!-- Trust Icons -->
-          <div class="border-t pt-6">
-            {% if has_purchased and order_item %}
-              <div class="bg-teal-50 border border-teal-700 text-teal-900 font-semibold p-4 rounded mb-4">
-                ✅ You purchased this product on {{ order_item.order.created|date:"j M Y" }} (Order ID: {{ order_item.order.order_id }})
-              </div>
-            {% endif %}
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-600">
-              <div class="flex items-center"><span class="text-green-500 mr-2">✔</span>Secure Payment</div>
-              <div class="flex items-center"><span class="text-blue-500 mr-2">↩</span>Easy Downloads</div>
-              <div class="flex items-center">
-                <svg class="w-5 h-5 text-purple-600 mr-2" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A9.003 9.003 0 0112 15c2.157 0 4.124.763 5.879 2.032M15 11a3 3 0 11-6 0 3 3 0 016 0zM12 3.75a8.25 8.25 0 100 16.5 8.25 8.25 0 000-16.5z" />
-                </svg>
-                <span><a href="{% url 'accounts:register' %}" class=" hover:text-teal-700">Register Here</a></span>
+              {% if product.status == "publish" %}
+              <form method="post" action="{% url 'shop:cart_add' product.id %}" class="mt-6 space-y-4">
+                {% csrf_token %}
+                <div class="flex items-center space-x-4">
+                  <label class="text-sm font-medium text-gray-700">Quantity:</label>
+                  <input type="number" name="quantity" value="1" min="1" max="10"
+                    class="w-16 px-3 py-2 border border-gray-300 rounded text-center">
                 </div>
+                <button type="submit"
+                  class="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  Add to Cart
+                </button>
+              </form>
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
-      <!--reviews box-->
+
       {% include 'components/reviews.html' %}
 
-      <!-- Related Products -->
       {% if related_products %}
       <section class="mt-20">
         <h2 class="text-2xl font-bold text-gray-900 mb-8">Related Products</h2>
@@ -247,6 +257,7 @@
     </div>
   </div>
 </div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const mainImage = document.getElementById("main-product-image");

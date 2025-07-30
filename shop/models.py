@@ -50,6 +50,8 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     description = HTMLField()
+    section_description = models.TextField(blank=True, null=True)
+    long_description = HTMLField(blank=True, null=True)
     product_type = models.CharField(
         max_length=20, choices=PRODUCT_TYPES, default="download"
     )
