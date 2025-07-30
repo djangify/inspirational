@@ -10,14 +10,30 @@
             class="h-8 w-auto"
             alt="Inspirational Guidance Logo"
           />
-          <span class="text-xl font-semibold whitespace-nowrap">
+          <span class="text-lg font-semibold whitespace-nowrap">
             Inspirational Guidance
           </span>
         </a>
       </div>
 
-      <!-- Navigation Links (Desktop) -->
-      <div class="hidden md:flex md:items-center space-x-6">
+
+      <!-- Cart Icon: always visible, centered between logo and hamburger on mobile -->
+      <div class="md:hidden">
+        <a href="{% url 'shop:cart_detail' %}" class="relative text-slate-700 hover:text-teal-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.2 6h12.4M10 21a1 1 0 11-2 0 1 1 0 012 0zm8 0a1 1 0 11-2 0 1 1 0 012 0z" />
+          </svg>
+          {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+              <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-1">{{ total_items }}</span>
+            {% endif %}
+          {% endwith %}
+        </a>
+      </div>
+
+      <!-- Right Section (Desktop only) -->
+      <div class="hidden md:flex items-center space-x-6">
         <nav class="flex items-center space-x-8 mr-8">
           <a
             href="/shop/"
@@ -25,71 +41,59 @@
           >
             Shop
           </a>
-          
-          <a
-            href="/blog/"
-            class="text-gray-700 hover:text-teal-700 font-medium px-2 py-1 {% if '/blog/' in request.path %}text-teal-700{% endif %}"
-          >
-            Blog
-          </a>
         </nav>
+        <!-- Cart Icon (Desktop) -->
+        <a href="{% url 'shop:cart_detail' %}" class="relative text-slate-700 hover:text-teal-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.2 6h12.4M10 21a1 1 0 11-2 0 1 1 0 012 0zm8 0a1 1 0 11-2 0 1 1 0 012 0z" />
+          </svg>
+          {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+              <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-1">{{ total_items }}</span>
+            {% endif %}
+          {% endwith %}
+        </a>
 
-        <div class="flex items-center space-x-6">
-          <a
-            href="{% url 'accounts:dashboard' %}"
-            class="bg-teal-700 text-white font-medium rounded-lg px-5 py-2 hover:bg-teal-700 transition-colors"
+        <!-- Dashboard (Desktop Only) -->
+        <a
+          href="{% url 'accounts:dashboard' %}"
+          class="bg-teal-700 text-white font-medium rounded-lg px-5 py-2 hover:bg-teal-700 transition-colors"
+        >
+          Dashboard
+        </a>
+
+        <!-- User Menu -->
+        <div class="relative" x-data="{ open: false }">
+          <button
+            type="button"
+            class="flex items-center text-gray-700 hover:text-teal-700"
+            id="user-menu-button"
+            @click="open = !open"
           >
-            Dashboard
-          </a>
-
-          <!-- User Menu (Desktop) -->
-          <div class="relative" x-data="{ open: false }">
-            <button
-              type="button"
-              class="flex items-center text-gray-700 hover:text-teal-700"
-              id="user-menu-button"
-              @click="open = !open"
-            >
-              <div
-                class="h-8 w-8 rounded-full  bg-teal-100 flex items-center justify-center text-teal-700 mr-2"
-              >
-                <span class="font-medium">{{ user.username.0|upper }}</span>
-              </div>
-              <span class="font-medium mr-1 hidden sm:inline">
-                {{ user.username }}
-              </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-
-            <!-- Dropdown Menu -->
-            <div
-              id="user-dropdown"
-              class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-            >
-              <div class="px-4 py-2 text-sm text-gray-700 border-b">
-                <p class="font-medium truncate">{{ user.email }}</p>
-              </div>
-              <a href="{% url 'shop:purchases' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Orders</a>
-              
-              <a href="{% url 'prompt:writing_progress' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tracker</a>
-              <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile Info</a>
-              <a href="/support" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Contact Support</a>
-              <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Sign out</a>
-
+            <div class="h-8 w-8 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 mr-2">
+              <span class="font-medium">{{ user.username.0|upper }}</span>
             </div>
+            <span class="font-medium mr-1 hidden sm:inline">
+              {{ user.username }}
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <div
+            id="user-dropdown"
+            class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          >
+            <div class="px-4 py-2 text-sm text-gray-700 border-b">
+              <p class="font-medium truncate">{{ user.email }}</p>
+            </div>
+            <a href="{% url 'shop:purchases' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Orders</a>
+            <a href="{% url 'prompt:writing_progress' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tracker</a>
+            <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile Info</a>
+            <a href="/support" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Contact Support</a>
+            <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Sign out</a>
           </div>
         </div>
       </div>
@@ -100,60 +104,36 @@
         class="md:hidden text-gray-700 hover:text-gray-900 focus:outline-none"
         id="mobile-menu-button"
       >
-        <svg
-          class="h-6 w-6"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
     </div>
 
-    <!-- Mobile Menu (hidden by default) -->
+    <!-- Mobile Menu -->
     <div class="hidden md:hidden pb-3" id="mobile-menu">
       <nav class="space-y-2">
-        <a
-          href="#"
-          class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/documentation/' in request.path %}text-teal-700 font-medium{% endif %}"
-        >
-          Documentation
-        </a>
-        <a
-          href="/news/"
-          class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/news/' in request.path %}text-teal-700 font-medium{% endif %}"
-        >
-          Blog
-        </a>
-        <a
-          href="{% url 'accounts:dashboard' %}"
-          class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md"
-        >
+        <a href="{% url 'accounts:dashboard' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">
           Dashboard
         </a>
-        <a
-          href="{% url 'accounts:profile' %}"
-          class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md"
-        >
+        <a href="{% url 'accounts:profile' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">
           Profile
         </a>
-        <a
-          href="{% url 'accounts:logout' %}"
-          class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md"
-        >
+        
+        <a href="/blog/" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/blog/' in request.path %}text-teal-700 font-medium{% endif %}">
+          Blog
+        </a>
+        <a href="{% url 'shop:product_list' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md {% if '/shop/' in request.path %}text-teal-700 font-medium{% endif %}">
+          Shop
+        </a>
+        <a href="{% url 'accounts:logout' %}" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-md">
           Sign out
         </a>
       </nav>
     </div>
   </div>
 </header>
+
 
 <script>
   document.getElementById("mobile-menu-button").addEventListener("click", function () {
