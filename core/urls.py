@@ -10,8 +10,8 @@ urlpatterns = [
     path("quietly-you/", quietly_you_page, name="quietly"),
     path("my-turn-now/", my_turn_now_page, name="myturn"),
     path(
-        "develop-self-reliance/",
-        TemplateView.as_view(template_name="core/develop-self-reliance.html"),
+        "personal-development/",
+        TemplateView.as_view(template_name="core/personal-development.html"),
         name="about",
     ),
     # Policy pages from templates/policy/
