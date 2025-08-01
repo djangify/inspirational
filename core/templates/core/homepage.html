@@ -112,7 +112,7 @@
         <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 mb-8">
           Best Sellers
         </h2>
-        <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+        <div class="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
           {% for product in products %}
           <div class="bg-white border border-slate-50 shadow-sm hover:shadow-lg transition duration-300 overflow-hidden flex flex-col">
             <a href="{{ product.get_absolute_url }}">

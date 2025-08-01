@@ -6,24 +6,36 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     
-    <!-- About Hero Section with Video -->
-<section class="bg-white sm:pt-12 sm:pb-8 lg:pt-16 lg:pb-8"> <!-- reduced bottom padding -->
-  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <!-- About Hero Section  -->
+    <!-- About Hero Section -->
+<section class="bg-white sm:pt-12 sm:pb-8 lg:pt-16 lg:pb-8">
+  <div class="max-w-7xl mx-auto px-4 mb-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    
+    <!-- Left: Image -->
     <div>
-      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">About Inspirational Guidance</h1>
-      <p class="text-gray-700 text-lg mb-4">
-        Inspirational Guidance is a personal development hub for women navigating change. We offer grounded, no-fluff support through journaling tools, confidence guides, and purpose-led resources. We help women take back their time, trust their own voice, and grow on their own terms.
-      </p>
+      <img src="{% static 'images/personal-growth-about.webp' %}" alt="confidence for women" class="w-full h-auto rounded-md shadow-md">
     </div>
-    <p class="text-gray-700">
-      Our goal is to support you in taking grounded action and reclaiming space in your life for you, without hype or pressure. It's personal development for real life. Whether you are new here or returning, this space is for you if you're ready to put yourself back on your own list.
-    </p>
-    <div></div>
-  </div>
-</section>
+
+      <!-- Right: Text -->
+      <div class="space-y-6">
+        <div class="space-y-4">
+          <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">About Inspirational Guidance</h1>
+          <p class="text-gray-700 text-lg">
+            Inspirational Guidance is a personal development hub for women navigating change. We offer grounded, no-fluff support through journaling tools, confidence guides, and purpose-led resources. We help women take back their time, trust their own voice, and grow on their own terms.
+          </p>
+        </div>
+        <p class="text-gray-700 text-lg">
+          Our goal is to support you in taking grounded action and reclaiming space in your life for you, without hype or pressure. It's personal development for real life. Whether you are new here or returning, this space is for you if you're ready to put yourself back on your own list.
+        </p>
+      </div>
+      
+    </div>
+  </section>
+
+
 
 <!-- Mission and Vision Section -->
-<section class="px-6 flex flex-col gap-y-10 text-text lg:gap-x-10 lg:flex-row-reverse *:basis-full mb-16 2xl:rounded"> <!-- removed vertical padding -->
+<section class="px-6 flex flex-col gap-y-10 text-text lg:gap-x-10 lg:flex-row-reverse *:basis-full mb-16 2xl:rounded"> 
   <div class="grid gap-5 *:flex *:flex-col *:gap-y-5 *:items-center *:border-2 *:border-teal-700 *:rounded *:p-8 sm:grid-cols-1">
     <div>
       <div class="h-12 w-12 bg-teal-700 rounded-full flex items-center justify-center">
@@ -128,7 +140,7 @@
       </div>
     </div>
   </div>
-   <!-- About Section -->
+   <!-- AI SECTION-->
     <section id="about" class="scroll-mt-8 mb-16 p-6 flex flex-col gap-y-10 bg-secondary text-text lg:gap-x-10 lg:flex-row-reverse *:basis-full md:p-16 2xl:rounded">
         <div class="space-y-5 *:space-y-2 lg:self-center xl:space-y-10">
             <div>
@@ -137,8 +149,15 @@
             <div class="space-y-5 lg:self-center xl:space-y-10">
                 <p>We’re not here to reinvent you, we’re here to help you  create a life that reflects your values not just your responsibilities. We use Appreciative Inquiry, a strengths-based approach that starts from where you are, not from what's missing, because lasting change begins with what’s already good.</p>
                 <p>
-                    <a class="uppercase p-2 border-2 border-teal-700 self-start hover:text-accent transition-colors cursor-pointer text-xs rounded sm:text-lg mt-8 sm:px-4" href="{% url 'shop:product_list' %}">Our Workbooks and Guides</a>
+                  <div class="flex justify-center">
+                    <a href="{% url 'shop:product_list' %}"
+                      class="inline-flex uppercase p-2 border-2 border-teal-700 hover:text-accent transition-colors cursor-pointer text-xs rounded sm:text-lg sm:px-4">
+                      Our Workbooks and Guides
+                    </a>
+                  </div>
+
                 </p>
+
             </div>
         </div>
         

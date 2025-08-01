@@ -256,7 +256,7 @@ def add_favourite_product(request, product_slug):
 
 def public_resources_preview(request):
     resources = MemberResource.objects.filter(is_active=True).order_by("-created_at")[
-        :3
+        :4
     ]
     return render(
         request, "partials/public_resources_preview.html", {"resources": resources}

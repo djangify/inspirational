@@ -1,7 +1,5 @@
 {% load static %}
-
 <div class="max-w-7xl mx-auto px-4 space-y-12">
-
   <!-- PROMPT FILTERS -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-8 rounded border-2 border-teal-700 justify-items-center items-center">
     <!-- Category -->
@@ -21,17 +19,10 @@
         <option value="deep">Deep Dive (30+ minutes)</option>
       </select>
     </div>
-
-    <!-- Writing Style -->
-    {% comment %} <div class="w-full sm:w-auto">
-      <label for="writingStyle" class="block text-md font-medium text-gray-700 mb-1 text-center">Writing Style</label>
-      <select id="writingStyle" class="w-full h-12 text-center rounded-md border-gray-300 bg-gray-100 focus:ring-2 focus:ring-teal-700">
-        <option value="">All Styles</option>
-      </select>
-    </div> {% endcomment %}
     <!-- Generate Button -->
-    <div class="w-full lg:col-span-1 flex justify-center items-end">
-      <button id="generateBtn" class=" hover:text-blue-600 bg-slate-100 shadow-sm hover:shadow  transform hover:scale-110 transition-all duration-200 uppercase p-2 border-2 border-accent sm:text-lg mt-8 sm:px-4">
+    <div class="w-full flex justify-center col-span-full">
+
+      <button id="generateBtn" class=" hover:text-blue-600 bg-slate-100 shadow-sm hover:shadow  transform hover:scale-110 transition-all duration-200 mx-auto uppercase p-2 border-2 border-accent sm:text-lg mt-8 sm:px-4">
         Generate Prompt
       </button>
     </div>
