@@ -84,7 +84,11 @@ class Product(models.Model):
 
     # Media
     files = models.FileField(
-        upload_to="products/files/", null=True, blank=True, storage=secure_storage
+        upload_to="products/files/",
+        null=True,
+        blank=True,
+        storage=secure_storage,
+        help_text="Upload a PDF or ZIP file. Use ZIP for bundles.",
     )
     preview_file = models.FileField(
         upload_to="products/previews/", null=True, blank=True, storage=public_storage
