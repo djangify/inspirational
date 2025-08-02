@@ -1,4 +1,18 @@
 {% extends 'base.html' %}
+{% block open_graph_tags %}
+  <meta property="fb:app_id" content="2433552923679047" />
+  <meta property="og:title" content="{{ post.meta_title|default:post.title }}" />
+  <meta property="og:description" content="{{ post.meta_description|default:post.excerpt|truncatewords:25 }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:image" content="{{ post.featured_image.url|default:'/static/images/diana-morgan.webp' }}" />
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ post.meta_title|default:post.title }}">
+<meta name="twitter:description" content="{{ post.meta_description|default:post.excerpt|truncatewords:25 }}">
+<meta name="twitter:image" content="{{ post.featured_image.url|default:'/static/images/diana-morgan.webp' }}">
+
+{% endblock %}
 {% block content %}
 <!-- news/templates/news/detail.html -->
 <section class="bg-secondary  text-text ">

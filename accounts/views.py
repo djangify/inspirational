@@ -166,7 +166,7 @@ def dashboard_view(request):
 
     # Member resources
     member_resources = MemberResource.objects.filter(is_active=True).order_by(
-        "-created_at"
+        "order", "-created_at"
     )
 
     # Writing goals
@@ -255,9 +255,9 @@ def add_favourite_product(request, product_slug):
 
 
 def public_resources_preview(request):
-    resources = MemberResource.objects.filter(is_active=True).order_by("-created_at")[
-        :4
-    ]
+    resources = MemberResource.objects.filter(is_active=True).order_by(
+        "order", "-created_at"
+    )[:4]
     return render(
         request, "partials/public_resources_preview.html", {"resources": resources}
     )
