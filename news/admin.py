@@ -134,8 +134,13 @@ class PostAdmin(admin.ModelAdmin):
             if not content_type.startswith("image/"):
                 raise ValidationError("URL must point to an image file")
 
-            if not any(content_type.endswith(ext) for ext in ["/jpeg", "/jpg", "/png"]):
-                raise ValidationError("Only JPG and PNG images are allowed")
+            if content_type not in [
+                "image/jpeg",
+                "image/jpg",
+                "image/png",
+                "image/webp",
+            ]:
+                raise ValidationError("Only JPG, PNG, and WEBP images are allowed")
 
         except requests.RequestException:
             raise ValidationError("Could not validate image URL")
