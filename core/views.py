@@ -126,9 +126,7 @@ def robots_txt(request):
 
 def quietly_you_page(request):
     # Blog logic only
-    news_categories = NewsCategory.objects.filter(
-        slug__in=["quietly-you", "mental-fitness", "self-reliance"]
-    )
+    news_categories = NewsCategory.objects.filter(slug__in=["quietly-you"])
     posts = Post.objects.filter(
         category__in=news_categories, status="published"
     ).order_by("-publish_date")[:6]
@@ -138,7 +136,26 @@ def quietly_you_page(request):
         "core/quietly-you.html",
         {
             "posts": posts,
-            "category_slugs": ["quietly-you", "mental-fitness", "self-reliance"],
+            "category_slugs": ["quietly-you"],
+        },
+    )
+
+
+def diane_corriette_page(request):
+    # Blog logic only
+    news_categories = NewsCategory.objects.filter(
+        slug__in=["diane-corriette", "inspirational-guidance"]
+    )
+    posts = Post.objects.filter(
+        category__in=news_categories, status="published"
+    ).order_by("-publish_date")[:6]
+
+    return render(
+        request,
+        "core/diane-corriette.html",
+        {
+            "posts": posts,
+            "category_slugs": ["diane-corriette", "inspirational-guidance"],
         },
     )
 

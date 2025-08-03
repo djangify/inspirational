@@ -13,6 +13,7 @@ class StaticViewSitemap(Sitemap):
         return [
             "core:homepage",
             "core:about",
+            "core:diane-corriette",
             "core:support",
             "core:contact",
             "tools:index",  #  Mindful Tools index page (/tools/)

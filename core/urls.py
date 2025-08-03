@@ -1,6 +1,12 @@
 from django.urls import path
 from django.views.generic import TemplateView
-from .views import homepage, support_view, quietly_you_page, my_turn_now_page
+from .views import (
+    homepage,
+    support_view,
+    quietly_you_page,
+    my_turn_now_page,
+    diane_corriette_page,
+)
 
 app_name = "core"
 
@@ -9,6 +15,7 @@ urlpatterns = [
     path("support/", support_view, name="support"),
     path("quietly-you/", quietly_you_page, name="quietly"),
     path("my-turn-now/", my_turn_now_page, name="myturn"),
+    path("diane-corriette/", diane_corriette_page, name="diane_corriette"),
     path(
         "personal-development/",
         TemplateView.as_view(template_name="core/personal-development.html"),

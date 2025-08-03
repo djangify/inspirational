@@ -19,7 +19,7 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-    <meta property="og:image" content="{% static 'images/diana-morgan.webp' %}" />
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/diana-morgan.webp' %}" />
     {% endblock %}
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
     <script src="https://js.stripe.com/v3/"></script>

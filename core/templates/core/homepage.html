@@ -225,7 +225,7 @@
   {% public_resources_preview %}
   <!-- Latest Blog Posts Section -->
   <section class="w-full bg-white py-16">
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <a href="{% url 'news:list' %}" class="hover:text-teal-800">
       <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 mb-4 text-center">
       Personal Development Blog
@@ -235,7 +235,7 @@
       {% if blog_posts %}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {% for post in blog_posts %}
-            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div class="bg-white rounded-md mb-6 md:mb-0 shadow-sm overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
               <a href="{{ post.get_absolute_url }}" class="block">
                 <div class="h-48 overflow-hidden">
                   {% if post.image %}
@@ -253,7 +253,7 @@
                 </div>
                 <div class="p-4">
                   <h3 class="text-lg font-bold text-gray-900 mb-2">{{ post.title }}</h3>
-                  <p class="text-sm text-gray-700 mb-3">{{ post.content|striptags|truncatewords:18 }}</p>
+                  <p class="text-sm text-gray-700 mb-3">{{ post.content|striptags|truncatewords:20 }}</p>
                   <span class="text-teal-700 hover:text-teal-700 text-sm font-medium">Read more →</span>
                 </div>
               </a>
