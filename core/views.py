@@ -143,19 +143,17 @@ def quietly_you_page(request):
 
 def diane_corriette_page(request):
     # Blog logic only
-    news_categories = NewsCategory.objects.filter(
-        slug__in=["diane-corriette", "inspirational-guidance"]
-    )
+    news_categories = NewsCategory.objects.filter(slug__in=["diane-corriette"])
     posts = Post.objects.filter(
         category__in=news_categories, status="published"
-    ).order_by("-publish_date")[:6]
+    ).order_by("-publish_date")[:9]
 
     return render(
         request,
         "core/diane-corriette.html",
         {
             "posts": posts,
-            "category_slugs": ["diane-corriette", "inspirational-guidance"],
+            "category_slugs": ["diane-corriette"],
         },
     )
 
