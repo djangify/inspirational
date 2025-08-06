@@ -16,16 +16,16 @@ from django.http import Http404
 
 
 def homepage(request):
-    products = Product.objects.filter(featured=True, is_active=True, status="publish")[
-        :4
-    ]
+    products = Product.objects.filter(
+        featured=True, is_active=True, status__in=["publish", "soon", "full"]
+    )[:4]
 
     reviews = ProductReview.objects.select_related("product", "user").order_by("?")[:3]
     blog_posts = Post.objects.filter(publish_date__lte=now()).order_by("-publish_date")[
         :3
     ]
     featured_product = Product.objects.filter(
-        featured=True, is_active=True, status="publish"
+        featured=True, is_active=True, status__in=["publish", "soon", "full"]
     ).first()
     return render(
         request,
@@ -44,7 +44,9 @@ def about(request):
         :4
     ]
     featured_product = Product.objects.filter(
-        featured=True, is_active=True, status="publish"
+        featured=True,
+        is_active=True,
+        status="publish",
     ).first()
     return render(
         request,
