@@ -92,6 +92,8 @@ class ProductAdmin(admin.ModelAdmin):
                     "files",
                     "preview_file",
                     "external_preview_url",
+                    "video_file",
+                    "video_url",
                 ),
             },
         ),

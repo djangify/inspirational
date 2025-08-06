@@ -124,7 +124,7 @@
               </div>
             </div>
           </div>
-
+            <!--product already purchased-->
             <div class="border-t pt-6">
               {% if has_purchased and order_item %}
               <div class="bg-teal-50 border border-teal-700 text-teal-900 font-semibold p-4 rounded mb-4">
@@ -132,6 +132,8 @@
               </div>
               {% endif %}
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-600">
+
+                <!--secure payment, easy downloads ...-->
                 <div class="flex items-center"><span class="text-green-500 mr-2">✔</span>Secure Payment</div>
                 <div class="flex items-center"><span class="text-blue-500 mr-2">↩</span>Easy Downloads</div>
                 <div class="flex items-center">
@@ -143,8 +145,10 @@
               </div>
             </div>
           </div>
+          <!--add a product video-->
+          {% include 'components/videos.html' %}
         </div>
-
+        
         <!-- Product Info Section -->
         <div class="space-y-6">
           <div>
@@ -218,7 +222,7 @@
           </div>
         </div>
       </div>
-
+      <!--add a review-->
       {% include 'components/reviews.html' %}
 
       {% if related_products %}

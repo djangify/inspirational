@@ -96,7 +96,18 @@ class Product(models.Model):
     preview_image = models.ImageField(
         upload_to="products/images/", null=True, blank=True, storage=public_storage
     )
-
+    video_url = models.URLField(
+        blank=True,
+        null=True,
+        help_text="Optional YouTube or Vimeo URL to display on the product page",
+    )
+    video_file = models.FileField(
+        upload_to="products/videos/",
+        blank=True,
+        null=True,
+        storage=public_storage,  # uses same storage as images/PDFs
+        help_text="Upload a short MP4 file to display as product video",
+    )
     # Settings
     download_limit = models.PositiveIntegerField(default=5)
     featured = models.BooleanField(default=False)

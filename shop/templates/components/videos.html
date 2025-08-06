@@ -1,0 +1,28 @@
+<div class="border-t pt-6">
+  {% if product.video_file %}
+    <div class="mt-6 flex justify-center">
+      <div class="w-full max-w-4xl aspect-video">
+        <video
+          class="w-full h-full object-cover"
+          controls
+          preload="metadata"
+        >
+          <source src="{{ product.video_file.url }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  {% elif product.video_url %}
+    <div class="mt-6 flex justify-center">
+      <div class="w-full max-w-4xl aspect-video">
+        <iframe
+          class="w-full h-full "
+          src="{{ product.video_url }}"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  {% endif %}
+</div>
