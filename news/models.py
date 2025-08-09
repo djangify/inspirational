@@ -100,7 +100,7 @@ class Post(models.Model):
         """Get the URL for the advertisement image"""
         try:
             if self.ad_image:
-                return self.ad_image.url.replace("/media/public/", "/media/")
+                return self.ad_image.url
             return None
         except Exception:
             return None

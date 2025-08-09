@@ -54,14 +54,14 @@
                 </div>
             {% else %}
             <!-- Only show image if there's no video -->
-                <div class="w-full max-w-2xl mx-auto">
+                <div class="w-full max-w-3xl">
                     {% if post.external_image_url %}
                         <div class="mb-8">
-                            <img src="{{ post.external_image_url }}" alt="{{ post.title }}" class="w-full h-auto rounded-lg shadow-sm">
+                            <img src="{{ post.external_image_url }}" alt="{{ post.title }}" class="w-full h-auto">
                         </div>
                     {% elif post.image %}
                         <div class="mb-8">
-                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-auto rounded-lg shadow-sm">
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-auto">
                         </div>
                     {% endif %}
                 {% endif %}
@@ -69,6 +69,18 @@
         <div class="mb-6">
             <p class="text-sm text-gray-600 mb-2">Thanks, for sharing:</p>
             {% include 'components/social_share.html' %}
+        </div>
+        <div class="mt-6 mb-6">
+            <!-- Advertisement Section -->
+            {% if post.ad_type == 'banner' and post.ad_image %}
+                {% if post.ad_url %}
+                    <a href="{{ post.ad_url }}" target="_blank" rel="noopener noreferrer">
+                        <img src="{{ post.get_ad_image_url }}" alt="Advertisement" class="mx-auto max-w-full h-auto rounded-lg shadow-sm">
+                    </a>
+                {% else %}
+                    <img src="{{ post.get_ad_image_url }}" alt="Advertisement" class="mx-auto max-w-full h-auto rounded-lg shadow-sm">
+                {% endif %}
+            {% endif %}
         </div>
         <div class="prose prose-lg max-w-none text-gray-800">
             {{ post.content|safe }}
@@ -133,6 +145,16 @@
                 {{ post.category.name }}
             </a>
         </div>
+           <!-- Advertisement Section -->
+        {% if post.ad_type == 'banner' and post.ad_image %}
+            {% if post.ad_url %}
+                <a href="{{ post.ad_url }}" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ post.get_ad_image_url }}" alt="Advertisement" class="mx-auto max-w-full h-auto rounded-lg shadow-sm">
+                </a>
+            {% else %}
+                <img src="{{ post.get_ad_image_url }}" alt="Advertisement" class="mx-auto max-w-full h-auto rounded-lg shadow-sm">
+            {% endif %}
+        {% endif %}
        <!-- related posts -->
         <div class="mt-12 mb-24">
             <h2 class="text-2xl font-bold mb-8">Related Posts</h2>
@@ -161,16 +183,7 @@
                 {% endfor %}
             </div>
         </div>
-        <!-- Advertisement Section -->
-        {% if post.ad_type == 'banner' and post.ad_image %}
-            {% if post.ad_url %}
-                <a href="{{ post.ad_url }}" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ post.get_ad_image_url }}" alt="Advertisement" class="mx-auto max-w-full h-auto rounded-lg shadow-sm">
-                </a>
-            {% else %}
-                <img src="{{ post.get_ad_image_url }}" alt="Advertisement" class="mx-auto max-w-full h-auto rounded-lg shadow-sm">
-            {% endif %}
-        {% endif %}
+     
     </div>
 </div>
 

@@ -4,6 +4,8 @@ from django.utils.html import format_html
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 import requests
+from django import forms
+from django.contrib.admin.widgets import AdminTextareaWidget
 from .models import Category, Post
 
 
@@ -12,6 +14,18 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ["name", "slug"]
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ["name"]
+
+
+class PostAdminForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = "__all__"
+        widgets = {
+            # Force a plain textarea for ad_code (no TinyMCE)
+            "ad_code": AdminTextareaWidget(
+                attrs={"rows": 6, "class": "vLargeTextField no-tinymce"}
+            ),
+        }
 
 
 @admin.register(Post)
@@ -31,7 +45,7 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     date_hierarchy = "publish_date"
     readonly_fields = ["display_media"]
-
+    form = PostAdminForm
     fieldsets = (
         (
             None,
