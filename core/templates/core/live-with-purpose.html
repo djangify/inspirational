@@ -1,2 +1,252 @@
 {% extends "base.html" %}
-<h1>live with purpose</h1>
+{% load static %}
+
+{% block title %}Live With Purpose: A Practical Guide to Values‑Led Living{% endblock %}
+
+{# ===== Open Graph / Twitter Cards ===== #}
+{% block open_graph_tags %}
+  <meta property="og:title" content="Live With Purpose: A Practical Guide to Values‑Led Living" />
+  <meta property="og:description" content="A grounded, daily approach to living with purpose — clarify your values, design small habits, and make choices that feel like you." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  {# Placeholder image kept on purpose per request #}
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/pause-infographic.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Live With Purpose: A Practical Guide to Values‑Led Living">
+  <meta name="twitter:description" content="A grounded, daily approach to living with purpose — clarify your values, design small habits, and make choices that feel like you.">
+  <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/pause-infographic.jpg">
+{% endblock %}
+
+{% block content %}
+<div class="bg-white">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900">Live With Purpose: A Practical Guide to Values‑Led Living</h1>
+      <p class="mt-3 text-gray-700 max-w-3xl">
+        Purpose isn’t something you find — it’s something you choose to live by. This page shows you how to turn values into
+        daily choices, so your life feels aligned, not performed. Grounded, repeatable, and built for real life.
+      </p>
+    </header>
+
+    {# --- What is Live With Purpose? & Why it works --- #}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3">What is “Living With Purpose”?</h2>
+        <p class="text-gray-700">
+          Living with purpose means using your values as a compass for everyday decisions — big and small. It’s not a grand
+          reinvention; it’s a series of steady, meaningful choices that move you from drift to direction.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-gray-700 space-y-1">
+          <li><strong>Know your values:</strong> Name what matters now — not what “should.”</li>
+          <li><strong>Choose with intention:</strong> Let values guide yes/no in real time.</li>
+          <li><strong>Design tiny habits:</strong> Build routines that reflect what you care about.</li>
+          <li><strong>Decide with clarity:</strong> Reduce autopilot and decision fatigue.</li>
+          <li><strong>Realign as you grow:</strong> Review, learn, and iterate without drama.</li>
+        </ul>
+      </div>
+      <aside class="bg-slate-50 rounded-xl border border-purple-100 p-6">
+        <h3 class="text-xl font-semibold text-teal-700 mb-2">Why this works</h3>
+        <p class="text-teal-700/90">
+          Direction beats motivation. When your choices match your values, follow‑through gets easier, confidence grows,
+          and life feels more like yours. Small steps compound into identity‑level change.
+        </p>
+      </aside>
+    </div>
+
+    {# --- Five Foundations cards (kept structure of 5 cards) --- #}
+    <section>
+      <h2 class="text-2xl font-semibold text-gray-900">The Five Foundations</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        {# Card 1 #}
+        <a href="/purpose-values-led-choices/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Foundation 1</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Clarify Your Values</h3>
+          <p class="text-gray-700 mt-2">Name what matters most right now. Values turn vague longing into usable direction.</p>
+          <span class="inline-flex items-center text-teal-700 mt-3">Read more
+            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </span>
+        </a>
+        {# Card 2 #}
+        <a href="/purpose-self-awareness/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Foundation 2</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Build Self‑Awareness</h3>
+          <p class="text-gray-700 mt-2">Notice patterns, strengths, and pressure points so choices fit the real you.</p>
+          <span class="inline-flex items-center text-teal-700  mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
+        </a>
+        {# Card 3 #}
+        <a href="/purpose-intentional-habits/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Foundation 3</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Design Intentional Habits</h3>
+          <p class="text-gray-700 mt-2">Turn values into 10‑minute practices that anchor your day.</p>
+          <span class="inline-flex items-center text-teal-700  mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
+        </a>
+        {# Card 4 #}
+        <a href="/purpose-decision-making/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Foundation 4</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Decide With Clarity</h3>
+          <p class="text-gray-700 mt-2">Reduce autopilot and overthinking. Use simple rules that match your values.</p>
+          <span class="inline-flex items-center text-teal-700 mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a 1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
+        </a>
+        {# Card 5 #}
+        <a href="/purpose-realign-iterate/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Foundation 5</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Realign & Iterate</h3>
+          <p class="text-gray-700 mt-2">Life changes. Review gently, carry the lesson, and adjust your path.</p>
+          <span class="inline-flex items-center text-teal-700  mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
+        </a>
+      </div>
+    </section>
+
+    {# Infographic / Hero visual (kept same image per request) #}
+    <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm mt-10 mb-10">
+      <img src="{% static 'images/emotional-resilience-infographic.jpg' %}" alt="Placeholder infographic — to be replaced with Live With Purpose visual" class="w-full h-auto">
+    </div>
+
+    {# --- Deep content anchors (kept 5 sections) --- #}
+    <section class="mt-12 mb-4 space-y-10">
+      <div id="values-foundation" class="prose mb-6 max-w-none">
+        <h2>Clarify Your Values</h2>
+        <p>Start with what matters to you now, not five years ago and not to anyone else. Write 3–5 values in plain language and add one visible daily action for each. Direction over drift.</p>
+      </div>
+      <div id="self-awareness-foundation" class="prose mb-6  max-w-none">
+        <h2>Build Self‑Awareness</h2>
+        <p>Notice when you feel most like yourself — and when you don’t. Track energy, people, and places that support or drain you. Purpose grows where honesty lives.</p>
+      </div>
+      <div id="habits-foundation" class="prose mb-6 max-w-none">
+        <h2>Design Intentional Habits</h2>
+        <p>Translate values into 10‑minute routines: a morning check‑in, a short walk without your phone, a nightly “what mattered today?” line in your journal. Small steps, repeated.</p>
+      </div>
+      <div id="decisions-foundation" class="prose mb-6 max-w-none">
+        <h2>Decide With Clarity</h2>
+        <p>Use simple rules: “If it aligns with X value, it’s a yes. If it competes, it’s a later or a no.” Reducing autopilot is how you reclaim time and attention.</p>
+      </div>
+      <div id="realign-foundation" class="prose mb-6 max-w-none">
+        <h2>Realign & Iterate</h2>
+        <p>Review weekly. Ask: What moved me closer to what matters? What needs to change? Adjust without drama. Realigning is a strength, not a failure.</p>
+      </div>
+    </section>
+
+    {# --- Featured articles grid (purpose-focused) --- #}
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold text-gray-900">Featured Articles on Living With Purpose</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/living-on-autopilot-signs/">7 Signs You’re Living on Autopilot (and How to Break Free)</a></h3>
+          <p class="text-gray-700">Spot drift early and switch back to direction with simple checks.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/intentional-living-design-your-days/">Intentional Living: Design Days That Reflect Your Values</a></h3>
+          <p class="text-gray-700">Turn values into calendar‑proof routines you’ll actually keep.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/purpose-and-happiness/">The Connection Between Purpose and Happiness</a></h3>
+          <p class="text-gray-700">Why meaning — not motivation — keeps you moving.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/five-minute-purpose-mornings/">5‑Minute Morning Practices for Purposeful Days</a></h3>
+          <p class="text-gray-700">Quick anchors that steady your day before it starts.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/values-based-boundaries/">Say No Without Guilt: Values‑Based Boundaries</a></h3>
+          <p class="text-gray-700">Use your compass to protect your time, energy, and focus.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/realign-when-you-feel-lost/">How to Realign When You Feel Lost</a></h3>
+          <p class="text-gray-700">A gentle reset that brings you back to yourself.</p>
+        </div>
+      </div>
+      <div class="mt-4">
+        <a class="text-indigo-700 font-medium hover:underline" href="/category/live-with-purpose/">See all articles in Live With Purpose →</a>
+      </div>
+    </section>
+
+    {# --- Free Download / Product CTA (links intentionally kept the same) --- #}
+    <section class="mt-16">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
+        <div class="md:col-span-3">
+          <h2 class="text-2xl font-semibold text-gray-900">Free Download: Live With Purpose Starter (Placeholder)</h2>
+          <p class="text-gray-700 mt-2">A one‑page values‑to‑habits sheet to begin aligning your days. Link kept as‑is — swap when your purpose freebie is ready.</p>
+          <div class="mt-4 flex gap-3">
+            {# kept so the page works now #}
+            <a href="/media/public/pdf/emotional-resilience-pause.pdf" class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-black font-medium hover:bg-teal-800">Get the PDF</a>
+            <a href="/shop/" class="inline-flex items-center px-5 py-3 rounded-lg bg-white border border-gray-300 text-gray-800 font-medium hover:bg-gray-50">Explore Our Shop</a>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <div class="rounded-xl overflow-hidden border border-gray-200 mt-16 bg-white">
+            {# kept same preview image to remind you to update #}
+            <img src="{% static 'images/pause-framework-checklist.webp' %}" alt="Placeholder — replace with Live With Purpose preview" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {# --- FAQ (purpose-focused) --- #}
+    <section id="faq" class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">FAQ</h2>
+      <div class="max-w-3xl">
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">What does “living with purpose” actually mean?</summary>
+          <p class="mt-3 text-gray-700">It means using your values as a compass for daily choices — not waiting for a perfect calling. Purpose is chosen and practiced, not found once.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Do I have to quit my job to live with purpose?</summary>
+          <p class="mt-3 text-gray-700">No. Start by aligning parts of your current life — morning routines, boundaries, projects — and expand from there. Direction first; big changes later if needed.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">How do I choose my values?</summary>
+          <p class="mt-3 text-gray-700">List moments you felt most like yourself. Extract themes (e.g., family, learning, autonomy). Pick 3–5 and write one daily action for each.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">What if I feel lost or change my mind later?</summary>
+          <p class="mt-3 text-gray-700">That’s normal. Review weekly, carry the lesson, and adjust. Realignment is part of purpose — not proof you chose wrong.</p>
+        </details>
+      </div>
+
+      {# FAQ schema #}
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "What does “living with purpose” actually mean?", "acceptedAnswer": {"@type": "Answer", "text": "Using your values as a compass for daily choices — purpose is chosen and practiced, not found once."}},
+          {"@type": "Question", "name": "Do I have to quit my job to live with purpose?", "acceptedAnswer": {"@type": "Answer", "text": "No. Start by aligning parts of your current life — routines, boundaries, projects — and expand from there."}},
+          {"@type": "Question", "name": "How do I choose my values?", "acceptedAnswer": {"@type": "Answer", "text": "List moments you felt most like yourself, extract themes, pick 3–5, and attach one daily action to each."}},
+          {"@type": "Question", "name": "What if I feel lost or change my mind later?", "acceptedAnswer": {"@type": "Answer", "text": "Review weekly, carry the lesson, and adjust. Realignment is part of purpose."}}
+        ]
+      }
+      </script>
+    </section>
+
+    {# --- Cross‑links to other pillars --- #}
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900">Related Pillars</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="{% url 'core:build_self_confidence' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-indigo-700">Build Self‑Confidence</h3>
+          <p class="text-gray-700 mt-1">Aligned action builds self‑trust — and self‑trust fuels purpose.</p>
+        </a>
+        <a href="{% url 'core:live_with_purpose' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-indigo-700">Live With Purpose</h3>
+          <p class="text-gray-700 mt-1">Return here anytime to realign your compass.</p>
+        </a>
+        <a href="{% url 'core:empowered_living' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-indigo-700">Empowered Living</h3>
+          <p class="text-gray-700 mt-1">Use boundaries and clear decisions to protect what matters.</p>
+        </a>
+      </div>
+    </section>
+
+    {# --- Inspiration / Reflection box --- #}
+    <section class="mt-16">
+      <div class="rounded-2xl border border-gray-200 p-6 bg-gray-50">
+        <h2 class="text-xl font-semibold text-gray-900">Reflection</h2>
+        <p class="text-gray-700 mt-2">
+          This week, choose one value and design one 10‑minute habit that reflects it. Track how it changes your day.
+        </p>
+      </div>
+    </section>
+  </section>
+</div>
+{% endblock %}

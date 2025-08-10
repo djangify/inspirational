@@ -1,2 +1,195 @@
 {% extends "base.html" %}
-empowered living
+{% load static %}
+
+{% block title %}Empowered Living: The Empowered Woman’s Guide to Taking Control of Her Life{% endblock %}
+
+{% block open_graph_tags %}
+  <meta property="og:title" content="Empowered Living: The Empowered Woman’s Guide to Taking Control of Her Life" />
+  <meta property="og:description" content="Mindset shifts, boundaries, self-reliance, and action-taking strategies to live with confidence and purpose." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/empowered-living-infographic.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Empowered Living: The Empowered Woman’s Guide to Taking Control of Her Life">
+  <meta name="twitter:description" content="Practical strategies to take control, set boundaries, and live empowered — starting today.">
+  <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/empowered-living-infographic.jpg">
+{% endblock %}
+
+{% block content %}
+<div class="bg-white">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900">The Empowered Woman’s Guide to Taking Control of Her Life</h1>
+      <p class="mt-3 text-gray-700 max-w-3xl">
+        Empowered living means making decisions with clarity, setting boundaries without guilt, and taking daily ownership of your life. 
+        In this guide, we explore the <strong>mindset shifts, boundary-setting skills, self-reliance practices, and action-taking strategies</strong> 
+        that help women live with confidence and purpose — while staying true to themselves.
+      </p>
+    </header>
+
+    <!-- What Empowerment Means -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3">What Empowerment Means in Today’s World</h2>
+        <p class="text-gray-700">
+          Modern empowerment is about <strong>self-reliance and intentional connection</strong>. 
+          It’s the ability to make choices that reflect your values, protect your time, and honor your boundaries — without apology. 
+          It’s not about being “hard” or closed off. True empowerment blends strength with openness.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-gray-700 space-y-1">
+          <li><strong>Boundaries Without Guilt:</strong> Saying no without the self-doubt spiral.</li>
+          <li><strong>Self-Reliance:</strong> Trusting yourself to meet challenges.</li>
+          <li><strong>Confident Decision-Making:</strong> Acting without endless overthinking.</li>
+          <li><strong>Action-Taking:</strong> Moving forward even when it’s uncomfortable.</li>
+          <li><strong>Small Acts of Courage:</strong> Everyday moments that build self-trust.</li>
+        </ul>
+      </div>
+      <aside class="bg-slate-50 rounded-xl border border-purple-100 p-6">
+        <h3 class="text-xl font-semibold text-teal-700 mb-2">Why This Matters</h3>
+        <p class="text-teal-700/90">
+          Empowerment turns awareness into action. The more you practice boundary-setting, courageous choices, and intentional habits, the more you prove to yourself that you can create the life you want.
+        </p>
+      </aside>
+    </div>
+
+    <!-- Six Steps -->
+    <section>
+      <h2 class="text-2xl font-semibold text-gray-900">Six Steps Towards Empowered Living</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        <a href="/empower-boundaries-without-guilt/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <div class="text-sm font-semibold text-gray-500">Step 1</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Set Boundaries Without Guilt</h3>
+          <p class="text-gray-700 mt-2">Protect your time, energy, and emotional space without apology.</p>
+        </a>
+        <a href="/empower-build-self-reliance/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <div class="text-sm font-semibold text-gray-500">Step 2</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Build Self-Reliance</h3>
+          <p class="text-gray-700 mt-2">Trust your ability to solve problems and meet challenges head-on.</p>
+        </a>
+        <a href="/empower-decision-making/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <div class="text-sm font-semibold text-gray-500">Step 3</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Make Decisions Without Overthinking</h3>
+          <p class="text-gray-700 mt-2">Use clear criteria to choose and move forward — no endless loops.</p>
+        </a>
+        <a href="/empower-small-acts-courage/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <div class="text-sm font-semibold text-gray-500">Step 4</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Take Small Acts of Courage</h3>
+          <p class="text-gray-700 mt-2">Start with manageable challenges that grow your self-trust.</p>
+        </a>
+        <a href="/empower-journal-writing/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <div class="text-sm font-semibold text-gray-500">Step 5</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Use Journal Writing</h3>
+          <p class="text-gray-700 mt-2">Clarify your thoughts, track your growth, and strengthen self-awareness.</p>
+        </a>
+        <a href="/empower-turn-awareness-into-action/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <div class="text-sm font-semibold text-gray-500">Step 6</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Turn Awareness into Action</h3>
+          <p class="text-gray-700 mt-2">Empowerment is built when you act on what you know matters.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Infographic -->
+    <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm mt-10 mb-10">
+      <img src="{% static 'images/empowered-living-infographic.jpg' %}" alt="The empowered living framework" class="w-full h-auto">
+    </div>
+
+    <!-- Deep sections -->
+    <section class="mt-12 mb-4 space-y-10">
+      <div id="boundaries-step" class="prose mb-6 max-w-none">
+        <h2>Set Boundaries Without Guilt</h2>
+        <p>Boundaries protect your energy. Use the <a href="{% url 'core:emotional_resilience' %}" class="text-indigo-700 underline">PAUSE Framework</a> to manage pushback and stay steady in your decisions.</p>
+      </div>
+      <div id="selfreliance-step" class="prose mb-6 max-w-none">
+        <h2>Build Self-Reliance</h2>
+        <p>Empowerment grows when you trust yourself. Start small: solve one daily challenge without outsourcing the answer.</p>
+      </div>
+      <div id="decision-step" class="prose mb-6 max-w-none">
+        <h2>Make Decisions Without Overthinking</h2>
+        <p>Decision-making is easier when you know your values. See our <a href="{% url 'core:live_with_purpose' %}" class="text-indigo-700 underline">Live With Purpose</a> guide for value alignment tools.</p>
+      </div>
+      <div id="courage-step" class="prose mb-6 max-w-none">
+        <h2>Take Small Acts of Courage</h2>
+        <p>These micro-moments — speaking up, trying something new, asking a question — build proof that you can handle more.</p>
+      </div>
+      <div id="journal-step" class="prose mb-6 max-w-none">
+        <h2>Use Journal Writing</h2>
+        <p>Journal writing supports empowerment by helping you process experiences, reframe challenges, and track wins. Combine it with affirmations for maximum impact.</p>
+      </div>
+      <div id="action-step" class="prose mb-6 max-w-none">
+        <h2>Turn Awareness into Action</h2>
+        <p>Knowledge without action changes nothing. Choose one insight each week and act on it, no matter how small.</p>
+      </div>
+    </section>
+
+    <!-- Featured articles -->
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold text-gray-900">Featured Articles on Empowered Living</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/set-boundaries-without-feeling-selfish/">How to Set Boundaries Without Feeling Selfish</a></h3>
+          <p class="text-gray-700">Practical scripts to protect your time and energy.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/small-acts-of-courage/">Small Acts of Courage That Strengthen Your Confidence</a></h3>
+          <p class="text-gray-700">Tiny actions with big impact.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/empower-journal-writing/">Why Journal Writing is a Key to Empowerment</a></h3>
+          <p class="text-gray-700">A daily habit for clarity and confidence.</p>
+        </div>
+      </div>
+      <div class="mt-4">
+        <a class="text-indigo-700 font-medium hover:underline" href="/category/empowered-living/">See all articles in Empowered Living →</a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">FAQ</h2>
+      <div class="max-w-3xl">
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">What does “empowerment” mean for women today?</summary>
+          <p class="mt-3 text-gray-700">It’s about making choices that reflect your values, protect your boundaries, and support your goals — without needing external approval.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">How can I feel empowered without becoming “hard”?</summary>
+          <p class="mt-3 text-gray-700">By pairing strength with empathy. Empowerment isn’t about closing off — it’s about knowing when to stand firm and when to be flexible.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Is empowerment about independence or interdependence?</summary>
+          <p class="mt-3 text-gray-700">True empowerment blends both. You trust yourself while building supportive relationships.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">How do I deal with people who push back on my boundaries?</summary>
+          <p class="mt-3 text-gray-700">Stay calm, restate your boundary, and avoid over-explaining. Use the <a href="{% url 'core:emotional_resilience' %}">PAUSE Framework</a> to manage emotional reactions.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Can empowerment help with career growth?</summary>
+          <p class="mt-3 text-gray-700">Yes — setting boundaries, making confident decisions, and self-advocating are essential for professional progress.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Related pillars -->
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900">Related Pillars</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <h3 class="text-lg font-semibold text-indigo-700">Emotional Resilience (PAUSE)</h3>
+          <p class="text-gray-700 mt-1">Strengthen your ability to recover after setbacks.</p>
+        </a>
+        <a href="{% url 'core:live_with_purpose' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <h3 class="text-lg font-semibold text-indigo-700">Live With Purpose</h3>
+          <p class="text-gray-700 mt-1">Make decisions aligned with your values.</p>
+        </a>
+        <a href="{% url 'core:build_self_confidence' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <h3 class="text-lg font-semibold text-indigo-700">Build Self-Confidence</h3>
+          <p class="text-gray-700 mt-1">Turn self-trust into empowered action.</p>
+        </a>
+      </div>
+    </section>
+  </section>
+</div>
+{% endblock %}
