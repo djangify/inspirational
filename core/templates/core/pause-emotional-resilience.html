@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}The PAUSE Method: A Practical Guide to Emotional Resilience{% endblock %}
+
+{# ===== Open Graph / Twitter Cards ===== #}
+{% block open_graph_tags %}
+  <meta property="og:title" content="The PAUSE Framework for Building Emotional Resilience" />
+  <meta property="og:description" content="Learn the five-step PAUSE process to handle challenges with calm, clarity, and self-trust. Free guide included." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/pause-infographic.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The PAUSE Framework for Building Emotional Resilience">
+  <meta name="twitter:description" content="Learn the five-step PAUSE process to handle challenges with calm, clarity, and self-trust. Free guide included.">
+  <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/pause-infographic.jpg">
+{% endblock %}
+
+
+
+{% block content %}
+<div class="bg-white">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900">The PAUSE Method: A Practical Guide to Emotional Resilience</h1>
+      <p class="mt-3 text-gray-700 max-w-3xl">A simple, repeatable framework to help you meet stressful moments with more calm, clarity, and self‑trust. PAUSE stands for <strong>Pause</strong>, <strong>Accept</strong>, <strong>Understand</strong>, <strong>Strengthen</strong>, and <strong>Evolve</strong>.</p>
+    </header>
+
+    {# --- What is PAUSE? & Why it works --- #}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3">What is PAUSE?</h2>
+        <p class="text-gray-700">The PAUSE Framework is a practical, 5‑step process designed by Inspirational Guidance to help you respond to stress in a way that protects your energy, strengthens your confidence, and leaves you wiser for next time.</p>
+        <ul class="list-disc ml-6 mt-4 text-gray-700 space-y-1">
+          <li><strong>Pause:</strong> Stop and create space before reacting.</li>
+          <li><strong>Accept:</strong> Acknowledge reality without judgment.</li>
+          <li><strong>Understand:</strong> Identify what’s driving your reaction.</li>
+          <li><strong>Strengthen:</strong> Access internal and external support.</li>
+          <li><strong>Evolve:</strong> Carry the lesson forward.</li>
+        </ul>
+      </div>
+      <aside class="bg-slate-50 rounded-xl border border-purple-100 p-6">
+        <h3 class="text-xl font-semibold text-teal-700 mb-2">Why PAUSE works</h3>
+        <p class="text-teal-700/90">It mirrors how resilience grows in real life: you slow down, see clearly, understand your triggers, strengthen your supports, and integrate what you learn. Practiced consistently, it becomes an automatic, calming response.</p>
+      </aside>
+    </div>
+
+    {# --- Step cards (interactive policy-style boxes) --- #}
+    <section>
+      <h2 class="text-2xl font-semibold text-gray-900">The Five Steps</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        {% comment %} Card 1 {% endcomment %}
+        <a href="/pause-reclaiming-your-first-response/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Step 1</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Pause</h3>
+          <p class="text-gray-700 mt-2">Stop and create space before reacting. Breathe. Notice tension. Give yourself permission not to fix everything instantly.</p>
+          <span class="inline-flex items-center text-teal-700 mt-3">Read more
+            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </span>
+        </a>
+        {# Card 2 #}
+        <a href="/accept-naming-and-acknowledging-reality/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Step 2</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Accept</h3>
+          <p class="text-gray-700 mt-2">Acceptance isn’t agreement; it’s acknowledging what is, so you can work with it rather than fight against it.</p>
+          <span class="inline-flex items-center text-teal-700  mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
+        </a>
+        {# Card 3 #}
+        <a href="/understand-finding-the-why-beneath-the-reaction/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Step 3</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Understand</h3>
+          <p class="text-gray-700 mt-2">Ask what’s really underneath the reaction. Identify triggers and patterns so you address the cause, not just the symptom.</p>
+          <span class="inline-flex items-center text-teal-700  mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
+        </a>
+        {# Card 4 #}
+        <a href="/strengthen-building-your-resilience-muscle/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Step 4</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Strengthen</h3>
+          <p class="text-gray-700 mt-2">Resilience grows by reinforcing inner and outer supports: grounding tools, encouraging self‑talk, and trusted people.</p>
+          <span class="inline-flex items-center text-teal-700 mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
+        </a>
+        {# Card 5 #}
+        <a href="/evolve-turning-survival-into-growth/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Step 5</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Evolve</h3>
+          <p class="text-gray-700 mt-2">Integrate the lesson and carry it forward. This is how survival becomes growth.</p>
+          <span class="inline-flex items-center text-teal-700  mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
+        </a>
+      </div>
+    </section>
+    {# Infographic / Hero visual #}
+    <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm mt-10 mb-10">
+      <img src="{% static 'images/emotional-resilience-infographic.jpg' %}" alt="5 Tips to help you become more emotionally resilient with PAUSE" class="w-full h-auto">
+    </div>
+    {# --- Deep content anchors (so the cards jump here) --- #}
+    <section class="mt-12 mb-4 space-y-10">
+      <div id="pause-step" class="prose mb-6 max-w-none">
+        <h2>Pause</h2>
+        <p>In difficult moments our first instinct is often to react quickly, emotionally, and without thought. The pause interrupts that autopilot and gives you back a sense of control. Try a slow breath, drop your shoulders, and notice any urge to rush.</p>
+      </div>
+      <div id="accept-step" class="prose mb-6  max-w-none">
+        <h2>Accept</h2>
+        <p>Acceptance is not giving in or liking what’s happening. It’s acknowledging reality as it is, so you can work with it rather than fight against it. Name the feeling and remind yourself: “This is how it is right now — and I can choose my next step.”</p>
+      </div>
+      <div id="understand-step" class="prose mb-6 max-w-none">
+        <h2>Understand</h2>
+        <p>Ask what’s underneath the reaction: Is this about now, or does it echo something earlier? Identify triggers and patterns so you can address the cause, not just the surface feeling.</p>
+      </div>
+      <div id="strengthen-step" class="prose mb-6 max-w-none">
+        <h2>Strengthen</h2>
+        <p>Resilience grows through practice and support. Use grounding tools (breath, journaling, a short walk), speak to yourself with encouragement, and lean on trusted people or routines.</p>
+      </div>
+      <div id="evolve-step" class="prose mb-6 max-w-none">
+        <h2>Evolve</h2>
+        <p>Each challenge can leave you stronger if you take the time to reflect and carry the lesson forward. Capture one takeaway in your journal or tracker so it becomes part of your toolkit.</p>
+      </div>
+    </section>
+
+    {# --- Featured articles grid (curated) --- #}
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold text-gray-900">Featured Articles on PAUSE & Resilience</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        {% comment %} Replace hrefs with your real blog slugs {% endcomment %}
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/pause-first-step/">Pause: Why Slowing Down Is the First Step to Handling Any Challenge</a></h3>
+          <p class="text-gray-700">Create space before reacting so you can choose your next step with clarity.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/radical-acceptance/">Accept: How Radical Acceptance Reduces Stress and Overthinking</a></h3>
+          <p class="text-gray-700">Work with reality instead of fighting it — without giving up.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/self-awareness-resilience/">Understand: The Role of Self‑Awareness in Resilience</a></h3>
+          <p class="text-gray-700">Spot triggers and patterns so you can respond, not react.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/micro-habits-inner-strength/">Strengthen: Build Inner Strength Through Micro‑Habits</a></h3>
+          <p class="text-gray-700">Small, doable actions that add up to real emotional capacity.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/turning-challenges-into-growth/">Evolve: Turning Challenges into Growth Opportunities</a></h3>
+          <p class="text-gray-700">Integrate the lesson and move forward with more wisdom.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/stay-calm-and-in-control-5-ways-to-apply-pause/">5 Everyday Situations Where PAUSE will help you stay calm and in control</a></h3>
+          <p class="text-gray-700">Practical use cases you’ll face this week.</p>
+        </div>
+      </div>
+      <div class="mt-4">
+        <a class="text-indigo-700 font-medium hover:underline" href="/category/pause/">See all articles in PAUSE & Resilience →</a>
+      </div>
+    </section>
+
+    {# --- Free Download / Product CTA --- #}
+    <section class="mt-16">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
+        <div class="md:col-span-3">
+          <h2 class="text-2xl font-semibold text-gray-900">Free Download: The PAUSE Framework For Emotional Resilience</h2>
+          <p class="text-gray-700 mt-2">A quick‑start PDF to keep PAUSE at your fingertips. Print it, pin it, or save it to your phone for stressful moments.</p>
+          <div class="mt-4 flex gap-3">
+            <a href="/media/public/pdf/emotional-resilience-pause.pdf" class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-black font-medium hover:bg-teal-800">Get the PDF</a>
+            <a href="/shop/" class="inline-flex items-center px-5 py-3 rounded-lg bg-white border border-gray-300 text-gray-800 font-medium hover:bg-gray-50">Explore Our Shop</a>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <div class="rounded-xl overflow-hidden border border-gray-200 mt-16 bg-white">
+            <img src="{% static 'images/pause-framework-checklist.webp' %}" alt="PAUSE quickstart preview" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {# --- FAQ (accordion + schema) --- #}
+    <section id="faq" class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">FAQ</h2>
+      <div class="max-w-3xl">
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">What’s the quickest way to calm down during a stressful moment?</summary>
+          <p class="mt-3 text-gray-700">Use the <em>Pause</em> step: inhale for four, exhale for six, drop your shoulders, and delay responding for 90 seconds. That window is often enough to choose a better next step.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Is PAUSE a mindfulness technique?</summary>
+          <p class="mt-3 text-gray-700">PAUSE is mindfulness‑friendly but more action‑oriented. It gives you a simple sequence you can remember under pressure and apply in everyday situations.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">How long does it take to build emotional resilience?</summary>
+          <p class="mt-3 text-gray-700">Resilience grows through repetition, not perfection. Most people notice a shift within a few weeks of practicing small, daily steps — especially the Strengthen and Evolve stages.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Can I use PAUSE at work or with family?</summary>
+          <p class="mt-3 text-gray-700">Yes. It’s designed for real life — difficult meetings, parenting stress, health worries, and relationship tensions. Start with non‑urgent moments to build the habit.</p>
+        </details>
+      </div>
+
+      {# FAQ schema #}
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "What’s the quickest way to calm down during a stressful moment?", "acceptedAnswer": {"@type": "Answer", "text": "Use the Pause step: inhale for four, exhale for six, drop your shoulders, and delay responding for 90 seconds."}},
+          {"@type": "Question", "name": "Is PAUSE a mindfulness technique?", "acceptedAnswer": {"@type": "Answer", "text": "PAUSE is mindfulness‑friendly but action‑oriented. It gives you a simple sequence to apply under pressure."}},
+          {"@type": "Question", "name": "How long does it take to build emotional resilience?", "acceptedAnswer": {"@type": "Answer", "text": "Resilience grows through repetition. Many notice a shift within weeks of small daily practice."}},
+          {"@type": "Question", "name": "Can I use PAUSE at work or with family?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It’s designed for real‑life moments — meetings, parenting, health worries, and relationship tensions."}}
+        ]
+      }
+      </script>
+    </section>
+
+    {# --- Cross‑links to other pillars --- #}
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900">Related Pillars</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="{% url 'core:build_self_confidence' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-indigo-700">Build Self‑Confidence</h3>
+          <p class="text-gray-700 mt-1">Use resilience to rebuild self‑belief and steady presence.</p>
+        </a>
+        <a href="{% url 'core:live_with_purpose' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-indigo-700">Live With Purpose</h3>
+          <p class="text-gray-700 mt-1">Use Evolve to realign with your values after setbacks.</p>
+        </a>
+        <a href="{% url 'core:empowered_living' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-indigo-700">Empowered Living</h3>
+          <p class="text-gray-700 mt-1">Turn PAUSE into daily habits that empower you.</p>
+        </a>
+      </div>
+    </section>
+
+    {# --- Inspiration / Reflection box --- #}
+    <section class="mt-16">
+      <div class="rounded-2xl border border-gray-200 p-6 bg-gray-50">
+        <h2 class="text-xl font-semibold text-gray-900">Reflection</h2>
+        <p class="text-gray-700 mt-2">This week, give yourself permission to <strong>pause before you respond</strong>. Note one thing you notice when you slow down.</p>
+      </div>
+    </section>
+  </section>
+</div>
+{% endblock %}

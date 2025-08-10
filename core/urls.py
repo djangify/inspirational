@@ -21,6 +21,27 @@ urlpatterns = [
         TemplateView.as_view(template_name="core/personal-development.html"),
         name="about",
     ),
+    # Cluster pages
+    path(
+        "pause-emotional-resilience",
+        TemplateView.as_view(template_name="core/pause-emotional-resilience.html"),
+        name="emotional_resilience",
+    ),
+    path(
+        "build-self-confidence",
+        TemplateView.as_view(template_name="core/build-self-confidence.html"),
+        name="build_self_confidence",
+    ),
+    path(
+        "live-with-purpose",
+        TemplateView.as_view(template_name="core/live-with-purpose.html"),
+        name="live_with_purpose",
+    ),
+    path(
+        "empowered-living",
+        TemplateView.as_view(template_name="core/empowered-living.html"),
+        name="empowered_living",
+    ),
     # Policy pages from templates/policy/
     path(
         "policy/privacy/",
