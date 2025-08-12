@@ -15,7 +15,11 @@ class StaticViewSitemap(Sitemap):
             "core:about",
             "core:diane-corriette",
             "core:support",
+            "core:live_with_purpose",
             "core:contact",
+            "core:empowered_living",
+            "core:build_self_confidence",
+            "core:emotional_resilience",
             "tools:index",  #  Mindful Tools index page (/tools/)
             "tools:calming_game",
             "tools:tap_to_calm",
