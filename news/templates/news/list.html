@@ -69,9 +69,9 @@
                         
                     </h3>
                         {% if post.external_image_url %}
-                            <img src="{{ post.external_image_url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
+                            <img src="{{ post.external_image_url }}" alt="{{ post.title }}" class="w-full h-64 object-cover">
                         {% elif post.get_image_url %}
-                            <img src="{{ post.get_image_url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
+                            <img src="{{ post.get_image_url }}" alt="{{ post.title }}" class="w-full h-64 object-cover">
                         {% elif post.youtube_url %}
                             <img src="https://img.youtube.com/vi/{{ post.get_youtube_video_id }}/maxresdefault.jpg" 
                                 alt="{{ post.title }}"
@@ -90,12 +90,10 @@
     </section>
     {% endif %}
     <!-- regular blog posts -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% for post in posts %}
-        <article class="bg-white rounded-lg shadow-lg overflow-hidden">
-            <a href="{{ post.get_absolute_url }}" class="block">
-                <div class="w-full h-48 overflow-hidden">
-                    <div class="w-full h-48 overflow-hidden">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+            {% for post in posts %}
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="w-full h-64 overflow-hidden">
                         {% if post.external_image_url %}
                             <img src="{{ post.external_image_url }}" 
                                 alt="{{ post.title }}" 
@@ -106,24 +104,29 @@
                                 class="w-full h-full object-cover">
                         {% elif post.youtube_url %}
                             <img src="https://img.youtube.com/vi/{{ post.get_youtube_video_id }}/maxresdefault.jpg" 
-                                 alt="{{ post.title }}"
-                                 class="w-full h-full object-cover"
-                                 onerror="this.onerror=null; this.src='https://img.youtube.com/vi/{{ post.get_youtube_video_id }}/hqdefault.jpg';">
+                                alt="{{ post.title }}"
+                                class="w-full h-full object-cover"
+                                onerror="this.onerror=null; this.src='https://img.youtube.com/vi/{{ post.get_youtube_video_id }}/hqdefault.jpg';">
                         {% endif %}
                     </div>
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2">{{ post.title }}</h2>
+                        
+                         <a href="{{ post.get_absolute_url }}">
+                            <p class="text-gray-700 mb-4">
+                            {{ post.content|striptags|truncatewords:30 }}
+                            </p>
+                            <span class="text-teal-700 hover:text-teal-800">Read More →</span>
+                        </a>
+                    </div>
                 </div>
-                <div class="p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">{{ post.title }}</h2>
-                    <p class="text-gray-700 mb-4">
-                        {{ post.content|striptags|truncatewords:30 }}
-                    </p>
-                    <span class="text-teal-600 hover:text-teal-800">Read More →</span>
+            {% empty %}
+                <div class="col-span-2 text-center py-12">
+                    <p class="text-gray-600">New posts coming soon.</p>
                 </div>
-            </a>
-        </article>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-    <div>   
         <!-- Pagination -->
         {% if posts.has_other_pages %}
             <div class="flex justify-center mt-12">
