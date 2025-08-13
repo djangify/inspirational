@@ -22,7 +22,7 @@ def news_list(request):
     regular_posts = posts.exclude(id__in=featured_ids)
 
     # Paginate the regular posts
-    paginator = Paginator(regular_posts, 21)
+    paginator = Paginator(regular_posts, 27)
     page = request.GET.get("page")
     posts = paginator.get_page(page)
 

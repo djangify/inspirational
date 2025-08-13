@@ -1,5 +1,8 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /accounts/
+Disallow: /redirects/
+Disallow: /profiles/
+Disallow: /shop/secure-download/
 
 Sitemap: https://inspirationalguidance.com/sitemap.xml
