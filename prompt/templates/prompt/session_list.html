@@ -103,7 +103,9 @@
                                 </a>
                             </div>
                         </div>
-                        
+                        <p class="text-sm mt-2 text-gray-600">
+                        <strong>Goal:</strong> {{ session.goal.goal_label|default:session.goal }}
+                        </p>
                         <!-- Mood indicator -->
                         <div class="mt-2 flex items-center">
                             <span class="text-xs text-gray-500 mr-2">Session mood:</span>

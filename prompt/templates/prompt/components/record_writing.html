@@ -6,10 +6,29 @@
   {% csrf_token %}
   
   <div class="space-y-4 max-w-2xl mx-auto">
+    <!-- Goal -->
+    <div>
+      <label for="{{ session_form.goal.id_for_label }}" class="block text-md px-4 font-medium mb-1">
+        Which goal is this for?
+      </label>
+      <select name="goal" id="id_goal" class="w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4">
+  <option value="">---------</option>
+  {% for goal in session_form.fields.goal.queryset %}
+    <option value="{{ goal.id }}" data-goal-type="{{ goal.goal_type }}"
+      {% if session_form.initial.goal and session_form.initial.goal.id == goal.id %}
+        selected
+      {% endif %}
+    >{{ goal }}</option>
+  {% endfor %}
+</select>
+      {% if session_form.goal.errors %}
+        <p class="mt-1 text-sm text-red-600">{{ session_form.goal.errors.0 }}</p>
+      {% endif %}
+    </div>
     <!-- Date -->
     <div>
       <label for="{{ session_form.date.id_for_label }}" class="block text-md  px-4 font-medium mb-1">Date</label>
-      {{ session_form.date|add_class:"w-fullmt-2 h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
+      {{ session_form.date|add_class:"w-full mt-2 h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
       {% if session_form.date.errors %}
         <p class="mt-1 text-sm text-red-600">{{ session_form.date.errors.0 }}</p>
       {% endif %}
@@ -17,6 +36,9 @@
 
     <!-- Minutes -->
     <div>
+      <small id="minutes-help" class="text-gray-500">
+        This field is required for time-based goals only.
+      </small>
       <label for="{{ session_form.minutes_spent.id_for_label }}" class="block text-md  font-medium mb-1">Minutes Spent</label>
       {{ session_form.minutes_spent|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
       {% if session_form.minutes_spent.errors %}
@@ -67,4 +89,34 @@
       </button>
     </div>
   </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const goalSelect = document.getElementById("id_goal");
+  const minutesField = document.getElementById("id_minutes_spent");
+  const minutesHelp = document.getElementById("minutes-help");
+
+  function toggleMinutesField() {
+    const selectedOption = goalSelect.options[goalSelect.selectedIndex];
+    const goalType = selectedOption?.getAttribute("data-goal-type");
+
+    if (goalType === "sessions") {
+      minutesField.value = "";
+      minutesField.disabled = true;
+      if (minutesHelp) {
+        minutesHelp.textContent = "Not required for this goal type.";
+      }
+    } else {
+      minutesField.disabled = false;
+      if (minutesHelp) {
+        minutesHelp.textContent = "This field is required for time-based goals only.";
+      }
+    }
+  }
+
+  if (goalSelect && minutesField) {
+    toggleMinutesField(); // Run on page load
+    goalSelect.addEventListener("change", toggleMinutesField);
+  }
+});
+</script>
 </form>

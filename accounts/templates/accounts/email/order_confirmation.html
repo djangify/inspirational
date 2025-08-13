@@ -3,7 +3,7 @@
 {% block title %}Order Confirmation #{{ order.id }}{% endblock %}
 
 {% block content %}
-<p>Hello {% if user.first_name %}{{ first_name }}{% else %}{{ email }}{% endif %},</p>
+<p>Hello {% if user.first_name %}{{ user.first_name }}{% else %}Hello{% endif %},</p>
 
 <p>Thank you for your order! Your order has been confirmed and processed successfully.</p>
 
@@ -16,7 +16,7 @@
 
 <p><strong>Total: £{{ total|floatformat:2 }}</strong></p>
 
-<p>You can <a href="{% url 'accounts:password_reset' %}">Login HERE </a> to download your purchase.</p>
+<p>You can <a href="{% url 'accounts:login' %}">Login HERE </a> to download your purchase.</p>
 
 <p>If you have any questions, please don't hesitate to contact us at inspire@inspirationalguidance.com.</p>
 

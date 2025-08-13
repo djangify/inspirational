@@ -8,9 +8,9 @@ class WritingGoal(models.Model):
     """Model to store user's personal writing goals"""
 
     FREQUENCY_CHOICES = [
-        ("daily", "Daily"),
-        ("weekly", "Weekly"),
-        ("monthly", "Monthly"),
+        ("daily", "Day"),
+        ("weekly", "Week"),
+        ("monthly", "Month"),
     ]
 
     TYPE_CHOICES = [
@@ -78,35 +78,50 @@ class WritingGoal(models.Model):
         return (self.end_date - today).days
 
     def progress_percentage(self):
-        """Calculate progress towards goal based on tracked sessions"""
+        """Calculate accurate progress based on goal frequency and target value."""
         if not self.active or not self.is_current():
             return 0
 
-        # Get all related sessions within the goal period
-        sessions = WritingSession.objects.filter(
-            user=self.user, date__gte=self.start_date
-        )
+        today = timezone.now().date()
+        end = self.end_date if (self.end_date and self.end_date < today) else today
+        start = self.start_date
 
+        # Number of periods (days/weeks/months) in range
+        if self.frequency == "daily":
+            total_periods = (end - start).days + 1
+        elif self.frequency == "weekly":
+            total_periods = ((end - start).days // 7) + 1
+        elif self.frequency == "monthly":
+            total_periods = ((end.year - start.year) * 12 + end.month - start.month) + 1
+        else:
+            total_periods = 1
+
+        expected_total = self.target_value * max(total_periods, 0)
+
+        # Only sessions that belong to THIS goal
+        sessions = self.sessions.filter(date__gte=start)
         if self.end_date:
             sessions = sessions.filter(date__lte=self.end_date)
 
-        # Calculate progress based on goal type
         if self.goal_type == "time":
-            total_minutes = (
+            actual_total = (
                 sessions.aggregate(models.Sum("minutes_spent"))["minutes_spent__sum"]
                 or 0
             )
-            return min(int((total_minutes / self.target_value) * 100), 100)
         elif self.goal_type == "words":
-            total_words = (
+            actual_total = (
                 sessions.aggregate(models.Sum("word_count"))["word_count__sum"] or 0
             )
-            return min(int((total_words / self.target_value) * 100), 100)
         elif self.goal_type == "sessions":
-            session_count = sessions.count()
-            return min(int((session_count / self.target_value) * 100), 100)
+            actual_total = sessions.count()
+        else:
+            actual_total = 0
 
-        return 0
+        if not expected_total:
+            return 0
+
+        pct = int((actual_total / expected_total) * 100)
+        return max(0, min(pct, 100))
 
 
 class WritingSession(models.Model):
@@ -123,10 +138,19 @@ class WritingSession(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="writing_sessions"
     )
+    goal = models.ForeignKey(
+        "WritingGoal",
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="sessions",
+        help_text="Which goal is this session for?",
+    )
     date = models.DateField(default=timezone.now)
     minutes_spent = models.PositiveIntegerField(
+        null=True,
+        blank=True,
         validators=[MinValueValidator(1)],
-        help_text="How many minutes did you spend writing?",
+        help_text="How many minutes did you spend on your goal?",
     )
     word_count = models.PositiveIntegerField(
         default=0, help_text="Approximately how many words did you write? (Optional)"
@@ -138,6 +162,7 @@ class WritingSession(models.Model):
         default="neutral",
         help_text="How was your writing session?",
     )
+
     notes = models.TextField(
         blank=True, help_text="What did you write about? How did it go?"
     )

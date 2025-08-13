@@ -1,5 +1,5 @@
 <h2 class="text-xl font-semibold">Recent Progress Sessions</h2>
-    <a href="{% url 'prompt:session_list' %}" class="text-teal-700 hover:text-blue-800 flex items-center text-sm">
+    <a href="{% url 'prompt:session_list' %}" class="text-teal-700 hover:text-blue-800 mb-4 mt-4 flex items-center text-sm">
         View all sessions
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -14,6 +14,11 @@
                         <h3 class="font-medium text-gray-800">
                             {{ session.date|date:"D, j M Y" }} - {{ session.minutes_spent }} minutes
                         </h3>
+                        {% if session.goal %}
+                            <p class="text-sm mt-2 mb-2 text-gray-600">
+                                <strong>Goal:</strong> {{ session.goal.goal_label|default:session.goal }}
+                            </p>
+                        {% endif %}
                         {% if session.word_count %}
                             <p class="text-sm text-gray-600">{{ session.word_count }} words</p>
                         {% endif %}

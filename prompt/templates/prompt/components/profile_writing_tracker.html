@@ -14,7 +14,7 @@
     <!-- Active Goals -->
     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">Active Writing Goals</h2>
+        <h2 class="text-xl font-semibold">Active Goals</h2>
         <a href="{% url 'prompt:writing_progress' %}">
           <button class="bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-sm flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
@@ -87,7 +87,7 @@
     <!-- Recent sessions -->
     <div class="bg-white rounded-lg shadow-md p-6">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">Recent Writing Sessions</h2>
+        <h2 class="text-xl font-semibold">Recent Sessions</h2>
         <a href="{% url 'prompt:session_list' %}" class="text-teal-700 hover:text-blue-800 flex items-center text-sm">
           View all sessions
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
@@ -105,6 +105,9 @@
                   <h3 class="font-medium text-gray-800">
                     {{ session.date|date:"D, j M Y" }} - {{ session.minutes_spent }} minutes
                   </h3>
+                  <p class="text-sm mt-2 text-gray-600">
+                    <strong>Goal:</strong> {{ session.goal.goal_label|default:session.goal }}
+                  </p>
                   {% if session.word_count %}
                     <p class="text-sm text-gray-600">{{ session.word_count }} words</p>
                   {% endif %}
@@ -144,13 +147,7 @@
                 </div>
               </div>
                               
-              <!-- Prompt used (if any) -->
-              {% if session.prompt_used %}
-                <div class="mt-2 text-xs text-gray-500">
-                  <span>Prompt used:</span>
-                  <span class="italic">"{{ session.prompt_used.text|truncatechars:60 }}"</span>
-                </div>
-              {% endif %}
+              
             </div>
           {% endfor %}
         </div>

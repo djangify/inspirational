@@ -1,7 +1,6 @@
 from django import forms
 from django.utils import timezone
 from .models_tracker import WritingGoal, WritingSession
-from .models import WritingPrompt
 
 
 class DateInput(forms.DateInput):
@@ -77,20 +76,21 @@ class WritingGoalForm(forms.ModelForm):
 
 
 class WritingSessionForm(forms.ModelForm):
-    """Form for recording writing sessions"""
+    """Form for recording writing sessions (per-goal, required)."""
 
     class Meta:
         model = WritingSession
-        fields = ["date", "minutes_spent", "word_count", "prompt_used", "mood", "notes"]
+        fields = [
+            "goal",
+            "date",
+            "minutes_spent",
+            "word_count",
+            "prompt_used",
+            "mood",
+            "notes",
+        ]
         widgets = {
-            "date": DateInput(),
-            "notes": forms.Textarea(
-                attrs={
-                    "rows": 5,
-                    "placeholder": "What did you write about? How did it go?",
-                    "class": "resize-y min-h-[80px]",
-                }
-            ),
+            "date": forms.DateInput(attrs={"type": "date"}),
             "minutes_spent": forms.NumberInput(attrs={"min": 1}),
             "word_count": forms.NumberInput(attrs={"min": 0}),
             "prompt_used": forms.Textarea(
@@ -100,40 +100,111 @@ class WritingSessionForm(forms.ModelForm):
                     "class": "resize-y min-h-[100px]",
                 }
             ),
+            "notes": forms.Textarea(
+                attrs={
+                    "rows": 5,
+                    "placeholder": "What did you write about? How did it go?",
+                    "class": "resize-y min-h-[80px]",
+                }
+            ),
         }
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
-        # Add classes for styling
-        for field_name, field in self.fields.items():
+
+        # Styling
+        for name, field in self.fields.items():
+            existing = field.widget.attrs.get("class", "")
             field.widget.attrs["class"] = (
-                "form-control rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                "form-control rounded-md border-gray-300 shadow-sm "
+                "focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 "
+                + existing
+            )
+        for name in [
+            "goal",
+            "date",
+            "minutes_spent",
+            "word_count",
+            "mood",
+            "prompt_used",
+        ]:
+            self.fields[name].widget.attrs["class"] += " w-full"
+
+        # Enforce goal selection and limit to the user’s active goals
+        self.fields["goal"].required = True
+        # If goal is pre-selected (e.g., editing), check its type
+        goal = self.initial.get("goal") or self.data.get("goal")
+        if goal and isinstance(goal, WritingGoal):
+            goal_type = goal.goal_type
+        else:
+            try:
+                goal_instance = WritingGoal.objects.get(id=goal)
+                goal_type = goal_instance.goal_type
+            except (TypeError, ValueError, WritingGoal.DoesNotExist):
+                goal_type = None
+
+        # Conditionally hide or require minutes
+        if goal_type == "sessions":
+            self.fields["minutes_spent"].required = False
+            self.fields["minutes_spent"].widget.attrs["disabled"] = "disabled"
+            self.fields["minutes_spent"].widget.attrs["placeholder"] = (
+                "Not required for this goal type"
+            )
+        else:
+            self.fields["minutes_spent"].required = True
+            self.fields["minutes_spent"].widget.attrs.pop("disabled", None)
+
+        if user is not None:
+            self.fields["goal"].queryset = WritingGoal.objects.filter(
+                user=user, active=True
             )
 
-        # Apply specific classes and text based on field
-        self.fields["date"].widget.attrs["class"] += " w-full"
-        self.fields["minutes_spent"].widget.attrs["class"] += " w-full"
-        self.fields["word_count"].widget.attrs["class"] += " w-full"
-        self.fields["mood"].widget.attrs["class"] += " w-full"
-        self.fields["prompt_used"].widget.attrs["class"] += " w-full"
-
-        # Limit prompt_used queryset to active prompts
-        self.fields["prompt_used"].queryset = WritingPrompt.objects.filter(active=True)
-        self.fields["prompt_used"].empty_label = "No prompt used (Free writing)"
-
-        # Set max date to today
+        # Disallow future dates
         self.fields["date"].widget.attrs["max"] = timezone.now().date().isoformat()
 
-        # Set placeholders and help texts
+        # Placeholders
         self.fields["minutes_spent"].widget.attrs["placeholder"] = "e.g., 30"
         self.fields["word_count"].widget.attrs["placeholder"] = "e.g., 500 (optional)"
 
-    def clean(self):
-        cleaned_data = super().clean()
-        date = cleaned_data.get("date")
+        # Optional: field order for better UX
+        self.order_fields(
+            [
+                "goal",
+                "date",
+                "minutes_spent",
+                "word_count",
+                "mood",
+                "prompt_used",
+                "notes",
+            ]
+        )
 
-        # Make sure the date is not in the future
+    def clean(self):
+        cleaned = super().clean()
+        date = cleaned.get("date")
+        goal = cleaned.get("goal")
+        minutes_spent = cleaned.get("minutes_spent")
+
         if date and date > timezone.now().date():
             self.add_error("date", "Date cannot be in the future")
 
-        return cleaned_data
+        if goal:
+            if goal.goal_type == "time" and not minutes_spent:
+                self.add_error(
+                    "minutes_spent", "Please enter minutes spent for this goal."
+                )
+            elif goal.goal_type == "sessions":
+                cleaned["minutes_spent"] = (
+                    None  # Explicitly clear minutes for session-based goals
+                )
+
+        return cleaned
+
+    def clean_goal(self):
+        goal = self.cleaned_data.get("goal")
+        if not goal:
+            raise forms.ValidationError(
+                "Please select which goal this session belongs to."
+            )
+        return goal

@@ -41,6 +41,7 @@ class WritingStyleAdmin(admin.ModelAdmin):
 class WritingGoalAdmin(admin.ModelAdmin):
     list_display = (
         "user",
+        "goal_label",  # show label if set
         "goal_type",
         "target_value",
         "frequency",
@@ -49,7 +50,7 @@ class WritingGoalAdmin(admin.ModelAdmin):
         "active",
     )
     list_filter = ("goal_type", "frequency", "active", "start_date")
-    search_fields = ("user__username", "notes")
+    search_fields = ("user__username", "goal_label", "notes")
     date_hierarchy = "start_date"
     readonly_fields = ("created_at", "updated_at")
 
@@ -59,6 +60,7 @@ class WritingGoalAdmin(admin.ModelAdmin):
             "Goal Details",
             {
                 "fields": (
+                    "goal_label",  # NEW
                     "goal_type",
                     "target_value",
                     "frequency",
@@ -75,19 +77,26 @@ class WritingGoalAdmin(admin.ModelAdmin):
 class WritingSessionAdmin(admin.ModelAdmin):
     list_display = (
         "user",
+        "goal",  # NEW
         "date",
         "minutes_spent",
         "word_count",
         "mood",
         "prompt_preview",
     )
-    list_filter = ("date", "mood")
-    search_fields = ("user__username", "notes")
+    list_filter = ("goal", "mood", "date")  # include goal for quick filtering
+    search_fields = (
+        "user__username",
+        "goal__goal_label",  # search by goal label
+        "notes",
+        "prompt_used",
+    )
+    list_select_related = ("user", "goal")
     date_hierarchy = "date"
     readonly_fields = ("created_at", "updated_at")
 
     fieldsets = (
-        ("User Information", {"fields": ("user",)}),
+        ("User & Goal", {"fields": ("user", "goal")}),  # put goal near user
         (
             "Session Details",
             {"fields": ("date", "minutes_spent", "word_count", "mood", "prompt_used")},
@@ -95,14 +104,10 @@ class WritingSessionAdmin(admin.ModelAdmin):
         ("Additional Information", {"fields": ("notes", "created_at", "updated_at")}),
     )
 
+    @admin.display(description="Prompt Used")
     def prompt_preview(self, obj):
-        if obj.prompt_used:
-            return obj.prompt_used.text[:30] + (
-                "..." if len(obj.prompt_used.text) > 30 else ""
-            )
-        return "—"
-
-    prompt_preview.short_description = "Prompt Used"
+        s = obj.prompt_used or ""
+        return (s[:30] + "...") if len(s) > 30 else s
 
 
 admin.site.register(Tag, TagAdmin)
