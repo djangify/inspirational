@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /accounts/
+
+Sitemap: https://inspirationalguidance.com/sitemap.xml
