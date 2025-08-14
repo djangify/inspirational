@@ -25,6 +25,7 @@ def send_order_confirmation_email(order):
 
         context = {
             "order_id": order.order_id,
+            "first_name": order.user.first_name if order.user else "",
             "email": order.email,
             "items": items_data,
             "total": order.total_price,
