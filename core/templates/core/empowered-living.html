@@ -20,13 +20,21 @@
 <div class="bg-white">
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <header class="mb-8">
-      <h1 class="text-4xl font-bold text-gray-900">The Empowered Woman’s Guide to Taking Control of Her Life</h1>
+      <h1 class="text-4xl font-bold mb-8 text-gray-900">The Empowered Woman’s Guide to Taking Control of Her Life</h1>
       <p class="mt-3 text-gray-700 max-w-3xl">
         Empowered living means making decisions with clarity, setting boundaries without guilt, and taking daily ownership of your life. 
         In this guide, we explore the <strong>mindset shifts, boundary-setting skills, self-reliance practices, and action-taking strategies</strong> 
         that help women live with confidence and purpose while staying true to themselves.
       </p>
     </header>
+    {# --- quote --- #}
+      <section class="w-full">
+            <div class="max-w-7xl mb-8 mx-auto">
+            <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
+                <p class="py-8">“The most common way people give up their power is by thinking they don’t have any.” <br>- Alice Walker  </p>
+            </blockquote>
+            </div>
+        </section>
 
     <!-- What Empowerment Means -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
@@ -52,7 +60,7 @@
         </p>
       </aside>
     </div>
-
+    
     <!-- Six Steps -->
     <section>
       <h2 class="text-2xl font-semibold text-gray-900">Six Steps Towards Empowered Living</h2>
@@ -70,7 +78,7 @@
         <a href="/empower-decision-making/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
           <div class="text-sm font-semibold text-gray-500">Step 3</div>
           <h3 class="text-xl font-semibold text-gray-900 mt-1">Make Decisions Without Overthinking</h3>
-          <p class="text-gray-700 mt-2">Use clear criteria to choose and move forward — no endless loops.</p>
+          <p class="text-gray-700 mt-2">Use clear criteria to choose and move forward, no more endless loops.</p>
         </a>
         <a href="/empower-small-steps/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
           <div class="text-sm font-semibold text-gray-500">Step 4</div>
@@ -176,6 +184,10 @@
     <section class="mt-16">
       <h2 class="text-2xl font-semibold text-gray-900">Related Pillars</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="{% url 'core:self_authorship' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Self Authorship</h3>
+          <p class="text-gray-700 mt-1">Self‑authorship is the ability to define your beliefs, identity, and direction on your terms.</p>
+        </a>
         <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
           <h3 class="text-lg font-semibold text-teal-700">Emotional Resilience (PAUSE)</h3>
           <p class="text-gray-700 mt-1">Strengthen your ability to recover after setbacks.</p>
@@ -187,6 +199,10 @@
         <a href="{% url 'core:build_self_confidence' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
           <h3 class="text-lg font-semibold text-teal-700">Build Self-Confidence</h3>
           <p class="text-gray-700 mt-1">Turn self-trust into empowered action.</p>
+        </a>
+        <a href="{% url 'core:journaling' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Journaling</h3>
+          <p class="text-gray-700 mt-1">Use journal writing for resilience and confidence. Turn insights into action.</p>
         </a>
       </div>
     </section>

@@ -21,19 +21,26 @@
 <div class="bg-white">
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <header class="mb-8">
-      <h1 class="text-4xl font-bold text-gray-900">Self‑Authorship: Take Charge of Your Life Story</h1>
+      <h1 class="text-4xl mb-4 font-bold text-gray-900">Self‑Authorship: Take Charge of Your Life Story</h1>
       <p class="mt-3 text-gray-700 max-w-3xl">
         Self‑authorship is the ability to define your beliefs, identity, and direction on your terms and not by someone else’s script.
         This guide shows you how to spot inherited rules, choose your own, and practice small, confident decisions that realign your life with what matters.
       </p>
     </header>
-
+    {# --- quote --- #}
+    <section class="w-full">
+            <div class="max-w-7xl mb-8 mx-auto">
+            <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
+                <p class="py-8">“If you are not living a self-authored life, then whose life are you living?” <br> - Inspirational Guidance</p>
+            </blockquote>
+            </div>
+        </section>
     {# --- What is Self‑Authorship? & Why it works --- #}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
       <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
         <h2 class="text-2xl font-semibold text-gray-900 mb-3">What Is Self‑Authorship?</h2>
         <p class="text-gray-700">
-          Self‑authorship means you write the rules you live by. You examine expectations you’ve inherited — from family, culture, and past versions of yourself — and you replace them with values and principles you actually believe in. Then you practice making choices that reflect them.
+          Self‑authorship means you write the rules you live by. You examine expectations you’ve inherited from family, culture, and past versions of yourself and you replace them with values and principles you actually believe in. Then you practice making choices that reflect them.
         </p>
         <ul class="list-disc ml-6 mt-4 text-gray-700 space-y-1">
           <li><strong>Name the script:</strong> Notice where “should” is steering your life.</li>
@@ -51,7 +58,6 @@
         </p>
       </aside>
     </div>
-
     {# --- Six steps cards --- #}
     <section>
       <h2 class="text-2xl font-semibold text-gray-900">Six Steps to Reclaim Your Life Narrative</h2>
@@ -293,7 +299,16 @@
           <h3 class="text-lg font-semibold text-teal-700">Empowered Living</h3>
           <p class="text-gray-700 mt-1">Boundaries and clear decisions protect what matters.</p>
         </a>
+        <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Emotional Resilience (PAUSE)</h3>
+          <p class="text-gray-700 mt-1">Use PAUSE to steady yourself and rebuild quicker after setbacks.</p>
+        </a>
+        <a href="{% url 'core:journaling' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Journaling</h3>
+          <p class="text-gray-700 mt-1">Use journal writing for purpose and resilience. Turn insights into action.</p>
+        </a>
       </div>
+      
     </section>
 
     {# --- Inspiration / Reflection box --- #}

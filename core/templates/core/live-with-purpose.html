@@ -22,23 +22,30 @@
 <div class="bg-white">
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <header class="mb-8">
-      <h1 class="text-4xl font-bold text-gray-900">Live With Purpose: A Practical Guide to Values‑Led Living</h1>
+      <h1 class="text-4xl mb-4 font-bold text-gray-900">Live With Purpose: A Practical Guide to Values‑Led Living</h1>
       <p class="mt-3 text-gray-700 max-w-3xl">
-        Purpose isn’t something you find — it’s something you choose to live by. This page shows you how to turn values into
+        Purpose isn’t something you find. It is something you choose to live by. This page shows you how to turn values into
         daily choices, so your life feels aligned, not performed. Grounded, repeatable, and built for real life.
       </p>
     </header>
-
+    {# --- quote --- #}
+    <section class="w-full">
+            <div class="max-w-7xl mb-8 mx-auto">
+            <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
+                <p class="py-8">“Discomfort is the price of admission to a meaningful life.” - Susan David</p>
+            </blockquote>
+            </div>
+        </section>
     {# --- What is Live With Purpose? & Why it works --- #}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
       <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
         <h2 class="text-2xl font-semibold text-gray-900 mb-3">What is “Living With Purpose”?</h2>
         <p class="text-gray-700">
-          Living with purpose means using your values as a compass for everyday decisions — big and small. It’s not a grand
-          reinvention; it’s a series of steady, meaningful choices that move you from drift to direction.
+          Living with purpose means using your values as a compass for everyday decisions, big and small. It is not a grand
+          reinvention; it's a series of steady, meaningful choices that move you from drift to direction.
         </p>
         <ul class="list-disc ml-6 mt-4 text-gray-700 space-y-1">
-          <li><strong>Know your values:</strong> Name what matters now — not what “should.”</li>
+          <li><strong>Know your values:</strong> Name what matters now not what “should.”</li>
           <li><strong>Choose with intention:</strong> Let values guide yes/no in real time.</li>
           <li><strong>Design tiny habits:</strong> Build routines that reflect what you care about.</li>
           <li><strong>Values-Based Decisions:</strong> Reduce autopilot and decision fatigue.</li>
@@ -53,7 +60,7 @@
         </p>
       </aside>
     </div>
-
+    
     {# --- Six steps cards (kept structure of 6 cards) --- #}
     <section>
       <h2 class="text-2xl font-semibold text-gray-900">The Six Steps Towards Living With Purpose</h2>
@@ -120,7 +127,7 @@
       </div>
       <div id="self-awareness-step" class="prose text-lg mb-6  max-w-none">
         <h2>Build Self‑Awareness</h2>
-        <p>Notice when you feel most like yourself — and when you don’t. Track energy, people, and places that support or drain you. Purpose grows where honesty lives.</p>
+        <p>Notice when you feel most like yourself and when you don’t. Track energy, people, and places that support or drain you. Purpose grows where honesty lives.</p>
       </div>
       <div id="habits-step" class="prose text-lg mb-6 max-w-none">
         <h2>Design Intentional Habits</h2>
@@ -321,9 +328,17 @@
           <h3 class="text-lg font-semibold text-teal-700">Build Self‑Confidence</h3>
           <p class="text-gray-700 mt-1">Aligned action builds self‑trust — and self‑trust fuels purpose.</p>
         </a>
+        <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Emotional Resilience (PAUSE)</h3>
+          <p class="text-gray-700 mt-1">Use PAUSE to steady yourself and rebuild quicker after setbacks.</p>
+        </a>
         <a href="{% url 'core:self_authorship' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <h3 class="text-lg font-semibold text-teal-700">Self Authorship</h3>
           <p class="text-gray-700 mt-1">Self‑authorship is the ability to define your beliefs, identity, and direction on your terms.</p>
+        </a>
+        <a href="{% url 'core:journaling' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Journaling</h3>
+          <p class="text-gray-700 mt-1">Use journal writing for purpose, resilience, confidence. Turn insights into action.</p>
         </a>
         <a href="{% url 'core:empowered_living' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <h3 class="text-lg font-semibold text-teal-700">Empowered Living</h3>

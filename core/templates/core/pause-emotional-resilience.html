@@ -26,6 +26,14 @@
       <h1 class="text-4xl font-bold text-gray-900">The PAUSE Method: A Practical Guide to Emotional Resilience</h1>
       <p class="mt-3 text-gray-700 max-w-3xl">A simple, repeatable framework to help you meet stressful moments with more calm, clarity, and self‑trust. PAUSE stands for <strong>Pause</strong>, <strong>Accept</strong>, <strong>Understand</strong>, <strong>Strengthen</strong>, and <strong>Evolve</strong>.</p>
     </header>
+      {# --- quote --- #}
+    <section class="w-full">
+            <div class="max-w-7xl mb-8 mx-auto">
+            <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
+                <p class="py-8">“Fall seven times, stand up eight.” - Japanese Proverb</p>
+            </blockquote>
+            </div>
+        </section>
 
     {# --- What is PAUSE? & Why it works --- #}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
@@ -45,6 +53,7 @@
         <p class="text-teal-700/90">It mirrors how resilience grows in real life: you slow down, see clearly, understand your triggers, strengthen your supports, and integrate what you learn. Practiced consistently, it becomes an automatic, calming response.</p>
       </aside>
     </div>
+  
 
     {# --- Step cards (interactive policy-style boxes) --- #}
     <section>
@@ -303,13 +312,24 @@
           <h3 class="text-lg font-semibold text-teal-700">Build Self‑Confidence</h3>
           <p class="text-gray-700 mt-1">Use resilience to rebuild self‑belief and steady presence.</p>
         </a>
+        
+        <a href="{% url 'core:self_authorship' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Self Authorship</h3>
+          <p class="text-gray-700 mt-1">If you are not living a self-authored life, then whose life are you living?
+          </p>
+        </a>
         <a href="{% url 'core:live_with_purpose' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <h3 class="text-lg font-semibold text-teal-700">Live With Purpose</h3>
           <p class="text-gray-700 mt-1">Use Evolve to realign with your values after setbacks.</p>
         </a>
+        
         <a href="{% url 'core:empowered_living' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <h3 class="text-lg font-semibold text-teal-700">Empowered Living</h3>
           <p class="text-gray-700 mt-1">Turn PAUSE into daily habits that empower you.</p>
+        </a>
+        <a href="{% url 'core:journaling' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Journaling</h3>
+          <p class="text-gray-700 mt-1">Use journal writing for resilience and confidence. Turn insights into action.</p>
         </a>
       </div>
     </section>

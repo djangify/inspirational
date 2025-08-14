@@ -23,10 +23,17 @@
 <div class="bg-white">
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <header class="mb-8">
-      <h1 class="text-4xl font-bold text-gray-900">Build Self‑Confidence: A Practical Guide for Women</h1>
+      <h1 class="text-4xl mb-8 font-bold text-gray-900">Build Self‑Confidence: A Practical Guide for Women</h1>
       <p class="mt-3 text-gray-700 max-w-3xl">Self-confidence isn’t about being loud. It’s a learned skill. This guide shows you how to build self-confidence through five repeatable moves: <strong>Know Yourself</strong>, <strong>Reframe Your Self‑Talk</strong>, <strong>Act in Small Steps</strong>, <strong>Build Resilience</strong>, and <strong>Own Your Voice</strong>.</p>
     </header>
-
+        {# --- self confidence quote --- #}
+      <section class="w-full">
+            <div class="max-w-7xl mb-8 mx-auto">
+            <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
+                <p class="py-8">“The only way to get rid of the fear of doing something is to go out and do it.” <br> - Susan Jeffers</p>
+            </blockquote>
+            </div>
+        </section>
     {# --- What is Self-Confidence? & Why it works --- #}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
       <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
@@ -45,7 +52,7 @@
         <p class="text-teal-700/90">Confidence grows from repetition, not motivation. When you understand yourself, speak to yourself with respect, take small actions, recover well, and use your voice, you gather proof you can rely on and that proof changes how you show up.</p>
       </aside>
     </div>
-
+  
     {# --- Step cards (kept identical structure) --- #}
     <section>
       <h2 class="text-2xl font-semibold text-gray-900">The Six Steps</h2>
@@ -289,7 +296,12 @@
     <section class="mt-16">
       <h2 class="text-2xl font-semibold text-gray-900">Related Pillars</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-        <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+        <a href="{% url 'core:self_authorship' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Self Authorship</h3>
+          <p class="text-gray-700 mt-1">If you are not living a self-authored life, then whose life are you living?
+          </p>
+        </a>
+          <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <h3 class="text-lg font-semibold text-teal-700">Emotional Resilience (PAUSE)</h3>
           <p class="text-gray-700 mt-1">Use PAUSE to steady yourself and rebuild quicker after setbacks.</p>
         </a>
@@ -300,6 +312,10 @@
         <a href="{% url 'core:empowered_living' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <h3 class="text-lg font-semibold text-teal-700">Empowered Living</h3>
           <p class="text-gray-700 mt-1">Turn confidence into boundaries, decisions, and daily ownership.</p>
+        </a>
+        <a href="{% url 'core:journaling' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Journaling</h3>
+          <p class="text-gray-700 mt-1">Use journal writing for purpose and confidence. Turn insights into action.</p>
         </a>
       </div>
     </section>
