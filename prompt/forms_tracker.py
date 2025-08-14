@@ -1,6 +1,7 @@
 from django import forms
 from django.utils import timezone
 from .models_tracker import WritingGoal, WritingSession
+from django.db.models import Q
 
 
 class DateInput(forms.DateInput):
@@ -113,7 +114,10 @@ class WritingSessionForm(forms.ModelForm):
         user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
 
-        # Styling
+        # Always use self.instance (reliable in both GET and POST)
+        inst = getattr(self, "instance", None)
+
+        # Field styling (keep whatever you had)
         for name, field in self.fields.items():
             existing = field.widget.attrs.get("class", "")
             field.widget.attrs["class"] = (
@@ -131,43 +135,45 @@ class WritingSessionForm(forms.ModelForm):
         ]:
             self.fields[name].widget.attrs["class"] += " w-full"
 
-        # Enforce goal selection and limit to the user’s active goals
         self.fields["goal"].required = True
-        # If goal is pre-selected (e.g., editing), check its type
-        goal = self.initial.get("goal") or self.data.get("goal")
-        if goal and isinstance(goal, WritingGoal):
-            goal_type = goal.goal_type
-        else:
-            try:
-                goal_instance = WritingGoal.objects.get(id=goal)
-                goal_type = goal_instance.goal_type
-            except (TypeError, ValueError, WritingGoal.DoesNotExist):
-                goal_type = None
 
-        # Conditionally hide or require minutes
-        if goal_type == "sessions":
+        # Build queryset and force-include the instance goal if present
+        if user:
+            base_qs = WritingGoal.objects.filter(user=user, active=True)
+            if inst and inst.goal_id and not base_qs.filter(id=inst.goal_id).exists():
+                base_qs = WritingGoal.objects.filter(
+                    Q(user=user, active=True) | Q(id=inst.goal_id)
+                )
+            self.fields["goal"].queryset = base_qs
+
+        # Make sure the saved goal shows as selected in edit
+        if inst and inst.goal_id:
+            self.initial["goal"] = inst.goal_id
+
+        # Minutes field behavior (never disable the field, only toggle required)
+        goal_obj = None
+        if self.data.get("goal"):
+            try:
+                goal_obj = WritingGoal.objects.get(id=self.data["goal"])
+            except WritingGoal.DoesNotExist:
+                pass
+        elif inst and inst.goal_id:
+            goal_obj = inst.goal
+
+        if goal_obj and getattr(goal_obj, "goal_type", None) == "sessions":
             self.fields["minutes_spent"].required = False
-            self.fields["minutes_spent"].widget.attrs["disabled"] = "disabled"
             self.fields["minutes_spent"].widget.attrs["placeholder"] = (
                 "Not required for this goal type"
             )
         else:
             self.fields["minutes_spent"].required = True
-            self.fields["minutes_spent"].widget.attrs.pop("disabled", None)
 
-        if user is not None:
-            self.fields["goal"].queryset = WritingGoal.objects.filter(
-                user=user, active=True
-            )
-
-        # Disallow future dates
         self.fields["date"].widget.attrs["max"] = timezone.now().date().isoformat()
-
-        # Placeholders
-        self.fields["minutes_spent"].widget.attrs["placeholder"] = "e.g., 30"
+        self.fields["minutes_spent"].widget.attrs["placeholder"] = self.fields[
+            "minutes_spent"
+        ].widget.attrs.get("placeholder", "e.g., 30")
         self.fields["word_count"].widget.attrs["placeholder"] = "e.g., 500 (optional)"
 
-        # Optional: field order for better UX
         self.order_fields(
             [
                 "goal",
@@ -180,26 +186,26 @@ class WritingSessionForm(forms.ModelForm):
             ]
         )
 
-    def clean(self):
-        cleaned = super().clean()
-        date = cleaned.get("date")
-        goal = cleaned.get("goal")
-        minutes_spent = cleaned.get("minutes_spent")
+        def clean(self):
+            cleaned = super().clean()
+            date = cleaned.get("date")
+            goal = cleaned.get("goal")
+            minutes_spent = cleaned.get("minutes_spent")
 
-        if date and date > timezone.now().date():
-            self.add_error("date", "Date cannot be in the future")
+            if date and date > timezone.now().date():
+                self.add_error("date", "Date cannot be in the future")
 
-        if goal:
-            if goal.goal_type == "time" and not minutes_spent:
-                self.add_error(
-                    "minutes_spent", "Please enter minutes spent for this goal."
-                )
-            elif goal.goal_type == "sessions":
-                cleaned["minutes_spent"] = (
-                    None  # Explicitly clear minutes for session-based goals
-                )
+            if goal:
+                if goal.goal_type == "time" and not minutes_spent:
+                    self.add_error(
+                        "minutes_spent", "Please enter minutes spent for this goal."
+                    )
+                elif goal.goal_type == "sessions":
+                    cleaned["minutes_spent"] = (
+                        None  # Explicitly clear minutes for session-based goals
+                    )
 
-        return cleaned
+            return cleaned
 
     def clean_goal(self):
         goal = self.cleaned_data.get("goal")

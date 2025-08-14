@@ -16,23 +16,18 @@ import json
 
 @login_required
 def writing_progress(request):
-    """
-    Main view for the writing progress tracker section
-    """
     if request.method == "POST":
         form = WritingSessionForm(request.POST, user=request.user)
         if form.is_valid():
             session = form.save(commit=False)
             session.user = request.user
+            session.goal = form.cleaned_data["goal"]
             session.save()
             return redirect("prompt:writing_progress")
-
     else:
         form = WritingSessionForm(user=request.user)
-    # Get active writing goals
-    active_goals = WritingGoal.objects.filter(user=request.user, active=True)
 
-    # Get current month's writing sessions
+    active_goals = WritingGoal.objects.filter(user=request.user, active=True)
     today = timezone.now().date()
     first_day = today.replace(day=1)
     last_day = today.replace(day=calendar.monthrange(today.year, today.month)[1])
@@ -41,7 +36,6 @@ def writing_progress(request):
         user=request.user, date__range=(first_day, last_day)
     ).order_by("-date")
 
-    # Calculate basic stats
     total_minutes = (
         current_month_sessions.aggregate(Sum("minutes_spent"))["minutes_spent__sum"]
         or 0
@@ -51,35 +45,26 @@ def writing_progress(request):
     )
     total_sessions = current_month_sessions.count()
 
-    # Prepare calendar data
     calendar_data = {}
     for session in current_month_sessions:
         date_str = session.date.strftime("%Y-%m-%d")
         minutes = session.minutes_spent or 0
         words = session.word_count or 0
-
         if date_str not in calendar_data:
-            calendar_data[date_str] = {
-                "minutes": minutes,
-                "words": words,
-                "count": 1,
-            }
+            calendar_data[date_str] = {"minutes": minutes, "words": words, "count": 1}
         else:
             calendar_data[date_str]["minutes"] += minutes
             calendar_data[date_str]["words"] += words
             calendar_data[date_str]["count"] += 1
 
-    # New goal form
     goal_form = WritingGoalForm()
-
-    # Get recent sessions for display
     recent_sessions = WritingSession.objects.filter(user=request.user).order_by(
         "-date"
     )[:5]
-    session_form = WritingSessionForm(user=request.user)
+
     context = {
         "active_goals": active_goals,
-        "session_form": session_form,
+        "session_form": form,
         "goal_form": goal_form,
         "recent_sessions": recent_sessions,
         "calendar_data": json.dumps(calendar_data),
@@ -230,20 +215,13 @@ def toggle_goal_active(request, goal_id):
     return redirect("prompt:writing_progress")
 
 
-@login_required
 def edit_session(request, session_id):
-    """Handle editing an existing writing session"""
-    session = get_object_or_404(WritingSession, id=session_id, user=request.user)
+    session = get_object_or_404(WritingSession, id=session_id)
 
     if request.method == "POST":
         form = WritingSessionForm(request.POST, instance=session, user=request.user)
-
         if form.is_valid():
             form.save()
-            messages.success(request, "Session updated successfully!")
-
-            if "return_to_list" in request.POST:
-                return redirect("prompt:session_list")
             return redirect("prompt:writing_progress")
     else:
         form = WritingSessionForm(instance=session, user=request.user)

@@ -5,10 +5,10 @@
 
 <div class="container mx-auto bg-white px-6 py-12">
     <h1 class="text-3xl text-center mb-4 font-semibold">
-        Downloadable Guides for Life Skills, Focus, and Wellbeing
+        Printables for Purpose, Resilience, and Confidence. Small Steps. Real Shifts.
     </h1>
     <h2 class="text-2xl text-center mb-10 font-accent">
-        Designed for introverts, planners, and personal growth seekers.
+        Personal Growth for Women. Evidence-through-action tools to help you take ownership of your next choice. 
     </h2>
     <!--search bar-->
     <form method="get" action="." class="max-w-xl mx-auto mb-8">
@@ -80,8 +80,8 @@
                     <h2 class="text-md font-semibold text-gray-900  leading-tight min-h-[2.5rem]">
                         <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
                     </h2>
-                    <p class="text-sm text-gray-600 mb-2 line-clamp-2 min-h-[2.75rem]">
-                        {{ product.description|truncatewords:15|safe }}
+                    <p class="text-md text-gray-600 mb-2 line-clamp-2 min-h-[2.75rem]">
+                        {{ product.description|striptags|truncatewords:26 }}
                     </p>
                     <div class="flex items-center justify-between mt-4">
                         <span class="text-lg font-bold text-gray-900">
