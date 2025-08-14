@@ -12,11 +12,9 @@
   <div class="place-self-center">
     <h1 class="text-3xl font-bold mb-6 text-center">Journal Prompt Generator</h1>
     <div class="text-center rounded-lg p-4">
-        <p class="py-2 lg:text-lg"> Welcome! Our journal prompt generator provides prompts for journal and memoir writing. It has been designed to spark your creativity and guide your writing practice. Choose from a variety of categories, difficulty levels, and prompt types. Whether you're looking for a quick journaling exercise or a deep dive into your memories, we've got you covered.</p>
-        <p class="py-2 lg:text-lg"> Just click the "Generate Prompt" button if you want a random prompt or select from  category, time required and different styles. Enjoy!</p>
+        <p class="py-2 lg:text-lg"> Welcome! Our journal prompt generator has been designed to spark your creativity and guide your writing practice. Whether you're looking for a quick journaling exercise or a deep dive into your memories, we've got you covered. Just click the "Generate Prompt" button if you want a random prompt or select from  category and time required. Enjoy!</p>
     </div>
   </div>   
-
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
      {% include "prompt/components/prompt_hero.html" %}
     </div>
@@ -26,14 +24,14 @@
         <div class="max-w-4xl mx-auto">
             <h2 class="text-3xl font-bold text-center">Why Use a Journal Prompt Generator?</h2>
             
-            <div class="prose prose-lg mx-auto mb-8 font-light lg:text-lg">
+            <div class=" mx-auto mb-8 lg:text-lg">
                 <p class="mb-4 py-4">Journal writing is a powerful tool for emotional well-being. A good writing prompt does more than just give you something to write about. It invites exploration, encourages deeper thinking, and often leads to unexpected insights. Our generator offers prompts across various categories and you can filter by the time you have available. This flexibility ensures you always find the right prompt for your mood and schedule.</p>
                 
                 <h3 class="text-2xl font-bold mt-8 mb-4">Setting Writing Goals</h3>
                 
                 <p class="mb-4 py-4">Consistency is key to developing any habit, including journal writing. By setting realistic, measurable goals, you're more likely to maintain your writing practice over time. Our writing tracker lets you set goals based on minutes spent writing, word count, or number of sessions per week or month.</p>
                 
-                <p class="mb-4 py-4">Tracking your progress provides motivation and accountability. There's something deeply satisfying about seeing your writing streak grow.Even short, 10-minute daily sessions can lead to meaningful insights when practiced consistently.</p>
+                <p class="mb-2">Tracking your progress provides motivation and accountability. There's something deeply satisfying about seeing your writing streak grow. Even short, 10-minute daily sessions can lead to meaningful insights when practiced consistently.</p>
                 
                 <h3 class="text-2xl font-bold mt-8 mb-4">Why Register?</h3>
                 
@@ -93,8 +91,8 @@
     <!-- Call to action section -->
     <section class="bg-teal-700 text-white py-12">
         <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-4">Start Your Writing Journey Today</h2>
-            <p class="text-xl mb-8">Use our prompt generator regularly and track your progress to build a meaningful writing practice.</p>
+            <h2 class="text-3xl font-bold mb-4">Start Your Journaling Journey Today</h2>
+            <p class="text-xl mb-8">Use our prompt generator regularly and track your progress to build a meaningful journal writing practice.</p>
             {% if not user.is_authenticated %}
                 <a href="{% url 'accounts:register' %}" class="inline-block bg-white text-teal-700 hover:bg-gray-100 font-bold py-3 px-6 rounded-lg transition duration-200">
                     Create Free Account

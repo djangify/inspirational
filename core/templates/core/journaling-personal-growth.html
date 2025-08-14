@@ -1,0 +1,339 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Journaling for Personal Growth: A Practical Guide for Women{% endblock %}
+
+{# ===== Open Graph / Twitter Cards ===== #}
+{% block open_graph_tags %}
+  <meta property="og:title" content="Journaling for Personal Growth: A Practical Guide for Women" />
+  <meta property="og:description" content="Build a simple, sustainable journaling practice that clarifies your values, steadies your emotions, and turns insights into action." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/journaling-personal-growth-infographic.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Journaling for Personal Growth: A Practical Guide for Women">
+  <meta name="twitter:description" content="Start a 10-minute habit that strengthens clarity, confidence, and calm.">
+  <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/journaling-personal-growth-infographic.jpg">
+{% endblock %}
+
+{% block content %}
+<div class="bg-white">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900">Journaling for Personal Growth: A Practical Guide for Women</h1>
+      <p class="mt-3 text-gray-700 max-w-3xl">
+        Journaling is not about perfect sentences. It is a 10-minute habit that helps you think clearly, make value-led choices, and steady yourself when life gets loud. 
+        This guide shows you how to use journal writing for <strong>purpose</strong>, <strong>resilience</strong>, <strong>confidence</strong>, and <strong>self-reliance</strong>—and how to turn insights into action.
+      </p>
+    </header>
+
+    {# --- What is Journaling? & Why it works --- #}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3">What is Journaling for Growth?</h2>
+        <p class="text-gray-700">
+          A simple practice of putting thoughts on paper so you can see them, work with them, and choose your next step with intention. 
+          Used consistently, journaling becomes a private space to clarify values, process emotions, and plan small moves that add up.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-gray-700 space-y-1">
+          <li><strong>Clarity:</strong> Writing slows your thinking so priorities become visible.</li>
+          <li><strong>Emotional processing:</strong> Naming feelings reduces their intensity and helps you respond instead of react.</li>
+          <li><strong>Evidence:</strong> Pages become proof of progress, which strengthens self-trust.</li>
+          <li><strong>Action:</strong> Notes turn into micro-plans you can follow in real life.</li>
+        </ul>
+      </div>
+      <aside class="bg-slate-50 rounded-xl border border-purple-100 p-6">
+        <h3 class="text-xl font-semibold text-teal-700 mb-2">Why this works</h3>
+        <p class="text-teal-700/90">
+          Writing externalizes your thoughts. When you see them on the page, you can sort them, challenge unhelpful stories, and choose one next step. 
+          Repetition matters more than length. Ten mindful minutes practiced most days will move you further than an occasional deep dive.
+        </p>
+      </aside>
+    </div>
+
+    {# --- The Six Steps --- #}
+    <section>
+      <h2 class="text-2xl font-semibold text-gray-900">The Six Steps</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+
+        {# Step 1 #}
+        <a href="/purpose-journaling/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Step 1</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Journal for Purpose</h3>
+          <p class="text-gray-700 mt-2">A 10-minute daily check-in to align days with your values and direction.</p>
+          <span class="inline-flex items-center text-teal-700 mt-3">Read more
+            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a 1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </span>
+        </a>
+
+        {# Step 2 #}
+        <a href="/journaling-for-emotional-resilience/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Step 2</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Journal for Emotional Resilience</h3>
+          <p class="text-gray-700 mt-2">Process feelings, spot patterns, and bounce back with steadier decisions.</p>
+          <span class="inline-flex items-center text-teal-700 mt-3">Read more
+            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a 1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </span>
+        </a>
+
+        {# Step 3 #}
+        <a href="/empowering-questions-for-self-confidence/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Step 3</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Journal for Confidence</h3>
+          <p class="text-gray-700 mt-2">Use targeted prompts to strengthen self-belief and take the next step.</p>
+          <span class="inline-flex items-center text-teal-700 mt-3">Read more
+            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a 1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </span>
+        </a>
+
+        {# Step 4 #}
+        <a href="/empower-journal-writing/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Step 4</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Journal for Self-Reliance</h3>
+          <p class="text-gray-700 mt-2">Build trust in your own judgment and choices through regular reflection.</p>
+          <span class="inline-flex items-center text-teal-700 mt-3">Read more
+            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a 1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </span>
+        </a>
+
+        {# Step 5 #}
+        <a href="/prompt/journal-prompt-generator/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Step 5</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Use a Prompt Generator</h3>
+          <p class="text-gray-700 mt-2">Short on time? Generate focused prompts by theme and session length.</p>
+          <span class="inline-flex items-center text-teal-700 mt-3">Try it
+            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a 1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </span>
+        </a>
+
+        {# Step 6 #}
+        <a href="/how-to-turn-any-life-experience-into-a-lesson-you/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div class="text-sm font-semibold text-gray-500">Step 6</div>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Turn Insights Into Action</h3>
+          <p class="text-gray-700 mt-2">Integrate what you learn so your pages translate into real-life change.</p>
+          <span class="inline-flex items-center text-teal-700 mt-3">Read more
+            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a 1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </span>
+        </a>
+
+      </div>
+    </section>
+
+    {# Infographic / Hero visual #}
+    <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm mt-10 mb-10">
+      <img src="{% static 'images/journaling-personal-growth-infographic.jpg' %}" alt="Six ways to use journaling for real personal growth" class="w-full h-auto">
+    </div>
+
+    {# --- Deep content anchors --- #}
+    <section class="mt-12 mb-4 space-y-10">
+      <div id="purpose" class="prose text-lg mb-6 max-w-none">
+        <h2>Journal for Purpose</h2>
+        <p>Use a short daily practice to check your actions against your values. Try a one-line “What mattered today?” entry to keep your direction front-of-mind.</p>
+      </div>
+      <div id="resilience" class="prose text-lg mb-6 max-w-none">
+        <h2>Journal for Emotional Resilience</h2>
+        <p>Name the feeling, note the trigger, write one supportive response you will try next time. Patterns will emerge—and so do options.</p>
+      </div>
+      <div id="confidence" class="prose text-lg mb-6 max-w-none">
+        <h2>Journal for Confidence</h2>
+        <p>Collect evidence. One win a day, no matter how small. Your written proof becomes belief.</p>
+      </div>
+      <div id="selfreliance" class="prose text-lg mb-6 max-w-none">
+        <h2>Journal for Self-Reliance</h2>
+        <p>Use reflective questions to back your own judgment. Decisions get clearer when you write the reasons behind them.</p>
+      </div>
+      <div id="prompts" class="prose text-lg mb-6 max-w-none">
+        <h2>Use Prompts When Stuck</h2>
+        <p>Prompted writing reduces friction on busy days. Set a 10-minute timer and keep the pen moving.</p>
+      </div>
+      <div id="integration" class="prose text-lg mb-6 max-w-none">
+        <h2>Turn Insights Into Action</h2>
+        <p>Finish each entry with one micro-action you will take. Small steps compound faster than sporadic overhauls.</p>
+      </div>
+    </section>
+
+    {# --- Quick Answers --- #}
+    <section class="mt-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Quick Answers to Common Journaling Questions</h2>
+      <div class="space-y-6">
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">How do I start journaling if I only have 10 minutes?</h3>
+          <p class="mt-2 text-gray-700">
+            Use the 10-minute purpose practice. Focus on values, direction, and one next step. 
+            <a href="/purpose-journaling/" class="text-teal-700 hover:underline">Full guide →</a>
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">What prompts help me find my purpose?</h3>
+          <p class="mt-2 text-gray-700">
+            Start with value-clarifying questions and “one-sentence life statement” drafts. 
+            <a href="/journal-prompts-discover-my-purpose/" class="text-teal-700 hover:underline">See prompts →</a>
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">How can journaling improve my emotional resilience?</h3>
+          <p class="mt-2 text-gray-700">
+            It helps you name feelings, track triggers, and plan steadier responses. 
+            <a href="/journaling-for-emotional-resilience/" class="text-teal-700 hover:underline">Learn how →</a>
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">Is there a tool that gives me prompts on demand?</h3>
+          <p class="mt-2 text-gray-700">
+            Yes—use our prompt generator and filter by theme and time. 
+            <a href="/prompt/journal-prompt-generator/" class="text-teal-700 hover:underline">Try it →</a>
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">Can journaling help build my confidence?</h3>
+          <p class="mt-2 text-gray-700">
+            Use targeted reflection questions that keep you moving when doubt shows up. 
+            <a href="/empowering-questions-for-self-confidence/" class="text-teal-700 hover:underline">Prompts here →</a>
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">How do I turn insights into real change?</h3>
+          <p class="mt-2 text-gray-700">
+            Close each entry with a micro-action and review weekly to integrate lessons. 
+            <a href="/how-to-turn-any-life-experience-into-a-lesson-you/" class="text-teal-700 hover:underline">Step-by-step →</a>
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    {# --- Featured articles grid --- #}
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold text-gray-900">Featured Articles on Journaling</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/purpose-journaling/">Journal Your Way Into Purpose: A 10-Minute Daily Practice</a></h3>
+          <p class="text-gray-700">Use a short routine to align days with what matters.</p>
+        </div>
+
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/journal-prompts-discover-my-purpose/">What Journal Prompts Help Me Discover My Purpose?</a></h3>
+          <p class="text-gray-700">Clarity questions to move from noise to direction.</p>
+        </div>
+
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/journaling-for-emotional-resilience/">How Can Journaling Improve Emotional Resilience?</a></h3>
+          <p class="text-gray-700">Name, process, and plan better responses.</p>
+        </div>
+
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/empower-journal-writing/">Why Journal Writing is a Key to Empowerment</a></h3>
+          <p class="text-gray-700">Build self-trust and back your decisions.</p>
+        </div>
+
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/101-six-word-stories/">101 Six-Word Stories: Tiny Truths That Spark Big Feelings</a></h3>
+          <p class="text-gray-700">Micro-prompts for quick but meaningful entries.</p>
+        </div>
+
+        <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/empowering-questions-for-self-confidence/">Empowering Questions for Self-Confidence</a></h3>
+          <p class="text-gray-700">Prompts to steady your inner coach.</p>
+        </div>
+      </div>
+      <div class="mt-4">
+        <a class="text-indigo-700 font-medium hover:underline" href="/blog/">See all journal-related articles →</a>
+      </div>
+    </section>
+
+    {# --- Free Download / Product CTA --- #}
+    <section class="mt-16">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-slate-50 border border-indigo-100 rounded-2xl p-6">
+        <div class="md:col-span-3">
+          <h2 class="text-2xl font-semibold text-gray-900">Free Journal Prompt Generator</h2>
+          <p class="text-gray-700 mt-2">
+             Use our prompt generator for variety. Perfect for days when your brain is too full to think but too busy to rest.
+          </p>
+          <div class="mt-4 flex gap-3">
+            <a href="/prompt/journal-prompt-generator/" class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-white font-medium hover:bg-teal-800">Open Prompt Generator</a>
+            <a href="/shop/" class="inline-flex items-center px-5 py-3 rounded-lg bg-white border border-gray-300 text-gray-800 font-medium hover:bg-gray-50">Explore Our Shop</a>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <div class="rounded-xl overflow-hidden border border-gray-200 mt-16 bg-white">
+            <img src="{% static 'images/journaling-personal-growth-infographic.jpg' %}" alt="Journaling Starter Kit preview" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {# --- FAQ (accordion + schema) --- #}
+    <section id="faq" class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">FAQ</h2>
+      <div class="max-w-3xl">
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">How long should I journal?</summary>
+          <p class="mt-3 text-gray-700">Ten minutes is enough to make consistent progress. Aim for most days, not perfection.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Paper or digital?</summary>
+          <p class="mt-3 text-gray-700">Use whatever you will stick with. Many start on paper for focus and later move to digital for searchability.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">What if I miss days?</summary>
+          <p class="mt-3 text-gray-700">Resume without apology. Write one line today. Momentum returns faster than you think.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Do I need prompts?</summary>
+          <p class="mt-3 text-gray-700">Prompts reduce friction and spark depth. Keep a shortlist and use the generator when you feel stuck.</p>
+        </details>
+      </div>
+
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "How long should I journal?", "acceptedAnswer": {"@type": "Answer", "text": "Ten minutes practiced most days is enough to make consistent progress."}},
+          {"@type": "Question", "name": "Paper or digital?", "acceptedAnswer": {"@type": "Answer", "text": "Use whatever you will stick with—paper for focus, digital for searchability."}},
+          {"@type": "Question", "name": "What if I miss days?", "acceptedAnswer": {"@type": "Answer", "text": "Resume without apology. Write one line today and rebuild momentum."}},
+          {"@type": "Question", "name": "Do I need prompts?", "acceptedAnswer": {"@type": "Answer", "text": "Prompts reduce friction and spark depth; keep a shortlist or use the generator."}}
+        ]
+      }
+      </script>
+    </section>
+
+    {# --- Cross-links to other pillars --- #}
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900">Related Pillars</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="{% url 'core:live_with_purpose' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Live With Purpose</h3>
+          <p class="text-gray-700 mt-1">Use your journal to align choices with values.</p>
+        </a>
+        <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Emotional Resilience (PAUSE)</h3>
+          <p class="text-gray-700 mt-1">Pair journaling with PAUSE to recover quicker.</p>
+        </a>
+        <a href="{% url 'core:empowered_living' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Empowered Living</h3>
+          <p class="text-gray-700 mt-1">Use reflective writing to back your decisions.</p>
+        </a>
+      </div>
+    </section>
+
+    {# --- Inspiration / Reflection box --- #}
+    <section class="mt-16">
+      <div class="rounded-2xl border border-slate-200 p-6 bg-slate-50">
+        <h2 class="text-xl font-semibold text-gray-900">Reflection</h2>
+        <p class="text-gray-700 mt-2">
+          This week, write one line a day: <em>“One thing that mattered and why.”</em> Keep it visible. Small evidence builds big change.
+        </p>
+      </div>
+    </section>
+  </section>
+</div>
+{% endblock %}

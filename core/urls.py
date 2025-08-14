@@ -47,6 +47,11 @@ urlpatterns = [
         TemplateView.as_view(template_name="core/self-authorship.html"),
         name="self_authorship",
     ),
+    path(
+        "journaling-personal-growth",
+        TemplateView.as_view(template_name="core/journaling-personal-growth.html"),
+        name="journaling",
+    ),
     # Policy pages from templates/policy/
     path(
         "policy/privacy/",

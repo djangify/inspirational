@@ -16,8 +16,7 @@
       </h1>
 
       <p class=" mb-8 text-gray-700 lg:mb-8 md:text-xl lg:text-xl sm:text-xl">
-       If you’re ready to live with purpose and feel more in control of the choices you make, you are in the right place.
-      Our <strong>personal development resources</strong> are designed to fit into your day and help you create meaningful change — not someday, but starting now. No big overhauls. No pressure to be perfect. Just small, intentional steps that build momentum and bring clarity over time.
+       If you are ready to live with purpose and feel more in control of the choices you make, you are in the right place. Our personal development resources are practical and designed to fit into your day — no big overhauls, no pressure to be perfect. Just small, intentional steps that build clarity, momentum, and calm confidence over time.
       </p>
       <!-- Buttons Block -->
       <div class="flex flex-col sm:flex-col md:flex-row gap-4 justify-center lg:justify-start">
@@ -38,61 +37,51 @@
 
   </div>
 </section>
-
-
-
   <!-- Resource Section -->
  <section class="w-full py-12">
   <div class="max-w-7xl mx-auto px-6">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
         <!-- Live With Purpose Resources -->
-        <a href="{% url 'shop:category' slug='live-with-purpose' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
+        <a href="{% url 'core:live_with_purpose' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
           <h3 class="mt-2 text-lg font-bold">Live With Purpose</h3>
           <p class="text-sm text-gray-600">Move forward with clarity and purpose — on your own terms, at your own pace.</p>
         </a>
-
       <!-- Build Self-Confidence -->
-      <a href="{% url 'shop:category' slug='build-self-confidence' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
+      <a href="{% url 'core:build_self_confidence' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 00-3 3v1H9v3H6v3h3v-3h3v-3h3a3 3 0 003-3 3 3 0 00-3-3z" />
         </svg>
-
         <h3 class="mt-2 text-lg font-bold">Build Self-Confidence</h3>
         <p class="text-sm text-gray-600">Practical support for women ready to back themselves even on days when it’s hard to feel strong.</p>
       </a>
-
-        <!-- Develop Self-Reliance -->
-        <a href="{% url 'shop:category' slug='self-reliance' %}" class="flex flex-col p-6  border rounded-lg hover:border-teal-600 transition">
+        <!-- Embrace Empowered Living -->
+        <a href="{% url 'core:empowered_living' %}" class="flex flex-col p-6  border rounded-lg hover:border-teal-600 transition">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2s-3 1.343-3 3 1.343 3 3 3zm0 14s-8-4-8-10V7l8-4 8 4v5c0 6-8 10-8 10z" />
           </svg>
           <h3 class="mt-2 text-lg font-bold">Embrace Empowered Living</h3>
           <p class="text-sm text-gray-600">Personal development tools to support you in putting yourself first, without guilt.</p>
         </a>
-
-        <!-- Quietly You: For Introverts -->
-        <a href="{% url 'shop:category' slug='quietly-you' %}" class="flex flex-col  p-6 border rounded-lg hover:border-teal-600 transition">
+        <!-- self authorship-->
+        <a href="{% url 'core:self_authorship' %}" class="flex flex-col  p-6 border rounded-lg hover:border-teal-600 transition">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0112 21.5c-4.28 0-8.08-2.239-10.16-5.922L12 14z" />
           </svg>
-          <h3 class="mt-2 text-lg font-bold">Quietly You</h3>
-          <p class="text-sm text-gray-600">For introverts and quiet souls building strength from within without pretending to be louder than they are.</p>
+          <h3 class="mt-2 text-lg font-bold">Self-Authorship</h3>
+          <p class="text-sm text-gray-600">Rewrite the story you are living with values-led choices and small daily wins. Explore self-authorship.</p>
         </a>
-
         <!-- Journaling for Growth -->
-        <a href="{% url 'shop:category' slug='journaling' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
+        <a href="{% url 'core:journaling' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 8H7a2 2 0 01-2-2V6a2 2 0 012-2h4l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2z" />
           </svg>
           <h3 class="mt-2 text-lg font-bold">Journaling for Growth</h3>
           <p class="text-sm text-gray-600">Writing prompts and guided journals to help you rediscover your voice, values, and what matters most.</p>
         </a>
-
         <!-- Join Us: Free Resources -->
         <a href="{% url 'accounts:register' %}" class="flex flex-col  p-6 border rounded-lg  hover:border-teal-600 transition">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,9 +93,15 @@
     </div>
   </div>
 </section>
-
+  <!-- quote -->
+ <section class="w-full">
+    <div class="max-w-7xl mx-auto">
+      <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
+          <p class="py-8">“No matter how much wealth you build, no matter how many friends you make, no matter the level of your success, if you are not one with yourself, it’s all nothing.”  - Romuald Dzemo</p>
+      </blockquote>
+    </div>
+  </section>
   <!-- Featured Products -->
-   <!-- Featured Products - Best Sellers -->
   <section class="w-full py-14">
     <div class="max-w-7xl mx-auto px-6">
       {% if products %}
@@ -160,8 +155,6 @@
       {% endif %}
     </div> 
   </section>
-
-  
   <!--featured products END-->
 
       <!--journal prompt generator-->
