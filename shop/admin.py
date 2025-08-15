@@ -111,11 +111,11 @@ class ProductAdmin(admin.ModelAdmin):
     )
 
     def price(self, obj):
-        return f"£{obj.price:.2f}"
+        return f"${obj.price:.2f}"
 
     def sale_price(self, obj):
         if obj.sale_price_pence:
-            return f"£{obj.sale_price:.2f}"
+            return f"${obj.sale_price:.2f}"
         return "-"
 
     def display_thumbnail(self, obj):

@@ -28,7 +28,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8">
             <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Order Details</h2>
             <p class="text-gray-600 dark:text-gray-400 mb-2">Order ID: {{ order.id }}</p>
-            <p class="text-gray-600 dark:text-gray-400">Total Amount: £{{ order.get_total_cost|floatformat:2 }}</p>
+            <p class="text-gray-600 dark:text-gray-400">Total Amount: ${{ order.get_total_cost|floatformat:2 }}</p>
         </div>
 
         {% if is_guest %}

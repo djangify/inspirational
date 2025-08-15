@@ -183,10 +183,10 @@
 
           <div class="flex items-center space-x-4">
             <span class="text-4xl font-bold text-gray-900">
-              £{{ product.current_price }}
+              ${{ product.current_price }}
             </span>
             {% if product.is_on_sale %}
-            <span class="text-2xl text-gray-500 line-through ml-3">£{{ product.price }}</span>
+            <span class="text-2xl text-gray-500 line-through ml-3">${{ product.price }}</span>
             {% endif %}
           </div>
 
@@ -267,9 +267,9 @@
                   {{ item.title }}
                 </h3>
                 <div class="flex items-center space-x-2">
-                  <span class="text-lg font-bold text-gray-900">£{{ item.current_price }}</span>
+                  <span class="text-lg font-bold text-gray-900">${{ item.current_price }}</span>
                   {% if item.is_on_sale %}
-                  <span class="text-sm text-gray-500 line-through">£{{ item.price }}</span>
+                  <span class="text-sm text-gray-500 line-through">${{ item.price }}</span>
                   {% endif %}
                 </div>
               </div>

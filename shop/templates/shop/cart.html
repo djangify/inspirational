@@ -27,7 +27,7 @@
                         <!-- Product Title and Price -->
                         <div class="ml-4 flex-grow">
                             <h3 class="text-lg">{{ item.product.title }}</h3>
-                            <p class="text-gray-600">Price: £{{ item.price|floatformat:2 }}</p>
+                            <p class="text-gray-600">Price: ${{ item.price|floatformat:2 }}</p>
                         </div>
 
                         <!-- Quantity Input -->
@@ -48,7 +48,7 @@
 
                         <!-- Total Price -->
                         <div class="text-lg font-semibold w-24 text-right">
-                            £{{ item.total_price|floatformat:2 }}
+                            ${{ item.total_price|floatformat:2 }}
                         </div>
 
                         <!-- Remove Button -->
@@ -80,7 +80,7 @@
                             </div>
                             <div class="ml-4">
                                 <h3 class="text-lg font-semibold">{{ item.product.title }}</h3>
-                                <p class="text-gray-600">£{{ item.price|floatformat:2 }}</p>
+                                <p class="text-gray-600">${{ item.price|floatformat:2 }}</p>
                             </div>
                         </div>
                         <form method="post" action="{% url 'shop:cart_remove' item.product.id %}">
@@ -99,7 +99,7 @@
                                    class="w-16 px-2 py-1 border rounded text-center">
                             <button type="submit" class="ml-2 text-blue-600 text-xs md:text-sm">Update</button>
                         </form>
-                        <span class="font-semibold">£{{ item.total_price|floatformat:2 }}</span>
+                        <span class="font-semibold">${{ item.total_price|floatformat:2 }}</span>
                     </div>
                 </div>
                 {% endfor %}
@@ -109,7 +109,7 @@
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-b-lg">
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-gray-600 dark:text-gray-300">Total Items: {{ cart|length }}</span>
-                    <span class="text-xl font-bold text-gray-900 dark:text-white">Total: £{{ cart.get_total_price|floatformat:2 }}</span>
+                    <span class="text-xl font-bold text-gray-900 dark:text-white">Total: ${{ cart.get_total_price|floatformat:2 }}</span>
                 </div>
 
                 <!-- Action Buttons -->

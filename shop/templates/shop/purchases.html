@@ -34,7 +34,7 @@
                                     </p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-gray-900 dark:text-white">£{{ item.price|floatformat:2  }}</p>
+                                    <p class="text-gray-900 dark:text-white">${{ item.price|floatformat:2  }}</p>
                                     {% if item.product.files or item.product.get_download_url %}
                                     <div class="flex flex-col items-end">
                                         <a href="{% url 'shop:secure_download' item.id %}" 
@@ -57,7 +57,7 @@
                         <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                             <div class="flex justify-between text-lg font-bold">
                                 <span class="text-gray-900 dark:text-white">Total</span>
-                                <span class="text-gray-900 dark:text-white">£{{ order.total_price|floatformat:2 }}</span>
+                                <span class="text-gray-900 dark:text-white">${{ order.total_price|floatformat:2 }}</span>
                             </div>
                         </div>
                     </div>

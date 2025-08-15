@@ -51,7 +51,7 @@
                     {{ product.description|truncatewords:15|safe }}
                 </p>
                 <div class="flex justify-between items-center">
-                    <span class="text-xl font-bold text-gray-900">£{{ product.current_price|floatformat:2 }}</span>
+                    <span class="text-xl font-bold text-gray-900">${{ product.current_price|floatformat:2 }}</span>
                     <a href="{{ product.get_absolute_url }}" class="bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-800 transition duration-300">
                         View Details
                     </a>

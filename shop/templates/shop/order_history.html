@@ -40,7 +40,7 @@
                                 </p>
                             </div>
                             <div class="text-right">
-                                <p class="text-gray-900">£{{ item.get_cost|floatformat:2 }}</p>
+                                <p class="text-gray-900">${{ item.get_cost|floatformat:2 }}</p>
                                 {% if item.downloads_remaining > 0 %}
                                 <a href="{% url 'shop:secure_download' item.id %}" 
                                    class="text-sm text-blue-600 hover:text-blue-800">
@@ -55,7 +55,7 @@
                     <div class="mt-4 pt-4 border-t border-gray-200">
                         <div class="flex justify-between text-lg font-semibold">
                             <span>Total</span>
-                            <span>£{{ order.get_total_cost|floatformat:2 }}</span>
+                            <span>${{ order.get_total_cost|floatformat:2 }}</span>
                         </div>
                     </div>
                 </div>
