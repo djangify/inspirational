@@ -7,26 +7,27 @@
 {% block content %}
 
 
-<section class="bg-slate-50 w-full pt-4 pb-10  sm:px-10">
-  <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
-    <!-- Text Block -->
-    <div class="text-center lg:text-left">
-      <h1 class="text-3xl sm:text-4xl font-serif font-medium text-gray-900 leading-tight mb-6">
-        Personal Development for Women Over 30. Your Life. Your Choice.
+<section class="bg-slate-50 w-full py-8 sm:py-12 px-4 sm:px-10">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-8">
+    <div class="text-center lg:text-left  mx-auto">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-serif font-medium leading-tight  mb-4">
+        Personal Development for Women Over 30. Your Life. MORE Choice.
       </h1>
 
-      <p class=" mb-8 text-gray-700 lg:mb-8 md:text-xl lg:text-xl sm:text-xl">
-       If you are ready to live with purpose and feel more in control of the choices you make, you are in the right place. Our practical resources are designed to fit into your day. No big overhauls, no pressure to be perfect. Just small, intentional steps that build momentum, and confidence over time. 
+      <p class="text-gray-700 leading-relaxed  sm:text-lg mb-6">
+
+       <strong>For women who want MORE! </strong>MORE living life with purpose, MORE resilience when life wobbles, and to feel MORE in control of the choices you make - our practical resources are designed to fit into your day. No big overhauls. Just small, intentional steps that build momentum, and confidence over time. 
       </p>
-      <p class=" mb-8 text-gray-700 lg:mb-8 md:text-xl lg:text-xl sm:text-xl">
-         Register to get access to our free guide <strong><i>"How to Define Your Core Values (and Actually Use Them in Daily Decisions)"</strong></i> plus other tools and resources.
+      <p class="text-gray-700 leading-relaxed text-base sm:text-lg mb-6">
+
+         Register to get access to our free guide <strong><i>"How to Define Your Core Values (and Actually Use Them in Daily Decisions)"</strong></i> plus other tools and resources. Don't settle. Start your journey to MORE.
       </p>
       <!-- Buttons Block -->
-      <div class="flex flex-col sm:flex-col md:flex-row gap-4 justify-center lg:justify-start">
-        <a href="{% url 'accounts:register' %}" class="inline-block bg-teal-700 text-white text-2xl px-6 py-3 rounded hover:bg-teal-800 transition text-center">
+      <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+        <a href="{% url 'accounts:register' %}" class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl px-5 py-3 text-base font-semibold bg-teal-700 text-white hover:bg-teal-800">
           Register Here
         </a>
-        <a href="{% url 'shop:product_list' %}" class="inline-block border-2 border-teal-700 text-teal-700 text-2xl px-6 py-3 rounded hover:bg-teal-100 transition text-center">
+        <a href="{% url 'shop:product_list' %}" class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl px-5 py-3 text-base font-semibold border-2 border-teal-700 text-teal-700 hover:bg-teal-50">
           Shop Here
         </a>
       </div>
@@ -34,12 +35,25 @@
 
     <!-- Image Block -->
     <div class="lg:mt-0 lg:col-span-1 lg:flex">
-      <img src="{% static 'images/bookgirl.png' %}" alt="confidence for women">
-      
+      <img src="{% static 'images/bookgirl-trans.png' %}" alt="confidence for women"
+     class="w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto h-auto object-contain"
+     loading="lazy">
     </div>
-
   </div>
 </section>
+
+<!-- quote -->
+ <section class="w-full">
+    <div class="max-w-7xl mx-auto">
+      <blockquote class="p-4 mt-12  px-6 text-xl italic border-l-4 border-teal-700 text-center bg-slate-50">
+           <span class="font-serif tracking-[0.3em] text-slate-700 text-xl sm:text-2xl text-center md:text-3xl">
+          M · O · R · E → MOMENTUM · OWNERSHIP · RESILIENCE · EMPOWERMENT
+          </h2>
+      </blockquote>
+    </div>
+    
+  </section>
+
   <!-- Resource Section -->
  <section class="w-full py-12">
   <div class="max-w-7xl mx-auto px-6">
@@ -97,8 +111,8 @@
   </div>
 </section>
   <!-- quote -->
- <section class="w-full">
-    <div class="max-w-7xl mx-auto">
+ <section class="w-full py-12">
+    <div class="max-w-7xl px-6 mx-auto">
       <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
           <p class="py-8">“No matter how much wealth you build, no matter how many friends you make, no matter the level of your success, if you are not one with yourself, it’s all nothing.”  <br>- Romuald Dzemo</p>
       </blockquote>
@@ -161,7 +175,7 @@
   <!--featured products END-->
 
       <!--journal prompt generator-->
-  <section class="w-full mt-8 bg-slate-50 py-16">
+  <section class="w-full mt-8 bg-slate-50 py-12">
     <div class="max-w-7xl mx-auto px-6">
           <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 mb-4 text-center">
         Journal Prompt Generator
@@ -170,26 +184,26 @@
         Generate focused prompts for journaling — tailored by category and time. There is an option to <a href="{% url 'accounts:login' %}" class="text-slate-700 font-medium hover:text-teal-700"><i>save prompts </i>when logged in.</a> Perfect for days when your brain is too full to think but too busy to rest.
       </p>
 
-      <div class="max-w-7xl mx-auto px-4">
+      <div class="max-w-7xl mx-auto mb-12 px-4">
         {% include "prompt/components/prompt_hero.html" %}
       </div>
     </div>
   </section>
   <!--About Inspirational Guidance-->
-   <div class="max-w-7xl mx-auto mb-24 px-6">
+   <div class="max-w-7xl mx-auto mt-8 mb-24 px-6">
     <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24 mb-12 items-center">
     <div>
       <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-teal-700 mb-4">About Inspirational Guidance</h2>
 
-      <p class="text-gray-700 mb-4">
-       Our digital downloads are here to support you as you navigate change — midlife, motherhood, burnout, reinvention — or just that quiet tug that says: “I don’t feel like myself anymore. Something needs to shift.” 
+      <p class="text-gray-700 leading-relaxed  mb-4">
+       We are here to support you as you navigate that internal voice that says: <i>“Is this all there is?"</i> or <i> "I don’t feel like myself anymore. Something needs to shift.” </i>
       </p>
-      <p class="text-gray-700 mb-4">
-         <strong>Join the growing number of women choosing to build self-confidence and <a href="{% url 'accounts:register' %}" class="text-slate-600 font-medium hover:text-teal-700"><i>live with purpose</i></a>, on their own terms.</strong> These tools are here to support your next step back to your voice, your pace, and your priorities.
+      <p class="text-gray-700 leading-relaxed  mb-4">
+         <strong>Join the growing number of women wanting MORE </strong> (Momentum · Ownership · Resilience · Empowerment) and create a life that reflects your values not just your responsibilities. These tools are here to support your next step back to your voice, at your pace.
       </p> 
        
-      <p class="text-gray-700 mb-4">
-        Inspirational Guidance is edited by AI Assistant Diana Morgan, a grounded voice behind the scenes. No influencers. No noise. Just practical tools to help you come home to yourself.
+      <p class="text-gray-700 leading-relaxed  mb-4">
+        Inspirational Guidance is edited by AI Assistant Diana Morgan, a grounded voice behind the scenes creating  practical tools to help you come back to yourself.
       </p>
         <a href="{% url 'core:about' %}" class="inline-block mt-2 text-teal-700 font-medium underline hover:text-teal-900">Find out more about Diana</a>
       </p>
@@ -228,7 +242,7 @@
       Personal Development Blog
       </h2>
       </a>
-      <p class="text-gray-600 mb-8">Real-life tools, reflective prompts, and grounded insights on building confidence for women, living with purpose and embracing empowered living. Curated and edited by Diana Morgan.</p>
+      <p class="text-gray-600 mb-8">Helpful tools, exercises, and prompts on building MORE! Momentum · Ownership · Resilience · Empowerment. Curated and edited by Diana Morgan.</p>
       {% if blog_posts %}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {% for post in blog_posts %}
