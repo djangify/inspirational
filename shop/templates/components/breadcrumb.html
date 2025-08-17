@@ -1,0 +1,44 @@
+{% comment %}shop/templates/shop/components/breadcrumb.html{% endcomment %}
+
+<nav class="mb-8 mt-8" aria-label="Breadcrumb">
+  <ol class="flex flex-wrap items-center gap-2 px-8 text-sm text-text">
+
+    <!-- Home -->
+    <li>
+      <a href="/" class="hover:text-accent transition-colors">Home</a>
+    </li>
+    <li>
+      <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </li>
+
+    <!-- Shop main -->
+    <li>
+      <a href="{% url 'shop:product_list' %}" class="hover:text-accent transition-colors">Shop</a>
+    </li>
+
+    {% if product.category %}
+      <li>
+        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </li>
+      <li>
+        <a href="{% url 'shop:category' product.category.slug %}" class="hover:text-accent transition-colors">
+          {{ product.category.name }}
+        </a>
+      </li>
+    {% endif %}
+
+    <!-- Current product -->
+    <li>
+      <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </li>
+    <li class="text-gray-500">
+      {{ product.title }}
+    </li>
+  </ol>
+</nav>

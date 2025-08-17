@@ -26,8 +26,9 @@
 {% block content %}
 <!-- news/templates/news/detail.html -->
 <section class="bg-secondary  text-text ">
-    {% include 'news/components/breadcrumb.html' %}
+    
     <div class="mx-auto max-w-7xl px-4 sm:px-8 lg:px-16">
+        {% include 'news/components/breadcrumb.html' %}
         <div class="p-4 sm:p-6 shadow-sm">
         <header class="mb-8">  
             <h1 class="text-4xl font-bold">{{ post.title }}</h1>
