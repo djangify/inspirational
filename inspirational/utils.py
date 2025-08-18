@@ -1,25 +1,5 @@
 from django.utils.text import slugify as django_slugify
 import re
-import os
-from io import BytesIO
-from PIL import Image
-from django.core.files.base import ContentFile
-
-
-def convert_image_to_webp(image_field):
-    """
-    Converts an uploaded image (JPEG/PNG) to WebP.
-    Returns a ContentFile with the new image.
-    """
-    image = Image.open(image_field)
-    image = image.convert("RGB")  # Ensures consistent mode for WebP
-
-    buffer = BytesIO()
-    image.save(buffer, format="WEBP", quality=85)  # You can tweak quality
-    buffer.seek(0)
-
-    filename = os.path.splitext(image_field.name)[0] + ".webp"
-    return filename, ContentFile(buffer.read(), name=filename)
 
 
 def sanitize_text(text):

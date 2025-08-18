@@ -7,7 +7,6 @@ from decimal import Decimal
 from inspirational.storage import secure_storage, public_storage
 from inspirational.utils import custom_slugify
 from tinymce.models import HTMLField
-from inspirational.utils import convert_image_to_webp
 
 
 def generate_public_id(instance, *args, **kwargs):
@@ -124,13 +123,8 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
-    from inspirational.utils import convert_image_to_webp
-
     def save(self, *args, **kwargs):
-        # Convert uploaded preview_image to webp
-        if self.preview_image and not str(self.preview_image.name).endswith(".webp"):
-            filename, webp_image = convert_image_to_webp(self.preview_image)
-            self.preview_image.save(filename, webp_image, save=False)
+        super().save(*args, **kwargs)
 
         if not self.slug:
             self.slug = custom_slugify(self.title)
