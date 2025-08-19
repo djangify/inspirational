@@ -224,7 +224,7 @@
             <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09L5.82 12.545.944 8.91l6.455-.955L10 2l2.6 5.955 6.455.955-4.876 3.635 1.698 5.545z"/></svg>
             {% endfor %}
           </div>
-          <p class="text-sm text-gray-700 italic">“{{ review.comment|truncatewords:20 }}”</p>
+          <p class="text-sm text-gray-700 italic">“{{ review.comment|truncatewords:45 }}”</p>
           <p class="mt-2 text-sm text-gray-500">– {{ review.user.first_name }}</p>
         </div>
         {% endfor %}

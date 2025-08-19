@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
+from django.contrib.admin.widgets import AdminSplitDateTime
 import requests
 from .models import (
     Category,
@@ -12,6 +13,7 @@ from .models import (
     ProductReview,
     Purchase,
 )
+from django import forms
 
 
 @admin.register(Category)
@@ -251,14 +253,63 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Purchase)
 
 
+class ProductReviewAdminForm(forms.ModelForm):
+    # Use a DIFFERENT name than the model field to avoid Django's
+    # "non-editable field" check.
+    created_override = forms.SplitDateTimeField(
+        label="Created",
+        widget=AdminSplitDateTime,
+        required=True,
+        help_text="Set the review’s created date/time.",
+    )
+
+    class Meta:
+        model = ProductReview
+        fields = "__all__"  # 'created' (the model field) will be excluded automatically
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk and self.instance.created:
+            self.fields["created_override"].initial = self.instance.created
+
+    def save(self, commit=True):
+        obj = super().save(commit=False)
+        # Write the chosen value back to the real model field
+        obj.created = self.cleaned_data["created_override"]
+        if commit:
+            obj.save()
+            self.save_m2m()
+        return obj
+
+
 @admin.register(ProductReview)
 class ProductReviewAdmin(admin.ModelAdmin):
+    form = ProductReviewAdminForm
+
     list_display = ["product", "user", "rating", "verified_purchase", "created"]
     list_filter = ["rating", "verified_purchase", "created"]
     search_fields = ["product__title", "user__username", "comment"]
-    readonly_fields = ["verified_purchase"]
+
+    # IMPORTANT: reference the *form* field `created_override`, not the model field name.
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "product",
+                    "user",
+                    "rating",
+                    "comment",
+                    "created_override",  # editable proxy
+                    "verified_purchase",
+                )
+            },
+        ),
+    )
+
+    readonly_fields = []  # keep as you prefer
 
     def save_model(self, request, obj, form, change):
-        # Automatically mark all admin-created reviews as verified
+        # keep any custom logic you had (example:)
         obj.verified_purchase = True
         super().save_model(request, obj, form, change)
