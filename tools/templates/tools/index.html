@@ -16,26 +16,22 @@
       <p class="text-gray-600 text-sm mb-4">
         Use the journal prompt generator for journaling ideas. Register a free account to save the prompts you love.
       </p>
-      <a href="https://circles.todiane.com" target="_blank" rel="noopener noreferrer"
+      <a href="{% url 'prompt:journal_prompt_generator' %}" target="_blank" rel="noopener noreferrer"
          class="inline-block text-white bg-teal-700 hover:bg-teal-800 px-4 py-2 rounded text-sm font-medium">
-        Launch Game
+        Journal Prompts
       </a>
-      <p class="text-sm text-gray-400 mt-2">
-        <a href="{% url 'tools:calming_game' %}" class="underline hover:text-teal-600">
-          Learn more about the game →
-        </a>
-      </p>
+      
     </div>
 
     <!-- Tap to Calm Card -->
     <div class="border border-slate-200 rounded-lg p-6 hover:shadow transition text-left">
-      <h2 class="text-xl font-semibold mb-2">Tap to Calm</h2>
+      <h2 class="text-xl font-semibold mb-2">Goal Setting</h2>
       <p class="text-gray-600 text-sm mb-4">
-        A satisfying, calming game of gentle tapping — created to ease anxiety and clear the mind.
+        This is a registered members only tool. You can set goals and update them to monitor your progress.
       </p>
-      <a href="https://tap.inspirationalguidance.com" target="_blank" rel="noopener noreferrer"
+      <a href="{% url 'accounts:register' %}" target="_blank" rel="noopener noreferrer"
         class="inline-block text-white bg-teal-700 hover:bg-teal-800 px-4 py-2 rounded text-sm font-medium">
-        Launch Game
+        Register HERE
       </a>
       <p class="text-sm text-gray-400 mt-2">
         <a href="{% url 'tools:tap_to_calm' %}" class="underline hover:text-teal-600">
