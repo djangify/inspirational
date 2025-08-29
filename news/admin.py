@@ -37,6 +37,7 @@ class PostAdmin(admin.ModelAdmin):
         "featured",
         "publish_date",
         "display_thumbnail",
+        "has_ad",
     ]
     list_editable = ["featured"]
     list_filter = ["status", "category", "featured", "created", "publish_date"]
@@ -96,6 +97,15 @@ class PostAdmin(admin.ModelAdmin):
             },
         ),
     )
+
+    @admin.display(boolean=True, description="Ad")
+    def has_ad(self, obj):
+        return (
+            (obj.ad_type != "none")
+            or bool((obj.ad_code or "").strip())
+            or bool(obj.ad_image)
+            or bool(obj.ad_url)
+        )
 
     def display_thumbnail(self, obj):
         image_url = obj.get_thumbnail_url()
