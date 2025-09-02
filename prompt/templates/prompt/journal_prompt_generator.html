@@ -1,16 +1,41 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Journal Prompt Generator - Daily Writing Prompts for Journaling{% endblock %}
+<title>Free Journal Prompt Generator | Daily Writing Prompts for Journaling & Self-Reflection</title>
+<meta name="description" content="Discover daily writing prompts with our free Journal Prompt Generator. Get fresh ideas for journaling, self-reflection, and personal growth — new prompts added regularly.">
 
-{% block meta_description %}Use our free journal prompt generator to discover inspiring writing prompts for your daily journaling practice. Find prompts for self-reflection, personal growth, and memoir writing.{% endblock %}
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Journal Prompt Generator",
+  "url": "{{ request.build_absolute_uri }}",
+  "description": "A free online tool that generates daily journaling prompts for self-reflection, personal growth, and memoir writing.",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "Inspirational Guidance",
+    "url": "https://inspirationalguidance.com"
+  }
+}
+</script>
+{% endblock %}
 
 {% block content %}
-
 
 <div class="grid max-w-4xl   px-4 pt-10 pb-8 mx-auto gap-4 lg:py-16">
   <div class="place-self-center">
     <h1 class="text-3xl font-bold mb-6 text-center">Journal Prompt Generator</h1>
+    <h2 class="text-xl mb-6 text-center">Free Daily Journal Prompts for Self-Reflection</h2>
+    
     <div class="text-center rounded-lg p-4">
         <p class="py-2 lg:text-lg"> Welcome! Our journal prompt generator has been designed to spark your creativity and guide your writing practice. Whether you're looking for a quick journaling exercise or a deep dive into your memories, we've got you covered. Just click the "Generate Prompt" button if you want a random prompt or select from  category and time required. Enjoy!</p>
     </div>
@@ -40,6 +65,126 @@
             </div>
         </div>
     </section>
+    {# --- FAQ (accordion + schema) --- #}
+<section id="faq" class="mt-16 mb-12">
+  <h2 class="text-2xl font-semibold text-gray-900 mb-4">Other FAQs</h2>
+  <div class="max-w-3xl">
+    <details class="border border-gray-200 rounded-lg p-4 mb-4">
+      <summary class="font-semibold cursor-pointer">What is a journal prompt generator?</summary>
+      <p class="mt-3 text-gray-700">It is a free online tool that serves you writing prompts on demand. Use it when you feel stuck, want a quick idea, or would like to go deeper with a reflective question.</p>
+    </details>
+
+    <details class="border border-gray-200 rounded-lg p-4 mb-4">
+      <summary class="font-semibold cursor-pointer">How do I use the generator?</summary>
+      <p class="mt-3 text-gray-700">Click “Generate Prompt” for a random idea, or filter by category and time required. Pick one prompt and write for the time you chose—no editing during the timer. When finished, note one takeaway.</p>
+    </details>
+
+    <details class="border border-gray-200 rounded-lg p-4 mb-4">
+      <summary class="font-semibold cursor-pointer">Is it really free?</summary>
+      <p class="mt-3 text-gray-700">Yes. The core generator is free to use. Creating a free account unlocks extra features like saving favorites and tracking your writing streak.</p>
+    </details>
+
+    <details class="border border-gray-200 rounded-lg p-4 mb-4">
+      <summary class="font-semibold cursor-pointer">Can I choose prompt categories?</summary>
+      <p class="mt-3 text-gray-700">Yes. You can filter by categories such as Personal Growth, Daily Reflection, Family Memories, Lifestyle, and more—so the prompt matches your mood and goal.</p>
+    </details>
+
+    <details class="border border-gray-200 rounded-lg p-4 mb-4">
+      <summary class="font-semibold cursor-pointer">How can I build a consistent journaling habit?</summary>
+      <p class="mt-3 text-gray-700">Start small and repeat daily. Set a 10-minute timer, use one prompt, and track your sessions. Consistency matters more than length. Our writing tracker helps you log minutes, sessions, or word count.</p>
+    </details>
+
+    <details class="border border-gray-200 rounded-lg p-4 mb-4">
+      <summary class="font-semibold cursor-pointer">Are these prompts suitable for beginners?</summary>
+      <p class="mt-3 text-gray-700">Yes. Prompts range from quick starts to deeper reflections. Begin with short time blocks and lighter categories, then explore more reflective topics as your confidence grows.</p>
+    </details>
+
+    <details class="border border-gray-200 rounded-lg p-4 mb-4">
+      <summary class="font-semibold cursor-pointer">Can I use prompts for memoir or personal stories?</summary>
+      <p class="mt-3 text-gray-700">Absolutely. Many categories are designed for memory work. Use prompts to capture scenes, senses, and turning points. You can save favorites and come back to them later.</p>
+    </details>
+
+    <details class="border border-gray-200 rounded-lg p-4 mb-4">
+      <summary class="font-semibold cursor-pointer">Do I need an account to save prompts?</summary>
+      <p class="mt-3 text-gray-700">You can generate prompts without an account. To save favorites and track progress, create a free account and use the writing tracker to log your sessions.</p>
+    </details>
+  </div>
+
+  {# FAQ schema #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a journal prompt generator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It is a free online tool that serves writing prompts on demand. Use it when you feel stuck, want a quick idea, or would like a deeper reflective question."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use the generator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Click Generate Prompt for a random idea, or filter by category and time required. Pick one prompt, write for the chosen time without editing, then note one takeaway."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it really free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The core generator is free. Creating a free account unlocks additional features such as saving favorite prompts and tracking your writing streak."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I choose prompt categories?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can filter by categories like Personal Growth, Daily Reflection, Family Memories, and Lifestyle so the prompt matches your mood and goal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I build a consistent journaling habit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Start small and repeat daily. Set a 10-minute timer, use one prompt, and track your sessions. Consistency matters more than length. The writing tracker helps you log minutes, sessions, or word count."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are these prompts suitable for beginners?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Prompts range from quick starts to deeper reflections. Begin with short time blocks and lighter categories, then expand as your confidence grows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use prompts for memoir or personal stories?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Many categories are designed for memory work. Use prompts to capture scenes, senses, and turning points. You can save favorites and return to them later."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need an account to save prompts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can generate prompts without an account. To save favorites and track progress, create a free account and use the writing tracker to log your sessions."
+        }
+      }
+    ]
+  }
+  </script>
+</section>
+
 
     <!-- Two column section for Today's Prompt and Recently Added -->
     <section class="bg-gray-50 py-12">
@@ -65,21 +210,21 @@
                             <p class="italic text-gray-800">Describe your ideal morning routine. What elements would make it perfect for your wellbeing and productivity?</p>
                             <div class="flex justify-between items-center mt-2">
                                 <span class="text-xs text-gray-600">Category: Daily Reflection</span>
-                                <span class="text-xs text-gray-600">Added: July 31, 2025</span>
+                                <span class="text-xs text-gray-600">Added: September 2, 2025</span>
                             </div>
                         </li>
                         <li class="border-b pb-4">
                             <p class="italic text-gray-800">What is a family tradition that has significant meaning to you? How has it shaped your identity?</p>
                             <div class="flex justify-between items-center mt-2">
                                 <span class="text-xs text-gray-600">Category: Family Memories</span>
-                                <span class="text-xs text-gray-600">Added: July 27, 2025</span>
+                                <span class="text-xs text-gray-600">Added: September 1, 2025</span>
                             </div>
                         </li>
                         <li>
                             <p class="italic text-gray-800">Write about a place you've never been but would love to visit. What draws you to this location? What would you hope to experience there?</p>
                             <div class="flex justify-between items-center mt-2">
                                 <span class="text-xs text-gray-600">Category: Lifestyle</span>
-                                <span class="text-xs text-gray-600">Added: July 22, 2025</span>
+                                <span class="text-xs text-gray-600">Added: August 30, 2025</span>
                             </div>
                         </li>
                     </ul>
@@ -87,7 +232,42 @@
             </div>
         </div>
     </section>
-
+    {# --- banner ad goes to shop --- #}
+    
+        <a href="https://inspirationalguidance.com/shop/product/beginners-guide-to-setting-boundaries/" target="_blank">
+        <img src="https://inspirationalguidance.com/media/public/news/ads/setting-boundaries4.webp?v=1756474669" alt="how to set boundaries">
+        </a> 
+    <!-- Related pages-->
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900">Personal Growth Pages</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="{% url 'core:self_authorship' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Self Authorship</h3>
+          <p class="text-gray-700 mt-1">Self‑authorship is the ability to define your beliefs, identity, and direction on your terms.</p>
+        </a>
+        <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <h3 class="text-lg font-semibold text-teal-700">Emotional Resilience (PAUSE)</h3>
+          <p class="text-gray-700 mt-1">Strengthen your ability to recover after setbacks.</p>
+        </a>
+        <a href="{% url 'core:live_with_purpose' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <h3 class="text-lg font-semibold text-teal-700">Live With Purpose</h3>
+          <p class="text-gray-700 mt-1">Make decisions aligned with your values.</p>
+        </a>
+        <a href="{% url 'core:build_self_confidence' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <h3 class="text-lg font-semibold text-teal-700">Build Self-Confidence</h3>
+          <p class="text-gray-700 mt-1">Turn self-trust into empowered action.</p>
+        </a>
+        <a href="{% url 'core:journaling' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Journaling</h3>
+          <p class="text-gray-700 mt-1">Use journal writing for resilience and confidence. Turn insights into action.</p>
+        </a>
+        <a href="{% url 'core:empowered_living' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Empowered Living</h3>
+          <p class="text-gray-700 mt-1">Turn confidence into boundaries, decisions, and daily ownership.</p>
+        </a>
+      </div>
+    </section>
+    
     <!-- Call to action section -->
     <section class="bg-teal-700 text-white py-12">
         <div class="max-w-4xl mx-auto px-4 text-center">

@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
+
 {% block open_graph_tags %}
   <meta property="fb:app_id" content="2433552923679047" />
   <meta property="og:title" content="{{ post.meta_title|default:post.title }}" />
   {% if post.meta_description %}
-  <meta property="og:description" content="{{ post.meta_description|truncatewords:25 }}" />
-    {% else %}
+    <meta property="og:description" content="{{ post.meta_description|truncatewords:25 }}" />
+  {% else %}
     <meta property="og:description" content="{{ post.content|striptags|truncatewords:25 }}" />
-    {% endif %}
+  {% endif %}
   <meta property="og:type" content="article" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.featured_image.url }}" />
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ post.meta_title|default:post.title }}">
-    {% if post.meta_description %}
-        <meta property="og:description" content="{{ post.meta_description|truncatewords:25 }}" />
-    {% else %}
-        <meta property="og:description" content="{{ post.content|striptags|truncatewords:25 }}" />
-    {% endif %}
-    <meta name="twitter:image" content="{{ post.featured_image.url|default:'/static/images/diana-morgan.webp' }}">
-
-
-
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ post.meta_title|default:post.title }}">
+  {% if post.meta_description %}
+    <meta name="twitter:description" content="{{ post.meta_description|truncatewords:25 }}" />
+  {% else %}
+    <meta name="twitter:description" content="{{ post.content|striptags|truncatewords:25 }}" />
+  {% endif %}
+  <meta name="twitter:image" content="{{ post.featured_image.url|default:'/static/images/diana-morgan.webp' }}">
 {% endblock %}
+
+
 {% block content %}
 <!-- news/templates/news/detail.html -->
 <section class="bg-secondary  text-text ">

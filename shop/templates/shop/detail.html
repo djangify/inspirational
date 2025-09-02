@@ -1,18 +1,78 @@
 {% extends "base.html" %}
 {% load static %}
-{% block head %}
-  {{ block.super }}
-  <meta property="og:title" content="{{ product.title }}" />
-  <meta property="og:description" content="{{ product.description|truncatewords:20 }}" />
+
+{% block open_graph_tags %}
+  <meta property="og:title" content="{{ product.meta_title|default:product.title }}" />
+  {% if product.meta_description %}
+    <meta property="og:description" content="{{ product.meta_description|truncatewords:25 }}" />
+  {% else %}
+    <meta property="og:description" content="{{ product.description|truncatewords:25 }}" />
+  {% endif %}
   <meta property="og:image" content="{{ product.get_image_url|default:'https://inspirationalguidance.com/static/images/placeholder.png' }}" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:type" content="product" />
 
-  <!-- Optional: Twitter (X) Card -->
+  <!-- Twitter (X) Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{{ product.title }}" />
-  <meta name="twitter:description" content="{{ product.description|truncatewords:20 }}" />
+  <meta name="twitter:title" content="{{ product.meta_title|default:product.title }}" />
+  {% if product.meta_description %}
+    <meta name="twitter:description" content="{{ product.meta_description|truncatewords:25 }}" />
+  {% else %}
+    <meta name="twitter:description" content="{{ product.description|truncatewords:25 }}" />
+  {% endif %}
   <meta name="twitter:image" content="{{ product.get_image_url|default:'https://inspirationalguidance.com/static/images/ig-header-logo.png' }}" />
+{% endblock %}
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.title|escapejs }}",
+  "image": [
+    "{{ product.get_image_url|default:'https://inspirationalguidance.com/static/images/placeholder.png' }}"
+  ],
+  "description": "{{ product.meta_description|default:product.description|truncatewords:30|escapejs }}",
+  "sku": "{{ product.public_id|default:product.id }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "Inspirational Guidance"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ request.build_absolute_uri }}",
+    "priceCurrency": "GBP",
+    "price": "{{ product.current_price }}",
+    "availability": "https://schema.org/{% if product.is_active %}InStock{% else %}OutOfStock{% endif %}"
+  }
+  {% if product.total_reviews > 0 %},
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ product.average_rating|floatformat:1 }}",
+    "reviewCount": "{{ product.total_reviews }}"
+  },
+  "review": [
+    {% for review in product.reviews.all %}
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "{{ review.user.get_full_name|default:review.user.username|escapejs }}"
+      },
+      "datePublished": "{{ review.created|date:'Y-m-d' }}",
+      "reviewBody": "{{ review.comment|truncatewords:40|escapejs }}",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "{{ review.rating }}",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ]
+  {% endif %}
+}
+</script>
 {% endblock %}
 
 {% block content %}
