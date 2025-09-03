@@ -14,7 +14,7 @@
     </div>
 
     <!-- Stats summary -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="bg-white rounded-lg p-6 mb-6">
         <h2 class="text-xl font-semibold mb-4">Progress Summary</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div class="p-4 bg-blue-50 rounded-lg">
@@ -37,7 +37,7 @@
     </div>
 
     <!-- Filter controls -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="bg-white rounded-lg  p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">Filter Sessions</h2>
         <form method="get" action="{% url 'prompt:session_list' %}" class="space-y-4 md:space-y-0 md:flex md:items-end md:space-x-4">
             <div class="flex-1">
@@ -71,7 +71,7 @@
     </div>
 
     <!-- Session List -->
-    <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="bg-white rounded-lg p-6">
         <h2 class="text-xl font-semibold mb-4">All Progress Sessions</h2>
         
         {% if page_obj %}

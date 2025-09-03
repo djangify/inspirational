@@ -28,26 +28,13 @@
             {% csrf_token %}
             
             <div class="space-y-4 px-4">
-                <!-- Goal selection (with data-goal-type) -->
-<div>
-  <label for="id_goal" class="block text-md text-gray-700 mb-1">
-    Which goal is this for?
-  </label>
-  <select name="goal" id="id_goal" class="w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4">
-    <option value="">---------</option>
-    {% for goal in form.fields.goal.queryset %}
-      <option value="{{ goal.id }}" data-goal-type="{{ goal.goal_type }}"
-        {% if form.initial.goal and form.initial.goal.id == goal.id %}selected{% endif %}>
-        {{ goal }}
-      </option>
-    {% endfor %}
-  </select>
-  {% if form.goal.errors %}
-    <p class="mt-1 text-sm text-red-600">{{ form.goal.errors.0 }}</p>
-  {% endif %}
-</div>
+            <!-- Goal selection (with data-goal-type) -->
+            <div>
+            <p class="block text-md text-gray-700 mb-1">Goal</p>
+            <p class="text-gray-900">{{ session.goal }}</p>
+            </div>
 
-<!-- Date field -->
+            <!-- Date field -->
                 <div>
                     <label for="{{ form.date.id_for_label }}" class="block text-md  text-gray-700 mb-1">
                         Date
@@ -60,14 +47,13 @@
                 
                 <!-- Minutes spent field -->
                 <div>
-                    <label for="{{ form.minutes_spent.id_for_label }}" class="block text-md  text-gray-700 mb-1">
-    Minutes Spent
-</label>
-<small id="minutes-help" class="text-gray-500 block mb-1">
-    This field is required for time-based goals only.
-</small>
+                    <label for="{{ form.minutes_spent.id_for_label }}" class="block text-md text-gray-700 mb-1">
                         Minutes Spent
                     </label>
+                    <small id="minutes-help" class="text-gray-500 block mb-1">
+                        <!-- Default text; JS will replace if needed -->
+                        This field is required for time-based goals only.
+                    </small>
                     {{ form.minutes_spent|add_class:"w-full h-12 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-teal-500 px-4" }}
                     {% if form.minutes_spent.errors %}
                         <p class="mt-1 text-sm text-red-600">{{ form.minutes_spent.errors.0 }}</p>
@@ -143,32 +129,27 @@
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const goalSelect = document.getElementById("id_goal");
   const minutesField = document.getElementById("id_minutes_spent");
   const minutesHelp = document.getElementById("minutes-help");
+  const goalType = "{{ session.goal.goal_type|escapejs }}";  // pass goal type from backend
 
-  function toggleMinutesField() {
-    const selectedOption = goalSelect?.options[goalSelect.selectedIndex];
-    const goalType = selectedOption?.getAttribute("data-goal-type");
-
-    if (goalType === "sessions") {
+  if (goalType === "sessions") {
+    if (minutesField) {
       minutesField.value = "";
       minutesField.disabled = true;
-      if (minutesHelp) {
-        minutesHelp.textContent = "Not required for this goal type.";
-      }
-    } else {
-      minutesField.disabled = false;
-      if (minutesHelp) {
-        minutesHelp.textContent = "This field is required for time-based goals only.";
-      }
     }
-  }
-
-  if (goalSelect && minutesField) {
-    toggleMinutesField();
-    goalSelect.addEventListener("change", toggleMinutesField);
+    if (minutesHelp) {
+      minutesHelp.textContent = "Not required for this goal type.";
+    }
+  } else {
+    if (minutesField) {
+      minutesField.disabled = false;
+    }
+    if (minutesHelp) {
+      minutesHelp.textContent = "This field is required for time-based goals only.";
+    }
   }
 });
 </script>
+
 {% endblock %}

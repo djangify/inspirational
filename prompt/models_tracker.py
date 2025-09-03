@@ -140,7 +140,6 @@ class WritingSession(models.Model):
     )
     goal = models.ForeignKey(
         "WritingGoal",
-        null=True,
         on_delete=models.CASCADE,
         related_name="sessions",
         help_text="Which goal is this session for?",

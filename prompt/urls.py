@@ -35,6 +35,7 @@ urlpatterns = [
         views_tracker.toggle_goal_active,
         name="toggle_goal",
     ),
+    path("goals/", views_tracker.goal_list, name="goal_list"),
     # Session management
     path(
         "edit-session/<int:session_id>/",

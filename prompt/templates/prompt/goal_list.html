@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+    <div class="mb-6 flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Your Goals</h1>
+        <a href="{% url 'prompt:writing_progress' %}" class="text-teal-700 hover:text-teal-700 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+            </svg>
+            Back to Progress Tracker
+        </a>
+    </div>
+    <!-- Stats summary -->
+    <div class="bg-white rounded-lg p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">Goals Summary</h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Total Goals</p>
+                <p class="text-2xl font-bold text-teal-700">{{ summary.total_goals }}</p>
+            </div>
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Active Goals</p>
+                <p class="text-2xl font-bold text-teal-700">{{ summary.active_goals }}</p>
+            </div>
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Inactive Goals</p>
+                <p class="text-2xl font-bold text-teal-700">{{ summary.inactive_goals }}</p>
+            </div>
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Time-Based</p>
+                <p class="text-2xl font-bold text-teal-700">{{ summary.time_based }}</p>
+            </div>
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600">Session-Based</p>
+                <p class="text-2xl font-bold text-teal-700">{{ summary.session_based }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Filter controls -->
+    <div class="bg-white rounded-lg  p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">Filter Goals</h2>
+        <form method="get" action="{% url 'prompt:goal_list' %}" class="space-y-4 md:space-y-0 md:flex md:items-end md:space-x-4">
+            <div class="flex-1">
+                <label for="active" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                <select id="active" name="active"
+                        class="w-full px-4 h-10 border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option value="all" {% if active == 'all' %}selected{% endif %}>All Goals</option>
+                    <option value="active" {% if active == 'active' %}selected{% endif %}>Active</option>
+                    <option value="inactive" {% if active == 'inactive' %}selected{% endif %}>Inactive</option>
+                </select>
+            </div>
+            <div class="flex-1">
+                <label for="goal_type" class="block text-sm font-medium text-gray-700 mb-1">Goal Type</label>
+                <select id="goal_type" name="goal_type"
+                        class="w-full px-4 h-10 border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option value="all" {% if goal_type == 'all' %}selected{% endif %}>All Types</option>
+                    <option value="time" {% if goal_type == 'time' %}selected{% endif %}>Time-based</option>
+                    <option value="sessions" {% if goal_type == 'sessions' %}selected{% endif %}>Session-based</option>
+                </select>
+            </div>
+            <div class="md:flex-none">
+                <button type="submit" class="w-full md:w-auto bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+                    Apply Filters
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Goal List -->
+    <div class="bg-white rounded-lg  p-6">
+        <h2 class="text-xl font-semibold mb-4">All Goals</h2>
+
+        {% if page_obj %}
+            <div class="space-y-4">
+                {% for goal in page_obj %}
+                    <div class="border rounded-lg p-4 relative">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-medium text-gray-800">
+                                    {{ goal.goal_label|default:goal }}
+                                </h3>
+                                <p class="text-sm text-gray-600 mt-2">
+                                    Target: {{ goal.target_value }}
+                                    {% if goal.goal_type == "time" %} Mins{% endif %}
+                                    {% if goal.goal_type == "words" %} Words{% endif %}
+                                    {% if goal.goal_type == "sessions" %} Sessions{% endif %}
+                                    / {{ goal.get_frequency_display }}
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    {{ goal.start_date }}{% if goal.end_date %} → {{ goal.end_date }}{% endif %}
+                                </p>
+                                <p class="text-xs mt-1 {% if goal.active %}text-green-600{% else %}text-red-600{% endif %}">
+                                    {% if goal.active %}Active{% else %}Inactive{% endif %}
+                                </p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <a href="{% url 'prompt:edit_goal' goal.id %}" class="text-teal-700 hover:text-teal-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                    </svg>
+                                </a>
+                                <a href="{% url 'prompt:delete_goal' goal.id %}" class="text-red-600 hover:text-red-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if page_obj.has_other_pages %}
+                <div class="flex justify-center mt-6">
+                    <nav class="inline-flex rounded-md " aria-label="Pagination">
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Previous</span>
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        {% endif %}
+
+                        {% for i in page_obj.paginator.page_range %}
+                            {% if page_obj.number == i %}
+                                <span class="relative inline-flex items-center px-4 py-2 border border-blue-500 bg-blue-50 text-sm font-medium text-teal-700">
+                                    {{ i }}
+                                </span>
+                            {% else %}
+                                <a href="?page={{ i }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                    {{ i }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Next</span>
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        {% endif %}
+                    </nav>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="text-center py-12 bg-gray-50 rounded-lg">
+                <p class="text-gray-600 mb-4">You haven't added any goals yet.</p>
+                <a href="{% url 'prompt:writing_progress' %}" class="inline-block bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+                    Add Your First Goal
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

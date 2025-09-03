@@ -4,25 +4,25 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
     
     <!-- Purchased Products -->
-    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+    <div class="bg-white border border-gray-200 rounded-lg  p-6">
       <p class="text-sm text-gray-600">Purchased Products</p>
       <p class="text-2xl font-semibold text-gray-900">{{ purchased_count }}</p>
     </div>
 
     <!-- Saved Prompts -->
-    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+    <div class="bg-white border border-gray-200 rounded-lg  p-6">
       <p class="text-sm text-gray-600">Saved Prompts</p>
       <p class="text-2xl font-semibold text-gray-900">{{ favourite_prompts|length }}</p>
     </div>
     
     <!-- Goals Set -->
-    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+    <div class="bg-white border border-gray-200 rounded-lg  p-6">
       <p class="text-sm text-gray-600">Goals Set</p>
       <p class="text-2xl font-semibold text-gray-900">{{ goal_count }}</p>
     </div>
 
    <!-- Account Status -->
-    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+    <div class="bg-white border border-gray-200 rounded-lg  p-6">
       <p class="text-sm text-gray-600">Account Status</p>
       <p class="text-lg font-semibold {% if user.profile.verified %}text-teal-700{% else %}text-yellow-600{% endif %}">
         {% if user.profile.verified %}Active{% else %}Unverified{% endif %}
@@ -36,7 +36,7 @@
 
   <!-- Top Actions -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-    <a href="{% url 'shop:purchases' %}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
+    <a href="{% url 'shop:purchases' %}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300  transition">
       <svg class="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
       </svg>
@@ -46,7 +46,7 @@
       </div>
     </a>
 
-    <a href="#account" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
+    <a href="#account" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300  transition">
       <svg
                 class="w-6 h-6 text-teal-600 mr-3"
                 fill="none"
@@ -71,7 +71,7 @@
       </div>
     </a>
 
-    <a href="/support" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
+    <a href="/support" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300  transition">
       <svg class="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M5.636 5.636l3.536 3.536m0 5.656l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
@@ -84,7 +84,7 @@
 
   <!-- Bottom Actions -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    <a href="{% url 'shop:product_list' %}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
+    <a href="{% url 'shop:product_list' %}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300  transition">
       <svg class="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
       </svg>
@@ -94,7 +94,7 @@
       </div>
     </a>
 
-    <a href="{% url 'shop:order_history' %}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
+    <a href="{% url 'shop:order_history' %}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300  transition">
       <svg class="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
       </svg>
@@ -104,7 +104,7 @@
       </div>
     </a>
 
-    <a href="/prompt/writing-progress/" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300 hover:shadow-sm transition">
+    <a href="/prompt/writing-progress/" class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-teal-300  transition">
       <svg class="w-6 h-6 text-teal-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>

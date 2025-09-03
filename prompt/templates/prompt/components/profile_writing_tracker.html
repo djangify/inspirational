@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="bg-white shadow-md rounded-lg overflow-hidden">
+<div class="bg-slate-50 rounded-md overflow-hidden">
   <!-- Accordion Header -->
   <button class="accordion-header w-full flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none" data-target="writing-tracker-content">
     <h2 class="text-lg font-semibold">Goal Summary</h2>
@@ -12,17 +12,15 @@
   <!-- Accordion Content -->
   <div id="writing-tracker-content" class="accordion-content hidden border-t border-gray-200 p-6">
     <!-- Active Goals -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="bg-white rounded-md p-6 mb-6">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold">Active Goals</h2>
-        <a href="{% url 'prompt:writing_progress' %}">
-          <button class="bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-sm flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
-            </svg>
-            New Goal
-          </a>
-        </button>
+        <a href="{% url 'prompt:writing_progress' %}"class="text-teal-700 hover:text-blue-800 flex items-center text-sm">
+          Add New Goal
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
       </div>
                 
       {% if active_goals %}
@@ -85,7 +83,7 @@
     </div>
             
     <!-- Recent sessions -->
-    <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="bg-white rounded-md p-6">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold">Recent Sessions</h2>
         <a href="{% url 'prompt:session_list' %}" class="text-teal-700 hover:text-blue-800 flex items-center text-sm">

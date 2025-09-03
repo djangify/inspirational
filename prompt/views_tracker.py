@@ -7,7 +7,7 @@ from django.db.models import Sum, Count
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator
 from .models_tracker import WritingGoal, WritingSession
-from .forms_tracker import WritingGoalForm, WritingSessionForm
+from .forms_tracker import WritingGoalForm, WritingSessionForm, WritingSessionEditForm
 
 import calendar
 from datetime import datetime, timedelta
@@ -61,12 +61,16 @@ def writing_progress(request):
     recent_sessions = WritingSession.objects.filter(user=request.user).order_by(
         "-date"
     )[:5]
+    recent_goals = WritingGoal.objects.filter(user=request.user).order_by(
+        "-start_date"
+    )[:5]
 
     context = {
         "active_goals": active_goals,
         "session_form": form,
         "goal_form": goal_form,
         "recent_sessions": recent_sessions,
+        "recent_goals": recent_goals,
         "calendar_data": json.dumps(calendar_data),
         "current_month": today.strftime("%B %Y"),
         "stats": {
@@ -219,12 +223,12 @@ def edit_session(request, session_id):
     session = get_object_or_404(WritingSession, id=session_id)
 
     if request.method == "POST":
-        form = WritingSessionForm(request.POST, instance=session, user=request.user)
+        form = WritingSessionEditForm(request.POST, instance=session, user=request.user)
         if form.is_valid():
             form.save()
             return redirect("prompt:writing_progress")
     else:
-        form = WritingSessionForm(instance=session, user=request.user)
+        form = WritingSessionEditForm(instance=session, user=request.user)
 
     return render(
         request,
@@ -363,3 +367,43 @@ def stats_view(request):
     }
 
     return render(request, "prompt/components/stats.html", context)
+
+
+@login_required
+def goal_list(request):
+    goals = WritingGoal.objects.filter(user=request.user).order_by("-start_date")
+
+    # Filtering
+    active = request.GET.get("active", "all")
+    goal_type = request.GET.get("goal_type", "all")
+
+    if active == "active":
+        goals = goals.filter(active=True)
+    elif active == "inactive":
+        goals = goals.filter(active=False)
+
+    if goal_type in ["time", "sessions"]:
+        goals = goals.filter(goal_type=goal_type)
+    total_goals = goals.count()
+    active_goals = goals.filter(active=True).count()
+    inactive_goals = goals.filter(active=False).count()
+    time_based = goals.filter(goal_type="time").count()
+    session_based = goals.filter(goal_type="sessions").count()
+    paginator = Paginator(goals, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "page_obj": page_obj,
+        "active": active,
+        "goal_type": goal_type,
+        "summary": {
+            "total_goals": total_goals,
+            "active_goals": active_goals,
+            "inactive_goals": inactive_goals,
+            "time_based": time_based,
+            "session_based": session_based,
+        },
+    }
+
+    return render(request, "prompt/goal_list.html", context)

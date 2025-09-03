@@ -1,7 +1,7 @@
 {% load static %}
 
 <!-- Saved/Favourite Prompts Section -->
-<div class="bg-white shadow-sm rounded-lg overflow-hidden">
+<div class="bg-slate-50 rounded-lg overflow-hidden">
   <!-- Accordion Header -->
   <button
   class="accordion-header w-full flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none"
@@ -29,7 +29,7 @@
     {% if favourite_prompts %}
     <div class="space-y-4">
       {% for prompt in favourite_prompts %}
-      <div class="border rounded-lg p-4 relative">
+      <div class="border bg-white rounded-md p-4 relative">
         <div class="prose prose-lg">
           <p class="text-gray-900">{{ prompt.text }}</p>
         </div>

@@ -113,7 +113,10 @@ class WritingSessionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
-
+        if user:
+            self.fields["goal"].queryset = WritingGoal.objects.filter(
+                user=user, active=True
+            )
         # Always use self.instance (reliable in both GET and POST)
         inst = getattr(self, "instance", None)
 
@@ -214,3 +217,22 @@ class WritingSessionForm(forms.ModelForm):
                 "Please select which goal this session belongs to."
             )
         return goal
+
+
+class WritingSessionEditForm(forms.ModelForm):
+    """New: use this when editing sessions (goal locked)."""
+
+    class Meta:
+        model = WritingSession
+        fields = ["date", "minutes_spent", "word_count", "prompt_used", "mood", "notes"]
+        # ⚠️ no goal field
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+
+        goal = getattr(self.instance, "goal", None)
+        if goal and goal.goal_type == "sessions":
+            self.fields["minutes_spent"].required = False
+        else:
+            self.fields["minutes_spent"].required = True

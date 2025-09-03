@@ -9,18 +9,22 @@
     <p class="text-center text-gray-600 mt-2 text-md">
     Track your progress by setting clear goals and logging your activity. You can record how often you want to complete a task and reflect on what you accomplished each time. Whether it's writing, exercise, or daily habits — measure your effort and see your progress grow.
     </p>
+    <!-- Monthly Stats -->
+            <div class="bg-white mt-4 rounded-lg border border-teal-700 p-6">
+                {% include "prompt/components/monthly_stats.html" %}
+            </div>
 
     <!-- Mobile-first responsive grid with 2 columns on larger screens -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Left Column: Create Goal & Recent Sessions -->
         <div>
-            <!-- Create New Writing Goal -->
+            <!-- Create New Goal -->
             <div class="bg-white rounded-lg border border-teal-700 p-6 mb-8">
                 {% include "prompt/components/add_goal.html" %}
             </div>
-            <!-- Recent Sessions -->
+            <!-- Recent 5 GOALS added -->
             <div class="bg-white rounded-lg border border-teal-700 p-6">
-                {% include "prompt/components/recent_sessions.html" %}
+                 {% include "prompt/components/recent_goals.html" %}
             </div>
         </div>
         
@@ -31,10 +35,11 @@
                 {% include "prompt/components/record_writing.html" %}
             </div>
             <br>
-            <!-- Monthly Stats -->
+            <!-- Recent Sessions -->
             <div class="bg-white rounded-lg border border-teal-700 p-6">
-                {% include "prompt/components/monthly_stats.html" %}
+                {% include "prompt/components/recent_sessions.html" %}
             </div>
+            
         </div>
     </div>
 </div>

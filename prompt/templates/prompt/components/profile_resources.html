@@ -1,7 +1,7 @@
 {% load static %}
 
 <!-- Member Resources Section -->
-<div class="bg-white shadow-md rounded-lg overflow-hidden mt-4 lg:text-lg">
+<div class="bg-slate-50 rounded-md overflow-hidden mt-4 lg:text-lg">
   <!-- Accordion Header -->
   <button
     class="accordion-header w-full flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none"
@@ -30,7 +30,7 @@
     class="accordion-content hidden border-t border-gray-200 p-6"
   >
     {% if member_resources %}
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ">
+    <div class="bg-white grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ">
       {% for resource in member_resources %}
       <div
         class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200"

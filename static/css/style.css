@@ -28,3 +28,10 @@
   gap: 0.75rem;
   /* This creates even spacing */
 }
+
+.img-center {
+  display: block;
+  margin: 1rem auto;
+  max-width: 50%;
+  height: auto;
+}
