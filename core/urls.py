@@ -53,6 +53,11 @@ urlpatterns = [
         name="journaling",
     ),
     path(
+        "personal-development-resources",
+        TemplateView.as_view(template_name="core/personal-development-resources.html"),
+        name="personal_development_resources",
+    ),
+    path(
         "purpose/",
         TemplateView.as_view(template_name="core/purpose-links.html"),
         name="linkhub",

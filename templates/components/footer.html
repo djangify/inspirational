@@ -43,6 +43,7 @@
           <li><a href="/shop/" class="text-slate-400 hover:text-white">Workbooks and Guides</a></li>
           <li><a href="{% url 'tools:index' %}" class="text-slate-400 hover:text-white">Calming Tools</a></li>
           <li><a href="{% url 'prompt:journal_prompt_generator' %}" class="text-slate-400 hover:text-white">Journal Prompt Help</a></li>
+           <li><a href="{% url 'core:personal_development_resources' %}" class="text-slate-400 hover:text-white">Free Info</a></li>
           {% if not request.user.is_authenticated %}
               <li><a href="{% url 'accounts:register' %}" class="text-slate-400 hover:text-white">Register</a></li>
               <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white">Login</a></li>

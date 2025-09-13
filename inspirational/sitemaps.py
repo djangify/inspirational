@@ -12,15 +12,17 @@ class StaticViewSitemap(Sitemap):
     def items(self):
         return [
             "core:homepage",
-            "core:about",
+            "core:personal_development_resources",
             "core:diane_corriette",
             "core:support",
+            "core:about",
             "core:live_with_purpose",
             "core:contact",
             "core:empowered_living",
             "core:build_self_confidence",
             "core:emotional_resilience",
             "core:self_authorship",
+            "core:purpose",
             "tools:index",  #  Mindful Tools index page (/tools/)
             "tools:calming_game",
             "tools:tap_to_calm",
