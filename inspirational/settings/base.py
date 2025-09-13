@@ -188,40 +188,45 @@ PROTECTED_MEDIA_ROOT = env("PROTECTED_MEDIA_ROOT")
 
 PASSWORD_RESET_TIMEOUT = 3600
 
-# TinyMCE configuration for base.py
-
 TINYMCE_DEFAULT_CONFIG = {
     "height": 700,
     "menubar": False,
     "statusbar": True,
     "branding": False,
-    # Minimal, useful plugins
-    "plugins": "lists paste link autolink code preview fullscreen wordcount",
-    # Simple toolbar: headings, emphasis, lists, link, cleanup
+    "plugins": "lists paste link autolink code preview fullscreen wordcount image",
     "toolbar": (
         "undo redo | blocks | bold italic | bullist numlist | "
-        "link | removeformat | preview fullscreen | code"
+        "link image | removeformat | preview fullscreen | code"
     ),
-    # Only show Paragraph, H2, H3 in the blocks dropdown
     "block_formats": "Paragraph=p; Heading 2=h2; Heading 3=h3",
-    # Keep output tight and safe
     "forced_root_block": "p",
-    "paste_as_text": True,  # prevents Word formatting
-    "paste_data_images": False,  # blocks base64 images on paste
-    # Allow only the tags you use
-    "valid_elements": "p,strong/b,em/i,h2,h3,ul,ol,li,a[href|title|target|rel],br",
-    "extended_valid_elements": "a[href|title|target|rel]",
+    "paste_as_text": True,
+    "paste_data_images": False,
+    # Allow <img> with useful attributes
+    "valid_elements": (
+        "p,strong/b,em/i,h2,h3,ul,ol,li,a[href|title|target|rel],br,"
+        "img[src|alt|width|height|class|style]"
+    ),
+    "extended_valid_elements": (
+        "a[href|title|target|rel],img[src|alt|width|height|class|style]"
+    ),
     "valid_children": "+ol[li],+ul[li]",
-    # URL handling (keeps absolute URLs if that’s your current pattern)
     "convert_urls": True,
     "relative_urls": False,
     "remove_script_host": False,
-    # Make the editor text look like your site
+    # Make inserted images responsive & centered
     "content_style": (
         "body{font-family:Poppins,system-ui,sans-serif;line-height:1.7;}"
         "h2{font-size:1.5rem;font-weight:700;margin:1rem 0 .5rem;}"
         "h3{font-size:1.25rem;font-weight:600;margin:.75rem 0 .25rem;}"
         "p{margin:.75rem 0;} ul,ol{margin:.5rem 0 1rem;padding-left:1.25rem;}"
         "li{margin:.25rem 0;} strong{font-weight:600;}"
+        "img{max-width:100%;height:auto;display:block;margin:1rem auto;}"
     ),
+    # Configure image dialog so it only asks for a URL + alt text
+    "image_dimensions": False,  # hides width/height boxes
+    "image_class_list": [
+        {"title": "Responsive (50%)", "value": "img-half"},
+        {"title": "Full width", "value": "img-full"},
+    ],
 }

@@ -39,7 +39,7 @@ class PostAdmin(admin.ModelAdmin):
         "display_thumbnail",
         "has_ad",
     ]
-    list_editable = ["featured"]
+    list_editable = ["featured", "publish_date"]
     list_filter = ["status", "category", "featured", "created", "publish_date"]
 
     search_fields = ["title", "content", "featured", "meta_title", "meta_description"]
