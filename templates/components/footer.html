@@ -42,8 +42,7 @@
           <li><a href="{% url 'core:homepage' %}" class="text-slate-400 hover:text-white">Home</a></li>
           <li><a href="/shop/" class="text-slate-400 hover:text-white">Workbooks and Guides</a></li>
           <li><a href="{% url 'tools:index' %}" class="text-slate-400 hover:text-white">Calming Tools</a></li>
-          <li><a href="{% url 'prompt:journal_prompt_generator' %}" class="text-slate-400 hover:text-white">Journal Prompt Help</a></li>
-           <li><a href="{% url 'core:personal_development_resources' %}" class="text-slate-400 hover:text-white">Free Info</a></li>
+          
           {% if not request.user.is_authenticated %}
               <li><a href="{% url 'accounts:register' %}" class="text-slate-400 hover:text-white">Register</a></li>
               <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white">Login</a></li>
@@ -72,8 +71,8 @@
         <h3 class="font-semibold mb-4">Pages</h3>
         <ul class="space-y-2 text-sm">
           <li><a href="{% url 'core:homepage' %}" class="text-slate-400 hover:text-white">Home</a></li>
-          <li><a href="{% url 'core:about' %}" class="text-slate-400 hover:text-white">About</a></li>
-          <li><a href="{% url 'core:diane_corriette' %}" class="text-slate-400 hover:text-white">Diane Corriette</a></li>
+          <li><a href="{% url 'prompt:journal_prompt_generator' %}" class="text-slate-400 hover:text-white">Journal Prompt Help</a></li>
+           <li><a href="{% url 'core:personal_development_resources' %}" class="text-slate-400 hover:text-white">Free Info</a></li>
           <li><a href="{% url 'news:list' %}" class="text-slate-400 hover:text-white">Personal Growth Blog</a></li>
           <li><a href="{% url 'core:quietly' %}" class="text-slate-400 hover:text-white">For Introverts</a></li>
           

@@ -29,7 +29,7 @@ def news_list(request):
         "posts": posts,
         "categories": Category.objects.all(),
         "title": "News",
-        "meta_description": "Latest news and updates from Stream English",
+        "meta_description": "Latest news and updates from Inspirational Guidance",
         "debug": settings.DEBUG,
         "featured_posts": featured_posts,
     }

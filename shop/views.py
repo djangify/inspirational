@@ -347,7 +347,7 @@ def category_list(request, slug):
     ).order_by("order", "-created")
     categories = Category.objects.all()
 
-    paginator = Paginator(products, 18)
+    paginator = Paginator(products, 20)
     page = request.GET.get("page")
     products = paginator.get_page(page)
 

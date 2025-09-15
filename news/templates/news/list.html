@@ -5,14 +5,14 @@
 <!-- news/templates/news/list.html -->
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-4xl font-bold mb-8">Personal Growth Blog</h1>
-    <p class="text-gray-600 mb-8">Information and guidance on building MORE! Momentum · Ownership · Resilience · Empowerment. Curated and edited by Diana Morgan. Curated and edited by Diana Morgan.</p>
+    <p class="text-gray-600 mb-8">Information and guidance on building MORE! Momentum · Ownership · Resilience · Empowerment.</p>
 </p>
-    <!-- templates/includes/featured_blogs.html -->
+    
 {% load static %}
 
 {% if featured_posts %}
 <section class="bg-white dark:bg-gray-900">
-    <div class="items-center max-w-screen-xl px-4 py-8 mx-auto lg:grid lg:grid-cols-4 lg:gap-16 xl:gap-24 lg:py-24 lg:px-6">
+    <div class="container mx-auto px-4 py-6 lg:grid lg:grid-cols-4 lg:gap-12 xl:gap-16 lg:py-12">
         <!-- Main featured post - spans 2 columns -->
             {% with main_post=featured_posts.0 %}
             <div class="col-span-2 mb-8">
@@ -86,14 +86,14 @@
         </div>
     </section>
     {% endif %}
-             <!-- quote -->
-        <section class="w-full">
-            <div class="max-w-7xl mx-auto">
-            <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
-                <p class="py-8">“Always remember this. Problems are a part of life. But overcoming problems, and continuing to survive, in spite of the problems, is an art of life. Cultivated.”  - Romuald Dzemo</p>
-            </blockquote>
-            </div>
-        </section>
+    <!-- BANNER AD-->    
+    <div class="mb-12">
+        <a href="{% url 'accounts:register' %}" rel="nofollow" class="block">
+            <img src="https://inspirationalguidance.com/media/public/news/ads/join-free-inspirational-guidance-banner.webp" 
+                alt="Join free today banner offering personal growth tools and resources" 
+                class="w-full rounded-lg shadow-md">
+        </a>
+    </div>
     <!-- regular blog posts -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
             {% for post in posts %}
