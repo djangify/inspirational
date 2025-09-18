@@ -10,7 +10,7 @@
   {% endif %}
   <meta property="og:type" content="article" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.featured_image.url }}" />
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ post.meta_title|default:post.title }}">

@@ -38,7 +38,7 @@ def product_list(request):
         products = products.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
-    paginator = Paginator(products, 18)
+    paginator = Paginator(products, 20)
     page = request.GET.get("page")
     products = paginator.get_page(page)
 
