@@ -6,6 +6,7 @@ from .views import (
     quietly_you_page,
     my_turn_now_page,
     diane_corriette_page,
+    category_hub,
 )
 
 app_name = "core"
@@ -62,6 +63,7 @@ urlpatterns = [
         TemplateView.as_view(template_name="core/purpose-links.html"),
         name="linkhub",
     ),
+    path("category/", category_hub, name="category"),
     # Policy pages from templates/policy/
     path(
         "policy/privacy/",

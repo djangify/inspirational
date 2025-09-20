@@ -1,6 +1,7 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 from news.models import Post
+from news.models import Category as NewsCategory
 from shop.models import Category, Product
 from prompt.models import PromptCategory
 
@@ -15,6 +16,7 @@ class StaticViewSitemap(Sitemap):
             "core:personal_development_resources",
             "core:diane_corriette",
             "core:support",
+            "core:category",
             "core:about",
             "core:live_with_purpose",
             "core:contact",
@@ -40,13 +42,24 @@ class StaticViewSitemap(Sitemap):
 
 class NewsSitemap(Sitemap):
     changefreq = "daily"
-    priority = 0.8
+    priority = 0.5
 
     def items(self):
         return Post.objects.filter(status="published")
 
     def lastmod(self, obj):
         return obj.updated
+
+
+class NewsCategorySitemap(Sitemap):
+    changefreq = "weekly"
+    priority = 0.7
+
+    def items(self):
+        return NewsCategory.objects.all()
+
+    def location(self, obj):
+        return obj.get_absolute_url()
 
 
 class ShopCategorySitemap(Sitemap):

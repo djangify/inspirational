@@ -181,3 +181,8 @@ def my_turn_now_page(request):
             "shop_category": shop_category,
         },
     )
+
+
+def category_hub(request):
+    categories = Category.objects.all()
+    return render(request, "core/category.html", {"categories": categories})
