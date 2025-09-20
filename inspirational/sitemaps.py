@@ -8,7 +8,7 @@ from prompt.models import PromptCategory
 
 class StaticViewSitemap(Sitemap):
     priority = 0.5
-    changefreq = "daily"
+    changefreq = "weekly"
 
     def items(self):
         return [
@@ -25,6 +25,7 @@ class StaticViewSitemap(Sitemap):
             "core:emotional_resilience",
             "core:self_authorship",
             "core:purpose",
+            "shop:category_hub",
             "tools:index",  #  Mindful Tools index page (/tools/)
             "tools:calming_game",
             "tools:tap_to_calm",
@@ -64,7 +65,7 @@ class NewsCategorySitemap(Sitemap):
 
 class ShopCategorySitemap(Sitemap):
     changefreq = "weekly"
-    priority = 0.8
+    priority = 0.7
 
     def items(self):
         return Category.objects.all()

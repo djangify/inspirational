@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mx-auto px-6 py-12">
+  <h1 class="text-3xl font-bold mb-6">Shop by Category</h1>
+  <h2 class="text-xl mb-4 text-gray-700">Browse all collections in the Inspirational Guidance shop</h2>
+  <p class="mb-8 text-gray-600">
+    Explore our shop categories to find planners, guides, and workbooks designed to support your personal growth journey.
+  </p>
+
+  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-16">
+    {% for category in categories %}
+    <div class="border rounded-xl p-6 shadow hover:shadow-lg transition">
+      <h3 class="text-xl font-semibold mb-2">
+        <a href="{{ category.get_absolute_url }}" class="text-teal-700 hover:underline">
+          {{ category.name }}
+        </a>
+      </h3>
+      {% if category.description %}
+        <p class="text-gray-700">{{ category.description|truncatewords:20 }}</p>
+      {% else %}
+        <p class="text-gray-500">Explore products in the {{ category.name }} collection.</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+     {# --- banner ad goes to shop --- #}
+    
+        <a href="https://inspirationalguidance.com/shop/product/the-path-to-personal-growth-planner-self-coaching/" target="_blank">
+        <img src="https://inspirationalguidance.com/media/public/news/ads/goal-setting-and-tracking-planner.webp" alt="the path to personal growth planner">
+    </a>
+    <!-- Core Themes -->
+    <section class="mt-16 mb-16">
+      <h2 class="text-2xl font-semibold text-gray-900">Core Themes to Explore at Inspirational Guidance</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="{% url 'core:self_authorship' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Self Authorship</h3>
+          <p class="text-gray-700 mt-1">Learn how to take charge of your own story and shape a path that reflects your true priorities.</p>
+        </a>
+        <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <h3 class="text-lg font-semibold text-teal-700">Emotional Resilience (PAUSE)</h3>
+          <p class="text-gray-700 mt-1">Practical tools to steady yourself, pause in the moment, and handle challenges with strength.</p>
+        </a>
+        <a href="{% url 'core:live_with_purpose' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <h3 class="text-lg font-semibold text-teal-700">Live With Purpose</h3>
+          <p class="text-gray-700 mt-1">Discover how aligning daily choices with what matters most creates a life of meaning and direction.</p>
+        </a>
+        <a href="{% url 'core:build_self_confidence' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
+          <h3 class="text-lg font-semibold text-teal-700">Build Self-Confidence</h3>
+          <p class="text-gray-700 mt-1">Step into self confidence by practicing small actions that build trust in your own ability.</p>
+        </a>
+        <a href="{% url 'core:journaling' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Journaling</h3>
+          <p class="text-gray-700 mt-1">A simple, steady practice that helps you reflect, untangle thoughts, and move forward with clarity.</p>
+        </a>
+        <a href="{% url 'core:empowered_living' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Empowered Living</h3>
+          <p class="text-gray-700 mt-1">Practical guidance for making strong choices, setting boundaries, and living from your own voice.</p>
+        </a>
+      </div>
+    </section>
+
+</div>
+{% endblock %}

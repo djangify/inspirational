@@ -42,7 +42,7 @@
           <li><a href="{% url 'core:homepage' %}" class="text-slate-400 hover:text-white">Home</a></li>
           <li><a href="/shop/" class="text-slate-400 hover:text-white">Workbooks and Guides</a></li>
           <li><a href="{% url 'tools:index' %}" class="text-slate-400 hover:text-white">Calming Tools</a></li>
-          <li><a href="{% url 'core:category' %}" class="text-slate-400 hover:text-white">Categories</a></li>
+          <li><a href="{% url 'core:category' %}" class="text-slate-400 hover:text-white">Blog Categories</a></li>
           
           {% if not request.user.is_authenticated %}
               <li><a href="{% url 'accounts:register' %}" class="text-slate-400 hover:text-white">Register</a></li>

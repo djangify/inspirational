@@ -111,6 +111,11 @@ def cart_add(request, product_id):
         return redirect("shop:product_list")
 
 
+def category_hub(request):
+    categories = Category.objects.all()
+    return render(request, "shop/category_hub.html", {"categories": categories})
+
+
 def cart_detail(request):
     try:
         cart = Cart(request)
