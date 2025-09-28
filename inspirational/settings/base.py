@@ -154,8 +154,6 @@ STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET", default="whsec_placeholder"
 
 
 # Email verification settings
-
-# Email settings
 EMAIL_HOST = env("EMAIL_HOST", default="")
 EMAIL_PORT = env("EMAIL_PORT", default=587)
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")

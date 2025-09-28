@@ -26,6 +26,9 @@
     <script src="https://js.stripe.com/v3/"></script>
     
     <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
+    {% if canonical_url %}
+      <link rel="canonical" href="{{ canonical_url }}">
+    {% endif %}
     
     {% block extra_meta %}{% endblock %}
     {% block extra_head %}{% endblock %}
@@ -41,9 +44,9 @@
     {% endif %}
   
     <main class="flex-1">
-      <div class="px-4 sm:px-6 lg:px-8">
+      
         {% block content %}{% endblock %}
-      </div>
+      
     </main>
 
     {% include 'components/footer.html' %}

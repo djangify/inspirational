@@ -3,9 +3,8 @@
 {% load video_tags %}
 {% load resource_tags %}
 
-{% block title %}Personal Development resources for Women Over 30 — Live With Purpose. Build Self-Confidence. Embrace Empowered Living{% endblock %}
+{% block title %}Personal Development resources for Women{% endblock %}
 {% block content %}
-
 
 <section class="bg-slate-50 w-full py-8 sm:py-12 px-4 sm:px-10">
   <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-8">
@@ -42,83 +41,75 @@
   </div>
 </section>
 
-<!-- quote -->
-<section class="w-full pt-12">
-    <div class="max-w-7xl px-6 mx-auto">
-      <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
-           <span class="font-serif tracking-[0.3em] text-slate-700 text-xl sm:text-2xl text-center md:text-3xl">
-          M · O · R · E → MOMENTUM · OWNERSHIP · RESILIENCE · EMPOWERMENT
-          </h2>
-      </blockquote>
-    </div>
-    
-  </section>
-
   <!-- Resource Section -->
  <section class="w-full py-12">
   <div class="max-w-7xl mx-auto px-6">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Live With Purpose Resources -->
-        <a href="{% url 'core:live_with_purpose' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-          </svg>
-          <h3 class="mt-2 text-lg font-bold">Live With Purpose</h3>
-          <p class="text-sm text-gray-600">Move forward with clarity and purpose, on your own terms, at your own pace.</p>
-        </a>
-      <!-- Build Self-Confidence -->
-      <a href="{% url 'core:build_self_confidence' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 00-3 3v1H9v3H6v3h3v-3h3v-3h3a3 3 0 003-3 3 3 0 00-3-3z" />
-        </svg>
-        <h3 class="mt-2 text-lg font-bold">Build Self-Confidence</h3>
-        <p class="text-sm text-gray-600">Practical tools to help you back yourself even on the days it feels hardest.</p>
-        
-      </a>
-        <!-- PAUSE Framework -->
-        <a href="{% url 'core:emotional_resilience' %}" class="flex flex-col p-6  border rounded-lg hover:border-teal-600 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2s-3 1.343-3 3 1.343 3 3 3zm0 14s-8-4-8-10V7l8-4 8 4v5c0 6-8 10-8 10z" />
-          </svg>
-          <h3 class="mt-2 text-lg font-bold">PAUSE for Emotional Resilience</h3>
-          <p class="text-sm text-gray-600">A simple framework to steady yourself when life shifts, building calm and self-trust in the process.</p>
-        </a>
-        <!-- self authorship-->
-        <a href="{% url 'core:self_authorship' %}" class="flex flex-col  p-6 border rounded-lg hover:border-teal-600 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0112 21.5c-4.28 0-8.08-2.239-10.16-5.922L12 14z" />
-          </svg>
-          <h3 class="mt-2 text-lg font-bold">Self-Authorship</h3>
-          <p class="text-sm text-gray-600">Design a life that feels like yours with values-led choices and small daily wins. Explore self-authorship.</p>
-        </a>
-        <!-- Journaling for Growth -->
-        <a href="{% url 'core:journaling' %}" class="flex flex-col p-6 border rounded-lg hover:border-teal-600 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#227c81]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 8H7a2 2 0 01-2-2V6a2 2 0 012-2h4l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2z" />
-          </svg>
-          <h3 class="mt-2 text-lg font-bold">Journaling for Growth</h3>
-          <p class="text-sm text-gray-600">Writing prompts and guided journals to help you rediscover your voice, values, and what matters most.</p>
-        </a>
-        <!-- Join Us: Free Resources -->
-        <a href="{% url 'accounts:register' %}" class="flex flex-col  p-6 border rounded-lg  hover:border-teal-600 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.364-6.364l-1.414 1.414M6.05 17.95l-1.414 1.414m12.728 0l1.414-1.414M6.05 6.05L4.636 7.464" />
-          </svg>
-          <h3 class="mt-2 text-lg  font-bold">Join Us</h3>
-          <p class="text-sm text-gray-600">Get access to exclusive resources and tools that help you move out of default mode and into intentional living.</p>
-        </a>
+            
+    <a href="{% url 'core:live_with_purpose' %}" 
+      class="flex flex-col p-6 rounded-lg shadow-sm bg-rose-50 hover:shadow-md transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      <h3 class="mt-2 text-lg font-bold text-rose-800">Live With Purpose</h3>
+      <p class="text-sm text-rose-700">Move forward with clarity and purpose, on your own terms, at your own pace.</p>
+    </a>
+
+    <!-- Build Self-Confidence -->
+    <a href="{% url 'core:build_self_confidence' %}" 
+      class="flex flex-col p-6 rounded-lg shadow-sm bg-teal-50 hover:shadow-md transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 00-3 3v1H9v3H6v3h3v-3h3v-3h3a3 3 0 003-3 3 3 0 00-3-3z" />
+      </svg>
+      <h3 class="mt-2 text-lg font-bold text-teal-800">Build Self-Confidence</h3>
+      <p class="text-sm text-teal-700">Practical tools to help you back yourself even on the days it feels hardest.</p>
+    </a>
+
+    <!-- PAUSE for Emotional Resilience -->
+    <a href="{% url 'core:emotional_resilience' %}" 
+      class="flex flex-col p-6 rounded-lg shadow-sm bg-sky-50 hover:shadow-md transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2s-3 1.343-3 3 1.343 3 3 3zm0 14s-8-4-8-10V7l8-4 8 4v5c0 6-8 10-8 10z" />
+      </svg>
+      <h3 class="mt-2 text-lg font-bold text-sky-800">PAUSE for Emotional Resilience</h3>
+      <p class="text-sm text-sky-700">A simple framework to steady yourself when life shifts, building calm and self-trust in the process.</p>
+    </a>
+
+    <!-- Self-Authorship -->
+    <a href="{% url 'core:self_authorship' %}" 
+      class="flex flex-col p-6 rounded-lg shadow-sm bg-orange-50 hover:shadow-md transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0112 21.5c-4.28 0-8.08-2.239-10.16-5.922L12 14z" />
+      </svg>
+      <h3 class="mt-2 text-lg font-bold text-orange-800">Self-Authorship</h3>
+      <p class="text-sm text-orange-700">Design a life that feels like yours with values-led choices and small daily wins. Explore self-authorship.</p>
+    </a>
+
+    <!-- Journaling for Growth -->
+    <a href="{% url 'core:journaling' %}" 
+      class="flex flex-col p-6 rounded-lg shadow-sm bg-indigo-50 hover:shadow-md transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 8H7a2 2 0 01-2-2V6a2 2 0 012-2h4l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2z" />
+      </svg>
+      <h3 class="mt-2 text-lg font-bold text-indigo-800">Journaling for Growth</h3>
+      <p class="text-sm text-indigo-700">Writing prompts and guided journals to help you rediscover your voice, values, and what matters most.</p>
+    </a>
+
+    <!-- Join Us -->
+    <a href="{% url 'accounts:register' %}" 
+      class="flex flex-col p-6 rounded-lg shadow-sm bg-amber-50 hover:shadow-md transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.364-6.364l-1.414 1.414M6.05 17.95l-1.414 1.414m12.728 0l1.414-1.414M6.05 6.05L4.636 7.464" />
+      </svg>
+      <h3 class="mt-2 text-lg font-bold text-amber-800">Join Us</h3>
+      <p class="text-sm text-amber-700">Get access to exclusive resources and tools that help you move out of default mode and into intentional living.</p>
+    </a>
     </div>
   </div>
 </section>
-  <!-- quote -->
- <section class="w-full py-12">
-    <div class="max-w-7xl px-6 mx-auto">
-      <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
-          <p class="py-8">“No matter how much wealth you build, no matter how many friends you make, no matter the level of your success, if you are not one with yourself, it’s all nothing.”  <br>- Romuald Dzemo</p>
-      </blockquote>
-    </div>
-  </section>
+  
   <!-- Featured Products -->
   <section class="w-full py-14">
     <div class="max-w-7xl mx-auto px-6">
@@ -176,40 +167,40 @@
   <!--featured products END-->
 
       <!--journal prompt generator-->
-  <section class="w-full mt-8 bg-slate-50 py-12">
-    <div class="max-w-7xl mx-auto px-6">
-          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 mb-4 text-center">
-        Journal Prompt Generator
-      </h2>
-      <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-        Generate focused prompts for journaling — tailored by category and time. There is an option to <a href="{% url 'accounts:login' %}" class="text-slate-700 font-medium hover:text-teal-700"><i>save prompts </i>when logged in.</a> Perfect for days when your brain is too full to think but too busy to rest.
-      </p>
+    <section class="w-full mt-8 bg-slate-50 py-12">
+      <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 mb-4 text-center">
+          Journal Prompt Generator
+        </h2>
+        <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+          Generate focused prompts for journaling — tailored by category and time. There is an option to <a href="{% url 'accounts:login' %}" class="text-slate-700 font-medium hover:text-teal-700"><i>save prompts </i>when logged in.</a> Perfect for days when your brain is too full to think but too busy to rest.
+        </p>
 
-      <div class="max-w-7xl mx-auto mb-12 px-4">
-        {% include "prompt/components/prompt_hero.html" %}
+        <div class="max-w-7xl mx-auto mb-12 px-4">
+          {% include "prompt/components/prompt_hero.html" %}
+        </div>
       </div>
-    </div>
-  </section>
-  <!--About Inspirational Guidance-->
-   <div class="max-w-7xl mx-auto mt-8 mb-24 px-6">
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24 mb-12 items-center">
-    <div>
-      <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-teal-700 mb-4">About Inspirational Guidance</h2>
+    </section>
+    <!--About Inspirational Guidance-->
+    <div class="max-w-7xl mx-auto mt-8 mb-24 px-6">
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24 mb-12 items-center">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-teal-700 mb-4">About Inspirational Guidance</h2>
 
-      <p class="text-gray-700 leading-relaxed  mb-4">
-       We are here to support you as you navigate that internal voice that says: <i>“Is this all there is?"</i> or <i> "I don’t feel like myself anymore. Something needs to shift.” </i>
-      </p>
-      <p class="text-gray-700 leading-relaxed  mb-4">
-         <strong>Join the growing number of women who want to stop living in default mode. If you want to build a life that feels like yours with MORE </strong> (Momentum · Ownership · Resilience · Empowerment). Our tools are designed to support your next step into intentional living, always at your pace.
-      </p> 
-       
-      <p class="text-gray-700 leading-relaxed  mb-4">
-        Inspirational Guidance is edited by AI Assistant Diana Morgan, a grounded voice behind the scenes creating practical, values-led resources to help you return to yourself with clarity and confidence.
-      </p>
-        <a href="{% url 'core:about' %}" class="inline-block mt-2 text-teal-700 font-medium underline hover:text-teal-900">Find out more about Diana</a>
-      </p>
-    </div>
-    <div>
+        <p class="text-gray-700 leading-relaxed  mb-4">
+        We are here to support you as you navigate that internal voice that says: <i>“Is this all there is?"</i> or <i> "I don’t feel like myself anymore. Something needs to shift.” </i>
+        </p>
+        <p class="text-gray-700 leading-relaxed  mb-4">
+          <strong>Join the growing number of women who want to stop living in default mode. If you want to build a life that feels like yours with MORE </strong> (Momentum · Ownership · Resilience · Empowerment). Our tools are designed to support your next step into intentional living, always at your pace.
+        </p> 
+        
+        <p class="text-gray-700 leading-relaxed  mb-4">
+          Inspirational Guidance is edited by AI Assistant Diana Morgan, a grounded voice behind the scenes creating practical, values-led resources to help you return to yourself with clarity and confidence.
+        </p>
+          <a href="{% url 'core:about' %}" class="inline-block mt-2 text-teal-700 font-medium underline hover:text-teal-900">Find out more about Diana</a>
+        </p>
+      </div>
+      <div>
       <img src="{% static 'images/diana-morgan-question.svg' %}" alt="Diana Morgan" class="rounded-xl shadow-md object-cover w-full">
     </div>
   </section>
