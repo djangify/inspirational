@@ -1,0 +1,43 @@
+<!--About Inspirational Guidance-->
+    <div class="max-w-7xl mx-auto mt-8 mb-24 px-6">
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24 mb-12 items-center">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-teal-700 mb-4">About Inspirational Guidance</h2>
+
+        <p class="text-gray-700 leading-relaxed  mb-4">
+        We are here to support you as you navigate that internal voice that says: <i>“Is this all there is?"</i> or <i> "I don’t feel like myself anymore. Something needs to shift.” </i>
+        </p>
+        <p class="text-gray-700 leading-relaxed  mb-4">
+          <strong>Join the growing number of women who want to stop living in default mode. If you want to build a life that feels like yours with MORE </strong> (Momentum · Ownership · Resilience · Empowerment). Our tools are designed to support your next step into intentional living, always at your pace.
+        </p> 
+        
+        <p class="text-gray-700 leading-relaxed  mb-4">
+          Inspirational Guidance is edited by AI Assistant Diana Morgan, a grounded voice behind the scenes creating practical, values-led resources to help you return to yourself with clarity and confidence.
+        </p>
+          <a href="{% url 'core:about' %}" class="inline-block mt-2 text-teal-700 font-medium underline hover:text-teal-900">Find out more about Diana</a>
+        </p>
+      </div>
+      <div>
+      <img src="{% static 'images/diana-morgan-question.svg' %}" alt="Diana Morgan" class="rounded-xl shadow-md object-cover w-full">
+    </div>
+  </section>
+  <!-- Testimonials -->
+    {% if reviews %}
+    <section>
+      <p class="text-gray-700 mb-4">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {% for review in reviews %}
+        <div class="bg-white border border-teal-700 p-4 rounded-md shadow-sm">
+          <div class="flex items-center mb-2">
+            {% for i in "12345"|slice:":review.rating"|make_list %}
+            <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09L5.82 12.545.944 8.91l6.455-.955L10 2l2.6 5.955 6.455.955-4.876 3.635 1.698 5.545z"/></svg>
+            {% endfor %}
+          </div>
+          <p class="text-sm text-gray-700 italic">“{{ review.comment|truncatewords:45 }}”</p>
+          <p class="mt-2 text-sm text-gray-500">– {{ review.user.first_name }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+  </div>

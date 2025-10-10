@@ -1,0 +1,93 @@
+{% load static %}
+<!-- Category-based Product Sections -->
+<section id="shop" class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+
+    <!-- CATEGORY 1 -->
+    <h2 class="text-3xl md:text-4xl font-semibold text-teal-700 mb-10 text-center">
+      Live With Purpose Collection
+    </h2>
+    {% if live_with_purpose %}
+    <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mb-16">
+      {% for product in live_with_purpose %}
+      <div class="border border-slate-200 rounded-lg p-4 hover:shadow-lg transition flex flex-col justify-between bg-white">
+        <a href="{{ product.get_absolute_url }}">
+          <figure class="mb-4 aspect-[3/4] flex items-center justify-center overflow-hidden rounded-md bg-white">
+            {% if product.get_image_url %}
+              <img src="{{ product.get_image_url }}" alt="{{ product.title }}" class="object-contain w-full h-full">
+            {% else %}
+              <img src="{% static 'images/placeholder.webp' %}" alt="{{ product.title }}" class="object-contain w-full h-full opacity-80">
+            {% endif %}
+          </figure>
+          <h3 class="text-lg font-semibold text-teal-700 mb-2">{{ product.title }}</h3>
+        </a>
+
+        <!-- Description -->
+        <p class="text-gray-700 text-sm mb-3">
+          {% if product.section_description %}
+            {{ product.section_description|striptags|truncatechars:120 }}
+          {% elif product.description %}
+            {{ product.description|striptags|truncatechars:120 }}
+          {% else %}
+            <span class="text-gray-500 text-sm italic">No description available.</span>
+          {% endif %}
+        </p>
+
+        <div class="flex justify-between items-center mt-auto">
+          <a href="{{ product.get_absolute_url }}"
+             class="text-sm uppercase border border-teal-600 text-teal-600 px-3 py-1.5 rounded hover:bg-teal-600 hover:text-white transition">
+            View
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center text-gray-500 mb-12">No products available in this category.</p>
+    {% endif %}
+
+    <!-- CATEGORY 2 -->
+    <h2 class="text-3xl md:text-4xl font-semibold text-teal-700 mb-10 text-center">
+      Printable Planner Inserts
+    </h2>
+    {% if planner_inserts %}
+    <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+      {% for product in planner_inserts %}
+      <div class="border border-slate-200 rounded-lg p-4 hover:shadow-lg transition flex flex-col justify-between bg-white">
+        <a href="{{ product.get_absolute_url }}">
+          <figure class="mb-4 aspect-[3/4] flex items-center justify-center overflow-hidden rounded-md bg-white">
+            {% if product.get_image_url %}
+              <img src="{{ product.get_image_url }}" alt="{{ product.title }}" class="object-contain w-full h-full">
+            {% else %}
+              <img src="{% static 'images/placeholder.webp' %}" alt="{{ product.title }}" class="object-contain w-full h-full opacity-80">
+            {% endif %}
+          </figure>
+          <h3 class="text-lg font-semibold text-teal-700 mb-2">{{ product.title }}</h3>
+        </a>
+
+        <!-- Description -->
+        <p class="text-gray-700 text-sm mb-3">
+          {% if product.section_description %}
+            {{ product.section_description|striptags|truncatechars:120 }}
+          {% elif product.description %}
+            {{ product.description|striptags|truncatechars:120 }}
+          {% else %}
+            <span class="text-gray-500 text-sm italic">No description available.</span>
+          {% endif %}
+        </p>
+
+        <div class="flex justify-between items-center mt-auto">
+          <a href="{{ product.get_absolute_url }}"
+             class="text-sm uppercase border border-teal-600 text-teal-600 px-3 py-1.5 rounded hover:bg-teal-600 hover:text-white transition">
+            View
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center text-gray-500">No planner inserts available at the moment.</p>
+    {% endif %}
+
+  </div>
+</section>

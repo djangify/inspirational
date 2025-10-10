@@ -1,0 +1,36 @@
+{% load static %}
+<section class="bg-slate-50 w-full py-2 sm:py-6 px-4 sm:px-10">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-6 lg:gap-6">
+
+    <!-- Left Column -->
+    <div class="2xl:max-w-screen-2xl 2xl:mx-auto flex flex-col gap-y-5 lg:gap-y-12 xl:self-center xl:gap-y-24">
+      <div class="space-y-2 lg:space-y-4">
+    
+        <h1 class="text-4xl sm:text-4xl md:text-6xl font-serif font-medium leading-tight text-center  mb-4">
+          Personal Development for Women. Your Life, Your Way.
+        </h1>
+
+        <p class="leading-relaxed text-lg  sm:text-lg mb-6">
+
+        Stop going through the motions. Build a life that feels like yours. Our practical resources help you move out of default mode and into intentional living. <strong>Register to get access to our free guide "How to Define Your Core Values (and Actually Use Them in Daily Decisions)"</strong> - Don’t settle for drifting. 
+        </p>
+        <!-- Buttons Block -->
+        <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+          <a href="{% url 'accounts:register' %}" class="w-full sm:w-auto inline-flex items-center uppercase rounded-md justify-center px-6 py-4 text-base font-semibold bg-teal-700 text-white hover:bg-teal-800">
+            Register Here
+          </a>
+          <a href="{% url 'shop:product_list' %}" class="w-full sm:w-auto inline-flex items-center uppercase justify-center rounded-md px-6 py-4 text-base font-semibold border-2 border-teal-700 text-teal-700 hover:bg-teal-50">
+            Shop Here
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Image Block -->
+    <div class="lg:mt-0 lg:col-span-1 lg:flex">
+      <img src="{% static 'images/bookgirl-trans.png' %}" alt="confidence for women"
+     class="w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto h-auto object-contain"
+     loading="lazy">
+    </div>
+  </div>
+</section>

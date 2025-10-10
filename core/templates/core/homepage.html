@@ -3,230 +3,66 @@
 {% load video_tags %}
 {% load resource_tags %}
 
-{% block title %}Personal Development resources for Women{% endblock %}
 {% block content %}
+<!-- HERO SECTION -->
+<header>
+  {% include 'core/hero.html' %}
+</header>
 
-<section class="bg-slate-50 w-full py-8 sm:py-12 px-4 sm:px-10">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-8">
-    <div class="text-center lg:text-left  mx-auto">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-serif font-medium leading-tight  mb-4">
-        Personal Development for Women. Your Life, Your Way.
-      </h1>
+<main class="text-gray-800">
 
-      <p class="text-gray-700 leading-relaxed  sm:text-lg mb-6">
+  <!-- Section: Latest Products (Top 4) -->
+  <section id="latest-products" class="py-16 ">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <h2 class="text-3xl md:text-4xl font-semibold text-teal-700 mb-10 text-center">
+        Latest Products
+      </h2>
 
-       Stop going through the motions. Build a life that feels like yours with MORE - Momentum, Ownership, Resilience, Empowerment. Our practical resources help you move out of default mode and into intentional living. No big overhauls. Just small, steady steps that create real momentum, stronger resilience, and the confidence to make choices your way. 
-      </p>
-      <p class="text-gray-700 leading-relaxed text-base sm:text-lg mb-6">
-
-         Register to get access to our free guide "How to Define Your Core Values (and Actually Use Them in Daily Decisions)" plus other tools and resources. Don’t settle for drifting. Start building a life that feels like yours.
-      </p>
-      <!-- Buttons Block -->
-      <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-        <a href="{% url 'accounts:register' %}" class="w-full sm:w-auto inline-flex items-center rounded-md justify-center px-5 py-3 text-base font-semibold bg-teal-700 text-white hover:bg-teal-800">
-          Register Here
-        </a>
-        <a href="{% url 'shop:product_list' %}" class="w-full sm:w-auto inline-flex items-center justify-center rounded-md px-5 py-3 text-base font-semibold border-2 border-teal-700 text-teal-700 hover:bg-teal-50">
-          Shop Here
-        </a>
-      </div>
-    </div>
-
-    <!-- Image Block -->
-    <div class="lg:mt-0 lg:col-span-1 lg:flex">
-      <img src="{% static 'images/bookgirl-trans.png' %}" alt="confidence for women"
-     class="w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto h-auto object-contain"
-     loading="lazy">
-    </div>
-  </div>
-</section>
-
-  <!-- Resource Section -->
- <section class="w-full py-12">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Live With Purpose Resources -->
-            
-    <a href="{% url 'core:live_with_purpose' %}" 
-      class="flex flex-col p-6 rounded-lg shadow-sm bg-rose-50 hover:shadow-md transition">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-      </svg>
-      <h3 class="mt-2 text-lg font-bold text-rose-800">Live With Purpose</h3>
-      <p class="text-sm text-rose-700">Move forward with clarity and purpose, on your own terms, at your own pace.</p>
-    </a>
-
-    <!-- Build Self-Confidence -->
-    <a href="{% url 'core:build_self_confidence' %}" 
-      class="flex flex-col p-6 rounded-lg shadow-sm bg-teal-50 hover:shadow-md transition">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 00-3 3v1H9v3H6v3h3v-3h3v-3h3a3 3 0 003-3 3 3 0 00-3-3z" />
-      </svg>
-      <h3 class="mt-2 text-lg font-bold text-teal-800">Build Self-Confidence</h3>
-      <p class="text-sm text-teal-700">Practical tools to help you back yourself even on the days it feels hardest.</p>
-    </a>
-
-    <!-- PAUSE for Emotional Resilience -->
-    <a href="{% url 'core:emotional_resilience' %}" 
-      class="flex flex-col p-6 rounded-lg shadow-sm bg-sky-50 hover:shadow-md transition">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2s-3 1.343-3 3 1.343 3 3 3zm0 14s-8-4-8-10V7l8-4 8 4v5c0 6-8 10-8 10z" />
-      </svg>
-      <h3 class="mt-2 text-lg font-bold text-sky-800">PAUSE for Emotional Resilience</h3>
-      <p class="text-sm text-sky-700">A simple framework to steady yourself when life shifts, building calm and self-trust in the process.</p>
-    </a>
-
-    <!-- Self-Authorship -->
-    <a href="{% url 'core:self_authorship' %}" 
-      class="flex flex-col p-6 rounded-lg shadow-sm bg-orange-50 hover:shadow-md transition">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0112 21.5c-4.28 0-8.08-2.239-10.16-5.922L12 14z" />
-      </svg>
-      <h3 class="mt-2 text-lg font-bold text-orange-800">Self-Authorship</h3>
-      <p class="text-sm text-orange-700">Design a life that feels like yours with values-led choices and small daily wins. Explore self-authorship.</p>
-    </a>
-
-    <!-- Journaling for Growth -->
-    <a href="{% url 'core:journaling' %}" 
-      class="flex flex-col p-6 rounded-lg shadow-sm bg-indigo-50 hover:shadow-md transition">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 8H7a2 2 0 01-2-2V6a2 2 0 012-2h4l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2z" />
-      </svg>
-      <h3 class="mt-2 text-lg font-bold text-indigo-800">Journaling for Growth</h3>
-      <p class="text-sm text-indigo-700">Writing prompts and guided journals to help you rediscover your voice, values, and what matters most.</p>
-    </a>
-
-    <!-- Join Us -->
-    <a href="{% url 'accounts:register' %}" 
-      class="flex flex-col p-6 rounded-lg shadow-sm bg-amber-50 hover:shadow-md transition">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.364-6.364l-1.414 1.414M6.05 17.95l-1.414 1.414m12.728 0l1.414-1.414M6.05 6.05L4.636 7.464" />
-      </svg>
-      <h3 class="mt-2 text-lg font-bold text-amber-800">Join Us</h3>
-      <p class="text-sm text-amber-700">Get access to exclusive resources and tools that help you move out of default mode and into intentional living.</p>
-    </a>
-    </div>
-  </div>
-</section>
-  
-  <!-- Featured Products -->
-  <section class="w-full py-14">
-    <div class="max-w-7xl mx-auto px-6">
-      {% if products %}
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 mb-8">
-          Featured Products
-        </h2>
-        <div class="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
-          {% for product in products %}
-          <div class="bg-white border border-slate-50 shadow-sm hover:shadow-lg transition duration-300 overflow-hidden flex flex-col">
-            <a href="{{ product.get_absolute_url }}">
+      {% if latest_products %}
+      <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+        {% for product in latest_products %}
+        <div class="border border-slate-200 rounded-lg p-4 hover:shadow-lg transition duration-300 flex flex-col justify-between bg-white">
+          <a href="{{ product.get_absolute_url }}">
+            <figure class="mb-4 aspect-[3/4] flex items-center justify-center overflow-hidden rounded-md bg-white">
               {% if product.get_image_url %}
-              <img src="{{ product.get_image_url }}" alt="{{ product.title }}"
-                  class="w-full h-80 object-contain">
+                <img src="{{ product.get_image_url }}" alt="{{ product.title }}" class="object-contain w-full h-full">
               {% else %}
-              <div class="w-full bg-white h-80 flex items-center justify-center text-gray-500">
-                No Image Available
-              </div>
+                <img src="{% static 'images/placeholder.webp' %}" alt="Placeholder" class="object-contain w-full h-full">
               {% endif %}
+            </figure>
+            <h3 class="text-lg font-semibold text-teal-700 mb-2">{{ product.title }}</h3>
+          </a>
+          <div class="flex justify-between items-center mt-auto">
+            <span class="text-lg font-semibold text-gray-700">
+              £{{ product.current_price }}
+            </span>
+            <a href="{{ product.get_absolute_url }}"
+               class="text-sm uppercase border border-teal-600 text-teal-600 px-3 py-1.5 rounded hover:bg-teal-600 hover:text-white transition">
+              View
             </a>
-            <div class="p-4 flex-1 flex flex-col">
-              <h2 class="text-md font-semibold text-gray-900 leading-tight min-h-[2.5rem]">
-                <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-              </h2>
-              <div class="flex items-center justify-between mt-4">
-                <span class="text-lg font-bold text-gray-900">
-                  ${{ product.current_price|floatformat:2 }}
-                </span>
-                <div class="flex items-center text-yellow-500 space-x-1">
-                  {% if product.average_rating %}
-                    {% for i in "12345"|make_list %}
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.562-.954L10 0l2.948 5.956 6.562.954-4.755 4.635 1.123 6.545z"
-                        {% if forloop.counter <= product.average_rating %}
-                          class="fill-current"
-                        {% else %}
-                          class="text-gray-300"
-                        {% endif %}>
-                      </path>
-                    </svg>
-                    {% endfor %}
-                    <span class="text-sm text-gray-600">({{ product.reviews.count }})</span>
-                  {% else %}
-                    <div class="h-5"></div>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
           </div>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div> 
-  </section>
-  <!--featured products END-->
-
-      <!--journal prompt generator-->
-    <section class="w-full mt-8 bg-slate-50 py-12">
-      <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 mb-4 text-center">
-          Journal Prompt Generator
-        </h2>
-        <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-          Generate focused prompts for journaling — tailored by category and time. There is an option to <a href="{% url 'accounts:login' %}" class="text-slate-700 font-medium hover:text-teal-700"><i>save prompts </i>when logged in.</a> Perfect for days when your brain is too full to think but too busy to rest.
-        </p>
-
-        <div class="max-w-7xl mx-auto mb-12 px-4">
-          {% include "prompt/components/prompt_hero.html" %}
-        </div>
-      </div>
-    </section>
-    <!--About Inspirational Guidance-->
-    <div class="max-w-7xl mx-auto mt-8 mb-24 px-6">
-      <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24 mb-12 items-center">
-      <div>
-        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-teal-700 mb-4">About Inspirational Guidance</h2>
-
-        <p class="text-gray-700 leading-relaxed  mb-4">
-        We are here to support you as you navigate that internal voice that says: <i>“Is this all there is?"</i> or <i> "I don’t feel like myself anymore. Something needs to shift.” </i>
-        </p>
-        <p class="text-gray-700 leading-relaxed  mb-4">
-          <strong>Join the growing number of women who want to stop living in default mode. If you want to build a life that feels like yours with MORE </strong> (Momentum · Ownership · Resilience · Empowerment). Our tools are designed to support your next step into intentional living, always at your pace.
-        </p> 
-        
-        <p class="text-gray-700 leading-relaxed  mb-4">
-          Inspirational Guidance is edited by AI Assistant Diana Morgan, a grounded voice behind the scenes creating practical, values-led resources to help you return to yourself with clarity and confidence.
-        </p>
-          <a href="{% url 'core:about' %}" class="inline-block mt-2 text-teal-700 font-medium underline hover:text-teal-900">Find out more about Diana</a>
-        </p>
-      </div>
-      <div>
-      <img src="{% static 'images/diana-morgan-question.svg' %}" alt="Diana Morgan" class="rounded-xl shadow-md object-cover w-full">
-    </div>
-  </section>
-  <!-- Testimonials -->
-    {% if reviews %}
-    <section>
-      <p class="text-gray-700 mb-4">
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {% for review in reviews %}
-        <div class="bg-white border border-teal-700 p-4 rounded-md shadow-sm">
-          <div class="flex items-center mb-2">
-            {% for i in "12345"|slice:":review.rating"|make_list %}
-            <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09L5.82 12.545.944 8.91l6.455-.955L10 2l2.6 5.955 6.455.955-4.876 3.635 1.698 5.545z"/></svg>
-            {% endfor %}
-          </div>
-          <p class="text-sm text-gray-700 italic">“{{ review.comment|truncatewords:45 }}”</p>
-          <p class="mt-2 text-sm text-gray-500">– {{ review.user.first_name }}</p>
         </div>
         {% endfor %}
       </div>
-    </section>
-    {% endif %}
-  </div>
-  <!-- Latest free resources -->
-  {% public_resources_preview %}
-  <!-- Latest Blog Posts Section -->
+      {% else %}
+      <p class="text-center text-gray-600">No latest products available at the moment.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Section: Featured Highlights -->
+    {% include 'core/components/home-featured.html' %}
+
+   <!-- Section: Cluster Pages Resource boxes -->
+    {% include 'core/components/cluster-boxes.html' %}
+
+     <!-- Section: Products by Category -->
+    {% include 'core/components/category-products.html' %}
+  
+ <!-- Section: Journal Prompt Box -->
+    {% include 'core/components/journalprompt.html' %}
+
+    <!-- Latest Blog Posts Section -->
   <section class="w-full bg-white py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <a href="{% url 'news:list' %}" class="hover:text-teal-800">
@@ -268,4 +104,8 @@
       {% endif %}
     </div>
   </section>
+
+</main>
+
+<script src="{% static 'js/category-filter.js' %}"></script>
 {% endblock %}

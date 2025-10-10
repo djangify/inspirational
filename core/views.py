@@ -13,28 +13,65 @@ from django.views.decorators.http import require_GET
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.http import Http404
+from django.core.paginator import Paginator
 
 
 def homepage(request):
-    products = Product.objects.filter(
-        featured=True, is_active=True, status__in=["publish", "soon", "full"]
-    )[:4]
+    """
+    Inspirational Guidance homepage
+    Sections:
+    - 4 latest products at the top
+    - 2 featured products (middle section)
+    - Live With Purpose category (4 items)
+    - Printable Planner Inserts category (4 items)
+    - Blog posts (3 latest)
+    - Random reviews
+    """
 
+    # --- Latest 4 products ---
+    base_products = Product.objects.filter(
+        is_active=True, status__in=["publish", "soon", "full"]
+    ).order_by("-created")
+    latest_products = base_products[:4]
+    latest_ids = latest_products.values_list("id", flat=True)
+
+    # --- Featured 2 products ---
+    featured_products = Product.objects.filter(
+        featured=True, is_active=True, status="publish"
+    ).order_by("order", "-created")[:2]
+
+    # --- Category-based sections ---
+    live_with_purpose = Product.objects.filter(
+        category__slug="live-with-purpose", is_active=True, status="publish"
+    ).order_by("-created")[:4]
+
+    planner_inserts = Product.objects.filter(
+        category__slug="printable-planner-inserts", is_active=True, status="publish"
+    ).order_by("-created")[:4]
+
+    # --- Remaining products (not currently shown but kept for pagination) ---
+    remaining_products = base_products.exclude(id__in=latest_ids)
+    paginator = Paginator(remaining_products, 8)
+    page = request.GET.get("page")
+    products = paginator.get_page(page)
+
+    # --- Reviews and Blog posts ---
     reviews = ProductReview.objects.select_related("product", "user").order_by("?")[:3]
-    blog_posts = Post.objects.filter(publish_date__lte=now()).order_by("-publish_date")[
-        :3
-    ]
-    featured_product = Product.objects.filter(
-        featured=True, is_active=True, status__in=["publish", "soon", "full"]
-    ).first()
+    blog_posts = Post.objects.filter(
+        publish_date__lte=now(), status="published"
+    ).order_by("-publish_date")[:3]
+
     return render(
         request,
         "core/homepage.html",
         {
+            "latest_products": latest_products,
+            "featured_products": featured_products,
+            "live_with_purpose": live_with_purpose,
+            "planner_inserts": planner_inserts,
             "products": products,
             "reviews": reviews,
             "blog_posts": blog_posts,
-            "featured_product": featured_product,
         },
     )
 

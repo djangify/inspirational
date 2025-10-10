@@ -1,0 +1,35 @@
+{% load static %}
+<section class="bg-slate-50 w-full py-8 sm:py-12 px-4 sm:px-10">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-8">
+    <div class="text-center lg:text-left  mx-auto">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-serif font-medium leading-tight  mb-4">
+        Personal Development for Women. Your Life, Your Way.
+      </h1>
+
+      <p class="text-gray-700 leading-relaxed  sm:text-lg mb-6">
+
+       Stop going through the motions. Build a life that feels like yours with MORE - Momentum, Ownership, Resilience, Empowerment. Our practical resources help you move out of default mode and into intentional living. No big overhauls. Just small, steady steps that create real momentum, stronger resilience, and the confidence to make choices your way. 
+      </p>
+      <p class="text-gray-700 leading-relaxed text-base sm:text-lg mb-6">
+
+         Register to get access to our free guide "How to Define Your Core Values (and Actually Use Them in Daily Decisions)" plus other tools and resources. Don’t settle for drifting. Start building a life that feels like yours.
+      </p>
+      <!-- Buttons Block -->
+      <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+        <a href="{% url 'accounts:register' %}" class="w-full sm:w-auto inline-flex items-center rounded-md justify-center px-5 py-3 text-base font-semibold bg-teal-700 text-white hover:bg-teal-800">
+          Register Here
+        </a>
+        <a href="{% url 'shop:product_list' %}" class="w-full sm:w-auto inline-flex items-center justify-center rounded-md px-5 py-3 text-base font-semibold border-2 border-teal-700 text-teal-700 hover:bg-teal-50">
+          Shop Here
+        </a>
+      </div>
+    </div>
+ 
+    <!-- Image Block -->
+    <div class="lg:mt-0 lg:col-span-1 lg:flex">
+      <img src="{% static 'images/bookgirl-trans.png' %}" alt="confidence for women"
+     class="w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto h-auto object-contain"
+     loading="lazy">
+    </div>
+  </div>
+</section>

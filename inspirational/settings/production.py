@@ -96,5 +96,3 @@ AUTHENTICATION_BACKENDS = [
     "accounts.backends.EmailOrUsernameModelBackend",
     "django.contrib.auth.backends.ModelBackend",  # Keep as fallback
 ]
-
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
