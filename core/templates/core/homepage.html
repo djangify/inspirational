@@ -15,7 +15,7 @@
   <section id="latest-products" class="py-16 ">
     <div class="max-w-7xl mx-auto px-6 md:px-12">
       <h2 class="text-3xl md:text-4xl font-semibold text-teal-700 mb-10 text-center">
-        Latest Products
+        Personal Growth Guides & Workbooks
       </h2>
 
       {% if latest_products %}
@@ -34,7 +34,7 @@
           </a>
           <div class="flex justify-between items-center mt-auto">
             <span class="text-lg font-semibold text-gray-700">
-              £{{ product.current_price }}
+              ${{ product.current_price }}
             </span>
             <a href="{{ product.get_absolute_url }}"
                class="text-sm uppercase border border-teal-600 text-teal-600 px-3 py-1.5 rounded hover:bg-teal-600 hover:text-white transition">

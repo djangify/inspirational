@@ -37,12 +37,12 @@
           <h3 class="text-lg font-semibold text-teal-700 mb-2">{{ product.title }}</h3>
           <p class="text-gray-700 text-sm mb-3">
             {% if product.section_description %}
-  {{ product.section_description|striptags|truncatechars:120 }}
-{% elif product.description %}
-  {{ product.description|striptags|truncatechars:120 }}
-{% else %}
-  <span class="text-gray-500 text-sm italic">No description available.</span>
-{% endif %}
+              {{ product.section_description|striptags|truncatechars:120 }}
+            {% elif product.description %}
+              {{ product.description|striptags|truncatechars:120 }}
+            {% else %}
+              <span class="text-gray-500 text-sm italic">No description available.</span>
+            {% endif %}
           </p>
 
           <div class="text-gray-600 text-sm mb-3">

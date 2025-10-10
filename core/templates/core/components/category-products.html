@@ -25,15 +25,36 @@
         <!-- Description -->
         <p class="text-gray-700 text-sm mb-3">
           {% if product.section_description %}
-            {{ product.section_description|striptags|truncatechars:120 }}
+            {{ product.section_description|striptags|truncatechars:100 }}
           {% elif product.description %}
-            {{ product.description|striptags|truncatechars:120 }}
+            {{ product.description|striptags|truncatechars:100 }}
           {% else %}
             <span class="text-gray-500 text-sm italic">No description available.</span>
           {% endif %}
         </p>
-
-        <div class="flex justify-between items-center mt-auto">
+               <!-- reviews-->
+         <div class="flex items-center justify-center mt-2 text-yellow-500 space-x-1">
+            {% if product.average_rating %}
+              {% for i in "12345"|make_list %}
+                <svg class="w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20">
+                  <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.562-.954L10 0l2.948 5.956 6.562.954-4.755 4.635 1.123 6.545z"
+                    {% if forloop.counter <= product.average_rating %}
+                      class="fill-current"
+                    {% else %}
+                      class="text-gray-300"
+                    {% endif %}>
+                  </path>
+                </svg>
+              {% endfor %}
+              <span class="text-sm mb-2 text-gray-600">({{ product.reviews.count }})</span>
+            {% else %}
+              <span class="text-gray-500 text-sm italic">0 reviews </span>
+            {% endif %}
+          </div>
+          <!--View button-->
+        <div class="flex justify-between mt-4 self-center">
           <a href="{{ product.get_absolute_url }}"
              class="text-sm uppercase border border-teal-600 text-teal-600 px-3 py-1.5 rounded hover:bg-teal-600 hover:text-white transition">
             View
@@ -47,7 +68,7 @@
     {% endif %}
 
     <!-- CATEGORY 2 -->
-    <h2 class="text-3xl md:text-4xl font-semibold text-teal-700 mb-10 text-center">
+    <h2 class="text-3xl md:text-4xl items-center font-semibold text-teal-700 mb-10 text-center">
       Printable Planner Inserts
     </h2>
     {% if planner_inserts %}
@@ -68,17 +89,18 @@
         <!-- Description -->
         <p class="text-gray-700 text-sm mb-3">
           {% if product.section_description %}
-            {{ product.section_description|striptags|truncatechars:120 }}
+            {{ product.section_description|striptags|truncatechars:100 }}
           {% elif product.description %}
-            {{ product.description|striptags|truncatechars:120 }}
+            {{ product.description|striptags|truncatechars:100 }}
           {% else %}
             <span class="text-gray-500 text-sm italic">No description available.</span>
           {% endif %}
         </p>
-
-        <div class="flex justify-between items-center mt-auto">
+ 
+        <!-- View button-->
+        <div class="flex justify-between self-center  mt-auto">
           <a href="{{ product.get_absolute_url }}"
-             class="text-sm uppercase border border-teal-600 text-teal-600 px-3 py-1.5 rounded hover:bg-teal-600 hover:text-white transition">
+             class="text-sm uppercase border border-teal-600 text-teal-600 px-3 py-1.5 self-center rounded hover:bg-teal-600 hover:text-white transition">
             View
           </a>
         </div>
