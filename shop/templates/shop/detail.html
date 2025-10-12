@@ -423,6 +423,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 </script>
+<!-- JSON-LD Schema for Shop Product -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.title|escapejs }}",
+  "description": "{{ product.short_description|striptags|truncatechars:160|escapejs }}",
+  "image": [
+    {% if product.image %}"{{ request.scheme }}://{{ request.get_host }}{{ product.image.url }}"{% endif %}
+  ],
+  "sku": "{{ product.sku|default:'' }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "Inspirational Guidance"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ request.build_absolute_uri }}",
+    "priceCurrency": "GBP",
+    "price": "{{ product.price }}",
+    "availability": "https://schema.org/{% if product.in_stock %}InStock{% else %}OutOfStock{% endif %}",
+    "itemCondition": "https://schema.org/NewCondition"
+  }
+}
+</script>
+
 
 {% block scripts %}
 <script src="{% static 'js/favourite-products.js' %}"></script>

@@ -1,4 +1,5 @@
 # prompt/views.py
+from django.db import models
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -6,15 +7,14 @@ from django.contrib import messages
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .models import Tag, PromptCategory, WritingPrompt
+from .models import Tag, PromptCategory, WritingPrompt, WritingStyle
 from .serializers import (
     TagSerializer,
     PromptCategorySerializer,
     WritingPromptSerializer,
+    WritingStyleSerializer,
 )
 import random
-from .models import WritingStyle
-from .serializers import WritingStyleSerializer
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
@@ -24,9 +24,16 @@ class TagViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class PromptCategoryViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = PromptCategory.objects.all().order_by("name")
+    queryset = PromptCategory.objects.all()
     serializer_class = PromptCategorySerializer
     permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        return (
+            PromptCategory.objects.annotate(prompt_count=models.Count("prompts"))
+            .filter(prompt_count__gt=0)
+            .order_by("name")
+        )
 
 
 class WritingPromptViewSet(

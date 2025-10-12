@@ -200,5 +200,32 @@
         </div>
     </div>
 </div>
-
+<!-- JSON-LD Schema for Blog Post -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ post.title|escapejs }}",
+  "description": "{{ post.meta_description|default:post.introduction|default:post.content|striptags|truncatechars:160|escapejs }}",
+  "image": "{% if post.image %}{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}{% elif post.external_image_url %}{{ post.external_image_url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/todiane-purp.webp' %}{% endif %}",
+  "author": {
+    "@type": "Person",
+    "name": "Diane Corriette"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inspirational Guidance",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}"
+    }
+  },
+  "datePublished": "{{ post.publish_date|date:'c' }}",
+  "dateModified": "{{ post.updated_at|date:'c' }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request.build_absolute_uri }}"
+  }
+}
+</script>
 {% endblock %}
