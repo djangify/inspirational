@@ -24,57 +24,73 @@
 {% endblock %}
 
 {% block extra_head %}
+
+{% endblock %}
+<!-- JSON-LD Schema for Shop Product -->
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org/",
+  "@context": "https://schema.org",
   "@type": "Product",
   "name": "{{ product.title|escapejs }}",
+  "description": "{{ product.section_description|default:product.description|striptags|truncatechars:160|escapejs }}",
   "image": [
-    "{{ product.get_image_url|default:'https://inspirationalguidance.com/static/images/placeholder.png' }}"
+    {% if product.get_image_url %}
+      "{{ request.scheme }}://{{ request.get_host }}{{ product.get_image_url }}"
+    {% else %}
+      "{{ request.scheme }}://{{ request.get_host }}{% static 'images/bookgirl.png' %}"
+    {% endif %}
   ],
-  "description": "{{ product.meta_description|default:product.description|truncatewords:30|escapejs }}",
-  "sku": "{{ product.public_id|default:product.id }}",
+  "sku": "{{ product.public_id|default:product.slug }}",
+  "category": "{{ product.category.name }}",
   "brand": {
     "@type": "Brand",
     "name": "Inspirational Guidance"
   },
-  "offers": {
-    "@type": "Offer",
-    "url": "{{ request.build_absolute_uri }}",
-    "priceCurrency": "GBP",
-    "price": "{{ product.current_price }}",
-    "availability": "https://schema.org/{% if product.is_active %}InStock{% else %}OutOfStock{% endif %}"
-  }
-  {% if product.total_reviews > 0 %},
+  {% if product.average_rating %}
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "{{ product.average_rating|floatformat:1 }}",
     "reviewCount": "{{ product.total_reviews }}"
   },
-  "review": [
-    {% for review in product.reviews.all %}
-    {
-      "@type": "Review",
-      "author": {
-        "@type": "Person",
-        "name": "{{ review.user.get_full_name|default:review.user.username|escapejs }}"
-      },
-      "datePublished": "{{ review.created|date:'Y-m-d' }}",
-      "reviewBody": "{{ review.comment|truncatewords:40|escapejs }}",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "{{ review.rating }}",
-        "bestRating": "5",
-        "worstRating": "1"
-      }
-    }{% if not forloop.last %},{% endif %}
-    {% endfor %}
-  ]
   {% endif %}
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ request.build_absolute_uri }}",
+    "priceCurrency": "GBP",
+    "price": "{{ product.current_price }}",
+    "availability": "https://schema.org/{% if product.is_active and not product.is_coming_soon and not product.is_fully_booked %}InStock{% else %}OutOfStock{% endif %}",
+    "itemCondition": "https://schema.org/NewCondition",
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "0.00",
+        "currency": "GBP"
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "GB"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
+        "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
+      }
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "GB",
+      "returnPolicyCategory": "https://schema.org/NoReturnsAccepted",
+      "name": "Digital download – no physical shipping"
+    }
+  },
+  "isAccessoryOrSparePartFor": {
+    "@type": "ProductGroup",
+    "productGroupID": "digital-downloads",
+    "name": "Digital Downloads"
+  }
 }
 </script>
-{% endblock %}
-
 {% block content %}
 <div class="min-h-screen mt-16 bg-slate-50">
   <div class="container mx-auto px-4 py-12">
@@ -423,33 +439,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 </script>
-<!-- JSON-LD Schema for Shop Product -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "{{ product.title|escapejs }}",
-  "description": "{{ product.short_description|striptags|truncatechars:160|escapejs }}",
-  "image": [
-    {% if product.image %}"{{ request.scheme }}://{{ request.get_host }}{{ product.image.url }}"{% endif %}
-  ],
-  "sku": "{{ product.sku|default:'' }}",
-  "brand": {
-    "@type": "Brand",
-    "name": "Inspirational Guidance"
-  },
-  "offers": {
-    "@type": "Offer",
-    "url": "{{ request.build_absolute_uri }}",
-    "priceCurrency": "GBP",
-    "price": "{{ product.price }}",
-    "availability": "https://schema.org/{% if product.in_stock %}InStock{% else %}OutOfStock{% endif %}",
-    "itemCondition": "https://schema.org/NewCondition"
-  }
-}
-</script>
-
-
 {% block scripts %}
 <script src="{% static 'js/favourite-products.js' %}"></script>
 {% endblock %}

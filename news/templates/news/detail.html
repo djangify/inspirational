@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block open_graph_tags %}
   <meta property="fb:app_id" content="2433552923679047" />
@@ -200,18 +202,22 @@
         </div>
     </div>
 </div>
-<!-- JSON-LD Schema for Blog Post -->
+<!-- JSON-LD Schema for News Post -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "{{ post.title|escapejs }}",
-  "description": "{{ post.meta_description|default:post.introduction|default:post.content|striptags|truncatechars:160|escapejs }}",
-  "image": "{% if post.image %}{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}{% elif post.external_image_url %}{{ post.external_image_url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/todiane-purp.webp' %}{% endif %}",
+  "description": "{{ post.meta_description|default:post.content|striptags|truncatechars:160|escapejs }}",
+
+  {% comment %} Image logic based on available fields {% endcomment %}
+  "image": "{% if post.get_image_url %}{{ request.scheme }}://{{ request.get_host }}{{ post.get_image_url }}{% elif post.get_youtube_thumbnail %}{{ post.get_youtube_thumbnail }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}{% endif %}",
+
   "author": {
-    "@type": "Person",
-    "name": "Diane Corriette"
-  },
+  "@type": "Person",
+  "name": "Inspirational Guidance",
+  "url": "https://www.inspirationalguidance.com/personal-development/"
+},
   "publisher": {
     "@type": "Organization",
     "name": "Inspirational Guidance",
@@ -220,12 +226,13 @@
       "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}"
     }
   },
-  "datePublished": "{{ post.publish_date|date:'c' }}",
-  "dateModified": "{{ post.updated_at|date:'c' }}",
+  "datePublished": "{% if post.publish_date %}{{ post.publish_date|date:'c' }}{% else %}{{ post.created|date:'c' }}{% endif %}",
+  "dateModified": "{{ post.updated|date:'c' }}",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ request.build_absolute_uri }}"
   }
 }
 </script>
+
 {% endblock %}
