@@ -104,7 +104,7 @@
           <img
             id="main-product-image"
             src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
-            alt="{{ product.title }}"
+            alt="Cover design of {{ product.title }}"
             class="block h-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl object-contain mx-auto transition duration-300"
           />
           <div class="absolute top-4 left-4">
@@ -124,7 +124,7 @@
           <img
             src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
             data-src="{{ product.get_image_url|default:'/static/images/placeholder.png' }}"
-            alt="{{ product.title }}"
+            alt="Thumbnail preview of {{ product.title }}"
             class="w-20 h-20 object-cover border-2 border-teal-700 rounded hover:shadow-md cursor-pointer product-thumbnail active-thumbnail"
           />
           {% if product.image %}

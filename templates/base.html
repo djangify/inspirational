@@ -2,41 +2,48 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <!-- Meta Description -->
+
+    <!-- Meta Description -->
     <meta name="description" content="{% block meta_description %}Tools and guides for women who want to stop drifting and start living with purpose. Inspirational Guidance helps you OWN your values, design your self-authored life, and build momentum with small, steady steps.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}define your values, personal growth, live with purpose, self-authorship, design your life, intentional living, emotional resilience tools, stop living on autopilot, small steps big change, personal development, build self-confidence for women, journaling for growth, inspirational guidance{% endblock %}">
     <meta name="google-site-verification" content="Ue5GABXu1Gj9dp1oyFy7DSN9XSH4eYXJo7rFLDB35co" />
-   
-    <meta name="keywords" content="{% block meta_keywords %}define your values, personal growth, live with purpose, self-authorship, design your life, intentional living, emotional resilience tools, stop living on autopilot, small steps big change, personal development, build self-confidence for women, journaling for growth,  inspirational guidance{% endblock %}">
 
-    <!-- Open Graph -->
-  {% block open_graph_tags %}
-  <meta property="fb:app_id" content="2433552923679047" />
-  <meta property="og:title" content="Stop Drifting and Design Your Self-Authored Life with Inspirational Guidance. Your Life. Your Way. " />
-  <meta property="og:description" content="Personal growth tools for women. Live with purpose, own your values, build self-confidence, and create steady momentum - one small step at a time." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/diana-morgan.webp' %}" />
-  {% endblock %}
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="{% static 'css/output.css' %}" as="style">
+    <link rel="preload" href="{% static 'fonts/poppins.woff2' %}" as="font" type="font/woff2" crossorigin>
 
-  <title>{% block title %}Personal Development for Women. Your Life. Your Way.{% endblock %}</title>
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
-    <script src="https://js.stripe.com/v3/"></script>
-     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+
+    <!-- Canonical URL -->
     {% if canonical_url %}
       <link rel="canonical" href="{{ canonical_url }}">
     {% endif %}
-    
+
+    <!-- Open Graph Tags -->
+    {% block open_graph_tags %}
+      <meta property="fb:app_id" content="2433552923679047" />
+      <meta property="og:title" content="Stop Drifting and Design Your Self-Authored Life with Inspirational Guidance. Your Life. Your Way." />
+      <meta property="og:description" content="Personal growth tools for women. Live with purpose, own your values, build self-confidence, and create steady momentum - one small step at a time." />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+      <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/diana-morgan.webp' %}" />
+    {% endblock %}
+
+    <!-- Page Title -->
+    <title>{% block title %}Personal Development for Women. Your Life. Your Way.{% endblock %}</title>
+
     {% block extra_meta %}{% endblock %}
     {% block extra_head %}{% endblock %}
   </head>
- <body class="text-base sm:text-lg bg-white antialiased tracking-tight flex flex-col min-h-screen">
 
-
-    <!--logic for header when logged in-->
+  <body class="text-base sm:text-lg bg-white antialiased tracking-tight flex flex-col min-h-screen">
+    
     {% if request.user.is_authenticated %}
       {% include "accounts/includes/logged_in_public_header.html" %}
     {% else %}
@@ -44,47 +51,47 @@
     {% endif %}
   
     <main class="flex-1">
-      
-        {% block content %}{% endblock %}
-      
+      {% block content %}{% endblock %}
     </main>
 
     {% include 'components/footer.html' %}
 
     {% if messages %}
       <section aria-label="Notifications" role="alert">
-          {% include 'partials/_messages.html' %}
+        {% include 'partials/_messages.html' %}
       </section>
     {% endif %}
 
     <!-- COOKIE BANNER -->
     <div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #f8fafc; padding: 1em; text-align: center; font-size: 14px; box-shadow: 0 -1px 4px rgba(0,0,0,0.1); display: none;">
-      This website uses cookies to ensure you get the best experience. 
-      <a href="{% url 'core:cookie_policy' %}" style="text-decoration: underline;">Learn more</a>.
+      This website uses cookies to ensure you get the best experience.
+      <a href="{% url 'core:cookie_policy' %}" style="text-decoration: underline;">How We Use Cookies</a>.
       <button id="accept-cookies" style="margin-left: 1em; background-color: #216a95; color: white; border: none; padding: 0.5em 1em; cursor: pointer;">
         Accept
       </button>
     </div>
 
-    <script>
+    <script defer>
       if (!localStorage.getItem("cookiesAccepted")) {
         document.getElementById("cookie-banner").style.display = "block";
       }
-
       document.getElementById("accept-cookies").onclick = function () {
         localStorage.setItem("cookiesAccepted", "true");
         document.getElementById("cookie-banner").style.display = "none";
       };
     </script>
 
-        <!-- Scripts -->
-    <script src="{% static 'js/accordion.js' %}"></script>
-    <script src="{% static 'js/messages.js' %}"></script>
-    <script src="{% static 'js/category-filter.js' %}"></script>
-    <script src="{% static 'js/prompt-generator.js' %}"></script>
-    <script src="{% static 'js/favourite-prompt.js' %}"></script>
-    <script src="{% static 'js/favourite-products.js' %}"></script>
-    
-    {% block scripts %}{% endblock %}
+    {% block scripts %}
+      <!-- Load Stripe LAST for best performance -->
+      <script src="https://js.stripe.com/v3/" defer></script>
+
+      <!-- Local scripts (deferred) -->
+      <script src="{% static 'js/accordion.js' %}" defer></script>
+      <script src="{% static 'js/messages.js' %}" defer></script>
+      <script src="{% static 'js/category-filter.js' %}" defer></script>
+      <script src="{% static 'js/prompt-generator.js' %}" defer></script>
+      <script src="{% static 'js/favourite-prompt.js' %}" defer></script>
+      <script src="{% static 'js/favourite-products.js' %}" defer></script>
+    {% endblock %}
   </body>
 </html>
