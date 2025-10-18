@@ -1,4 +1,46 @@
 {% load static %}
+
+{% load static %}
+<section class="bg-slate-50 w-full py-6 sm:py-8 lg:py-6 xl:py-4 px-4 sm:px-10">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-6 lg:gap-10">
+
+    <!-- LEFT COLUMN -->
+    <div class="flex flex-col justify-center gap-y-5 lg:gap-y-6">
+      <h1 class="text-3xl sm:text-4xl font-serif font-medium leading-tight text-center lg:text-left text-[color:var(--color-font-main)]">
+        Live Your Life. Your Way.
+      </h1>
+
+      <p class="leading-relaxed  mt-2">
+        Stop going through the motions. Build a life that feels like yours with
+        <strong>practical guides, printables, and values-driven workbooks</strong> created to help you live with purpose and confidence.
+      </p>
+
+      <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+        <a href="{% url 'shop:product_list' %}" 
+           class="w-full sm:w-auto inline-flex items-center uppercase rounded-md justify-center px-6 py-3 text-base font-semibold bg-teal-700 text-white hover:bg-teal-800 transition">
+          Explore the Ebooks
+        </a>
+        <a href="{% url 'accounts:register' %}" 
+           class="w-full sm:w-auto inline-flex items-center uppercase justify-center rounded-md px-6 py-3 text-base font-semibold border-2 border-teal-700 text-teal-700 hover:bg-teal-50 transition">
+          Join the Community
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN (OPTIMIZED IMAGE) -->
+    <div class="hidden lg:flex justify-center">
+      <img 
+        src="{% static 'images/bookgirl2.webp' %}" 
+        alt="woman reading personal growth ebook"
+        class="max-w-[280px] sm:max-w-[320px] md:max-w-[380px] h-auto object-contain rounded-xl"
+        loading="lazy" 
+        width="380" height="380">
+    </div>
+
+  </div>
+</section>
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 <section class="bg-slate-50 w-full py-8 sm:py-12 px-4 sm:px-10">
   <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-8">
     <div class="text-center lg:text-left  mx-auto">

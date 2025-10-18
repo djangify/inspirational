@@ -20,6 +20,16 @@
           (Momentum · Ownership · Resilience · Empowerment),
           our tools are designed to support your next step into intentional living, always at your pace.
         </p>
+
+        <p class="text-gray-700 leading-relaxed mb-4">
+          Register for a free account to get access to our goal tracker tool and other resources.
+        </p>
+
+        <a href="{% url 'accounts:register' %}" 
+          class="inline-block uppercase bg-teal-700 text-white px-5 py-2.5 rounded hover:bg-teal-800 transition self-center"
+          aria-label="Register for a free Inspirational Guidance account">
+          Register Your Account
+        </a>
       </div>
 
       <!-- Featured Products -->
@@ -47,31 +57,32 @@
 
           <div class="text-gray-600 text-sm mb-3">
             <div class="flex items-center justify-center mt-2 text-yellow-500 space-x-1">
-  {% if product.average_rating %}
-    {% for i in "12345"|make_list %}
-      <svg class="w-4 h-4"
-           fill="currentColor"
-           viewBox="0 0 20 20">
-        <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.562-.954L10 0l2.948 5.956 6.562.954-4.755 4.635 1.123 6.545z"
-          {% if forloop.counter <= product.average_rating %}
-            class="fill-current"
-          {% else %}
-            class="text-gray-300"
-          {% endif %}>
-        </path>
-      </svg>
-    {% endfor %}
-    <span class="text-sm text-gray-600">({{ product.reviews.count }})</span>
-  {% else %}
-    <span class="text-gray-500 text-sm italic">No reviews yet</span>
-  {% endif %}
-</div>
+            {% if product.average_rating %}
+              {% for i in "12345"|make_list %}
+                <svg class="w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20">
+                  <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.562-.954L10 0l2.948 5.956 6.562.954-4.755 4.635 1.123 6.545z"
+                    {% if forloop.counter <= product.average_rating %}
+                      class="fill-current"
+                    {% else %}
+                      class="text-gray-300"
+                    {% endif %}>
+                  </path>
+                </svg>
+              {% endfor %}
+              <span class="text-sm text-gray-600">({{ product.reviews.count }})</span>
+            {% else %}
+              <span class="text-gray-500 text-sm italic">No reviews yet</span>
+            {% endif %}
+          </div>
 
           </div>
 
           <a href="{{ product.get_absolute_url }}"
-             class="text-sm uppercase border border-teal-700 text-teal-700 px-3 py-1.5 rounded hover:bg-teal-700 hover:text-white transition self-center">
-            View
+            class="text-sm uppercase border border-teal-700 text-teal-700 px-3 py-1.5 rounded hover:bg-teal-700 hover:text-white transition self-center"
+            aria-label="View details for {{ product.title }}">
+            View {{ product.title }}
           </a>
         </div>
       </div>

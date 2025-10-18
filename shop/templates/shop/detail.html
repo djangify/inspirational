@@ -439,6 +439,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 </script>
+
+<!-- Accordion Script -->
+<script>
+document.querySelectorAll(".accordion-header").forEach(header => {
+  header.addEventListener("click", () => {
+    const target = document.getElementById(header.dataset.target);
+    const icon = header.querySelector(".accordion-icon");
+    target.classList.toggle("hidden");
+    icon.classList.toggle("rotate-180");
+  });
+});
+</script>
+
 {% block scripts %}
 <script src="{% static 'js/favourite-products.js' %}"></script>
 {% endblock %}
