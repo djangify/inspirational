@@ -267,6 +267,10 @@ def payment_success(request):
 
         try:
             send_order_confirmation_email(order)
+            from .emails import send_admin_new_order_email
+
+            send_admin_new_order_email(order)
+
         except Exception as e:
             logger.error(f"Failed to send order confirmation email: {str(e)}")
 

@@ -111,3 +111,40 @@ def send_download_link_email(order_item):
             f"Failed to send download link email for order item {order_item.id}: {str(e)}"
         )
         raise
+
+
+def send_admin_new_order_email(order):
+    """Notify admin when a new order has been completed."""
+    try:
+        items_data = [
+            f"- {item.product.title} (x{item.quantity}) — ${item.get_cost():.2f}"
+            for item in order.items.all()
+        ]
+        items_list = "\n".join(items_data)
+
+        subject = f"New Zestizm Order Received — #{order.order_id}"
+        from_email = settings.DEFAULT_FROM_EMAIL
+        to_email = [
+            settings.DEFAULT_FROM_EMAIL
+        ]  # or replace with specific admin email(s)
+
+        message = (
+            f"A new order has been completed on Zestizm.\n\n"
+            f"Order ID: {order.order_id}\n"
+            f"Customer: {order.email}\n"
+            f"Status: {order.status}\n"
+            f"Total: ${order.get_total_cost():.2f}\n\n"
+            f"Items:\n{items_list}\n\n"
+            f"View order in admin:\n"
+            f"{settings.SITE_URL}/admin/shop/order/{order.id}/change/"
+        )
+
+        msg = EmailMultiAlternatives(subject, message, from_email, to_email)
+        msg.send()
+
+        logger.info(f"Admin notified of new order {order.order_id}")
+    except Exception as e:
+        logger.error(
+            f"Failed to send admin new order email for {order.order_id}: {str(e)}"
+        )
+        raise

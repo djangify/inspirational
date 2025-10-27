@@ -53,6 +53,10 @@ def handle_payment_intent_succeeded(payment_intent):
         try:
             for order_item in order.items.all():
                 send_download_link_email(order_item)
+                from .emails import send_admin_new_order_email
+
+                send_admin_new_order_email(order)
+
         except Exception as e:
             logger.error(f"Error sending download emails in webhook: {str(e)}")
 
