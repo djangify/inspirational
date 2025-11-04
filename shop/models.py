@@ -41,7 +41,7 @@ class Product(models.Model):
         ("full", "Fully Booked"),
         ("draft", "Draft"),
     ]
-    PRODUCT_TYPES = [("download", "Digital Download"), ("coaching", "Coaching Hours")]
+    PRODUCT_TYPES = [("download", "Digital Download")]
 
     # Basic Fields
     public_id = models.CharField(max_length=130, blank=True, null=True, db_index=True)
