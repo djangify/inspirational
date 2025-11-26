@@ -96,6 +96,3 @@ urlpatterns = [
         name="ai_disclaimer",
     ),
 ]
-handler404 = "core.views.handler404"
-handler500 = "core.views.handler500"
-handler403 = "core.views.handler403"
