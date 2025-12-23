@@ -193,6 +193,21 @@ class Post(models.Model):
             return f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
         return None
 
+    def get_video_id(self):
+        if not self.youtube_url:
+            return None
+
+        url = self.youtube_url.strip()
+
+        if "youtube.com/watch?v=" in url:
+            return url.split("v=")[1].split("&")[0]
+        elif "youtu.be/" in url:
+            return url.split("/")[-1].split("?")[0]
+        elif "youtube.com/embed/" in url:
+            return url.split("/embed/")[1].split("?")[0]
+
+        return None
+
     def get_youtube_embed_url(self):
         """Get YouTube video embed URL"""
         if self.youtube_url:

@@ -38,3 +38,8 @@ if settings.DEBUG:
 handler404 = "core.views.handler404"
 handler500 = "core.views.handler500"
 handler403 = "core.views.handler403"
+
+# ---- ADMINITA DJANGO DASHBOARD ----
+admin.site.site_header = "Inspirational Guidance"
+admin.site.site_title = "Inspirational Guidance"
+admin.site.index_title = "Welcome to Your Site"
