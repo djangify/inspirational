@@ -48,7 +48,10 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ["title", "description", "public_id"]
     prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ["public_id", "purchase_count", "display_preview"]
-    list_editable = ["order", "featured", "category"]
+    list_editable = [
+        "order",
+        "featured",
+    ]
     inlines = [ProductImageInline]
     fieldsets = (
         (
