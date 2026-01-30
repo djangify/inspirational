@@ -4,7 +4,8 @@ certifi
 cffi
 charset-normalizer
 cryptography
-Django
+Django==5.2.9
+adminita
 django-environ
 django-js-asset
 django-storages
@@ -19,7 +20,6 @@ nh3
 packaging
 Pillow
 protobuf
-psycopg[binary]
 pycparser
 requests
 soupsieve
