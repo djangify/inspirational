@@ -41,15 +41,12 @@ SITE_ID = 1
 # Database (SQLite)
 # -----------------------------------------------------------------------------
 # Database - SQLite default for Docker. Use in production
-DATABASES = {"default": env.db(default="sqlite:////app/db/db.sqlite3")}
-
-# Database - SQLite. Use in development
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "data" / "db" / "db.sqlite3",
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 
 # -----------------------------------------------------------------------------
