@@ -316,11 +316,3 @@ TINYMCE_DEFAULT_CONFIG = {
         {"title": "Full width", "value": "img-full"},
     ],
 }
-
-# -----------------------------------------------------------------------------
-# Logging (optional)
-# -----------------------------------------------------------------------------
-try:
-    from logging_config import LOGGING  # noqa: F401
-except Exception:
-    LOGGING = None
