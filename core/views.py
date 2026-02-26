@@ -157,6 +157,7 @@ def robots_txt(request):
         "User-agent: *",
         "Disallow: /admin/",
         "Disallow: /accounts/",
+        "Disallow: /media/",
         "Allow: /",
         f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
     ]
