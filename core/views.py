@@ -31,7 +31,7 @@ def homepage(request):
     # --- Latest 4 products ---
     base_products = Product.objects.filter(
         is_active=True, status__in=["publish", "soon", "full"]
-    ).order_by("-created")
+    ).order_by("order", "-created")
     latest_products = base_products[:4]
     latest_ids = latest_products.values_list("id", flat=True)
 

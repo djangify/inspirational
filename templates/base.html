@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Meta Description -->
-    <meta name="description" content="{% block meta_description %}Tools and guides for women who want to stop drifting and start living with purpose. Inspirational Guidance helps you OWN your values, design your self-authored life, and build momentum with small, steady steps.{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}define your values, personal growth, live with purpose, self-authorship, design your life, intentional living, emotional resilience tools, stop living on autopilot, small steps big change, personal development, build self-confidence for women, journaling for growth, inspirational guidance{% endblock %}">
+    
+    <meta name="description" content="{% block meta_description %}Take control of your life and live on your own terms. Inspirational Guidance offers practical self-authorship tools, planners, and guides to help women make deliberate decisions, build confidence, and design a life that feels like theirs.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}take control of your life, live life on your own terms, define your values, personal growth, self-authorship, design your life, intentional living, emotional resilience tools, stop living on autopilot, small steps big change, personal development, build self-confidence for women, journaling for growth, inspirational guidance{% endblock %}">
     <meta name="google-site-verification" content="Ue5GABXu1Gj9dp1oyFy7DSN9XSH4eYXJo7rFLDB35co" />
 
     <!-- Preload Critical Resources -->
@@ -42,6 +43,15 @@
 
     {% block extra_meta %}{% endblock %}
     {% block extra_head %}{% endblock %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCT3CVSPKT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-YCT3CVSPKT');
+    </script>
   </head>
 
   <body class="text-base sm:text-lg bg-white antialiased tracking-tight flex flex-col min-h-screen">
