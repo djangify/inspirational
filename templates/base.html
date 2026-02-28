@@ -13,16 +13,10 @@
 
     <!-- Preload Critical Resources -->
     <link rel="preload" href="{% static 'css/output.css' %}" as="style">
-    
-
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-VX1TqVZJd8+NczRjv6jIl1xO5AfhmQq2A1K13Qn1JXgH3rZyFl4YfG6mMyF4sEohw4oC3E+i0W7u7lAFxxz+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-
     <!-- Canonical URL -->
     {% if canonical_url %}
       <link rel="canonical" href="{{ canonical_url }}">
@@ -103,6 +97,7 @@
       <script src="{% static 'js/prompt-generator.js' %}" defer></script>
       <script src="{% static 'js/favourite-prompt.js' %}" defer></script>
       <script src="{% static 'js/favourite-products.js' %}" defer></script>
+      <script src="{% static 'js/accordion.js' %}" defer></script>
     {% endblock %}
   </body>
 </html>
