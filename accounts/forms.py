@@ -28,6 +28,7 @@ class UserRegistrationForm(UserCreationForm):
         min_length=2,
         error_messages={"min_length": "Last name must be at least 2 characters long."},
     )
+    honeypot = forms.CharField(required=False, widget=forms.HiddenInput)
 
     class Meta:
         model = User
@@ -61,6 +62,26 @@ class UserRegistrationForm(UserCreationForm):
         cleaned_data = super().clean()
         username = cleaned_data.get("username")
         email = cleaned_data.get("email")
+
+        # Honeypot spam trap
+        honeypot = cleaned_data.get("honeypot")
+        if honeypot:
+            raise forms.ValidationError("Spam detected.")
+
+        # Timestamp bot trap
+        form_time = self.data.get("form_time")
+        import time
+
+        if form_time:
+            try:
+                submitted_time = int(form_time)
+                current_time = int(time.time())
+
+                # Reject forms submitted too quickly (bots)
+                if current_time - submitted_time < 4:
+                    raise forms.ValidationError("Form submitted too quickly.")
+            except ValueError:
+                raise forms.ValidationError("Invalid form submission.")
 
         if username and len(username) < 3:
             base = email.split("@")[0] if email else "user"

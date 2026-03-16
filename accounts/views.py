@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
 from django.urls import reverse
+import time
 from prompt.models import WritingPrompt
 from shop.models import Product, OrderItem
 from .forms import UserRegistrationForm, UserProfileForm
@@ -33,8 +34,9 @@ def register_view(request):
             return redirect("accounts:verification_sent")
     else:
         form = UserRegistrationForm()
+    context = {"form": form, "form_time": int(time.time())}
 
-    return render(request, "accounts/register.html", {"form": form})
+    return render(request, "accounts/register.html", context)
 
 
 def send_verification_email(request, user):
