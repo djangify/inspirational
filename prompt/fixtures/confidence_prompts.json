@@ -1,0 +1,387 @@
+[
+  {
+    "model": "prompt.writingprompt",
+    "pk": 310,
+    "fields": {
+      "category": 14,
+      "text": "What\u2019s one small win from today?",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 311,
+    "fields": {
+      "category": 14,
+      "text": "I am becoming someone who...",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 315,
+    "fields": {
+      "category": 14,
+      "text": "I feel confident when I...",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 356,
+    "fields": {
+      "category": 14,
+      "text": "What does Confidence Building mean to you today?",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 357,
+    "fields": {
+      "category": 14,
+      "text": "Describe a moment today where you felt deeply grounded in Confidence Building.",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 358,
+    "fields": {
+      "category": 14,
+      "text": "What\u2019s one thing about Confidence Building you\u2019ve learned recently?",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 359,
+    "fields": {
+      "category": 14,
+      "text": "What\u2019s something you\u2019ve never explored about Confidence Building?",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 360,
+    "fields": {
+      "category": 14,
+      "text": "Imagine a supportive friend asking you about Confidence Building. How do you respond?",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 361,
+    "fields": {
+      "category": 14,
+      "text": "If you could master one thing in Confidence Building, what would it be?",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 362,
+    "fields": {
+      "category": 14,
+      "text": "What intention can you set around Confidence Building right now?",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 363,
+    "fields": {
+      "category": 14,
+      "text": "Every day, I grow stronger in Confidence Building.",
+      "difficulty": "medium",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 364,
+    "fields": {
+      "category": 14,
+      "text": "List 3 physical sensations you associate with Confidence Building.",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 365,
+    "fields": {
+      "category": 14,
+      "text": "Today, I will approach Confidence Building with...",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 366,
+    "fields": {
+      "category": 14,
+      "text": "How has your relationship with Confidence Building changed over time?",
+      "difficulty": "medium",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 367,
+    "fields": {
+      "category": 14,
+      "text": "Write a conversation between you and your future self about Confidence Building.",
+      "difficulty": "medium",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 368,
+    "fields": {
+      "category": 14,
+      "text": "What questions come up when you think deeply about Confidence Building?",
+      "difficulty": "medium",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 369,
+    "fields": {
+      "category": 14,
+      "text": "If Confidence Building could talk to you, what would it say?",
+      "difficulty": "medium",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 370,
+    "fields": {
+      "category": 14,
+      "text": "Imagine a calm space where Confidence Building is fully embraced. What does it look like?",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 406,
+    "fields": {
+      "category": 14,
+      "text": "I am aligning more each day with Confidence Building. Describe what this alignment feels like in your body and thoughts.",
+      "difficulty": "medium",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 411,
+    "fields": {
+      "category": 14,
+      "text": "If you had unlimited time and resources to explore Confidence Building, where would you start and why?",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 412,
+    "fields": {
+      "category": 14,
+      "text": "Choose one specific way you\u2019ll honour Confidence Building today, and outline the steps you\u2019ll take.",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 420,
+    "fields": {
+      "category": 14,
+      "text": "Imagine you're mentoring someone new to Confidence Building. What advice and encouragement would you offer?",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 423,
+    "fields": {
+      "category": 14,
+      "text": "Think back to a challenge related to Confidence Building. How did you handle it, and what would you do differently now?",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 426,
+    "fields": {
+      "category": 14,
+      "text": "Reflect on a time when Confidence Building shaped an important decision in your life. What did you learn from it?",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 429,
+    "fields": {
+      "category": 14,
+      "text": "Describe a daily practice that helps you feel grounded in your Confidence Building journey. What makes it effective?",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 433,
+    "fields": {
+      "category": 14,
+      "text": "List three grounding rituals that bring you back to your core values around Confidence Building.",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 436,
+    "fields": {
+      "category": 14,
+      "text": "Write a letter from your future self thanking you for committing to Confidence Building. What does it say?",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 438,
+    "fields": {
+      "category": 14,
+      "text": "In what ways has your understanding of Confidence Building evolved over the past year?",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 441,
+    "fields": {
+      "category": 14,
+      "text": "Describe an ideal learning path that would help you deepen your knowledge or practice of Confidence Building.",
+      "difficulty": "medium",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 457,
+    "fields": {
+      "category": 14,
+      "text": "Write a powerful affirmation that supports your growth in Confidence Building. Repeat it three times aloud.",
+      "difficulty": "medium",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 469,
+    "fields": {
+      "category": 14,
+      "text": "Craft a sentence that captures your purpose in practicing Confidence Building \u2014 something you can revisit daily.",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 472,
+    "fields": {
+      "category": 14,
+      "text": "Visualize a space where you feel deeply connected to Confidence Building. What does it look, sound, and feel like?",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 478,
+    "fields": {
+      "category": 14,
+      "text": "Create a conversation between you and your inner critic about your journey with Confidence Building.",
+      "difficulty": "deep",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 479,
+    "fields": {
+      "category": 14,
+      "text": "Affirm your worth in the context of Confidence Building using positive, present-tense statements.",
+      "difficulty": "medium",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "prompt.writingprompt",
+    "pk": 483,
+    "fields": {
+      "category": 14,
+      "text": "What unexplored questions do you have about Confidence Building? Let your curiosity guide your writing.",
+      "difficulty": "easy",
+      "active": true,
+      "created_at": "2025-10-10T00:00:00Z"
+    }
+  }
+]

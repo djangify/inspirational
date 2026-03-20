@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
-from django.core.exceptions import PermissionDenied
+from django.core.mail import mail_admins
 from django.http import HttpResponse, HttpResponseBadRequest, FileResponse, Http404
 from django.views.decorators.http import require_POST, require_http_methods
 from django.core.paginator import Paginator
@@ -14,7 +14,9 @@ import os
 import logging
 from django.db.models import Q
 import mimetypes
-from wsgiref.util import FileWrapper
+from django.utils import timezone
+from datetime import timedelta
+from .models import DownloadLog
 from shop.forms import GuestDetailsForm, ProductReviewForm
 from .emails import send_order_confirmation_email, send_download_link_email
 from .cart import Cart
@@ -258,7 +260,6 @@ def payment_success(request):
                 product=item["product"],
                 price_paid_pence=int(item["price"] * 100),
                 quantity=item["quantity"],
-                downloads_remaining=item["product"].download_limit,
             )
 
             product = item["product"]
@@ -292,55 +293,6 @@ def payment_success(request):
 def payment_cancel(request):
     messages.error(request, "Payment was cancelled.")
     return redirect("shop:cart_detail")
-
-
-@login_required
-def download_product(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    order_item = OrderItem.objects.filter(
-        order__user=request.user, product=product
-    ).first()
-
-    if not order_item:
-        messages.error(request, "You have not purchased this product.")
-        return redirect("shop:product_detail", slug=product.slug)
-
-    if order_item.download_count >= settings.MAX_DOWNLOAD_LIMIT:
-        messages.error(request, "You have reached the download limit for this product.")
-        return redirect("shop:purchases")
-
-    # Increment download count
-    order_item.download_count += 1
-    order_item.save()
-
-    # Send download link email
-    try:
-        context = {
-            "order_item": order_item,
-            "product": order_item.product,
-            "site_url": settings.SITE_URL,
-            "downloads_remaining": order_item.downloads_remaining,
-            "user": order_item.order.user,
-            "email": (
-                order_item.order.user.email
-                if order_item.order.user
-                else order_item.order.guest_details.email
-            ),
-            "unsubscribe_url": f"{settings.SITE_URL}/profiles/email-preferences/",
-        }
-        send_download_link_email(order_item, context)
-    except Exception as e:
-        logger.error(
-            f"Failed to send download email for order item {order_item.id}: {str(e)}"
-        )
-
-    # Get download URL
-    download_url = product.get_download_url()
-    if not download_url:
-        messages.error(request, "Download URL not available.")
-        return redirect("shop:purchases")
-
-    return redirect(download_url)
 
 
 @login_required
@@ -442,41 +394,62 @@ def handle_failed_payment(payment_intent):
 def secure_download(request, order_item_id):
     order_item = get_object_or_404(OrderItem, id=order_item_id)
 
-    # Check if the order item belongs to the user
+    # Ownership check
     if order_item.order.user != request.user:
-        raise PermissionDenied
+        messages.error(request, "You do not have permission to access this file.")
+        return redirect("shop:order_history")
 
-    # Check download limits for digital products only
-    if order_item.product.product_type == "download":
-        if order_item.download_count >= order_item.downloads_remaining:
-            messages.error(
-                request, "You have reached your download limit for this product."
-            )
-            return redirect("accounts:profile")
+    # File check
+    if not order_item.product.files:
+        messages.error(request, "File not available for this product.")
+        return redirect("shop:order_history")
 
-        # Decrement downloads_remaining and increment download_count
-        order_item.downloads_remaining -= 1
+    # Download limit check
+    if order_item.download_count >= order_item.product.download_limit:
+        logger.warning(f"Download limit reached for OrderItem {order_item.id}")
+        messages.error(request, "You have reached your download limit.")
+        return redirect("shop:order_history")
+
+    # DUPLICATE REQUEST PROTECTION (CRITICAL)
+    recent_download = DownloadLog.objects.filter(
+        order_item=order_item,
+        user=request.user,
+        downloaded_at__gte=timezone.now() - timedelta(seconds=2),
+    ).exists()
+
+    if not recent_download:
         order_item.download_count += 1
         order_item.save()
 
-    # Get the file path
-    file_path = None
-    if order_item.product.files:
-        file_path = order_item.product.files.path
+        DownloadLog.objects.create(order_item=order_item, user=request.user)
 
-    if not file_path or not os.path.exists(file_path):
-        raise Http404("File not found")
+    # File path
+    file_path = order_item.product.files.path
 
-    # Get the file's mime type
-    content_type, encoding = mimetypes.guess_type(file_path)
+    if not os.path.exists(file_path):
+        error_msg = f"File missing for OrderItem {order_item.id} | Path: {file_path}"
+
+        logger.error(error_msg)
+
+        mail_admins(
+            subject="Download Failure: File Missing",
+            message=error_msg,
+            fail_silently=True,
+        )
+
+        messages.error(request, "File could not be found.")
+        return redirect("shop:order_history")
+
+    # MIME type
+    content_type, _ = mimetypes.guess_type(file_path)
     content_type = content_type or "application/octet-stream"
 
-    # Open the file
-    file_obj = open(file_path, "rb")
-    response = FileResponse(FileWrapper(file_obj), content_type=content_type)
+    # SERVE FILE (NO FileWrapper)
+    response = FileResponse(open(file_path, "rb"), content_type=content_type)
     response["Content-Disposition"] = (
         f'attachment; filename="{os.path.basename(file_path)}"'
     )
+
     return response
 
 
