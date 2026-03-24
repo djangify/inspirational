@@ -313,6 +313,4 @@ class ProductReviewAdmin(admin.ModelAdmin):
     readonly_fields = []  # keep as you prefer
 
     def save_model(self, request, obj, form, change):
-        # keep any custom logic you had (example:)
-        obj.verified_purchase = True
         super().save_model(request, obj, form, change)
