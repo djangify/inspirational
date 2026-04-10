@@ -15,6 +15,7 @@ from shop.models import Product, OrderItem
 from .forms import UserRegistrationForm, UserProfileForm
 from .models import EmailVerificationToken, MemberResource
 from prompt.models_tracker import WritingGoal, WritingSession
+from accounts.services.mailerlite import add_subscriber
 
 
 def register_view(request):
@@ -26,6 +27,10 @@ def register_view(request):
             new_user.set_password(form.cleaned_data["password1"])
             new_user.is_active = False  # User inactive until email verified
             new_user.save()
+            # Save subscription preference to profile
+            subscribe = form.cleaned_data.get("subscribe", True)
+            new_user.profile.is_subscribed = subscribe
+            new_user.profile.save()
 
             # Send verification email
             send_verification_email(request, new_user)
@@ -96,6 +101,9 @@ def verify_email(request, token):
             # Mark the profile as verified
             user.profile.verified = True
             user.profile.save()
+
+            # Add subscriber to Mailing list
+            add_subscriber(user)
 
             # Clean up the token
             verification_token.delete()

@@ -1,19 +1,19 @@
 {% extends "base.html" %} {% block content %}
 
 <!-- profiles/templates/profiles/signup.html -->
-<section class="bg-gray-50 dark:bg-gray-900">
+<section class="bg-gray-50 dark:bg-gray-900 mb-4">
   <div
     class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
   >
     <a
       href="#"
-      class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+      class="flex items-center mt-8 mb-4 text-2xl font-semibold text-gray-900 dark:text-white"
     >
       REGISTER HERE
     </a>
     
-    <p class="prose prose-lg font-semibold mb-6">
-       Get access to our free guide "How to Define Your Core Values (and Actually Use Them in Daily Decisions)" along with other personal development tools and resources.
+    <p class="prose prose-lg font-semibold mb-6 text-center max-w-xl mx-auto">
+       Get access to our free guide "Small Steps to Realignment" along with other personal development tools and resources.
     </p>
     <div
       class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
@@ -150,6 +150,7 @@
             <div class="flex items-center h-5">
               <input
                 id="terms"
+                name="terms"
                 aria-describedby="terms"
                 type="checkbox"
                 class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
@@ -159,7 +160,7 @@
             <div class="ml-3 text-sm">
               <label
                 for="terms"
-                class="font-light text-gray-500 dark:text-gray-300"
+                class=" text-gray-700 dark:text-gray-300"
               >
                 I accept the
                 <a
@@ -173,6 +174,25 @@
             </div>
           </div>
 
+          <div class="flex items-start mt-3">
+            <div class="flex items-center h-5">
+              <input
+                id="subscribe"
+                name="subscribe"
+                type="checkbox"
+                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                {% if form.subscribe.value or form.subscribe.value == None %}checked{% endif %}
+              />
+            </div>
+            <div class="ml-3 text-sm">
+              <label
+                for="subscribe"
+                class=" text-gray-700 dark:text-gray-300"
+              >
+                Yes - send me the free “Small Steps to Realignment” guide and occasional supportive emails.
+              </label>
+            </div>
+          </div>
           <button
             type="submit"
             class="w-full text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-teal-700 dark:hover:bg-teal-800 dark:focus:ring-primary-800"
@@ -180,7 +200,7 @@
             Sign Up
           </button>
 
-          <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+          <p class="text-sm  text-gray-700 dark:text-gray-400">
             Already have an account?
             <a
               href="{% url 'accounts:login' %}"

@@ -45,8 +45,8 @@ def homepage(request):
         category__slug="live-with-purpose", is_active=True, status="publish"
     ).order_by("-created")[:4]
 
-    planner_inserts = Product.objects.filter(
-        category__slug="printable-planner-inserts", is_active=True, status="publish"
+    guides = Product.objects.filter(
+        category__slug="guides", is_active=True, status="publish"
     ).order_by("-created")[:4]
 
     # --- Remaining products (not currently shown but kept for pagination) ---
@@ -68,7 +68,7 @@ def homepage(request):
             "latest_products": latest_products,
             "featured_products": featured_products,
             "live_with_purpose": live_with_purpose,
-            "planner_inserts": planner_inserts,
+            "guides": guides,
             "products": products,
             "reviews": reviews,
             "blog_posts": blog_posts,

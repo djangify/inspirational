@@ -1,31 +1,50 @@
 {% load static %}
 <section class="bg-slate-50 w-full py-16 sm:py-8 lg:py-8 xl:py-8 px-4 sm:px-10">
-  <div class="max-w-6xl mx-auto ">
+  <div class="max-w-6xl mx-auto">
 
-    <div class="flex flex-col justify-center gap-y-5 lg:gap-y-6">
-      <h1 class="text-3xl sm:text-4xl font-serif font-medium leading-tight text-center lg:text-left text-[color:var(--color-font-main)]">
-        Take Control of Your Life. Live on Your Own Terms.
-      </h1>
+    <div class="grid lg:grid-cols-2 gap-10 items-center">
 
-      <p class="leading-relaxed text-xl mt-2">
-        Stop living by default. Start making deliberate decisions that shape a life that feels like yours. Inspirational Guidance offers practical self-authorship tools designed to help you build confidence, clarify your values, and move forward with direction. No dramatic overhauls. Just clear thinking, steady momentum, and the courage to choose your own path.
-      </p>
-      <p class="leading-relaxed text-xl mt-2">Take Control of Your Life. Live on Your Own Terms. Become the author of your life - <strong>that’s self-authorship.</strong>
+      <!-- LEFT: TEXT -->
+      <div class="flex flex-col justify-center gap-y-5 lg:gap-y-6 text-center lg:text-left">
+        
+        <h1 class="text-3xl sm:text-4xl font-serif font-medium leading-tight text-center lg:text-left text-[color:var(--color-font-main)]">
+          What should you do with your life? Maybe it’s not as fixed as it feels.
+        </h1>
+
+        <p class="leading-relaxed text-xl mt-2">
+          You did what made sense. You followed the path and kept things going. From the outside, it probably looks fine. But something about it doesn’t quite feel like yours.
+          It might not be about changing everything. It might be about <strong>realizing you have more say than you think.</strong>
+        </p>
+
+        <p class="leading-relaxed text-xl mt-2">
+          
+          Get instant access to a free short guide - <strong> Small Steps to Realignment</strong> - that helps you see where your life is running on default and where you can start choosing differently.
+        </p>
+
+        <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+          <a href="{% url 'accounts:register' %}" 
+             class="w-full sm:w-auto inline-flex items-center uppercase rounded-md justify-center px-6 py-3 text-base font-semibold bg-teal-700 text-white hover:bg-teal-800 transition">
+             Get the Free Guide
+          </a>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: IMAGE -->
+       <div class="w-full flex justify-center lg:justify-end">
+  <div class="relative max-w-sm lg:max-w-md xl:max-w-lg">
+    
+    <!-- Soft background glow -->
+    <div class="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-2xl blur-xl opacity-30"></div>
+
+        <img src="{% static 'images/redefine-your-life.webp' %}" 
+            alt="design your life"
+            class="relative w-full h-auto object-cover rounded-2xl shadow-lg">
       
-
-      <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-        <a href="/self-authorship" 
-           class="w-full sm:w-auto inline-flex items-center uppercase rounded-md justify-center px-6 py-3 text-base font-semibold bg-teal-700 text-white hover:bg-teal-800 transition">
-          Explore Self-Authorship
-        </a>
-        <a href="{% url 'accounts:register' %}" 
-           class="w-full sm:w-auto inline-flex items-center uppercase justify-center rounded-md px-6 py-3 text-base font-semibold border-2 border-teal-700 text-teal-700 hover:bg-teal-50 transition">
-          Join the Community
-        </a>
       </div>
     </div>
 
-    
+    </div>
 
   </div>
 </section>

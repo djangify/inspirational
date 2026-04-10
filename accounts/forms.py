@@ -29,6 +29,11 @@ class UserRegistrationForm(UserCreationForm):
         error_messages={"min_length": "Last name must be at least 2 characters long."},
     )
     honeypot = forms.CharField(required=False, widget=forms.HiddenInput)
+    subscribe = forms.BooleanField(
+        required=False,
+        initial=True,
+        label="Yes — send me the free “Small Steps to Realignment” guide and occasional supportive emails.",
+    )
 
     class Meta:
         model = User

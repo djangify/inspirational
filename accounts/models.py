@@ -13,6 +13,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     verified = models.BooleanField(default=False)
     bio = models.TextField(max_length=500, blank=True)
+    is_subscribed = models.BooleanField(default=True)
+    mailerlite_id = models.CharField(max_length=255, blank=True, null=True)
+
     favourite_prompts = models.ManyToManyField(
         WritingPrompt, blank=True, related_name="favorited_by"
     )
