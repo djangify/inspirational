@@ -24,9 +24,9 @@
         <!-- Description -->
         <p class="text-gray-700 text-sm mb-3">
           {% if product.section_description %}
-            {{ product.section_description|striptags|truncatechars:100 }}
+            {{ product.section_description|striptags|truncatechars:100|safe }}
           {% elif product.description %}
-            {{ product.description|striptags|truncatechars:100 }}
+            {{ product.description|striptags|truncatechars:100|safe }}
           {% else %}
             <span class="text-gray-500 text-sm italic">No description available.</span>
           {% endif %}
