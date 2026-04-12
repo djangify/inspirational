@@ -4,28 +4,32 @@
 {% block content %}
 {% load resource_tags %}
 {% load video_tags %}
-<section class="max-w-7xl mx-auto px-4 py-12">
+<section class="bg-slate-50 py-12">
   
- <!-- About Hero Section -->
-
-  <div class="max-w-7xl mx-auto px-4 mb-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+  <div class="max-w-7xl mx-auto px-4">
     
-    <!-- Left: Image -->
-    <div>
-      <img src="{% static 'images/diane-corriette-inspirational-guidance.jpg' %}" alt="Diane Corriette, Personal Growth Coach" class="w-full h-auto rounded-md shadow-md">
-    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      
+      <!-- Left: Image -->
+      <div>
+        <img src="{% static 'images/diane-corriette-inspirational-guidance.jpg' %}"
+             class="w-full h-auto rounded-md shadow-md">
+      </div>
 
       <!-- Right: Text -->
       <div class="space-y-6">
         <div class="space-y-4">
           <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">About Diane Corriette</h1>
-          <p class="text-gray-700 text-lg">
-            I live what I teach. I have self-authored my life. That means I have actively taken control of my own life story, rather than letting the opinion of others dictate my path. I make intentional choices aligned with my values. This is what decides the direction of my life.</p>
+          <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
+            I live what I teach. I have self-authored my life - which means I stopped letting other people's expectations write my story. Instead I started making intentional choices aligned with what actually matters to me. It was a deliberate process of noticing where I was living in default mode, and choosing differently.
+          </p>
         </div>
-        <p class="text-gray-700 text-lg">
-          My aim now, through the digital products I create, is to support women who are ready to live with purpose and feel more in control of the choices that shape their life.</p>
-          <p class="text-gray-700 text-lg">
-          I am an INFJ introvert. A 29/11 path walker and a 6/2 Role Model/Hermit - Pure Generator - Human Design. What does all that mean? I was born to guide people towards transformation.
+        <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
+          I am not here as someone with all the answers. I'm here as someone who has lived through enough to speak from experience.
+        </p>
+         <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
+         
+          Now, I help women stop waiting and start making intentional choices about how they live, feel, and earn - so they can stop living in default mode and finally choose their own direction.
         </p>
       </div>
       
@@ -33,7 +37,7 @@
   </section>
 
      <!-- 6/2 29/11 INFJ -->
-  <div class=" bg-slate-50 lg:text-lg rounded-lg mt-16 p-8">
+  {% comment %} <div class=" bg-slate-50 lg:text-lg rounded-lg mt-16 p-8">
   
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="bg-white p-6 rounded-lg shadow">
@@ -44,7 +48,7 @@
           <circle cx="12" cy="12" r="3"></circle>
         </svg>
         <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">INFJ</h3>
-        <p class="text-gray-600">As an INFJ — often called the Advocate or the Insightful Idealist — I am someone who blends introspection with a strong sense of purpose. INFJs are known for their deep thinking, empathy, and desire to make a meaningful impact. We often feel a quiet pull toward something bigger than ourselves — not for recognition, but because living with purpose matters deeply to us.</p>
+        <p class="text-gray-600">As an INFJ - often called the Advocate or the Insightful Idealist - I blend introspection with a strong sense of purpose. INFJs are known for their deep thinking, empathy, and desire to make a meaningful impact. We often feel a quiet pull toward something bigger than ourselves.</p>
       </div>
       <div class="bg-white p-6 rounded-lg shadow">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -55,8 +59,8 @@
             <circle cx="12" cy="12" r="3"></circle>
           </svg>
         <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">29/11</h3>
-        <p class="text-gray-600">According to Dan Millman’s The Life You Were Born to Live, my life path is 29/11, a journey centered on spiritual growth, balance, and learning to trust my inner wisdom.
-        I am here to build trust, not just in others, but in myself and the quiet voice that guides me forward. It is not always been easy, but it has shaped the way I approach life, work, and purpose: with a steady commitment to personal growth and a desire to help others reconnect with their own sense of meaning.</p>
+        <p class="text-gray-600">My life path is 29/11, a journey centered on spiritual growth, balance, and learning to trust my inner wisdom.
+        I am here to build trust, not just in others, but in myself and the quiet voice that guides me forward. </p>
       </div>
       <div class="bg-white p-6 rounded-lg shadow">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -66,35 +70,65 @@
           <path d="M12 3v8l4 2"></path>
         </svg>
         <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">6/2 Role Model/Hermit</h3>
-        <p class="text-gray-600">In Human Design, I am a Generator, which means I am built to follow what energises and excites me and when I’m not, I feel it in my body as frustration. That’s my cue to pause, reassess, and realign.</P>
+        <p class="text-gray-600">In Human Design, I am a Generator.
 
-        <p class="text-gray-600">My profile is 6/2 — the Role Model Hermit who lives life in stages. In this stage of life (over 50), I am stepping into a more natural role as a guide and example — not because I have all the answers, but because I have lived through enough to speak from experience. The “2” in me needs solitude to recharge and reflect. </p>
+      My profile is 6/2 — the Role Model Hermit who lives life in stages. In this stage of life (over 50), I am stepping into a more natural role as a guide and example because I have lived through enough to speak from experience. </p>
 
       </div>
     </div>
-  </div>
+  </div> {% endcomment %}
 <!-- Start block -->
 <section class="bg-white dark:bg-gray-800 mt-8">
-  <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+  <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-6 lg:space-y-10 lg:py-12 lg:px-6">
+
+<!-- Using AI Section -->
+    <div class="mx-auto px-8 sm:px-12 lg:px-16">
+        <div class=" mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left Column: Text -->
+                <div>
+                    
+                      <h2 class="mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        Using AI 
+                    </h2>
+                    <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
+                     I enjoy using AI as part of the way I work and create. It helps me save time, develop ideas more quickly, and spend more of my energy on the parts of the work I care about most.
+                    </p>
+
+                    <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
+                        I use AI to support content writing, image creation, and video development. It allows me to bring ideas to life more easily while still keeping the message, direction, and final decisions in my hands.
+                    </p>
+
+                    <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
+                        The image on the right is an AI version of me, created as part of that process.
+                    </p>
+                </div>
+                <!-- Right Column: Feature List / Illustration -->
+                <div class="bg-[color:var(--color-accent)]/10 rounded-2xl p-8 md:p-12 border-1 border-[color:var(--color-accent)]/20">
+                    <div class="space-y-6">
+                       <img src="{% static 'images/dianecorriette-ai-image1.webp' %}" alt="Diane Corriette AI Clone" class="w-full h-auto rounded-md shadow-md">
+                    </div>
+
+                </div>
+        </div>
+    </div>
+
 
     <!-- Row: Certificates Section -->
-    <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
+    <div class="items-center mt-16 gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
       <div class="text-gray-700 sm:text-lg dark:text-gray-400">
-        <h2 class="mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Certified in Personal Growth Tools</h2>
-        <p class="text-gray-700 text-lg">
-            I am a certified personal growth coach, NLP Master Practitioner (accredited via ANLP-certified training) and the creator behind Inspirational Guidance.</p>
-        <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
-          I bring over two decades of experience in coaching, NLP, and personal development — backed by professional certifications and practical tools. These credentials reflect my commitment to offering grounded, transformative support for women ready to grow.
+        <h2 class="mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Certified in Personal Growth </h2>
+         <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
+            I am a certified coach, NLP Master Practitioner and the creator behind Inspirational Guidance. I bring decades of experience in coaching and mentoring, NLP, and personal development, backed by professional certifications and practical tools. 
         </p>
+        
         <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
-          I have also trained in other techniques including Appreciate Inquiry and EFT - Emotional Freedom Technique.
-        </p>
-        <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
-          I moved away from Life Coaching and spent time as an Online Marketer and Virtual Assistant. All of these skills are now helping me build this personal growth hub. While I loved helping others build their dream, the inner calling for me to return to mine is why this exists.
+          My work today brings these skills together in a more practical, grounded way - focused on helping women move forward with clarity and intention.
         </p>
 
         <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
-          Each qualification represents a step in my journey — from communication and mindset work to professional coaching. They're not just pieces of paper — they're tools I draw from to help women build confidence and clarity.
+          
+           <i>I am an INFJ introvert. A 29/11 path walker and a 6/2 Role Model/Hermit - Pure Generator - Human Design. What does all that mean? I was born to guide people towards transformation.</i>
         </p>
       </div>
 
@@ -105,7 +139,29 @@
         <img class="w-full h-auto rounded-lg shadow" src="{% static 'images/dianecorriette-health-and-personal-development.webp' %}" alt="Health and Personal Development Diploma">
       </div>
     </div>
+    <div class=" mx-auto px-4 sm:px-6 lg:px-8">
+        <div class=" mx-auto">
+            
+           <h2 class="mb-4 text-3xl font-bold tracking-tight text-gray-900 mt-8 dark:text-white text-center">
+                Inspirational Guidance Manifesto 
+            </h2>
 
+            <div class="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-[color:var(--color-border)]">
+                
+                <img src="{% static 'images/self-authorship-inspirational-guidance900.webp' %}" alt="Inspirational Guidance Manifesto for self-authorship" class="w-full h-auto rounded-md shadow-md">
+
+                <p class="text-lg text-[color:var(--color-text)] leading-relaxed mt-8 mb-6">
+                    This manifesto captures the shift from living on default to choosing your own direction. Each line was chosen to reflect a specific moment in that process - from noticing what isn’t fully chosen, to making small, deliberate decisions, to building a life that feels like yours.
+                   
+                </p>
+
+                <p class="text-lg text-[color:var(--color-text)] leading-relaxed mb-2">
+                    If this resonates, join as a member and start working through it - benefits to being a member.
+                </p>
+
+            </div>
+        </div>
+    </div>
   </div>
 </section>
 <!-- End block -->
@@ -163,4 +219,6 @@
   </div>
 </section>
  
+
+
 {% endblock %}

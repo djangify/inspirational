@@ -11,28 +11,13 @@
           <span class="text-xl font-semibold">Inspirational Guidance</span>
         </div>
         <p class="text-slate-400 text-sm mb-4">
-          Practical tools and encouragement for your personal growth journey. Claim MORE purpose, fulfillment, and authentic confidence. <a href="{% url 'accounts:register' %}">Start with one small step today.</a>
+          Practical tools to help you recognize what’s been running on default and start choosing your direction. 
+          <a href="{% url 'accounts:register' %}">Start here.</a>
         </p>
         <p class="text-slate-400 text-sm mb-4">
           <strong>Disclaimer: </strong>The information on this website is for general guidance and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult your  qualified medical professional with any questions regarding a medical condition. 
         </p>
-        {% comment %} <h3 class="font-semibold mb-2 mt-6">Stay Updated</h3>
-        <p class="text-slate-400 text-sm mb-3">Subscribe for new prompts and product updates.</p>
-        <form class="flex" aria-label="Newsletter subscription">
-          <input 
-            type="email" 
-            placeholder="Enter your email"
-            class="flex-1 px-3 py-2 bg-slate-800 border border-slate-700 rounded-l-md focus:ring-2 focus:ring-teal-500 focus:border-transparent text-sm"
-          >
-          <button 
-            type="submit"
-            class="bg-teal-700 hover:bg-teal-700 px-4 py-2 rounded-r-md transition-colors"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-            </svg>
-          </button>
-        </form> {% endcomment %}
+ 
       </div>
 
       <!-- Links -->
@@ -71,7 +56,7 @@
       <div>
         <h3 class="font-semibold mb-4">Pages</h3>
         <ul class="space-y-2 text-sm">
-          <li><a href="{% url 'core:homepage' %}" class="text-slate-400 hover:text-white">Home</a></li>
+          <li><a href=" /diane-corriette" class="text-slate-400 hover:text-white">About</a></li>
           <li><a href="{% url 'prompt:journal_prompt_generator' %}" class="text-slate-400 hover:text-white">Journal Prompt Help</a></li>
            <li><a href="{% url 'core:personal_development_resources' %}" class="text-slate-400 hover:text-white">Free Info</a></li>
           <li><a href="{% url 'news:list' %}" class="text-slate-400 hover:text-white">Personal Growth Blog</a></li>
