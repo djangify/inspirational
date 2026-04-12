@@ -47,7 +47,7 @@ def homepage(request):
 
     guides = Product.objects.filter(
         category__slug="guides", is_active=True, status="publish"
-    ).order_by("-created")[:4]
+    ).order_by("order", "-created")[:4]
 
     # --- Remaining products (not currently shown but kept for pagination) ---
     remaining_products = base_products.exclude(id__in=latest_ids)
