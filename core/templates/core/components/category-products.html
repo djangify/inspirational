@@ -35,7 +35,7 @@
         <!-- View button-->
         <div class="flex justify-between self-center  mt-auto">
           <a href="{{ product.get_absolute_url }}"
-             class="text-sm uppercase border border-teal-600 text-teal-600 px-3 py-1.5 self-center rounded hover:bg-teal-600 hover:text-teal-800 transition">
+             class="text-sm uppercase border border-teal-600 text-teal-600 px-3 py-1.5 self-center rounded hover:bg-teal-600 hover:text-white transition">
             View
           </a>
         </div>
@@ -46,8 +46,8 @@
     <p class="text-center text-gray-500">No guides available at the moment.</p>
     {% endif %}
        <!-- CATEGORY 2 -->
-    {% comment %} <h2 class="text-3xl md:text-4xl font-semibold text-teal-700 mb-10 text-center">
-      Live With Purpose Collection
+     <h2 class="text-3xl mt-16 md:text-4xl font-semibold text-teal-700 mb-10 text-center">
+      Personal Development Beginners
     </h2>
     {% if live_with_purpose %}
     <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mb-16">
@@ -98,7 +98,7 @@
           <!--View button-->
         <div class="flex justify-between mt-4 self-center">
           <a href="{{ product.get_absolute_url }}"
-             class="text-sm uppercase border border-teal-600 text-teal-700 px-3 py-1.5 rounded hover:bg-teal-600 hover:text-teal-800 transition">
+             class="text-sm uppercase border border-teal-600 text-teal-700 px-3 py-1.5 rounded hover:bg-teal-600 hover:text-white transition">
             View
           </a>
         </div>
@@ -107,7 +107,7 @@
     </div>
     {% else %}
     <p class="text-center text-gray-500 mb-12">No products available in this category.</p>
-    {% endif %} {% endcomment %}
+    {% endif %} 
 
   </div>
 </section>

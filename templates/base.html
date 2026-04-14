@@ -5,36 +5,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Meta Description -->
-    
-    <meta name="description" content="{% block meta_description %}What should you do with your life? If things feel off but not completely wrong, Inspirational Guidance helps you step out of autopilot, think clearly, and start choosing your life with simple tools, prompts, and practical guidance.{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}what should I do with my life, feeling stuck but not lost, life feels off, living on autopilot, how to make life decisions, how to choose your life, personal development for women, personal growth, stop drifting in life, build your life direction, intentional living, journaling for clarity, inspirational guidance{% endblock %}">
-    <meta name="google-site-verification" content="Ue5GABXu1Gj9dp1oyFy7DSN9XSH4eYXJo7rFLDB35co" />
+   <!-- Meta Description -->
+<meta name="description" content="{% block meta_description %}A Live It List is a list of things you want to live — and it keeps you ALIVE. Join Inspirational Guidance, start your free list, and begin living what actually matters to you.{% endblock %}">
+<meta name="keywords" content="{% block meta_keywords %}live it list, things to do before you die, bucket list alternative, live your life, personal growth for women, intentional living, what do I want from life, simple goal setting, life list ideas, inspirational guidance, women living with purpose, what makes you feel alive{% endblock %}">
+<meta name="google-site-verification" content="Ue5GABXu1Gj9dp1oyFy7DSN9XSH4eYXJo7rFLDB35co" />
 
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="{% static 'css/output.css' %}" as="style">
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-    <!-- Canonical URL -->
-    {% if canonical_url %}
-      <link rel="canonical" href="{{ canonical_url }}">
-    {% endif %}
+<!-- Preload Critical Resources -->
+<link rel="preload" href="{% static 'css/output.css' %}" as="style">
+<!-- Stylesheet -->
+<link rel="stylesheet" href="{% static 'css/output.css' %}" />
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+<!-- Canonical URL -->
+{% if canonical_url %}
+  <link rel="canonical" href="{{ canonical_url }}">
+{% endif %}
 
-    <!-- Open Graph Tags -->
-    {% block open_graph_tags %}
-      <meta property="fb:app_id" content="2433552923679047" />
-      <meta property="og:title" content="What Should You Do With Your Life? Start Choosing Your Direction | Inspirational Guidance" />
-      <meta property="og:description" content="If your life feels off but not completely wrong, this is where you start. Learn how to step out of autopilot, think clearly, and begin choosing your life with simple, practical tools." />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-      <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/personal-development-for-women.webp' %}" />
-    {% endblock %}
+<!-- Open Graph Tags -->
+{% block open_graph_tags %}
+  <meta property="fb:app_id" content="2433552923679047" />
+  <meta property="og:title" content="Start Your Live It List — A List That Helps You Feel ALIVE | Inspirational Guidance" />
+  <meta property="og:description" content="A Live It List is a list of things you enjoy that helps you feel ALIVE. Big things, small things, things you're already doing and loving. Write them down. Add to them. Start yours free today." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/personal-development-for-women.webp' %}" />
+{% endblock %}
 
-    <!-- Page Title -->
-    <title>{% block title %}Personal Development for Women. Your Life. Your Way.{% endblock %}</title>
-
+<!-- Page Title -->
+<title>{% block title %}Live It List — An Alternative Bucket List | Inspirational Guidance{% endblock %}</title>
     {% block extra_meta %}{% endblock %}
     {% block extra_head %}{% endblock %}
     <!-- Google tag (gtag.js) -->
@@ -72,7 +70,7 @@
 
     <!-- COOKIE BANNER -->
     <div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #f8fafc; padding: 1em; text-align: center; font-size: 14px; box-shadow: 0 -1px 4px rgba(0,0,0,0.1); display: none;">
-      This website uses cookies to ensure you get the best experience.
+      This website uses cookies to ensure you get the best Live It List experience.
       <a href="{% url 'core:cookie_policy' %}" style="text-decoration: underline;">How We Use Cookies</a>.
       <button id="accept-cookies" style="margin-left: 1em; background-color: #216a95; color: white; border: none; padding: 0.5em 1em; cursor: pointer;">
         Accept

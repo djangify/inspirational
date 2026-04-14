@@ -43,7 +43,7 @@ def homepage(request):
     # --- Category-based sections ---
     live_with_purpose = Product.objects.filter(
         category__slug="live-with-purpose", is_active=True, status="publish"
-    ).order_by("-created")[:4]
+    ).order_by("order", "-created")[:4]
 
     guides = Product.objects.filter(
         category__slug="guides", is_active=True, status="publish"
