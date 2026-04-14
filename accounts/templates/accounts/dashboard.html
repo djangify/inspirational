@@ -8,11 +8,6 @@
   </h1>
   <p class="text-gray-700 text-md">This is your personal space for tracking progress, downloading content, and staying on track.</p>
 
-  <!-- Stats section -->
-  {% comment %} <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    {% include 'accounts/includes/dashboard_stats.html' %}
-  </div> {% endcomment %}
-
   <!-- Quick stats and Quick actions -->
   <div>
     <h2 class="text-xl font-semibold mb-4">Your Stats</h2>
@@ -26,7 +21,9 @@
   </div>
 
   <div>
-    <h2 class="text-xl font-semibold mb-4">Your Prompts</h2>
+    <h2 class="text-xl font-semibold mb-2">Your Prompts</h2>
+    <p class="text-gray-700 mb-4 text-sm"> <a href="https://inspirationalguidance.com/prompt/journal-prompt-generator/" target="_blank">Use The Prompt Generator Here</p></a>
+    
     {% include 'prompt/components/profile_saved_prompts.html' %}
   </div>
 
@@ -45,11 +42,14 @@
             </h2>
             <p class="text-gray-700 mt-2">
              A Live It List is a list of things you actually want to live — not just dream about. 
-        One day. One week. One year. Five years. Download this free tracker and start writing 
+        One day. One week. One year. Five years.
+            </p>
+            <p class="text-gray-700 mt-2">
+              Download this free tracker and start writing 
         yours today.
             </p>
             <div class="mt-4 flex gap-3">
-              <a href="https://inspirationalguidance.com/media/member_resources/small-steps-to-realignment.pdf" 
+              <a href="https://inspirationalguidance.com/media/member_resources/live-it-list-template-inspirational-guidance.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-white font-medium hover:bg-teal-800">
@@ -61,8 +61,8 @@
           <!-- Image Content -->
           <div class="md:col-span-2 flex justify-center">
             <div class="rounded-xl overflow-hidden border border-gray-200 bg-white">
-              <img src="{% static 'images/personal-growth-about.webp' %}" 
-                  alt="define your core values" 
+              <img src="{% static 'images/live-it-list.webp' %}" 
+                  alt="live it list image" 
                   class="w-full h-auto max-w-xs mx-auto" loading="lazy">
             </div>
           </div>

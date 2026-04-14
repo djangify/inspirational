@@ -4,17 +4,17 @@
 {% block content %}
 <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
     <div class="mb-6 flex justify-between items-center">
-        <h1 class="text-3xl font-bold">Your Goals</h1>
+        <h1 class="text-3xl font-bold">Your Live It List</h1>
         <a href="{% url 'prompt:writing_progress' %}" class="text-teal-700 hover:text-teal-700 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
             </svg>
-            Back to Progress Tracker
+            Back to List Tracker
         </a>
     </div>
     <!-- Stats summary -->
     <div class="bg-white rounded-lg p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4">Goals Summary</h2>
+        <h2 class="text-xl font-semibold mb-4">List Summary</h2>
         <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
             <div class="p-4 bg-blue-50 rounded-lg">
                 <p class="text-sm text-gray-600">Total Goals</p>
@@ -150,7 +150,7 @@
             {% endif %}
         {% else %}
             <div class="text-center py-12 bg-gray-50 rounded-lg">
-                <p class="text-gray-600 mb-4">You haven't added any goals yet.</p>
+                <p class="text-gray-600 mb-4">You haven't added anything to your Live It List yet.</p>
                 <a href="{% url 'prompt:writing_progress' %}" class="inline-block bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-4 rounded-md transition duration-200">
                     Add Your First Goal
                 </a>
