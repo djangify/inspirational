@@ -18,7 +18,7 @@ from django.utils import timezone
 from datetime import timedelta
 from .models import DownloadLog
 from shop.forms import GuestDetailsForm, ProductReviewForm
-from .emails import send_order_confirmation_email, send_download_link_email
+from .emails import send_order_confirmation_email, send_admin_new_order_email
 from .cart import Cart
 
 
@@ -195,6 +195,18 @@ def checkout(request):
 
         intent = stripe.PaymentIntent.create(**payment_intent_data)
 
+        # Save cart snapshot keyed to this PaymentIntent
+        # so payment_success can recover it even if session cart is lost
+        request.session[f"cart_snapshot_{intent.id}"] = [
+            {
+                "product_id": item["product"].id,
+                "quantity": item["quantity"],
+                "price": float(item["price"]),
+            }
+            for item in cart
+        ]
+        request.session.modified = True
+
         context = {
             "client_secret": intent.client_secret,
             "stripe_publishable_key": settings.STRIPE_PUBLISHABLE_KEY,
@@ -223,7 +235,6 @@ def payment_success(request):
         return redirect("shop:cart_detail")
 
     try:
-        # Verify payment with Stripe
         payment_intent = stripe.PaymentIntent.retrieve(payment_intent_id)
         if payment_intent.status != "succeeded":
             logger.warning(f"Payment intent {payment_intent_id} not succeeded")
@@ -234,8 +245,6 @@ def payment_success(request):
             messages.error(request, "You must be logged in to complete checkout.")
             return redirect("accounts:login")
 
-        email = request.user.email
-
         # Prevent duplicate order creation on refresh
         existing_order = Order.objects.filter(
             payment_intent_id=payment_intent_id
@@ -243,49 +252,89 @@ def payment_success(request):
         if existing_order:
             return redirect("shop:purchases")
 
-        cart = Cart(request)
+        # Try snapshot first, fall back to live cart
+        snapshot_key = f"cart_snapshot_{payment_intent_id}"
+        cart_snapshot = request.session.get(snapshot_key)
+        live_cart = Cart(request)
 
-        # Create order
         order = Order.objects.create(
             user=request.user,
-            email=email,
+            email=request.user.email,
             payment_intent_id=payment_intent_id,
             paid=True,
             status="completed",
         )
 
-        for item in cart:
-            OrderItem.objects.create(
-                order=order,
-                product=item["product"],
-                price_paid_pence=int(item["price"] * 100),
-                quantity=item["quantity"],
-            )
+        items_created = 0
 
-            product = item["product"]
-            product.purchase_count += item["quantity"]
-            product.save()
+        if cart_snapshot:
+            # Use the snapshot saved at checkout time
+            for item_data in cart_snapshot:
+                try:
+                    product = Product.objects.get(id=item_data["product_id"])
+                    OrderItem.objects.create(
+                        order=order,
+                        product=product,
+                        price_paid_pence=int(item_data["price"] * 100),
+                        quantity=item_data["quantity"],
+                    )
+                    product.purchase_count += item_data["quantity"]
+                    product.save()
+                    items_created += 1
+                except Product.DoesNotExist:
+                    logger.error(
+                        f"Product {item_data['product_id']} not found in snapshot"
+                    )
+        else:
+            # Fallback to live cart
+            logger.warning(
+                f"No cart snapshot found for {payment_intent_id}, using live cart"
+            )
+            for item in live_cart:
+                OrderItem.objects.create(
+                    order=order,
+                    product=item["product"],
+                    price_paid_pence=int(item["price"] * 100),
+                    quantity=item["quantity"],
+                )
+                product = item["product"]
+                product.purchase_count += item["quantity"]
+                product.save()
+                items_created += 1
+
+        if items_created == 0:
+            logger.error(
+                f"Order {order.order_id} created with 0 items - payment_intent: {payment_intent_id}"
+            )
+            mail_admins(
+                subject=f"URGENT: Order {order.order_id} created with 0 items",
+                message=f"Payment succeeded but no items were created.\nPayment Intent: {payment_intent_id}\nCustomer: {request.user.email}",
+                fail_silently=True,
+            )
 
         try:
             send_order_confirmation_email(order)
             from .emails import send_admin_new_order_email
 
             send_admin_new_order_email(order)
-
         except Exception as e:
-            logger.error(f"Failed to send order confirmation email: {str(e)}")
+            logger.error(f"Failed to send order emails for {order.order_id}: {str(e)}")
 
-        cart.clear()
+        # Clean up snapshot and cart
+        if snapshot_key in request.session:
+            del request.session[snapshot_key]
+        live_cart.clear()
+        request.session.modified = True
 
         return render(request, "shop/success.html", {"order": order})
 
     except stripe.error.StripeError as e:
         logger.error(f"Stripe error: {str(e)}")
-        messages.error(request, f"Error: {str(e)}")
+        messages.error(request, f"Payment processing error: {str(e)}")
         return redirect("shop:cart_detail")
 
     except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
+        logger.error(f"Unexpected error in payment_success: {str(e)}")
         messages.error(request, "There was an error processing your order.")
         return redirect("shop:cart_detail")
 
@@ -371,15 +420,10 @@ def handle_successful_payment(payment_intent):
         order.save()
 
         try:
-            for order_item in order.items.all():
-                send_download_link_email(order_item)
-        except Exception as e:
-            print(f"Error sending download emails in webhook: {str(e)}")
-
-        try:
             send_order_confirmation_email(order)
+            send_admin_new_order_email(order)
         except Exception as e:
-            print(f"Error sending order confirmation email: {str(e)}")
+            logger.error(f"Error sending emails for order {order.order_id}: {str(e)}")
 
 
 def handle_failed_payment(payment_intent):

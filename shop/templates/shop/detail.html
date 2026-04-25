@@ -6,7 +6,7 @@
   {% if product.meta_description %}
     <meta property="og:description" content="{{ product.meta_description|truncatewords:25 }}" />
   {% else %}
-    <meta property="og:description" content="{{ product.description|truncatewords:25 }}" />
+    <meta property="og:description" content="{{ product.description|striptags|truncatewords:25 }}" />
   {% endif %}
   <meta property="og:image" content="{{ product.get_image_url|default:'https://inspirationalguidance.com/static/images/placeholder.png' }}" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
@@ -18,7 +18,7 @@
   {% if product.meta_description %}
     <meta name="twitter:description" content="{{ product.meta_description|truncatewords:25 }}" />
   {% else %}
-    <meta name="twitter:description" content="{{ product.description|truncatewords:25 }}" />
+    <meta name="twitter:description" content="{{ product.description|striptags|truncatewords:25 }}" />
   {% endif %}
   <meta name="twitter:image" content="{{ product.get_image_url|default:'https://inspirationalguidance.com/static/images/ig-header-logo.png' }}" />
 {% endblock %}

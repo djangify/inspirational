@@ -213,7 +213,8 @@ class ProductAdmin(admin.ModelAdmin):
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     raw_id_fields = ["product"]
-    fields = ["product", "quantity", "price_paid_pence", "order", "downloads_remaining"]
+    fields = ["product", "quantity", "price_paid_pence"]
+    readonly_fields = ["downloads_remaining"]
     ordering = ["id"]
     extra = 0
 

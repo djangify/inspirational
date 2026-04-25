@@ -88,8 +88,9 @@
     </script>
 
     {% block scripts %}
-      <!-- Load Stripe LAST for best performance -->
-      <script src="https://js.stripe.com/v3/" defer></script>
+      
+       <!-- No defer - must load synchronously for Stripe Elements to work -->
+      <script src="https://js.stripe.com/v3/"></script>
 
       <!-- Local scripts (deferred) -->
       <script src="{% static 'js/messages.js' %}" defer></script>

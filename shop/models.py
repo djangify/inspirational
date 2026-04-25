@@ -300,6 +300,11 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     download_count = models.PositiveIntegerField(default=0)
 
+    # ADD THIS:
+    @property
+    def downloads_remaining(self):
+        return max(0, self.product.download_limit - self.download_count)
+
     def __str__(self):
         return str(self.id)
 

@@ -44,6 +44,7 @@
             </div>
         </div>
         {% endif %}
+
         <div class="mb-6 p-4 border border-gray-200 rounded-md bg-gray-50">
             <h2 class="text-lg font-semibold mb-2 text-gray-800">Customer Details</h2>
             <p class="text-md text-gray-700">
@@ -56,7 +57,6 @@
             </p>
         </div>
 
-
         <!-- Payment Form -->
         <div class="bg-white rounded-lg shadow p-6">
             <h2 class="text-xl font-bold mb-4">Payment Details</h2>
@@ -64,7 +64,7 @@
                 {% csrf_token %}
                 <div class="form-row">
                     <div id="card-element" class="p-4 border border-gray-300 rounded-md mb-4">
-                        <!-- Stripe Elements will create input elements here -->
+                        <!-- Stripe Elements will be mounted here -->
                     </div>
                     <div class="mb-4">
                         <label for="postal-code" class="block text-sm font-medium text-gray-700">Zip/Postcode</label>
@@ -72,15 +72,20 @@
                     </div>
                     <div id="card-errors" class="text-red-600 text-sm mb-4" role="alert"></div>
                 </div>
-                <button type="submit" 
+                <button type="submit"
                         class="w-full px-6 py-3 bg-teal-700 text-white rounded-lg hover:bg-teal-800 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50"
                         id="submit-button">
                     Pay ${{ cart.get_total_price|floatformat:2 }}
                 </button>
             </form>
         </div>
+
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
 <script>
     const stripe = Stripe('{{ stripe_publishable_key }}');
     const elements = stripe.elements();
@@ -127,8 +132,8 @@
                 payment_method: {
                     card: card,
                     billing_details: {
-                        name: document.getElementById('guest-details-form')?.querySelector('[name="first_name"]')?.value || '',
-                        email: document.getElementById('guest-details-form')?.querySelector('[name="email"]')?.value || ''
+                        name: '{{ request.user.first_name }} {{ request.user.last_name }}',
+                        email: '{{ request.user.email }}'
                     }
                 }
             });
