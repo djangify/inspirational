@@ -53,6 +53,9 @@ class UserRegistrationForm(UserCreationForm):
         if len(username) < 3:
             raise forms.ValidationError("Username must be at least 3 characters long.")
 
+        if len(username) > 15:
+            raise forms.ValidationError("Username must be 15 characters or fewer.")
+
         # Enforce allowed characters: letters, numbers, underscore
         if not re.match(r"^[a-zA-Z0-9_]+$", username):
             raise forms.ValidationError(

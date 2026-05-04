@@ -36,47 +36,6 @@
     </div>
   </section>
 
-     <!-- 6/2 29/11 INFJ -->
-  {% comment %} <div class=" bg-slate-50 lg:text-lg rounded-lg mt-16 p-8">
-  
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-white p-6 rounded-lg shadow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-     stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-     stroke-linejoin="round" class="text-teal-700">
-          <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
-          <circle cx="12" cy="12" r="3"></circle>
-        </svg>
-        <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">INFJ</h3>
-        <p class="text-gray-600">As an INFJ - often called the Advocate or the Insightful Idealist - I blend introspection with a strong sense of purpose. INFJs are known for their deep thinking, empathy, and desire to make a meaningful impact. We often feel a quiet pull toward something bigger than ourselves.</p>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-              stroke-linejoin="round" class="text-teal-700">
-            <path d="M12 2v20"></path>
-            <path d="M5 12h14"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-        <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">29/11</h3>
-        <p class="text-gray-600">My life path is 29/11, a journey centered on spiritual growth, balance, and learning to trust my inner wisdom.
-        I am here to build trust, not just in others, but in myself and the quiet voice that guides me forward. </p>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-     stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-     stroke-linejoin="round" class="text-teal-700">
-          <path d="M12 19c4.418 0 8-3.582 8-8S16.418 3 12 3 4 6.582 4 11s3.582 8 8 8z"></path>
-          <path d="M12 3v8l4 2"></path>
-        </svg>
-        <h3 class="lg:text-lg font-semibold text-gray-800 mb-2">6/2 Role Model/Hermit</h3>
-        <p class="text-gray-600">In Human Design, I am a Generator.
-
-      My profile is 6/2 — the Role Model Hermit who lives life in stages. In this stage of life (over 50), I am stepping into a more natural role as a guide and example because I have lived through enough to speak from experience. </p>
-
-      </div>
-    </div>
-  </div> {% endcomment %}
 <!-- Start block -->
 <section class="bg-white dark:bg-gray-800 mt-8">
   <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-6 lg:space-y-10 lg:py-12 lg:px-6">
@@ -117,7 +76,7 @@
     <!-- Row: Certificates Section -->
     <div class="items-center mt-16 gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
       <div class="text-gray-700 sm:text-lg dark:text-gray-400">
-        <h2 class="mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Intentional Living Mentor </h2>
+        <h2 class="mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Living Out Loud Mentor </h2>
          <p class="mb-8 text-gray-700 leading-relaxed lg:text-xl">
             I am a certified coach, NLP Master Practitioner and the creator behind Inspirational Guidance. I bring decades of experience in coaching and mentoring, NLP, and personal development, backed by professional certifications and practical tools. 
         </p>
@@ -139,9 +98,29 @@
         <img class="w-full h-auto rounded-lg shadow" src="{% static 'images/dianecorriette-health-and-personal-development.webp' %}" alt="Health and Personal Development Diploma">
       </div>
     </div>
+    
+    <!-- Living Out Loud Definition -->
+    <section class="w-full py-16 ">
+        <div class="  px-4 sm:px-6 lg:px-8 text-center">
+            <div class="p-8 bg-white border-l-4 border-teal-600">
+                <h3 class="text-2xl font-semibold text-[color:var(--color-brand-primary)] mb-4">Living Out Loud Definition</h3>
+                <p class="text-lg text-[color:var(--color-text)] mb-4">
+                    Living out loud means living your life authentically, unapologetically, and openly according to your own values and passions rather than conforming to the expectations of others. It is the practice of being yourself fully and sharing that identity fearlessly with the world.
+                </p>
+                <p class="text-[color:var(--color-text-muted)] mb-6">
+                    Register and join our tribe, if that sounds like your vibe.
+                </p>
+                <a href="{% url 'accounts:register' %}" 
+                  class="inline-block px-6 py-3 text-sm uppercase border border-teal-600 font-bold text-teal-600 self-center rounded hover:bg-teal-600 hover:text-white   shadow hover:opacity-90 transition">
+                    Start Your Live It List
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!--Manifesto image-->
     <div class=" mx-auto px-4 sm:px-6 lg:px-8">
         <div class=" mx-auto">
-            
            <h2 class="mb-4 text-3xl font-bold tracking-tight text-gray-900 mt-8 dark:text-white text-center">
                 Inspirational Guidance Manifesto 
             </h2>
@@ -158,13 +137,12 @@
                 <p class="text-lg text-[color:var(--color-text)] leading-relaxed mb-2">
                     If this resonates, join as a member and start working through it - benefits to being a member.
                 </p>
-
-            </div>
-        </div>
+              </div>
+          </div>
+      </div>
     </div>
-  </div>
-</section>
-<!-- End block -->
+  </section>
+  <!-- End block -->
       <!--free downloads from resources area-->
     {% public_resources_preview %}
     
