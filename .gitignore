@@ -9,7 +9,7 @@ db.sqlite3-journal
 media
 staticfiles/
 db/
-
+static/images/
 # Django.Python Stack #
 *.py[cod]
 *$py.class
