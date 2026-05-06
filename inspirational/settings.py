@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "widget_tweaks",
     "core",
     "shop",
+    "tools",
     "news",
     "prompt",
     "accounts",
@@ -158,7 +159,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # -----------------------------------------------------------------------------
 LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/London"
 USE_I18N = True
 USE_TZ = True
 
