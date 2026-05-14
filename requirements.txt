@@ -6,6 +6,7 @@ charset-normalizer
 cryptography
 Django==5.2.9
 adminita
+anthropic
 django-environ
 django-js-asset
 django-storages
@@ -27,3 +28,4 @@ stripe
 typing_extensions
 urllib3
 whitenoise
+reportlab==4.5.1

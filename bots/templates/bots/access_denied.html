@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-[60vh] flex items-center justify-center px-6 py-20">
+  <div class="max-w-md w-full text-center">
+    {% comment %} <div class="bg-white shadow-sm rounded-lg p-10"> {% endcomment %}
+      <div class="w-14 h-14 bg-teal-50 rounded-full flex items-center justify-center mx-auto mt-16 mb-6">
+        <svg class="w-7 h-7 text-teal-700" mt-16 fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+        </svg>
+      </div>
+
+      {% if reason == 'purchase' %}
+        <h1 class="text-2xl font-semibold mt-8 text-gray-900 mb-8">Purchase Required</h1>
+        <p class="text-gray-600 mb-8">You need to purchase <strong>{{ product.title }}</strong> to access your interactive guide.</p>
+        <a href="{{ product.get_absolute_url }}" class="inline-block bg-teal-700 text-white px-8 py-3 rounded-lg font-medium hover:bg-teal-800 transition">Buy Now</a>
+      {% elif reason == 'expired' %}
+        <h1 class="text-xl font-semibold text-gray-900 mb-3">Access Expired</h1>
+        <p class="text-gray-600 mb-8">Your 60-day access to this guide has ended. Contact us if you'd like to extend it.</p>
+        <a href="/contact/" class="inline-block bg-teal-700 text-white px-8 py-3 rounded-lg font-medium hover:bg-teal-800 transition">Get in Touch</a>
+      {% elif reason == 'limit' %}
+        <h1 class="text-lg font-semibold text-gray-900 mb-3">Message Limit Reached</h1>
+        <p class="text-gray-600 mb-8">You've used all your messages for this guide. Contact us to top up your access.</p>
+        <a href="/contact/" class="inline-block bg-teal-700 text-white px-8 py-3 rounded-lg font-medium hover:bg-teal-800 transition">Get in Touch</a>
+      {% endif %}
+   
+  </div>
+</div>
+{% endblock %}

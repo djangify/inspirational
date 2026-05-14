@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ bot_product.bot_name }} | {{ product.title }}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .messages-area { scroll-behavior: smooth; }
+  .messages-area::-webkit-scrollbar { width: 4px; }
+  .messages-area::-webkit-scrollbar-track { background: transparent; }
+  .messages-area::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+  .message { animation: fadeUp 0.25s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .typing-dot {
+    width: 7px; height: 7px;
+    background: #94a3b8;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+  }
+  .message-input { resize: none; min-height: 48px; max-height: 140px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-6 max-w-3xl">
+
+  <!-- Header -->
+  <div class="bg-white border border-slate-100 shadow-sm rounded-lg p-5 mb-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-xl font-semibold text-gray-900">{{ bot_product.bot_name }}</h1>
+        <p class="text-sm text-gray-500 mt-0.5">{{ product.title }}</p>
+      </div>
+      <div class="flex gap-2">
+        <span class="text-xs bg-teal-50 text-teal-700 border border-teal-100 px-3 py-1.5 rounded-full font-medium">
+          <span id="msgCount">{{ access.messages_remaining }}</span> messages left
+        </span>
+        <span class="text-xs bg-slate-50 text-slate-600 border border-slate-100 px-3 py-1.5 rounded-full">
+          {{ access.days_remaining }} days access
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat area -->
+  <div class="bg-white border border-slate-100 shadow-sm rounded-lg flex flex-col" style="height: 60vh;">
+
+    <!-- Messages -->
+    <div class="messages-area flex-1 overflow-y-auto p-5 flex flex-col gap-4" id="messagesArea">
+
+      <!-- Welcome message -->
+      <div class="message flex gap-3">
+        <div class="w-8 h-8 rounded-full bg-teal-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <span class="text-white text-xs font-semibold">M</span>
+        </div>
+        <div class="bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
+          <p class="text-sm text-gray-700 leading-relaxed">{{ welcome_message }}</p>
+        </div>
+      </div>
+
+      <!-- Typing indicator -->
+      <div class="flex gap-3 items-center" id="typingIndicator" style="display:none!important;">
+        <div class="w-8 h-8 rounded-full bg-teal-700 flex items-center justify-center flex-shrink-0">
+          <span class="text-white text-xs font-semibold">M</span>
+        </div>
+        <div class="bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5 items-center">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-slate-100"></div>
+
+    <!-- Input -->
+    <div class="p-4">
+      <div id="limitWarning" class="hidden mb-3 text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2 text-center">
+        You're getting close to your message limit.
+      </div>
+      <div class="flex gap-3 items-end">
+        <textarea
+          id="messageInput"
+          class="message-input flex-1 border border-slate-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-teal-400 transition-colors"
+          placeholder="Type your message…"
+          rows="1"
+        ></textarea>
+        <button
+          id="sendBtn"
+          class="w-11 h-11 bg-teal-700 hover:bg-teal-800 disabled:bg-slate-200 text-white rounded-xl flex items-center justify-center flex-shrink-0 transition-colors"
+          aria-label="Send"
+          disabled
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+     <p class="text-xs text-gray-400 text-center mt-2">Enter to send &nbsp;·&nbsp; Shift+Enter for new line &nbsp;·&nbsp; Conversations are not saved</p>
+    </div>
+
+  </div>
+
+  <!-- Back link -->
+  <div class="mt-4">
+    <a href="{% url 'shop:purchases' %}" class="text-sm text-teal-700 hover:text-teal-800">← Back to my purchases</a>
+  </div>
+
+</div>
+
+<script>
+  const PRODUCT_SLUG = '{{ product.slug }}';
+  const CSRF_TOKEN = '{{ csrf_token }}';
+  const MESSAGE_URL = `/guides/${PRODUCT_SLUG}/message/`;
+  const USER_INITIAL = '{{ request.user.username|first|upper }}';
+
+  const messagesArea = document.getElementById('messagesArea');
+  const messageInput = document.getElementById('messageInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const typingIndicator = document.getElementById('typingIndicator');
+  const msgCount = document.getElementById('msgCount');
+  const limitWarning = document.getElementById('limitWarning');
+
+  let conversationHistory = [];
+
+  function scrollToBottom() {
+    messagesArea.scrollTop = messagesArea.scrollHeight;
+  }
+
+  function formatMessage(text) {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .split('\n\n')
+      .map(para => para.trim() ? `<p class="mb-2 last:mb-0">${para.replace(/\n/g, '<br>')}</p>` : '')
+      .join('');
+  }
+
+  function addMessage(role, text) {
+    const isBot = role === 'bot';
+    const div = document.createElement('div');
+    div.className = 'message flex gap-3' + (isBot ? '' : ' flex-row-reverse');
+
+    const avatar = document.createElement('div');
+    avatar.className = 'w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-semibold';
+    if (isBot) {
+      avatar.className += ' bg-teal-700 text-white';
+      avatar.textContent = 'M';
+    } else {
+      avatar.className += ' bg-gray-800 text-white';
+      avatar.textContent = USER_INITIAL;
+    }
+
+    const bubble = document.createElement('div');
+    bubble.className = 'px-4 py-3 max-w-[80%] text-sm leading-relaxed';
+    if (isBot) {
+      bubble.className += ' bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-sm text-gray-700';
+    } else {
+      bubble.className += ' bg-teal-700 text-white rounded-2xl rounded-tr-sm';
+    }
+    bubble.innerHTML = formatMessage(text);
+
+    div.appendChild(avatar);
+    div.appendChild(bubble);
+    messagesArea.insertBefore(div, typingIndicator);
+    scrollToBottom();
+  }
+
+  function showTyping() {
+    typingIndicator.style.setProperty('display', 'flex', 'important');
+    scrollToBottom();
+  }
+
+  function hideTyping() {
+    typingIndicator.style.setProperty('display', 'none', 'important');
+  }
+
+  function updateMsgCount(remaining) {
+    msgCount.textContent = remaining;
+    if (remaining <= 20) limitWarning.classList.remove('hidden');
+    if (remaining <= 0) {
+      messageInput.disabled = true;
+      sendBtn.disabled = true;
+      messageInput.placeholder = 'You have reached your message limit.';
+    }
+  }
+
+  async function sendMessage() {
+    const text = messageInput.value.trim();
+    if (!text) return;
+
+    addMessage('user', text);
+    messageInput.value = '';
+    messageInput.style.height = 'auto';
+    sendBtn.disabled = true;
+    conversationHistory.push({ role: 'user', content: text });
+    showTyping();
+
+    try {
+      const response = await fetch(MESSAGE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN },
+        body: JSON.stringify({ messages: conversationHistory }),
+      });
+
+      const data = await response.json();
+      hideTyping();
+
+      if (response.ok) {
+        addMessage('bot', data.reply);
+        conversationHistory.push({ role: 'assistant', content: data.reply });
+        updateMsgCount(data.messages_remaining);
+      } else {
+        if (data.expired) {
+          addMessage('bot', 'Your access has expired. Thank you for using your Momentum guide.');
+          messageInput.disabled = true;
+          sendBtn.disabled = true;
+        } else if (data.limit_reached) {
+          addMessage('bot', 'You\'ve reached your message limit. Well done for showing up — that\'s momentum in action.');
+          messageInput.disabled = true;
+          sendBtn.disabled = true;
+        } else {
+          addMessage('bot', 'Something went wrong — please try again in a moment.');
+          sendBtn.disabled = false;
+        }
+      }
+    } catch (err) {
+      hideTyping();
+      addMessage('bot', 'I couldn\'t reach the server. Please check your connection and try again.');
+      sendBtn.disabled = false;
+    }
+  }
+
+  messageInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+
+  sendBtn.addEventListener('click', sendMessage);
+
+  messageInput.addEventListener('input', () => {
+    sendBtn.disabled = messageInput.value.trim() === '';
+    messageInput.style.height = 'auto';
+    messageInput.style.height = Math.min(messageInput.scrollHeight, 140) + 'px';
+  });
+
+  scrollToBottom();
+</script>
+{% endblock %}
