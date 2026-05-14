@@ -27,6 +27,8 @@
     30% { transform: translateY(-5px); }
   }
   .message-input { resize: none; min-height: 48px; max-height: 140px; }
+  .quiz-card { transition: border-color 0.2s; }
+  .quiz-card:focus-within { border-color: #0f766e; }
 </style>
 {% endblock %}
 
@@ -40,7 +42,7 @@
         <h1 class="text-xl font-semibold text-gray-900">{{ bot_product.bot_name }}</h1>
         <p class="text-sm text-gray-500 mt-0.5">{{ product.title }}</p>
       </div>
-      <div class="flex gap-2">
+      <div class="flex gap-2 flex-wrap justify-end">
         <span class="text-xs bg-teal-50 text-teal-700 border border-teal-100 px-3 py-1.5 rounded-full font-medium">
           <span id="msgCount">{{ access.messages_remaining }}</span> messages left
         </span>
@@ -48,6 +50,129 @@
           {{ access.days_remaining }} days access
         </span>
       </div>
+    </div>
+  </div>
+
+  <!-- Action buttons -->
+  <div class="flex gap-2 mb-4 flex-wrap">
+    <button
+      id="quizBtn"
+      class="text-xs bg-white border border-slate-200 hover:border-teal-400 text-slate-600 hover:text-teal-700 px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+    >
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      Reflection Quiz
+    </button>
+    <button
+      id="goalBtn"
+      class="text-xs bg-white border border-slate-200 hover:border-teal-400 text-slate-600 hover:text-teal-700 px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+    >
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      Save a Goal
+    </button>
+    
+    <a href="{% url 'bots:pdf' product.slug %}"
+      class="text-xs bg-white border border-slate-200 hover:border-teal-400 text-slate-600 hover:text-teal-700 px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+      target="_blank"
+    >
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+      </svg>
+      Download PDF
+    </a>
+  </div>
+
+  <!-- Save Goal Panel -->
+  <div id="goalPanel" class="hidden bg-white border border-teal-100 rounded-lg p-5 mb-4">
+    <h3 class="text-sm font-semibold text-gray-800 mb-4">Save a Goal to Your Tracker</h3>
+    <div id="goalSuccess" class="hidden text-sm text-teal-700 bg-teal-50 border border-teal-100 rounded-lg px-4 py-3 mb-4">
+      ✓ Goal saved to your tracker.
+      <a href="{% url 'prompt:writing_progress' %}" class="underline ml-1">View your goals →</a>
+    </div>
+    <div id="goalForm">
+      <div class="mb-3">
+        <label class="block text-xs text-gray-500 mb-1">What is your goal?</label>
+        <input
+          type="text"
+          id="goalLabel"
+          class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-teal-400"
+          placeholder="e.g. Write every morning for 20 minutes"
+          maxlength="100"
+        />
+      </div>
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">How often?</label>
+          <select id="goalFrequency" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-teal-400">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Target (sessions)</label>
+          <input
+            type="number"
+            id="goalTarget"
+            class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-teal-400"
+            value="1"
+            min="1"
+            max="999"
+          />
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="block text-xs text-gray-500 mb-1">Why does this matter to you? (optional)</label>
+        <textarea
+          id="goalNotes"
+          class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-teal-400"
+          rows="2"
+          placeholder="What are you working towards?"
+        ></textarea>
+      </div>
+      <div class="flex gap-2">
+        <button id="saveGoalBtn" class="bg-teal-700 hover:bg-teal-800 text-white text-sm px-5 py-2 rounded-lg transition-colors">
+          Save Goal
+        </button>
+        <button id="cancelGoalBtn" class="text-sm text-slate-500 hover:text-slate-700 px-4 py-2 rounded-lg transition-colors">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Panel -->
+  <div id="quizPanel" class="hidden bg-white border border-slate-100 rounded-lg p-5 mb-4">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-sm font-semibold text-gray-800">Reflection Quiz</h3>
+      <button id="closeQuizBtn" class="text-slate-400 hover:text-slate-600">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div id="quizLoading" class="text-sm text-gray-500 text-center py-6">
+      <div class="flex justify-center gap-1.5 mb-2">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+      Generating your personalised questions…
+    </div>
+    <div id="quizQuestions" class="hidden space-y-4"></div>
+    <div id="quizActions" class="hidden mt-5 flex gap-2">
+      <button id="submitQuizBtn" class="bg-teal-700 hover:bg-teal-800 text-white text-sm px-5 py-2 rounded-lg transition-colors">
+        Save Answers
+      </button>
+      <button id="cancelQuizBtn" class="text-sm text-slate-500 hover:text-slate-700 px-4 py-2 rounded-lg transition-colors">
+        Cancel
+      </button>
+    </div>
+    <div id="quizSuccess" class="hidden text-sm text-teal-700 bg-teal-50 border border-teal-100 rounded-lg px-4 py-3 mt-4">
+      ✓ Answers saved. They will appear in your PDF report.
     </div>
   </div>
 
@@ -60,7 +185,7 @@
       <!-- Welcome message -->
       <div class="message flex gap-3">
         <div class="w-8 h-8 rounded-full bg-teal-700 flex items-center justify-center flex-shrink-0 mt-0.5">
-          <span class="text-white text-xs font-semibold">M</span>
+          <span class="text-white text-xs font-semibold">{{ bot_product.bot_name|first|upper }}</span>
         </div>
         <div class="bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
           <p class="text-sm text-gray-700 leading-relaxed">{{ welcome_message }}</p>
@@ -70,7 +195,7 @@
       <!-- Typing indicator -->
       <div class="flex gap-3 items-center" id="typingIndicator" style="display:none!important;">
         <div class="w-8 h-8 rounded-full bg-teal-700 flex items-center justify-center flex-shrink-0">
-          <span class="text-white text-xs font-semibold">M</span>
+          <span class="text-white text-xs font-semibold">{{ bot_product.bot_name|first|upper }}</span>
         </div>
         <div class="bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5 items-center">
           <div class="typing-dot"></div>
@@ -108,7 +233,7 @@
           </svg>
         </button>
       </div>
-     <p class="text-xs text-gray-400 text-center mt-2">Enter to send &nbsp;·&nbsp; Shift+Enter for new line &nbsp;·&nbsp; Conversations are not saved</p>
+      <p class="text-xs text-gray-400 text-center mt-2">Enter to send &nbsp;·&nbsp; Shift+Enter for new line</p>
     </div>
 
   </div>
@@ -124,6 +249,9 @@
   const PRODUCT_SLUG = '{{ product.slug }}';
   const CSRF_TOKEN = '{{ csrf_token }}';
   const MESSAGE_URL = `/guides/${PRODUCT_SLUG}/message/`;
+  const QUIZ_URL = `/guides/${PRODUCT_SLUG}/quiz-answers/`;
+  const GOAL_URL = `/guides/${PRODUCT_SLUG}/save-goal/`;
+  const BOT_INITIAL = '{{ bot_product.bot_name|first|upper }}';
   const USER_INITIAL = '{{ request.user.username|first|upper }}';
 
   const messagesArea = document.getElementById('messagesArea');
@@ -133,7 +261,16 @@
   const msgCount = document.getElementById('msgCount');
   const limitWarning = document.getElementById('limitWarning');
 
-  let conversationHistory = [];
+  // Load saved conversation history from server
+  let conversationHistory = {{ conversation_history|safe }};
+  let quizAnswers = {{ quiz_answers|safe }};
+
+  // Render any existing conversation messages on page load
+  if (conversationHistory.length > 0) {
+    conversationHistory.forEach(msg => {
+      addMessage(msg.role === 'assistant' ? 'bot' : 'user', msg.content, false);
+    });
+  }
 
   function scrollToBottom() {
     messagesArea.scrollTop = messagesArea.scrollHeight;
@@ -148,16 +285,17 @@
       .join('');
   }
 
-  function addMessage(role, text) {
-    const isBot = role === 'bot';
+  function addMessage(role, text, animate = true) {
+    const isBot = role === 'bot' || role === 'assistant';
     const div = document.createElement('div');
     div.className = 'message flex gap-3' + (isBot ? '' : ' flex-row-reverse');
+    if (!animate) div.style.animation = 'none';
 
     const avatar = document.createElement('div');
     avatar.className = 'w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-semibold';
     if (isBot) {
       avatar.className += ' bg-teal-700 text-white';
-      avatar.textContent = 'M';
+      avatar.textContent = BOT_INITIAL;
     } else {
       avatar.className += ' bg-gray-800 text-white';
       avatar.textContent = USER_INITIAL;
@@ -224,11 +362,11 @@
         updateMsgCount(data.messages_remaining);
       } else {
         if (data.expired) {
-          addMessage('bot', 'Your access has expired. Thank you for using your Momentum guide.');
+          addMessage('bot', 'Your access has expired. Thank you for your time with this guide.');
           messageInput.disabled = true;
           sendBtn.disabled = true;
         } else if (data.limit_reached) {
-          addMessage('bot', 'You\'ve reached your message limit. Well done for showing up — that\'s momentum in action.');
+          addMessage('bot', 'You\'ve reached your message limit. Well done for showing up.');
           messageInput.disabled = true;
           sendBtn.disabled = true;
         } else {
@@ -242,6 +380,187 @@
       sendBtn.disabled = false;
     }
   }
+
+  // ── Quiz ──────────────────────────────────────────────────────────────────
+
+  const quizBtn = document.getElementById('quizBtn');
+  const quizPanel = document.getElementById('quizPanel');
+  const quizLoading = document.getElementById('quizLoading');
+  const quizQuestions = document.getElementById('quizQuestions');
+  const quizActions = document.getElementById('quizActions');
+  const quizSuccess = document.getElementById('quizSuccess');
+  const closeQuizBtn = document.getElementById('closeQuizBtn');
+  const cancelQuizBtn = document.getElementById('cancelQuizBtn');
+  const submitQuizBtn = document.getElementById('submitQuizBtn');
+
+  const QUIZ_PROMPT = `Based on the most recent part of our conversation, generate exactly 5 short reflection questions to help the user deepen their thinking. Focus on what we have just been discussing rather than earlier parts of the conversation, so the questions feel fresh and relevant to where the user is right now.
+
+Return ONLY a JSON array of 5 question strings, no other text, no markdown, no explanation. Example format:
+["Question one?","Question two?","Question three?","Question four?","Question five?"]`;
+
+  let currentQuizQuestions = [];
+
+  quizBtn.addEventListener('click', async () => {
+    quizPanel.classList.remove('hidden');
+    quizLoading.classList.remove('hidden');
+    quizQuestions.classList.add('hidden');
+    quizActions.classList.add('hidden');
+    quizSuccess.classList.add('hidden');
+    quizPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // Build messages for quiz generation — include conversation so far
+    const quizMessages = [
+      ...conversationHistory,
+      { role: 'user', content: QUIZ_PROMPT }
+    ];
+
+    try {
+      const response = await fetch(MESSAGE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN },
+        body: JSON.stringify({ messages: quizMessages }),
+      });
+
+      const data = await response.json();
+      quizLoading.classList.add('hidden');
+
+      if (!response.ok) {
+        quizQuestions.innerHTML = '<p class="text-sm text-red-600">Could not generate questions. Please try again.</p>';
+        quizQuestions.classList.remove('hidden');
+        return;
+      }
+
+      // Parse the JSON array from the reply
+      let questions = [];
+      try {
+        questions = JSON.parse(data.reply);
+      } catch (e) {
+        // Try to extract JSON array if there's surrounding text
+        const match = data.reply.match(/\[.*\]/s);
+        if (match) {
+          try { questions = JSON.parse(match[0]); } catch (e2) {}
+        }
+      }
+
+      if (!questions.length) {
+        quizQuestions.innerHTML = '<p class="text-sm text-red-600">Could not parse questions. Please try again.</p>';
+        quizQuestions.classList.remove('hidden');
+        return;
+      }
+
+      currentQuizQuestions = questions;
+      quizQuestions.innerHTML = '';
+
+      questions.forEach((q, i) => {
+        const card = document.createElement('div');
+        card.className = 'quiz-card border border-slate-200 rounded-lg p-4';
+        card.innerHTML = `
+          <label class="block text-xs text-gray-500 mb-1">Question ${i + 1}</label>
+          <p class="text-sm font-medium text-gray-800 mb-2">${q}</p>
+          <textarea
+            class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-teal-400 resize-none"
+            rows="2"
+            placeholder="Your answer…"
+            data-question="${q.replace(/"/g, '&quot;')}"
+          ></textarea>
+        `;
+        quizQuestions.appendChild(card);
+      });
+
+      quizQuestions.classList.remove('hidden');
+      quizActions.classList.remove('hidden');
+      updateMsgCount(data.messages_remaining);
+
+    } catch (err) {
+      quizLoading.classList.add('hidden');
+      quizQuestions.innerHTML = '<p class="text-sm text-red-600">Something went wrong. Please try again.</p>';
+      quizQuestions.classList.remove('hidden');
+    }
+  });
+
+  closeQuizBtn.addEventListener('click', () => quizPanel.classList.add('hidden'));
+  cancelQuizBtn.addEventListener('click', () => quizPanel.classList.add('hidden'));
+
+  submitQuizBtn.addEventListener('click', async () => {
+    const textareas = quizQuestions.querySelectorAll('textarea');
+    const answers = {};
+    textareas.forEach(ta => {
+      answers[ta.dataset.question] = ta.value.trim();
+    });
+
+    try {
+      const response = await fetch(QUIZ_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN },
+        body: JSON.stringify({ answers }),
+      });
+
+      if (response.ok) {
+        quizAnswers = answers;
+        quizActions.classList.add('hidden');
+        quizSuccess.classList.remove('hidden');
+      }
+    } catch (err) {
+      // silent fail — answers still visible in panel
+    }
+  });
+
+  // ── Save Goal ─────────────────────────────────────────────────────────────
+
+  const goalBtn = document.getElementById('goalBtn');
+  const goalPanel = document.getElementById('goalPanel');
+  const goalForm = document.getElementById('goalForm');
+  const goalSuccess = document.getElementById('goalSuccess');
+  const saveGoalBtn = document.getElementById('saveGoalBtn');
+  const cancelGoalBtn = document.getElementById('cancelGoalBtn');
+
+  goalBtn.addEventListener('click', () => {
+    goalPanel.classList.remove('hidden');
+    goalPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  cancelGoalBtn.addEventListener('click', () => goalPanel.classList.add('hidden'));
+
+  saveGoalBtn.addEventListener('click', async () => {
+    const label = document.getElementById('goalLabel').value.trim();
+    const target = document.getElementById('goalTarget').value;
+    const frequency = document.getElementById('goalFrequency').value;
+    const notes = document.getElementById('goalNotes').value.trim();
+
+    if (!label) {
+      document.getElementById('goalLabel').focus();
+      return;
+    }
+
+    saveGoalBtn.disabled = true;
+    saveGoalBtn.textContent = 'Saving…';
+
+    try {
+      const response = await fetch(GOAL_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN },
+        body: JSON.stringify({
+          goal_label: label,
+          target_value: parseInt(target),
+          frequency: frequency,
+          notes: notes,
+        }),
+      });
+
+      if (response.ok) {
+        goalForm.classList.add('hidden');
+        goalSuccess.classList.remove('hidden');
+      } else {
+        saveGoalBtn.disabled = false;
+        saveGoalBtn.textContent = 'Save Goal';
+      }
+    } catch (err) {
+      saveGoalBtn.disabled = false;
+      saveGoalBtn.textContent = 'Save Goal';
+    }
+  });
+
+  // ── Input handling ────────────────────────────────────────────────────────
 
   messageInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }

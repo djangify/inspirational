@@ -1,7 +1,12 @@
 # bots/admin.py
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import BotProduct, BotAccess
+from .models import BotProduct, BotAccess, BotKnowledge
+
+class BotKnowledgeInline(admin.TabularInline):
+    model = BotKnowledge
+    extra = 1
+    fields = ['title', 'knowledge_file', 'order']
 
 
 @admin.register(BotProduct)
@@ -10,6 +15,7 @@ class BotProductAdmin(admin.ModelAdmin):
     list_filter = ['is_active']
     search_fields = ['product__title', 'bot_name']
     readonly_fields = ['created', 'updated']
+    inlines = [BotKnowledgeInline]
 
     fieldsets = (
         ('Product', {
