@@ -66,12 +66,8 @@ class BotKnowledge(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.bot_product.bot_name})"
-    
+
 class BotAccess(models.Model):
-    """
-    Tracks a specific user's access to a specific bot.
-    Created when a user first accesses a bot they've purchased.
-    """
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -83,6 +79,10 @@ class BotAccess(models.Model):
         related_name='accesses'
     )
     message_count = models.PositiveIntegerField(default=0)
+    bonus_messages = models.PositiveIntegerField(
+        default=0,
+        help_text="Extra messages granted manually (e.g. top-up purchases)"
+    )
     access_expires = models.DateTimeField()
     created = models.DateTimeField(auto_now_add=True)
     last_used = models.DateTimeField(auto_now=True)
@@ -107,7 +107,7 @@ class BotAccess(models.Model):
 
     @property
     def messages_remaining(self):
-        return max(0, self.bot_product.message_limit - self.message_count)
+        return max(0, self.bot_product.message_limit + self.bonus_messages - self.message_count)
 
     @property
     def days_remaining(self):
@@ -119,7 +119,6 @@ class BotAccess(models.Model):
     @property
     def has_access(self):
         return not self.is_expired and self.messages_remaining > 0
-
 
 class BotConversation(models.Model):
     """

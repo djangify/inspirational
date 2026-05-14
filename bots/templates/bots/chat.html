@@ -33,7 +33,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-6 max-w-3xl">
+<div class="container mx-auto px-4 py-6 max-w-4xl">
 
   <!-- Header -->
   <div class="bg-white border border-slate-100 shadow-sm rounded-lg p-5 mb-4">
@@ -55,6 +55,16 @@
 
   <!-- Action buttons -->
   <div class="flex gap-2 mb-4 flex-wrap">
+    <div class="flex gap-2 mb-4 flex-wrap">
+    <button
+      id="newChatBtn"
+      class="text-xs bg-white border border-slate-200 hover:border-red-300 text-slate-600 hover:text-red-600 px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+    >
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+      </svg>
+      New Chat
+    </button>
     <button
       id="quizBtn"
       class="text-xs bg-white border border-slate-200 hover:border-teal-400 text-slate-600 hover:text-teal-700 px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
@@ -180,20 +190,20 @@
   <div class="bg-white border border-slate-100 shadow-sm rounded-lg flex flex-col" style="height: 60vh;">
 
     <!-- Messages -->
-    <div class="messages-area flex-1 overflow-y-auto p-5 flex flex-col gap-4" id="messagesArea">
+    <div class="messages-area flex-1 min-h-0 overflow-y-auto p-5 flex flex-col gap-4" id="messagesArea">
 
       <!-- Welcome message -->
       <div class="message flex gap-3">
         <div class="w-8 h-8 rounded-full bg-teal-700 flex items-center justify-center flex-shrink-0 mt-0.5">
           <span class="text-white text-xs font-semibold">{{ bot_product.bot_name|first|upper }}</span>
         </div>
-        <div class="bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
+        <div class="bg-slate-50 border border-slate-50 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%]">
           <p class="text-sm text-gray-700 leading-relaxed">{{ welcome_message }}</p>
         </div>
       </div>
 
       <!-- Typing indicator -->
-      <div class="flex gap-3 items-center" id="typingIndicator" style="display:none!important;">
+      <div class="flex gap-3 items-center hidden" id="typingIndicator">
         <div class="w-8 h-8 rounded-full bg-teal-700 flex items-center justify-center flex-shrink-0">
           <span class="text-white text-xs font-semibold">{{ bot_product.bot_name|first|upper }}</span>
         </div>
@@ -251,6 +261,7 @@
   const MESSAGE_URL = `/guides/${PRODUCT_SLUG}/message/`;
   const QUIZ_URL = `/guides/${PRODUCT_SLUG}/quiz-answers/`;
   const GOAL_URL = `/guides/${PRODUCT_SLUG}/save-goal/`;
+  const CLEAR_URL = `/guides/${PRODUCT_SLUG}/clear/`;
   const BOT_INITIAL = '{{ bot_product.bot_name|first|upper }}';
   const USER_INITIAL = '{{ request.user.username|first|upper }}';
 
@@ -260,6 +271,23 @@
   const typingIndicator = document.getElementById('typingIndicator');
   const msgCount = document.getElementById('msgCount');
   const limitWarning = document.getElementById('limitWarning');
+  const newChatBtn = document.getElementById('newChatBtn');
+
+  newChatBtn.addEventListener('click', () => {
+    window.showConfirmation('Start a new chat? Your current conversation will be cleared.', async () => {
+      try {
+        const response = await fetch(CLEAR_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN },
+        });
+        if (response.ok) {
+          window.location.reload();
+        }
+      } catch (err) {
+        alert('Could not clear the conversation. Please try again.');
+      }
+    });
+  });
 
   // Load saved conversation history from server
   let conversationHistory = {{ conversation_history|safe }};
@@ -302,7 +330,7 @@
     }
 
     const bubble = document.createElement('div');
-    bubble.className = 'px-4 py-3 max-w-[80%] text-sm leading-relaxed';
+    bubble.className = 'px-4 py-3 max-w-[85%] text-sm leading-relaxed';
     if (isBot) {
       bubble.className += ' bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-sm text-gray-700';
     } else {
@@ -317,12 +345,12 @@
   }
 
   function showTyping() {
-    typingIndicator.style.setProperty('display', 'flex', 'important');
+    typingIndicator.classList.remove('hidden');
     scrollToBottom();
   }
 
   function hideTyping() {
-    typingIndicator.style.setProperty('display', 'none', 'important');
+      typingIndicator.classList.add('hidden');
   }
 
   function updateMsgCount(remaining) {

@@ -44,6 +44,7 @@ class BotAccessAdmin(admin.ModelAdmin):
     list_filter = ['bot_product']
     search_fields = ['user__username', 'user__email']
     readonly_fields = ['created', 'last_used', 'message_count']
+    fields = ['user', 'bot_product', 'message_count', 'bonus_messages', 'access_expires']
     
     def messages_remaining_display(self, obj):
         remaining = obj.messages_remaining

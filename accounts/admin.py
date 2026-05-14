@@ -21,8 +21,7 @@ class CustomUserAdmin(UserAdmin):
         "first_name",
         "last_name",
         "is_staff",
-        "date_joined",
-        "get_favourite_count",
+     
     )
     list_filter = (
         "is_staff",

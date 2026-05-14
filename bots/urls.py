@@ -10,4 +10,5 @@ urlpatterns = [
     path('<slug:product_slug>/quiz-answers/', views.save_quiz_answers, name='quiz_answers'),
     path('<slug:product_slug>/save-goal/', views.save_goal, name='save_goal'),
     path('<slug:product_slug>/pdf/', views.download_pdf, name='pdf'),
+    path('<slug:product_slug>/clear/', views.clear_conversation, name='clear_conversation'),
 ]

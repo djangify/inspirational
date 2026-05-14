@@ -180,7 +180,7 @@ def bot_message(request, product_slug):
         response = client.messages.create(
             model="claude-sonnet-4-5",
             max_tokens=1000,
-            system=bot_product.system_prompt,
+            system=system,
             messages=messages
         )
 
@@ -393,3 +393,24 @@ def download_pdf(request, product_slug):
     response = HttpResponse(buffer, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
     return response
+
+@login_required
+@require_POST
+def clear_conversation(request, product_slug):
+    product = get_object_or_404(Product, slug=product_slug, is_active=True)
+
+    try:
+        bot_product = product.bot
+    except BotProduct.DoesNotExist:
+        return JsonResponse({'error': 'No bot found.'}, status=404)
+
+    if not user_has_purchased(request.user, product):
+        return JsonResponse({'error': 'Access denied.'}, status=403)
+
+    conversation, _ = get_or_create_conversation(request.user, bot_product)
+    conversation.messages = []
+    conversation.quiz_answers = {}
+    conversation.saved_goal = ''
+    conversation.save()
+
+    return JsonResponse({'status': 'ok'})
