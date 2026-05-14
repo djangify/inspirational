@@ -16,7 +16,7 @@
   }
   .typing-dot {
     width: 7px; height: 7px;
-    background: #94a3b8;
+    background: #0f766e;
     border-radius: 50%;
     animation: bounce 1.2s infinite;
   }
@@ -203,7 +203,7 @@
       </div>
 
       <!-- Typing indicator -->
-      <div class="flex gap-3 items-center hidden" id="typingIndicator">
+      <div class="flex gap-3 items-center" id="typingIndicator" style="display:none">
         <div class="w-8 h-8 rounded-full bg-teal-700 flex items-center justify-center flex-shrink-0">
           <span class="text-white text-xs font-semibold">{{ bot_product.bot_name|first|upper }}</span>
         </div>
@@ -345,12 +345,12 @@
   }
 
   function showTyping() {
-    typingIndicator.classList.remove('hidden');
-    scrollToBottom();
+      typingIndicator.style.display = 'flex';
+      scrollToBottom();
   }
 
   function hideTyping() {
-      typingIndicator.classList.add('hidden');
+      typingIndicator.style.display = 'none';
   }
 
   function updateMsgCount(remaining) {
