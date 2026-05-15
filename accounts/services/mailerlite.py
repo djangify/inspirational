@@ -19,7 +19,7 @@ def add_subscriber(user):
         return
 
     headers = {
-        "Authorization": f"Token {settings.MAILERLITE_API_KEY}",
+        "Authorization": f"Bearer {settings.MAILERLITE_API_KEY}",
         "Content-Type": "application/json",
         "Accept": "application/json",
     }
