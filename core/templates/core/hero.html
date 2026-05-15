@@ -20,10 +20,17 @@
         </p>
 
         <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-          <a href="{% url 'accounts:register' %}" 
-             class="w-full sm:w-auto inline-flex items-center uppercase rounded-md justify-center px-6 py-3 text-base font-semibold bg-teal-700 text-white hover:bg-teal-800 transition">
-             Start My List
+        {% if user.is_authenticated %}
+          <a href="{% url 'accounts:dashboard' %}" 
+            class="w-full sm:w-auto inline-flex items-center uppercase rounded-md justify-center px-6 py-3 text-base font-semibold bg-teal-700 text-white hover:bg-teal-800 transition">
+            Go To Dashboard
           </a>
+        {% else %}
+          <a href="{% url 'accounts:register' %}" 
+            class="w-full sm:w-auto inline-flex items-center uppercase rounded-md justify-center px-6 py-3 text-base font-semibold bg-teal-700 text-white hover:bg-teal-800 transition">
+            Start My List
+          </a>
+        {% endif %}
         </div>
 
       </div>

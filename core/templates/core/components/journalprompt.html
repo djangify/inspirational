@@ -5,7 +5,12 @@
           Journal Prompt Generator
         </h2>
         <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-          Generate focused prompts for journaling — tailored by category and time. There is an option to <a href="{% url 'accounts:login' %}" class="text-slate-700 font-medium hover:text-teal-700"><i>save prompts </i>when logged in.</a> Perfect for days when your brain is too full to think but too busy to rest.
+          Generate focused prompts for journaling — tailored by category and time. {% if user.is_authenticated %}
+          There is an option to <a href="{% url 'accounts:dashboard' %}" class="text-slate-700 font-medium hover:text-teal-700"><i>go to your dashboard</i></a> to save prompts.
+          {% else %}
+          There is an option to <a href="{% url 'accounts:login' %}" class="text-slate-700 font-medium hover:text-teal-700"><i>save prompts </i>when logged in.</a>
+          {% endif %} 
+          Perfect for days when your brain is too full to think but too busy to rest.
         </p>
 
         <div class="max-w-7xl mx-auto mb-12 px-4">

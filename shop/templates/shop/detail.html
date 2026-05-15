@@ -230,7 +230,11 @@
                 <svg class="w-5 h-5 text-purple-600 mr-2" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A9.003 9.003 0 0112 15c2.157 0 4.124.763 5.879 2.032M15 11a3 3 0 11-6 0 3 3 0 016 0zM12 3.75a8.25 8.25 0 100 16.5 8.25 8.25 0 000-16.5z" />
                 </svg>
-                <span><a href="{% url 'accounts:register' %}" class="hover:text-teal-700">Register Here</a></span>
+                {% if user.is_authenticated %}
+                  <span><a href="{% url 'accounts:dashboard' %}" class="hover:text-teal-700">Dashboard</a></span>
+                {% else %}
+                  <span><a href="{% url 'accounts:register' %}" class="hover:text-teal-700">Register</a></span>
+                {% endif %}
               </div>
             </div>
           </div>

@@ -21,11 +21,19 @@
             Register for a free account and get instant access to the Live It List template and tracker. Write what matters. Add to it whenever you like.
         </p>
 
-        <a href="{% url 'accounts:register' %}" 
-          class="inline-block uppercase bg-teal-700 text-white px-5 py-2.5 rounded hover:bg-teal-800 transition self-center"
-          aria-label="Register for a free Inspirational Guidance account">
-          Start My List
-        </a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'accounts:dashboard' %}" 
+            class="inline-block uppercase bg-teal-700 text-white px-5 py-2.5 rounded hover:bg-teal-800 transition self-center"
+            aria-label="Go to your dashboard">
+            Go To Dashboard
+          </a>
+        {% else %}
+          <a href="{% url 'accounts:register' %}" 
+            class="inline-block uppercase bg-teal-700 text-white px-5 py-2.5 rounded hover:bg-teal-800 transition self-center"
+            aria-label="Register for a free Inspirational Guidance account">
+            Start My List
+          </a>
+        {% endif %}
       </div>
 
       <!-- Featured Products -->
