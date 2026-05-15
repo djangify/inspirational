@@ -14,7 +14,7 @@
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .typing-dot {
+.typing-dot {
     width: 7px; height: 7px;
     background: #0f766e;
     border-radius: 50%;
@@ -25,6 +25,11 @@
   @keyframes bounce {
     0%, 60%, 100% { transform: translateY(0); }
     30% { transform: translateY(-5px); }
+  }
+  .thinking-text {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: normal;
   }
   .message-input { resize: none; min-height: 48px; max-height: 140px; }
   .quiz-card { transition: border-color 0.2s; }
@@ -203,14 +208,13 @@
       </div>
 
       <!-- Typing indicator -->
+           <!-- Typing indicator -->
       <div class="flex gap-3 items-center" id="typingIndicator" style="display:none">
         <div class="w-8 h-8 rounded-full bg-teal-700 flex items-center justify-center flex-shrink-0">
           <span class="text-white text-xs font-semibold">{{ bot_product.bot_name|first|upper }}</span>
         </div>
-        <div class="bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5 items-center">
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
+        <div class="bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-sm px-4 py-3">
+          <span class="thinking-text">Thinking…</span>
         </div>
       </div>
 
@@ -344,13 +348,24 @@
     scrollToBottom();
   }
 
+ let thinkingInterval = null;
+  const thinkingStates = ['Thinking', 'Thinking.', 'Thinking..', 'Thinking...'];
+  let thinkingStep = 0;
+
   function showTyping() {
-      typingIndicator.style.display = 'flex';
-      scrollToBottom();
+    typingIndicator.style.display = 'flex';
+    const el = typingIndicator.querySelector('.thinking-text');
+    thinkingStep = 0;
+    thinkingInterval = setInterval(() => {
+      el.textContent = thinkingStates[thinkingStep % thinkingStates.length];
+      thinkingStep++;
+    }, 400);
+    scrollToBottom();
   }
 
   function hideTyping() {
-      typingIndicator.style.display = 'none';
+    clearInterval(thinkingInterval);
+    typingIndicator.style.display = 'none';
   }
 
   function updateMsgCount(remaining) {
