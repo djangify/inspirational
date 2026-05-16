@@ -23,12 +23,12 @@ class BotProduct(models.Model):
         help_text="The full system prompt that defines the bot's knowledge and behaviour"
     )
     message_limit = models.PositiveIntegerField(
-        default=200,
-        help_text="Maximum number of messages a user can send"
+        default=50,
+        help_text="Maximum number of messages a user can send (50 for individual, 150 for bundles)"
     )
     access_days = models.PositiveIntegerField(
         default=60,
-        help_text="Number of days access is granted after purchase"
+        help_text="Number of days access is granted after purchase (60 for individual, 90 for bundles)"
     )
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
