@@ -54,6 +54,14 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     publish_date = models.DateTimeField(null=True, blank=True)
+    content_updated = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text=(
+            "Set this manually when you make a meaningful content change. "
+            "Used for dateModified in schema — do not update for admin-only saves."
+        ),
+    )
 
     # Media fields
     image = models.ImageField(

@@ -3,6 +3,51 @@
 {% load video_tags %}
 {% load resource_tags %}
 
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "{{ site_url }}/#website",
+      "url": "{{ site_url }}/",
+      "name": "{{ site_name|escapejs }}",
+      "description": "Practical tools to help women stop living in default mode and start making intentional choices about how they live, feel, and earn.",
+      "publisher": { "@id": "{{ site_url }}/#organization" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "{{ site_url }}/blog/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "{{ site_url }}/#organization",
+      "name": "{{ site_name|escapejs }}",
+      "url": "{{ site_url }}/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "{{ author_name|escapejs }}",
+        "url": "{{ request.scheme }}://{{ request.get_host }}{{ author_url }}"
+      },
+      "sameAs": [
+        "{{ social_youtube }}",
+        "{{ social_pinterest }}"
+      ]
+    }
+  ]
+}
+</script>
+{% endblock %}
+
 {% block content %}
 <!-- HERO SECTION -->
 <header>

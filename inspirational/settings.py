@@ -24,7 +24,7 @@ if os.path.exists(_dotenv_local):
 # --------------------------------------------------------------
 SECRET_KEY = env("SECRET_KEY")
 
-DEBUG = env.bool("DEBUG", default=True)
+DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = [
     "inspirationalguidance.com",
@@ -40,10 +40,7 @@ SITE_ID = 1
 #Claude
 ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY')
 
-# -------------------------------------------------------
-# Database (SQLite)
-# -------------------------------------------------------
-# Database - SQLite default for Docker. Use in production
+# Database - SQLite default. Use in production
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -142,6 +139,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "shop.context_processors.cart",
+                "core.context_processors.site_author",
             ],
         },
     },
@@ -247,6 +245,20 @@ SITE_URL = env(
 )
 
 CART_SESSION_ID = "cart"
+
+# -----------------------------------------------------------------------------
+# Author / Social (used in EEAT schema and author bio box)
+# -----------------------------------------------------------------------------
+AUTHOR_NAME = "Diane Corriette"
+AUTHOR_SHORT_BIO = (
+    "Diane Corriette is a certified coach and NLP Master Practitioner who helps women "
+    "stop living in default mode and start making intentional choices about how they "
+    "live, feel, and earn. She is the founder of Inspirational Guidance."
+)
+AUTHOR_PHOTO = "images/diane-corriette-inspirational-guidance.jpg"
+AUTHOR_URL = "/diane-corriette"
+SOCIAL_YOUTUBE = "https://www.youtube.com/channel/UCecr_isX1vqBT_vLQ9H97ww"
+SOCIAL_PINTEREST = "https://uk.pinterest.com/personal_development_women/"
 
 # -----------------------------------------------------------------------------
 # Stripe

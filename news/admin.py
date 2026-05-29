@@ -92,8 +92,18 @@ class PostAdmin(admin.ModelAdmin):
         (
             "SEO",
             {
-                "fields": ("meta_title", "meta_description", "meta_keywords"),
+                "fields": (
+                    "meta_title",
+                    "meta_description",
+                    "meta_keywords",
+                    "content_updated",
+                ),
                 "classes": ("collapse",),
+                "description": (
+                    "Set 'Content updated' only when you make a meaningful change "
+                    "to the article body — not for admin-only saves. This date "
+                    "appears as dateModified in Google's schema."
+                ),
             },
         ),
     )

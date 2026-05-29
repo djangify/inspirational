@@ -92,6 +92,27 @@
         <div class="prose prose-lg max-w-none text-gray-800">
             {{ post.content|safe }}
         </div>
+        <!-- Author Bio Box -->
+        <aside class="mt-10 mb-8 flex flex-col sm:flex-row items-start gap-5 rounded-xl border border-gray-200 bg-gray-50 p-6">
+            {% load static %}
+            <img src="{% static author_photo %}"
+                 alt="{{ author_name }}"
+                 class="w-16 h-16 rounded-full object-cover flex-shrink-0 shadow-sm">
+            <div>
+                <p class="text-sm font-semibold text-gray-900 mb-1">
+                    Written by
+                    <a href="{{ author_url }}" class="text-teal-700 hover:underline">{{ author_name }}</a>
+                </p>
+                <p class="text-sm text-gray-600 leading-relaxed">{{ author_short_bio }}</p>
+                <div class="flex gap-4 mt-3 text-xs text-gray-500">
+                    <a href="{{ social_youtube }}" target="_blank" rel="noopener noreferrer"
+                       class="hover:text-teal-700 transition-colors">YouTube</a>
+                    <a href="{{ social_pinterest }}" target="_blank" rel="noopener noreferrer"
+                       class="hover:text-teal-700 transition-colors">Pinterest</a>
+                </div>
+            </div>
+        </aside>
+
         <!-- Download Resource -->
         {% if post.resource_type != 'none' and post.resource %}
             <div class="mt-12 mb-8 p-6 bg-primary/10 rounded-lg border border-accent/30">
@@ -212,25 +233,28 @@
   "@type": "BlogPosting",
   "headline": "{{ post.title|escapejs }}",
   "description": "{{ post.meta_description|default:post.content|striptags|truncatechars:160|escapejs }}",
-
-  {% comment %} Image logic based on available fields {% endcomment %}
   "image": "{% if post.get_image_url %}{{ request.scheme }}://{{ request.get_host }}{{ post.get_image_url }}{% elif post.get_youtube_thumbnail %}{{ post.get_youtube_thumbnail }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}{% endif %}",
-
   "author": {
-  "@type": "Person",
-  "name": "Inspirational Guidance",
-  "url": "https://www.inspirationalguidance.com/personal-development/"
-},
+    "@type": "Person",
+    "name": "{{ author_name|escapejs }}",
+    "description": "{{ author_short_bio|escapejs }}",
+    "url": "{{ request.scheme }}://{{ request.get_host }}{{ author_url }}",
+    "image": "{{ request.scheme }}://{{ request.get_host }}{% static author_photo %}",
+    "sameAs": [
+      "{{ social_youtube }}",
+      "{{ social_pinterest }}"
+    ]
+  },
   "publisher": {
     "@type": "Organization",
-    "name": "Inspirational Guidance",
+    "name": "{{ site_name|escapejs }}",
     "logo": {
       "@type": "ImageObject",
       "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}"
     }
   },
   "datePublished": "{% if post.publish_date %}{{ post.publish_date|date:'c' }}{% else %}{{ post.created|date:'c' }}{% endif %}",
-  "dateModified": "{{ post.updated|date:'c' }}",
+  "dateModified": "{% if post.content_updated %}{{ post.content_updated|date:'c' }}{% elif post.publish_date %}{{ post.publish_date|date:'c' }}{% else %}{{ post.created|date:'c' }}{% endif %}",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ request.build_absolute_uri }}"

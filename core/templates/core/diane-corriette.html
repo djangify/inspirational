@@ -1,6 +1,60 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ author_name|escapejs }}",
+  "jobTitle": "Certified Coach and NLP Master Practitioner",
+  "description": "{{ author_short_bio|escapejs }}",
+  "url": "{{ request.scheme }}://{{ request.get_host }}{{ author_url }}",
+  "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/diane-corriette-inspirational-guidance.jpg' %}",
+  "knowsAbout": [
+    "Personal Development",
+    "Self-Authorship",
+    "Intentional Living",
+    "NLP",
+    "Life Coaching",
+    "Emotional Resilience",
+    "Journaling"
+  ],
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "certification",
+      "name": "NLP Master Practitioner"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "certification",
+      "name": "Practitioner of NLP"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "certification",
+      "name": "Certified Life Coach"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "certification",
+      "name": "Health and Personal Development Diploma"
+    }
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "{{ site_name|escapejs }}",
+    "url": "{{ site_url }}"
+  },
+  "sameAs": [
+    "{{ social_youtube }}",
+    "{{ social_pinterest }}"
+  ]
+}
+</script>
+{% endblock %}
+
 {% block content %}
 {% load resource_tags %}
 {% load video_tags %}
