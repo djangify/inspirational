@@ -6,20 +6,51 @@
 {# ===== Open Graph / Twitter Cards ===== #}
 {% block open_graph_tags %}
   <meta property="og:title" content="Journaling for Personal Growth: A Practical Guide for Women" />
-  <meta property="og:description" content="Build a simple, sustainable journaling practice that clarifies your values, steadies your emotions, and turns insights into action." />
+  <meta property="og:description" content="Journaling is not about perfect sentences. It is a 10-minute habit that helps you think clearly, make value-led choices, and stay grounded when life gets loud. Diane Corriette's six-step journaling guide for women." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/journaling-personal-growth-infographic.jpg" />
+  <meta property="article:author" content="Diane Corriette" />
+  <meta property="article:published_time" content="2024-09-01" />
+  <meta property="article:modified_time" content="2026-05-01" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Journaling for Personal Growth: A Practical Guide for Women">
-  <meta name="twitter:description" content="Start a 10-minute habit that strengthens clarity, confidence, and calm.">
+  <meta name="twitter:description" content="Start a 10-minute journaling habit that strengthens clarity, confidence, and calm. By Diane Corriette of Inspirational Guidance.">
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/journaling-personal-growth-infographic.jpg">
 {% endblock %}
 
 {% block content %}
+
+{# ===== Article Schema ===== #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Journaling for Personal Growth: A Practical Guide for Women",
+  "description": "Journaling is not about perfect sentences — it is a 10-minute habit that helps you think clearly, make value-led choices, and stay grounded. A six-step guide from Diane Corriette of Inspirational Guidance.",
+  "image": "{{ request.scheme }}://{{ request.get_host }}/static/images/journaling-personal-growth-infographic.jpg",
+  "author": {"@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/"},
+  "publisher": {"@type": "Organization", "name": "Inspirational Guidance"},
+  "datePublished": "2024-09-01",
+  "dateModified": "2026-05-01",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "{{ request.build_absolute_uri }}"}
+}
+</script>
+
+
 <div class="bg-white">
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    {# --- Author + Date bar --- #}
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-6">
+      <a href="https://inspirationalguidance.com/diane-corriette/" class="font-medium text-teal-700 hover:underline">Diane Corriette</a>
+      <span>·</span>
+      <time datetime="2024-09-01">Published September 2024</time>
+      <span>·</span>
+      <time datetime="2026-05-01">Updated May 2026</time>
+    </div>
+
     <header class="mb-8">
       <h1 class="text-4xl mb-4 font-bold text-gray-900">Journaling for Personal Growth: A Practical Guide for Women</h1>
       <p class="mt-3 text-gray-700 max-w-3xl">
@@ -27,6 +58,11 @@
         This guide shows you how to use journal writing for <strong>purpose</strong>, <strong>resilience</strong>, <strong>confidence</strong>, and <strong>self-reliance</strong> and how to turn insights into action.
       </p>
     </header>
+
+    {# --- About this guide --- #}
+    <div class="bg-teal-50 border border-teal-200 rounded-xl p-5 mb-8 text-base text-teal-900 leading-relaxed">
+      <strong>About this guide:</strong> Written by <a href="https://inspirationalguidance.com/diane-corriette/" class="underline font-medium">Diane Corriette</a>, Personal Growth Coach, and founder of Inspirational Guidance. Diane has used journaling as a personal practice for over two decades — not as a spiritual ritual but as a practical tool for clarity, self-knowledge, and decision-making. The approaches in this guide are ones she uses herself and recommends in her coaching work.
+    </div>
       {# --- quote --- #}
     <section class="w-full">
             <div class="max-w-7xl mb-8 mx-auto">
@@ -135,29 +171,35 @@
 
     {# --- Deep content anchors --- #}
     <section class="mt-12 mb-4 space-y-10">
-      <div id="purpose" class="prose text-lg mb-6 max-w-none">
+      <div id=”purpose” class=”prose text-lg mb-6 max-w-none”>
         <h2>Journal for Purpose</h2>
-        <p>Use a short daily practice to check your actions against your values. Try a one-line “What mattered today?” entry to keep your direction front-of-mind.</p>
+        <p>Purpose is not a destination you locate once and then keep. It is something you choose and rechoose — daily, through small decisions. Journaling is how you keep that choice conscious rather than drifting back into default.</p>
+        <p class=”mt-3”>A short daily practice does not need to be elaborate. One question, answered honestly, in ten minutes: “What mattered today?” “Did my choices reflect what I care about?” “What do I want tomorrow to feel like?” These are not productivity prompts — they are compass checks. Over time, the pattern in your answers tells you something important about where you are and what you need to change. <a href=”/purpose-journaling/” class=”text-teal-700 hover:underline”>Full guide →</a></p>
       </div>
-      <div id="resilience" class="prose text-lg mb-6 max-w-none">
+      <div id=”resilience” class=”prose text-lg mb-6 max-w-none”>
         <h2>Journal for Emotional Resilience</h2>
-        <p>Name the feeling, note the trigger, write one supportive response you will try next time. Patterns will emerge—and so do options.</p>
+        <p>When you are inside a difficult emotion, it is hard to see it clearly. Journaling externalises the experience — you move from being inside the feeling to being able to look at it, name it, and work with it.</p>
+        <p class=”mt-3”>A simple resilience entry: name the feeling (“I feel overwhelmed and slightly resentful”), note the trigger (“the meeting where I was talked over”), and write one supportive response you will try next time (“I will finish my point before opening the floor”). Patterns emerge across entries — repeated triggers, recurring feelings, and consistently unhelpful responses that can now be addressed rather than simply endured. Use this alongside Diane's <a href=”{% url 'core:emotional_resilience' %}” class=”text-teal-700 underline”>PAUSE Framework</a> for a complete resilience practice. <a href=”/journaling-for-emotional-resilience/” class=”text-teal-700 hover:underline”>Full guide →</a></p>
       </div>
-      <div id="confidence" class="prose text-lg mb-6 max-w-none">
+      <div id=”confidence” class=”prose text-lg mb-6 max-w-none”>
         <h2>Journal for Confidence</h2>
-        <p>Collect evidence. One win a day, no matter how small. Your written proof becomes belief.</p>
+        <p>Memory is biased towards difficulty. Without a written record, you will forget the dozen things you handled well and remember the one thing that went wrong. A confidence journal corrects that bias.</p>
+        <p class=”mt-3”>One win per day — no matter how small. “I spoke up.” “I made a decision without checking with anyone else.” “I said no and the world continued.” After 30 days, read back through the list. Most people are genuinely surprised by what they find. That surprise is the feeling of self-belief being built on actual evidence, not hope. <a href=”/empowering-questions-for-self-confidence/” class=”text-teal-700 hover:underline”>Full guide →</a></p>
       </div>
-      <div id="selfreliance" class="prose text-lg mb-6 max-w-none">
+      <div id=”selfreliance” class=”prose text-lg mb-6 max-w-none”>
         <h2>Journal for Self-Reliance</h2>
-        <p>Use reflective questions to back your own judgment. Decisions get clearer when you write the reasons behind them.</p>
+        <p>Self-reliance is built in the space between impulse and action — the moment where you decide to trust your own judgment rather than immediately outsourcing the decision. Journaling is one of the most effective ways to develop and protect that space.</p>
+        <p class=”mt-3”>Use reflective questions to work through decisions before seeking external input: “What do I actually think about this?” “What would I decide if no one else's opinion were available?” “What does my gut say, and why might that be right?” Writing the reasons behind your decisions — rather than just the decisions — trains the habit of knowing why you chose something. That knowledge is the foundation of genuine self-trust. <a href=”/empower-journal-writing/” class=”text-teal-700 hover:underline”>Full guide →</a></p>
       </div>
-      <div id="prompts" class="prose text-lg mb-6 max-w-none">
+      <div id=”prompts” class=”prose text-lg mb-6 max-w-none”>
         <h2>Use Prompts When Stuck</h2>
-        <p>Prompted writing reduces friction on busy days. Set a 10-minute timer and keep the pen moving.</p>
+        <p>A blank page on a busy day is friction. Prompts remove that friction — they give you a starting point so you do not waste your ten minutes deciding what to write about.</p>
+        <p class=”mt-3”>Keep a shortlist of three or four prompts that work well for you and rotate them. On days when even that feels like too much, use the <a href=”/prompt/journal-prompt-generator/” class=”text-teal-700 underline”>Inspirational Guidance prompt generator</a> — filter by theme and session length and start writing immediately. The goal is not the perfect prompt. It is keeping the pen moving. <a href=”/prompt/journal-prompt-generator/” class=”text-teal-700 hover:underline”>Try the prompt generator →</a></p>
       </div>
-      <div id="integration" class="prose text-lg mb-6 max-w-none">
+      <div id=”integration” class=”prose text-lg mb-6 max-w-none”>
         <h2>Turn Insights Into Action</h2>
-        <p>Finish each entry with one micro-action you will take. Small steps compound faster than sporadic overhauls.</p>
+        <p>A journal full of insights that never change anything is just an expensive diary. The integration step is what makes journaling a growth tool rather than a processing habit.</p>
+        <p class=”mt-3”>Finish each entry with one micro-action: something specific, small, and completable before your next journal session. “I will send that message today.” “I will use the PAUSE step before I respond to the next difficult email.” “I will say no to the request I have been avoiding.” Small actions compound. Sporadic overhauls do not. <a href=”/how-to-turn-any-life-experience-into-a-lesson-you/” class=”text-teal-700 hover:underline”>Full guide →</a></p>
       </div>
     </section>
 
@@ -311,7 +353,7 @@
         "@type": "FAQPage",
         "mainEntity": [
           {"@type": "Question", "name": "How long should I journal?", "acceptedAnswer": {"@type": "Answer", "text": "Ten minutes practiced most days is enough to make consistent progress."}},
-          {"@type": "Question", "name": "Paper or digital?", "acceptedAnswer": {"@type": "Answer", "text": "Use whatever you will stick with—paper for focus, digital for searchability."}},
+          {"@type": "Question", "name": "Paper or digital?", "acceptedAnswer": {"@type": "Answer", "text": "Use whatever you will stick with — paper for focus, digital for searchability."}},
           {"@type": "Question", "name": "What if I miss days?", "acceptedAnswer": {"@type": "Answer", "text": "Resume without apology. Write one line today and rebuild momentum."}},
           {"@type": "Question", "name": "Do I need prompts?", "acceptedAnswer": {"@type": "Answer", "text": "Prompts reduce friction and spark depth; keep a shortlist or use the generator."}}
         ]
@@ -348,7 +390,6 @@
           <p class="text-gray-700 mt-1">Free personal development tools to continue your personal growth.</p>
         </a>
       </div>
-      
     </section>
 
     {# --- Inspiration / Reflection box --- #}
@@ -356,7 +397,7 @@
       <div class="rounded-2xl border border-slate-200 p-6 bg-slate-50">
         <h2 class="text-xl font-semibold text-gray-900">Reflection</h2>
         <p class="text-gray-700 mt-2">
-          This week, write one line a day: <em>“One thing that mattered and why.”</em> Keep it visible. Small evidence builds big change.
+          This week, write one line a day: <em>"One thing that mattered and why."</em> Keep it visible. Small evidence builds big change.
         </p>
       </div>
     </section>

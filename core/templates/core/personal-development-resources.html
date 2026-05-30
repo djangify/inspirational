@@ -1,16 +1,29 @@
 {% extends "base.html" %}
 {% block title %}Free Personal Development PDFs & Tools | Inspirational Guidance{% endblock %}
 
+{% block open_graph_tags %}
+  <meta name="description" content="Download free personal development PDFs from Inspirational Guidance. Journals, guides, and toolkits to help women build confidence, resilience, and momentum." />
+  <meta property="og:title" content="Free Personal Development PDFs & Tools | Inspirational Guidance" />
+  <meta property="og:description" content="A curated library of free resources including guides on confidence, resilience, momentum, and journaling. Practical tools for women building a life that feels like theirs -- created by Diane Corriette." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://inspirationalguidance.com/free-resources/" />
+  <meta property="og:site_name" content="Inspirational Guidance" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Free Personal Development PDFs & Tools | Inspirational Guidance">
+  <meta name="twitter:description" content="Free journals, guides, and toolkits to help women build confidence, resilience, and momentum. From Diane Corriette at Inspirational Guidance.">
+{% endblock %}
+
 {% block content %}
-<!-- Open Graph + SEO Meta -->
-<meta name="description" content="Download free personal development PDFs from Inspirational Guidance. Journals, guides, and toolkits to help women build confidence, resilience, and momentum." />
-<meta property="og:title" content="Free Personal Development PDFs & Tools" />
-<meta property="og:description" content="A curated library of free resources including guides on confidence, resilience, momentum, and journaling. Practical tools for women building a life that feels like theirs." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://inspirationalguidance.com/free-resources/" />
-<meta property="og:site_name" content="Inspirational Guidance" />
 
 <div class="max-w-3xl mx-auto px-4 py-16 text-center">
+  <div class="flex items-center gap-3 text-sm text-gray-500 mb-4 justify-center">
+    <a href="https://inspirationalguidance.com/diane-corriette/" class="font-medium text-teal-700 hover:underline">Diane Corriette</a>
+    <span>·</span>
+    <span>Personal Growth Coach</span>
+    <span>·</span>
+    <span>Inspirational Guidance</span>
+  </div>
   <h1 class="text-4xl font-bold mb-4">Free Personal Development PDFs & Tools</h1>
   <p class="text-gray-700 mb-10">
     These free personal development resources are designed to support women looking to build a life based on their own choices. 
@@ -28,7 +41,7 @@
       "@type": "CreativeWork",
       "name": "Small Steps vs Micro Habits",
       "description": "The difference between small steps and micro habits and why it matters.",
-      "author": { "@type": "Organization", "name": "Inspirational Guidance" },
+      "author": { "@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/" },
       "publisher": { "@type": "Organization", "name": "Inspirational Guidance", "url": "https://inspirationalguidance.com" },
       "fileFormat": "application/pdf",
       "encoding": {
@@ -40,7 +53,7 @@
       "@type": "CreativeWork",
       "name": "Mental Fitness Starter Kit",
       "description": "A strength-building toolkit for women who carry too much.",
-      "author": { "@type": "Organization", "name": "Inspirational Guidance" },
+      "author": { "@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/" },
       "publisher": { "@type": "Organization", "name": "Inspirational Guidance", "url": "https://inspirationalguidance.com" },
       "fileFormat": "application/pdf",
       "encoding": {
@@ -52,7 +65,7 @@
       "@type": "CreativeWork",
       "name": "Small Steps to Realignment",
       "description": "Self-guided worksheet for those tired of hustle culture and ready to define success.",
-      "author": { "@type": "Organization", "name": "Inspirational Guidance" },
+      "author": { "@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/" },
       "publisher": { "@type": "Organization", "name": "Inspirational Guidance", "url": "https://inspirationalguidance.com" },
       "fileFormat": "application/pdf",
       "encoding": {
@@ -64,7 +77,7 @@
       "@type": "CreativeWork",
       "name": "Mind Over Matter: Small Shifts for Empowered Living",
       "description": "Practical tools for state management, mental rehearsal, and language patterns.",
-      "author": { "@type": "Organization", "name": "Inspirational Guidance" },
+      "author": { "@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/" },
       "publisher": { "@type": "Organization", "name": "Inspirational Guidance", "url": "https://inspirationalguidance.com" },
       "fileFormat": "application/pdf",
       "encoding": {
@@ -76,7 +89,7 @@
       "@type": "CreativeWork",
       "name": "Momentum Tracker",
       "description": "Big change doesn’t come from one big action. It comes from small steps repeated daily.",
-      "author": { "@type": "Organization", "name": "Inspirational Guidance" },
+      "author": { "@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/" },
       "publisher": { "@type": "Organization", "name": "Inspirational Guidance", "url": "https://inspirationalguidance.com" },
       "fileFormat": "application/pdf",
       "encoding": {
@@ -88,7 +101,7 @@
       "@type": "CreativeWork",
       "name": "Clarify your values",
       "description": "Importance of knowing how to clarify your values before you define them.",
-      "author": { "@type": "Organization", "name": "Inspirational Guidance" },
+      "author": { "@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/" },
       "publisher": { "@type": "Organization", "name": "Inspirational Guidance", "url": "https://inspirationalguidance.com" },
       "fileFormat": "application/pdf",
       "encoding": {
@@ -100,7 +113,7 @@
       "@type": "CreativeWork",
       "name": "Pause Emotional Resilience Framework",
       "description": "Our framework to support you in building emotional resilience.",
-      "author": { "@type": "Organization", "name": "Inspirational Guidance" },
+      "author": { "@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/" },
       "publisher": { "@type": "Organization", "name": "Inspirational Guidance", "url": "https://inspirationalguidance.com" },
       "fileFormat": "application/pdf",
       "encoding": {
@@ -112,7 +125,7 @@
       "@type": "CreativeWork",
       "name": "Empowering Questions for Self Confidence",
       "description": "Learn how to ask better questions to build self-confidence.",
-      "author": { "@type": "Organization", "name": "Inspirational Guidance" },
+      "author": { "@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/" },
       "publisher": { "@type": "Organization", "name": "Inspirational Guidance", "url": "https://inspirationalguidance.com" },
       "fileFormat": "application/pdf",
       "encoding": {
@@ -124,7 +137,7 @@
       "@type": "CreativeWork",
       "name": "Live With Purpose",
       "description": "What it really means to live with purpose.",
-      "author": { "@type": "Organization", "name": "Inspirational Guidance" },
+      "author": { "@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/" },
       "publisher": { "@type": "Organization", "name": "Inspirational Guidance", "url": "https://inspirationalguidance.com" },
       "fileFormat": "application/pdf",
       "encoding": {
@@ -136,7 +149,7 @@
       "@type": "CreativeWork",
       "name": "Getting Started With Inspirational Guidance",
       "description": "Resources available to free members of Inspirational Guidance. How to use our growing library of resources.",
-      "author": { "@type": "Organization", "name": "Inspirational Guidance" },
+      "author": { "@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/" },
       "publisher": { "@type": "Organization", "name": "Inspirational Guidance", "url": "https://inspirationalguidance.com" },
       "fileFormat": "application/pdf",
       "encoding": {

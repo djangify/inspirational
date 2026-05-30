@@ -5,28 +5,64 @@
 
 {% block open_graph_tags %}
   <meta property="og:title" content="Empowered Living: The Empowered Woman’s Guide to Taking Control of Her Life" />
-  <meta property="og:description" content="Mindset shifts, boundaries, self-reliance, and action-taking strategies to live with confidence and purpose." />
+  <meta property="og:description" content="Empowered living means making decisions with clarity, setting boundaries without guilt, and taking daily ownership of your life. Diane Corriette’s six-step guide for women ready to stop going through the motions." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/empowered-living-infographic.webp" />
+  <meta property="article:author" content="Diane Corriette" />
+  <meta property="article:published_time" content="2024-09-01" />
+  <meta property="article:modified_time" content="2026-05-01" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Empowered Living: The Empowered Woman’s Guide to Taking Control of Her Life">
-  <meta name="twitter:description" content="Practical strategies to take control, set boundaries, and live empowered — starting today.">
+  <meta name="twitter:description" content="Practical strategies to take control, set boundaries, and live empowered — starting today. By Diane Corriette of Inspirational Guidance.">
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/empowered-living-infographic.webp">
 {% endblock %}
 
 {% block content %}
+
+{# ===== Article Schema ===== #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Empowered Woman’s Guide to Taking Control of Her Life",
+  "description": "Empowered living means making decisions with clarity, setting boundaries without guilt, and taking daily ownership of your life. A six-step guide from Diane Corriette of Inspirational Guidance.",
+  "image": "{{ request.scheme }}://{{ request.get_host }}/static/images/empowered-living-infographic.webp",
+  "author": {"@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/"},
+  "publisher": {"@type": "Organization", "name": "Inspirational Guidance"},
+  "datePublished": "2024-09-01",
+  "dateModified": "2026-05-01",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "{{ request.build_absolute_uri }}"}
+}
+</script>
+
+
 <div class="bg-white">
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    {# --- Author + Date bar --- #}
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-6">
+      <a href="https://inspirationalguidance.com/diane-corriette/" class="font-medium text-teal-700 hover:underline">Diane Corriette</a>
+      <span>·</span>
+      <time datetime="2024-09-01">Published September 2024</time>
+      <span>·</span>
+      <time datetime="2026-05-01">Updated May 2026</time>
+    </div>
+
     <header class="mb-8">
       <h1 class="text-4xl font-bold mb-8 text-gray-900">The Empowered Woman’s Guide to Taking Control of Her Life</h1>
       <p class="mt-3 text-gray-700 max-w-3xl">
-        Empowered living means making decisions with clarity, setting boundaries without guilt, and taking daily ownership of your life. 
-        In this guide, we explore the <strong>mindset shifts, boundary-setting skills, self-reliance practices, and action-taking strategies</strong> 
+        Empowered living means making decisions with clarity, setting boundaries without guilt, and taking daily ownership of your life.
+        In this guide, we explore the <strong>mindset shifts, boundary-setting skills, self-reliance practices, and action-taking strategies</strong>
         that help women live with confidence and purpose while staying true to themselves.
       </p>
     </header>
+
+    {# --- About this guide --- #}
+    <div class="bg-teal-50 border border-teal-200 rounded-xl p-5 mb-8 text-base text-teal-900 leading-relaxed">
+      <strong>About this guide:</strong> Written by <a href="https://inspirationalguidance.com/diane-corriette/" class="underline font-medium">Diane Corriette</a>, Personal Growth Coach, and founder of Inspirational Guidance. Diane uses NLP and Appreciative Inquiry — a strengths-based approach — to help women move out of default mode and into deliberate, empowered choices. The tools in this guide are ones she has used personally and with clients over more than two decades of coaching work.
+    </div>
     {# --- quote --- #}
       <section class="w-full">
             <div class="max-w-7xl mb-8 mx-auto">
@@ -111,27 +147,33 @@
     <section class="mt-12 mb-4 space-y-10">
       <div id="boundaries-step" class="prose text-lg mb-6 max-w-none">
         <h2>Set Boundaries Without Guilt</h2>
-        <p>Boundaries protect your energy. Use the <a href="{% url 'core:emotional_resilience' %}" class="text-teal-700 underline">PAUSE Framework</a> to manage pushback and stay steady in your decisions.</p>
+        <p>Guilt after setting a boundary is not evidence that you did something wrong. It is the feeling of change — specifically, the discomfort of acting differently from how you have conditioned yourself and others to expect. That discomfort is temporary. The cost of not setting the boundary is ongoing.</p>
+        <p class="mt-3">Boundaries protect your energy, your time, and your ability to show up well for what matters. They do not require lengthy explanations or apologies. A clear, calm statement is enough: "That does not work for me." If pushback comes, use Diane's <a href="{% url 'core:emotional_resilience' %}" class="text-teal-700 underline">PAUSE Framework</a> to stay steady — pause before reacting, accept the discomfort, and hold the boundary without escalating. <a href="/empower-boundaries-without-guilt/" class="text-teal-700 hover:underline">Full guide →</a></p>
       </div>
       <div id="selfreliance-step" class="prose text-lg mb-6 max-w-none">
         <h2>Build Self-Reliance</h2>
-        <p>Empowerment grows when you trust yourself. Start small: solve one daily challenge without outsourcing the answer.</p>
+        <p>Self-reliance is not independence from everyone. It is the trust that you can meet challenges — that you have sufficient inner resources to navigate difficulty, even when it is uncomfortable, even when you do not have all the answers yet.</p>
+        <p class="mt-3">It is built in small moments: solving one problem without immediately outsourcing it. Sitting with uncertainty long enough to form your own view. Trusting your first assessment rather than polling everyone you know. Each of these is a deposit in your self-reliance account. Over time, the account grows — and so does your confidence in your own judgment. <a href="/empower-build-self-reliance/" class="text-teal-700 hover:underline">Full guide →</a></p>
       </div>
       <div id="decision-step" class="prose text-lg mb-6 max-w-none">
         <h2>Make Decisions Without Overthinking</h2>
-        <p>Decision-making is easier when you know your values. See our <a href="{% url 'core:live_with_purpose' %}" class="text-teal-700 underline">Live With Purpose</a> guide for value alignment tools.</p>
+        <p>Overthinking is not careful thinking. It is the mind cycling through the same options without reaching resolution — usually because there is no stable internal reference point to decide from. When your values are clear, most decisions become simpler: does this align with what I have already decided matters?</p>
+        <p class="mt-3">Build decision rules for the situations that cost you the most energy. "I do not agree to things on the same day I am asked." "If it competes with a core value, it is a no." Pre-committed rules made during clear-headed moments protect you from decisions made under pressure or the need for approval. See the <a href="{% url 'core:live_with_purpose' %}" class="text-teal-700 underline">Live With Purpose</a> guide for value-clarification tools. <a href="/empower-decision-making/" class="text-teal-700 hover:underline">Full guide →</a></p>
       </div>
       <div id="courage-step" class="prose text-lg mb-6 max-w-none">
         <h2>Small Steps To Empower Big Shifts</h2>
-        <p>These micro-moments like speaking up, trying something new, asking a question etc build proof that you can handle more.</p>
+        <p>Empowerment is not built in grand declarations. It is built in the moment you spoke up when you would have stayed silent. When you tried something without waiting for permission. When you asked the question everyone else was thinking. These micro-moments are the practice ground for bigger acts of courage.</p>
+        <p class="mt-3">Each small step adds to your evidence bank — proof that you can act, and that acting did not destroy you. The goal is not fearlessness; it is acting despite the fear, enough times that the fear loses its grip. Identify one small courageous action you can take this week and do it before you overthink it. <a href="/empower-small-steps/" class="text-teal-700 hover:underline">Full guide →</a></p>
       </div>
       <div id="journal-step" class="prose text-lg mb-6 max-w-none">
         <h2>Use Journal Writing</h2>
-        <p>Journal writing supports empowerment by helping you process experiences, reframe challenges, and track wins. Combine it with affirmations for maximum impact.</p>
+        <p>Journaling supports empowerment by making your internal experience visible — so you can work with it rather than be controlled by it. When you write about a challenge, you externalise it. You move from inside the experience to a position where you can assess it, reframe it, and decide how to respond.</p>
+        <p class="mt-3">Use it to process experiences that still have a charge, to track where you acted from your values and where you defaulted, and to collect wins — no matter how small. "I said no and the conversation continued." "I made a decision without asking for approval." Over time, this becomes a written record of your own growing capability. <a href="/empower-journal-writing/" class="text-teal-700 hover:underline">Full guide →</a></p>
       </div>
       <div id="action-step" class="prose text-lg mb-6 max-w-none">
         <h2>Turn Awareness into Action</h2>
-        <p>Knowledge without action changes nothing. Choose one insight each week and act on it, no matter how small.</p>
+        <p>Self-awareness without action is just self-knowledge that changes nothing. The gap between understanding something about yourself and actually doing something differently is where most growth stalls. Knowing you people-please does not stop you people-pleasing. Acting differently does.</p>
+        <p class="mt-3">Choose one insight each week — something you noticed about your patterns, your responses, or your choices — and commit to one specific action that reflects a different choice. Small, concrete, completable this week. Awareness becomes empowerment when it changes behaviour, not just understanding. <a href="/empower-turn-awareness-into-action/" class="text-teal-700 hover:underline">Full guide →</a></p>
       </div>
     </section>
 
@@ -157,7 +199,7 @@
         </div>
         <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md">
           <h3 class="font-semibold text-lg text-teal-700 mb-2"><a href="/language-patterns-changing-your-words/">Language Swaps</a></h3>
-          <p class="text-gray-700">Language Patterns - How Changing Your Words Changes Your Results. Your words aren’t just labels for your experience. They are part of what creates it.</p>
+          <p class="text-gray-700">Language Patterns - How Changing Your Words Changes Your Results. Your words aren't just labels for your experience. They are part of what creates it.</p>
         </div>
         <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md">
           <h3 class="font-semibold text-lg text-teal-700 mb-2"><a href="/your-mental-guest-list-expanding-your-mind/">Your Mental Guest List</a></h3>
@@ -170,16 +212,16 @@
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class=" mb-12 mt-16">
+    <section id="faq" class="mb-12 mt-16">
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">FAQ</h2>
       <div class="max-w-3xl">
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
-          <summary class="font-semibold cursor-pointer">What does “empowerment” mean for women today?</summary>
-          <p class="mt-3 text-gray-700">It’s about making choices that reflect your values, protect your boundaries, and support your goals without needing external approval.</p>
+          <summary class="font-semibold cursor-pointer">What does "empowerment" mean for women today?</summary>
+          <p class="mt-3 text-gray-700">It's about making choices that reflect your values, protect your boundaries, and support your goals without needing external approval.</p>
         </details>
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
-          <summary class="font-semibold cursor-pointer">How can I feel empowered without becoming “hard”?</summary>
-          <p class="mt-3 text-gray-700">By pairing strength with empathy. Empowerment isn’t about closing off — it’s about knowing when to stand firm and when to be flexible.</p>
+          <summary class="font-semibold cursor-pointer">How can I feel empowered without becoming "hard"?</summary>
+          <p class="mt-3 text-gray-700">By pairing strength with empathy. Empowerment isn't about closing off — it's about knowing when to stand firm and when to be flexible.</p>
         </details>
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
           <summary class="font-semibold cursor-pointer">Is empowerment about independence or interdependence?</summary>
@@ -194,13 +236,27 @@
           <p class="mt-3 text-gray-700">Yes — setting boundaries, making confident decisions, and self-advocating are essential for professional progress.</p>
         </details>
       </div>
+
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "What does empowerment mean for women today?", "acceptedAnswer": {"@type": "Answer", "text": "It means making choices that reflect your values, protect your boundaries, and support your goals without needing external approval."}},
+          {"@type": "Question", "name": "How can I feel empowered without becoming hard?", "acceptedAnswer": {"@type": "Answer", "text": "By pairing strength with empathy. Empowerment isn't about closing off — it's about knowing when to stand firm and when to be flexible."}},
+          {"@type": "Question", "name": "Is empowerment about independence or interdependence?", "acceptedAnswer": {"@type": "Answer", "text": "True empowerment blends both. You trust yourself while building supportive relationships."}},
+          {"@type": "Question", "name": "How do I deal with people who push back on my boundaries?", "acceptedAnswer": {"@type": "Answer", "text": "Stay calm, restate your boundary, and avoid over-explaining. Use the PAUSE Framework to manage emotional reactions."}},
+          {"@type": "Question", "name": "Can empowerment help with career growth?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — setting boundaries, making confident decisions, and self-advocating are essential for professional progress."}}
+        ]
+      }
+      </script>
     </section>
 
     {# --- banner ad goes to shop --- #}
-    
-        <a href="https://inspirationalguidance.com/shop/product/beginners-guide-to-setting-boundaries/" target="_blank">
-        <img src="https://inspirationalguidance.com/media/public/news/ads/setting-boundaries4.webp?v=1756474669" alt="how to set boundaries">
-        </a> 
+    <a href="https://inspirationalguidance.com/shop/product/beginners-guide-to-setting-boundaries/" target="_blank">
+      <img src="https://inspirationalguidance.com/media/public/news/ads/setting-boundaries4.webp?v=1756474669" alt="how to set boundaries">
+    </a>
+
     <!-- Related pillars -->
     <section class="mt-16">
       <h2 class="text-2xl font-semibold text-gray-900">Related Pillars</h2>
@@ -231,12 +287,13 @@
         </a>
       </div>
     </section>
+
     {# --- Inspiration / Reflection box --- #}
     <section class="mt-16">
       <div class="rounded-2xl border border-slate-200 p-6 bg-slate-50">
         <h2 class="text-xl font-semibold text-gray-900">Reflection</h2>
         <p class="text-gray-700 mt-2">
-          This week, choose one <strong>empowered choice.</strong> A small but deliberate action that protects your time, strengthens a boundary, or moves you closer to a goal. 
+          This week, choose one <strong>empowered choice.</strong> A small but deliberate action that protects your time, strengthens a boundary, or moves you closer to a goal.
           Notice how it feels to act from your own values.
         </p>
       </div>

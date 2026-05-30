@@ -1,8 +1,45 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block title %}Quietly You -- Practical Tools for Introverts | Inspirational Guidance{% endblock %}
+
+{% block open_graph_tags %}
+  <meta property="og:title" content="Quietly You -- Practical Tools for Introverts" />
+  <meta property="og:description" content="You are not too quiet. You are wired differently. Quietly You offers practical, printable tools to help introverts build self-trust and thrive without pretending to be someone they are not." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/quiet-trans.png' %}" />
+  <meta property="article:author" content="Diane Corriette" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Quietly You -- Practical Tools for Introverts">
+  <meta name="twitter:description" content="You are not too quiet. You are wired differently. Practical tools for introverts who want to feel seen, safe, and strong.">
+  <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/quiet-trans.png' %}">
+{% endblock %}
+
 {% block content %}
 {% load video_tags %}
 {% load resource_tags %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Quietly You -- Practical Tools for Introverts",
+  "description": "Practical, printable tools to help introverts build self-trust and thrive without pretending to be someone they are not. Created by Diane Corriette of Inspirational Guidance.",
+  "url": "{{ request.build_absolute_uri }}",
+  "author": {
+    "@type": "Person",
+    "name": "Diane Corriette",
+    "url": "https://inspirationalguidance.com/diane-corriette/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inspirational Guidance",
+    "url": "https://inspirationalguidance.com"
+  }
+}
+</script>
 
 
 <section class="bg-slate-50 w-full">
@@ -33,6 +70,20 @@
   </div>
 </section>
   
+{# --- Author bar + About box --- #}
+<div class="max-w-6xl mx-auto px-6 mt-10 mb-10">
+  <div class="flex items-center gap-3 text-sm text-gray-500 mb-3">
+    <a href="https://inspirationalguidance.com/diane-corriette/" class="font-medium text-teal-700 hover:underline">Diane Corriette</a>
+    <span>·</span>
+    <span>Personal Growth Coach &amp; INFJ Introvert</span>
+    <span>·</span>
+    <span>Inspirational Guidance</span>
+  </div>
+  <div class="bg-teal-50 border border-teal-200 rounded-xl p-4 text-sm text-teal-900 leading-relaxed">
+    <strong>About Quietly You:</strong> This section is created by <a href="https://inspirationalguidance.com/diane-corriette/" class="underline font-medium">Diane Corriette</a>, Personal Growth Coach and founder of Inspirational Guidance -- and an INFJ introvert herself. Diane writes about introversion from lived experience, combined with over two decades of coaching and NLP practice. The tools here are built for introverts by someone who understands the wiring from the inside.
+  </div>
+</div>
+
 <!--Quietly you intro-->
    <div class="max-w-7xl mx-auto mb-24 px-6">
     <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 mb-12 items-center ">

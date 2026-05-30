@@ -6,31 +6,67 @@
 {# ===== Open Graph / Twitter Cards ===== #}
 {% block open_graph_tags %}
   <meta property="og:title" content="Build Self‑Confidence: A Practical Guide for Women" />
-  <meta property="og:description" content="Confidence is a skill. Learn the five core moves that rebuild self‑belief through awareness, self‑talk, small actions, resilience, and voice." />
+  <meta property="og:description" content="Confidence is a skill you practise, not a personality trait you are born with. Diane Corriette's six-step guide helps women build self-belief through clarity, self-talk, small actions, resilience, journaling, and owning your voice." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/build-self-confidence-infographic.webp" />
+  <meta property="article:author" content="Diane Corriette" />
+  <meta property="article:published_time" content="2024-09-01" />
+  <meta property="article:modified_time" content="2026-05-01" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Build Self‑Confidence: A Practical Guide for Women">
-  <meta name="twitter:description" content="Confidence is a skill you practice — not a personality trait you’re born with. Start here.">
+  <meta name="twitter:description" content="Confidence is a skill you practise, not a personality trait you are born with. Start here with Diane Corriette's six-step guide.">
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/build-self-confidence-infographic.webp">
 {% endblock %}
 
 
 
 {% block content %}
+
+{# ===== Article Schema ===== #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Build Self‑Confidence: A Practical Guide for Women",
+  "description": "Confidence is a skill you practise, not a personality trait you are born with. A six-step guide from Diane Corriette of Inspirational Guidance.",
+  "image": "{{ request.scheme }}://{{ request.get_host }}/static/images/build-self-confidence-infographic.webp",
+  "author": {"@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/"},
+  "publisher": {"@type": "Organization", "name": "Inspirational Guidance"},
+  "datePublished": "2024-09-01",
+  "dateModified": "2026-05-01",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "{{ request.build_absolute_uri }}"}
+}
+</script>
+
+
 <div class="bg-white">
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    {# --- Author + Date bar --- #}
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-6">
+      <a href="https://inspirationalguidance.com/diane-corriette/" class="font-medium text-teal-700 hover:underline">Diane Corriette</a>
+      <span>·</span>
+      <time datetime="2024-09-01">Published September 2024</time>
+      <span>·</span>
+      <time datetime="2026-05-01">Updated May 2026</time>
+    </div>
+
     <header class="mb-8">
       <h1 class="text-4xl mb-8 font-bold text-gray-900">Build Self‑Confidence: A Practical Guide for Women</h1>
-      <p class="mt-3 text-gray-700 max-w-3xl">Self-confidence isn’t about being loud. It’s a learned skill. This guide shows you how to build self-confidence through five repeatable moves: <strong>Know Yourself</strong>, <strong>Reframe Your Self‑Talk</strong>, <strong>Act in Small Steps</strong>, <strong>Build Resilience</strong>, and <strong>Own Your Voice</strong>.</p>
+      <p class="mt-3 text-gray-700 max-w-3xl">Self-confidence isn't about being loud. It's a learned skill. This guide shows you how to build self-confidence through six repeatable moves: <strong>Know Yourself</strong>, <strong>Reframe Your Self‑Talk</strong>, <strong>Act in Small Steps</strong>, <strong>Build Resilience</strong>, <strong>Use Journal Writing</strong>, and <strong>Own Your Voice</strong>.</p>
     </header>
+
+    {# --- About this guide --- #}
+    <div class="bg-teal-50 border border-teal-200 rounded-xl p-5 mb-8 text-base text-teal-900 leading-relaxed">
+      <strong>About this guide:</strong> Written by <a href="https://inspirationalguidance.com/diane-corriette/" class="underline font-medium">Diane Corriette</a>, Personal Growth Coach, and founder of Inspirational Guidance. Diane has spent over two decades helping women build self-belief -- not through motivation, but through clarity, language, and consistent action. This guide reflects the practical approach she uses in her own life and her coaching work.
+    </div>
         {# --- self confidence quote --- #}
       <section class="w-full">
             <div class="max-w-7xl mb-8 mx-auto">
             <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
-                <p class="py-8">“The only way to get rid of the fear of doing something is to go out and do it.” <br> - Susan Jeffers</p>
+                <p class="py-8">"The only way to get rid of the fear of doing something is to go out and do it." <br> - Susan Jeffers</p>
             </blockquote>
             </div>
         </section>
@@ -82,7 +118,7 @@
         <a href="/micro-confidence-habits/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <div class="text-sm font-semibold text-gray-500">Step 3</div>
           <h3 class="text-xl font-semibold text-gray-900 mt-1">Act in Small Steps</h3>
-          <p class="text-gray-700 mt-2">Create quick wins with micro‑habits. Action builds evidence — evidence builds belief.</p>
+          <p class="text-gray-700 mt-2">Create quick wins with micro‑habits. Action builds evidence -- evidence builds belief.</p>
           <span class="inline-flex items-center text-teal-700  mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
         </a>
         {# Card 4 #}
@@ -119,27 +155,42 @@
     <section class="mt-12 mb-4 space-y-10">
       <div id="pause-step" class="prose text-lg mb-6 max-w-none">
         <h2>Know Yourself</h2>
-        <p>Confidence begins with clarity. Identify your strengths, values, and non‑negotiables so your choices line up with who you are — not who you think you should be. Try a quick audit: “What actually matters to me right now?”</p>
+        <p>Confidence begins with clarity. When you do not know what you value, what you are good at, and what you genuinely need, every decision becomes a test you feel unprepared for. That uncertainty is what drives second-guessing -- not a lack of ability.</p>
+        <p class="mt-3">Start with a simple audit: What do I actually care about right now -- not five years ago, not in theory? Where do I feel most capable? What drains me that I keep doing anyway? These questions surface the raw material of self-knowledge. You cannot build confidence on a foundation of borrowed values and other people's standards; it will never feel solid.</p>
+        <p class="mt-3">Write down 3-5 honest answers. Clarity reduces second-guessing because you are no longer evaluating every situation from scratch. You have a reference point that is yours.
+        <a href="/confidence-know-yourself/" class="text-teal-700 hover:underline">Full guide: Know Yourself →</a></p>
       </div>
-      <div id="accept-step" class="prose text-lg mb-6  max-w-none">
+      <div id="accept-step" class="prose text-lg mb-6 max-w-none">
         <h2>Reframe Your Self‑Talk</h2>
-        <p>Your inner voice trains your nervous system. Swap harsh commentary for coaching language: “I can take one step,” “Progress over perfection,” “I back myself.” Repetition builds belief.</p>
+        <p>Your inner voice runs almost constantly, and it is training your nervous system whether you are paying attention or not. Harsh self-commentary -- "I always mess this up", "Who am I to think I can do this?" -- does not make you try harder. It makes you smaller.</p>
+        <p class="mt-3">The shift is from critic to coach. A coach does not pretend mistakes did not happen; they ask what can be learned and what the next step is. Swap commentary for language that moves you forward: "I can take one step from here." "Progress matters more than perfection." "I back myself to figure this out." These are not affirmations -- they are instructions to your own nervous system.</p>
+        <p class="mt-3">Repetition is the mechanism. What you say to yourself consistently becomes what you believe. Start with one phrase and use it every time the critic fires.
+        <a href="/confidence-self-talk/" class="text-teal-700 hover:underline">Full guide: Reframe Your Self‑Talk →</a></p>
       </div>
       <div id="understand-step" class="prose text-lg mb-6 max-w-none">
         <h2>Act in Small Steps</h2>
-        <p>Action creates evidence — and evidence creates confidence. Use micro‑habits you can complete in 5 minutes: send the email draft, ask one clarifying question, or practice a boundary line in your notes.</p>
+        <p>Confidence is not something you feel and then act from. It is something you build by acting, then feeling. The evidence comes first. The belief follows. This is why waiting until you feel ready is a trap -- ready is a feeling that action produces, not a condition that precedes it.</p>
+        <p class="mt-3">Use micro-habits you can complete in five minutes: send the email draft you have been sitting on. Ask one clarifying question in the meeting instead of staying silent. Write the boundary line in your notes and read it aloud. Each of these is a small deposit in your evidence bank -- proof that you can act, and that acting did not destroy you.</p>
+        <p class="mt-3">Track one action per day. After 30 days, read back through the list. Most people are surprised by how much they did -- and how consistently they survived it.
+        <a href="/micro-confidence-habits/" class="text-teal-700 hover:underline">Full guide: Act in Small Steps →</a></p>
       </div>
       <div id="strengthen-step" class="prose text-lg mb-6 max-w-none">
         <h2>Build Resilience</h2>
-        <p>Setbacks don’t erase your progress. Use the <a href="{% url 'core:emotional_resilience' %}" class="text-indigo-700 underline">PAUSE Framework</a> to steady yourself, extract the lesson, and keep going. Your bounce‑back becomes self‑trust.</p>
+        <p>Setbacks do not erase your progress -- they test whether the confidence you have built is real or only surface-level. The difference between people who rebuild quickly and those who spiral is not talent or luck; it is the quality of their bounce-back toolkit.</p>
+        <p class="mt-3">Use Diane's <a href="{% url 'core:emotional_resilience' %}" class="text-teal-700 underline">PAUSE Framework</a> to steady yourself after a knock: pause before reacting, accept what has happened, understand what is underneath the reaction, strengthen your inner and outer resources, and carry the lesson forward. Your bounce-back speed becomes your self-trust. Each time you recover, you have evidence that you can.
+        <a href="/rebuild-confidence-after-setback/" class="text-teal-700 hover:underline">Full guide: Build Resilience →</a></p>
       </div>
       <div id="journal-step" class="prose text-lg mb-6 max-w-none">
         <h2>Capture Your Wins in Writing</h2>
-        <p>Keep a simple journal where you note one thing each day you handled well, no matter how small. Over time, you will have a written record of proof that you can handle more than you think.</p>
+        <p>Memory is biased towards difficulty. You will remember the moment you stumbled in the presentation long after you have forgotten the twelve meetings you ran well. A written record corrects that bias.</p>
+        <p class="mt-3">Keep a simple journal -- one line per day, noting something you handled well. No matter how small: "I asked for what I needed." "I made a decision without checking with anyone else." "I said no and the world kept turning." Over weeks, these become an irrefutable written record of your own capability. When doubt flares, you have evidence. That evidence is the foundation of genuine confidence.
+        <a href="/build-self-confidence-journal-writing/" class="text-teal-700 hover:underline">Full guide: Journal Writing for Confidence →</a></p>
       </div>
       <div id="evolve-step" class="prose text-lg mb-6 max-w-none">
         <h2>Own Your Voice</h2>
-        <p>Confidence shows up as presence. Practice simple boundary lines: “No, that doesn’t work for me,” or “I’ll get back to you tomorrow.” Say less and end sentences as declarations, not questions.</p>
+        <p>Confidence ultimately shows up as presence -- the quality of how you occupy space, speak, and hold your own in situations that matter. This is not about being loud. It is about being clear.</p>
+        <p class="mt-3">Practise specific boundary lines: "No, that does not work for me." "I will get back to you tomorrow." "I have a different view on this." Say less and end your sentences as declarations, not questions. The habit of upward inflection -- ending statements as though they need approval -- signals uncertainty even when you feel none. Presence is practised in small moments; it shows up in the big ones.
+        <a href="/assertiveness-own-your-voice/" class="text-teal-700 hover:underline">Full guide: Own Your Voice →</a></p>
       </div>
     </section>
     {# --- Quick Answers --- #}
@@ -159,7 +210,7 @@
         <div>
           <h3 class="text-lg font-semibold text-gray-800">What daily habits help build self-confidence?</h3>
           <p class="mt-2 text-gray-700">
-            Practising small daily wins, speaking up at least once a day, and keeping a “done” list can strengthen your self-belief over time. 
+            Practising small daily wins, speaking up at least once a day, and keeping a "done" list can strengthen your self-belief over time. 
             <a href="/daily-confidence-habits" class="text-teal-700 hover:underline">Full guide →</a>
           </p>
         </div>
@@ -167,7 +218,7 @@
         <div>
           <h3 class="text-lg font-semibold text-gray-800">What journal prompts can I use to boost self-confidence?</h3>
           <p class="mt-2 text-gray-700">
-            Try prompts like: “One thing I did well today,” “A moment I was proud of,” and “A risk I took and what I learned.” 
+            Try prompts like: "One thing I did well today," "A moment I was proud of," and "A risk I took and what I learned." 
             <a href="/journal-prompts-self-confidence" class="text-teal-700 hover:underline">More prompts →</a>
           </p>
         </div>
@@ -175,7 +226,7 @@
         <div>
           <h3 class="text-lg font-semibold text-gray-800">What are some confidence-building exercises I can do in 5 minutes?</h3>
           <p class="mt-2 text-gray-700">
-            Stand tall in a power pose, recall a recent success, or take one small action you’ve been avoiding. 
+            Stand tall in a power pose, recall a recent success, or take one small action you've been avoiding. 
             <a href="/5-minute-confidence-exercises" class="text-teal-700 hover:underline">See all quick wins →</a>
           </p>
         </div>
@@ -224,7 +275,7 @@
           <p class="text-gray-700">The words you repeat become your posture.</p>
         </div>
         <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
-          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="dont-need-figured-out-confident">Why You Don’t Need to Have It All Figured Out</a></h3>
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="dont-need-figured-out-confident">Why You Don't Need to Have It All Figured Out</a></h3>
           <p class="text-gray-700">Confidence comes from trusting that you can handle whatever comes next.</p>
         </div>
         <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
@@ -233,7 +284,7 @@
         </div>
         <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-indigo-500">
           <h3 class="font-semibold text-lg text-indigo-700 mb-2"><a href="/stop-comparing-yourself-to-others/">How To Stop Comparing Yourself to Others</a></h3>
-          <p class="text-gray-700">Stopping comparison isn’t about ignoring the world.</p>
+          <p class="text-gray-700">Stopping comparison isn't about ignoring the world.</p>
         </div>
       </div>
       <div class="mt-4">
@@ -266,51 +317,50 @@
       <div class="max-w-3xl">
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
           <summary class="font-semibold cursor-pointer">Can confidence really be learned at any age?</summary>
-          <p class="mt-3 text-gray-700">Yes. Confidence is built through practice — clarity, kinder self‑talk, and small consistent actions. Age provides more evidence to work with, not less.</p>
+          <p class="mt-3 text-gray-700">Yes. Confidence is built through practice -- clarity, kinder self‑talk, and small consistent actions. Age provides more evidence to work with, not less.</p>
         </details>
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
-          <summary class="font-semibold cursor-pointer">What’s the difference between confidence and self‑esteem?</summary>
-          <p class="mt-3 text-gray-700">Self‑esteem is how you feel about yourself; confidence is your trust that you can handle a situation. Improving one often supports the other, but they’re not identical.</p>
+          <summary class="font-semibold cursor-pointer">What's the difference between confidence and self‑esteem?</summary>
+          <p class="mt-3 text-gray-700">Self‑esteem is how you feel about yourself; confidence is your trust that you can handle a situation. Improving one often supports the other, but they're not identical.</p>
         </details>
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
           <summary class="font-semibold cursor-pointer">How long does it take to build confidence?</summary>
-          <p class="mt-3 text-gray-700">You’ll notice changes within weeks when you practice daily micro‑wins. Confidence compounds — repetition matters more than intensity.</p>
+          <p class="mt-3 text-gray-700">You'll notice changes within weeks when you practice daily micro‑wins. Confidence compounds -- repetition matters more than intensity.</p>
         </details>
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
           <summary class="font-semibold cursor-pointer">How can I be confident without feeling arrogant?</summary>
-          <p class="mt-3 text-gray-700">Anchor confidence in values and service. Speak clearly, honor boundaries, and let results speak. Quiet presence beats over‑explaining.</p>
+          <p class="mt-3 text-gray-700">Anchor confidence in values and service. Speak clearly, honour boundaries, and let results speak. Quiet presence beats over‑explaining.</p>
         </details>
       </div>
 
-      {# FAQ schema #}
       <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-          {"@type": "Question", "name": "Can confidence really be learned at any age?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Confidence is built through practice — clarity, kinder self-talk, and small consistent actions."}},
-          {"@type": "Question", "name": "What’s the difference between confidence and self-esteem?", "acceptedAnswer": {"@type": "Answer", "text": "Self-esteem is how you feel about yourself; confidence is your trust that you can handle a situation. Improving one often supports the other."}},
-          {"@type": "Question", "name": "How long does it take to build confidence?", "acceptedAnswer": {"@type": "Answer", "text": "You’ll notice changes within weeks when you practice daily micro-wins. Confidence compounds with repetition."}},
-          {"@type": "Question", "name": "How can I be confident without feeling arrogant?", "acceptedAnswer": {"@type": "Answer", "text": "Anchor confidence in values and service. Speak clearly, honor boundaries, and let results speak."}}
+          {"@type": "Question", "name": "Can confidence really be learned at any age?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Confidence is built through practice -- clarity, kinder self-talk, and small consistent actions."}},
+          {"@type": "Question", "name": "What's the difference between confidence and self-esteem?", "acceptedAnswer": {"@type": "Answer", "text": "Self-esteem is how you feel about yourself; confidence is your trust that you can handle a situation. Improving one often supports the other."}},
+          {"@type": "Question", "name": "How long does it take to build confidence?", "acceptedAnswer": {"@type": "Answer", "text": "You'll notice changes within weeks when you practice daily micro-wins. Confidence compounds with repetition."}},
+          {"@type": "Question", "name": "How can I be confident without feeling arrogant?", "acceptedAnswer": {"@type": "Answer", "text": "Anchor confidence in values and service. Speak clearly, honour boundaries, and let results speak."}}
         ]
       }
       </script>
     </section>
+
     {# --- banner ad goes to shop --- #}
-    
-        <a href="https://inspirationalguidance.com/shop/product/confidence-for-women-ready-to-feel-stronger/" target="_blank">
-        <img src="https://inspirationalguidance.com/media/public/news/ads/51-permission-slips-1.png?v=1756474060" alt="what should I do with my life">
-        </a> 
+    <a href="https://inspirationalguidance.com/shop/product/confidence-for-women-ready-to-feel-stronger/" target="_blank">
+      <img src="https://inspirationalguidance.com/media/public/news/ads/51-permission-slips-1.png?v=1756474060" alt="what should I do with my life">
+    </a>
+
     {# --- Cross‑links to other pillars --- #}
     <section class="mt-16">
       <h2 class="text-2xl font-semibold text-gray-900">Related Pillars</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
         <a href="{% url 'core:self_authorship' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <h3 class="text-lg font-semibold text-teal-700">Self Authorship</h3>
-          <p class="text-gray-700 mt-1">If you are not living a self-authored life, then whose life are you living?
-          </p>
+          <p class="text-gray-700 mt-1">If you are not living a self-authored life, then whose life are you living?</p>
         </a>
-          <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+        <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <h3 class="text-lg font-semibold text-teal-700">Emotional Resilience (PAUSE)</h3>
           <p class="text-gray-700 mt-1">Use PAUSE to steady yourself and rebuild quicker after setbacks.</p>
         </a>
@@ -331,7 +381,6 @@
           <p class="text-gray-700 mt-1">Free personal development tools to continue your personal growth.</p>
         </a>
       </div>
-      
     </section>
 
     {# --- Inspiration / Reflection box --- #}
@@ -341,6 +390,8 @@
         <p class="text-gray-700 mt-2">This week, choose one <strong>micro‑confidence action</strong> you can finish in five minutes. Log the win because evidence builds belief.</p>
       </div>
     </section>
+
   </section>
 </div>
 {% endblock %}
+    

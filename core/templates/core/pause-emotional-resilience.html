@@ -6,26 +6,76 @@
 {# ===== Open Graph / Twitter Cards ===== #}
 {% block open_graph_tags %}
   <meta property="og:title" content="The PAUSE Framework for Building Emotional Resilience" />
-  <meta property="og:description" content="Learn the five-step PAUSE process to handle challenges with calm, clarity, and self-trust. Free guide included." />
+  <meta property="og:description" content="PAUSE is a five-step emotional resilience framework created by Diane Corriette of Inspirational Guidance. Learn to respond to stress with calm and clarity instead of reacting on autopilot." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/emotional-resilience-infographic.jpg" />
+  <meta property="article:author" content="Diane Corriette" />
+  <meta property="article:published_time" content="2024-09-01" />
+  <meta property="article:modified_time" content="2026-05-01" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The PAUSE Framework for Building Emotional Resilience">
-  <meta name="twitter:description" content="Learn the five-step PAUSE process to handle challenges with calm, clarity, and self-trust. Free guide included.">
+  <meta name="twitter:description" content="PAUSE is a five-step emotional resilience framework created by Diane Corriette of Inspirational Guidance. Learn to respond to stress with calm and clarity instead of reacting on autopilot.">
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/emotional-resilience-infographic.jpg">
 {% endblock %}
 
 
 
 {% block content %}
+
+{# ===== Article Schema ===== #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The PAUSE Method: A Practical Guide to Emotional Resilience",
+  "description": "PAUSE is a five-step emotional resilience framework created by Diane Corriette. It helps you respond to stress with calm and clarity instead of reacting on autopilot.",
+  "image": "{{ request.scheme }}://{{ request.get_host }}/static/images/emotional-resilience-infographic.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Diane Corriette",
+    "url": "https://inspirationalguidance.com/diane-corriette/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inspirational Guidance",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.scheme }}://{{ request.get_host }}/static/images/logo.png"
+    }
+  },
+  "datePublished": "2024-09-01",
+  "dateModified": "2026-05-01",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request.build_absolute_uri }}"
+  }
+}
+</script>
+
+
 <div class="bg-white">
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    {# --- Author + Date bar --- #}
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-6">
+      <a href="https://inspirationalguidance.com/diane-corriette/" class="font-medium text-teal-700 hover:underline">Diane Corriette</a>
+      <span>·</span>
+      <time datetime="2024-09-01">Published September 2024</time>
+      <span>·</span>
+      <time datetime="2026-05-01">Updated May 2026</time>
+    </div>
+
     <header class="mb-8">
       <h1 class="text-4xl font-bold text-gray-900">The PAUSE Method: A Practical Guide to Emotional Resilience</h1>
       <p class="mt-3 text-gray-700 max-w-3xl">A simple, repeatable framework to help you meet stressful moments with more calm, clarity, and self‑trust. PAUSE stands for <strong>Pause</strong>, <strong>Accept</strong>, <strong>Understand</strong>, <strong>Strengthen</strong>, and <strong>Evolve</strong>.</p>
     </header>
+
+    {# --- About this framework --- #}
+    <div class="bg-teal-50 border border-teal-200 rounded-xl p-5 mb-8 text-base text-teal-900 leading-relaxed">
+      <strong>About the PAUSE Framework:</strong> PAUSE is an original framework created by <a href="https://inspirationalguidance.com/diane-corriette/" class="underline font-medium">Diane Corriette</a>, Personal Growth Coach, and founder of Inspirational Guidance. It was developed from over two decades of coaching experience and personal practice — distilling what consistently helps people move from reactive to responsive when life gets difficult. This page is the home of the framework; every step links to a deeper guide.
+    </div>
       {# --- quote --- #}
     <section class="w-full">
             <div class="max-w-7xl mb-8 mx-auto">
@@ -39,7 +89,8 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
       <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
         <h2 class="text-2xl font-semibold text-gray-900 mb-3">What is PAUSE?</h2>
-        <p class="text-gray-700">The PAUSE Framework is a practical, 5‑step process designed by Inspirational Guidance to help you respond to stress in a way that protects your energy, strengthens your confidence, and leaves you wiser for next time.</p>
+        <p class="text-gray-700">The PAUSE Framework is an original five-step process created by Diane Corriette to help you respond to stress in a way that protects your energy, strengthens your confidence, and leaves you wiser for next time. It was built on Diane's own experience navigating difficult moments and her work as a Personal Growth Coach — and refined over years of use with real women in real situations.</p>
+        <p class="text-gray-700 mt-3">PAUSE is not a mindfulness technique borrowed from elsewhere. It is a practical, sequenced framework designed to be used in the moment, not just in reflection. You can run through it in 90 seconds or use it as the basis for a longer journaling session. Both approaches work.</p>
         <ul class="list-disc ml-6 mt-4 text-gray-700 space-y-1">
           <li><strong>Pause:</strong> Stop and create space before reacting.</li>
           <li><strong>Accept:</strong> Acknowledge reality without judgment.</li>
@@ -109,25 +160,38 @@
     </div>
     {# --- Deep content anchors (so the cards jump here) --- #}
     <section class="mt-12 mb-4 space-y-10">
-      <div id="pause-step" class="prose text-lg mb-6 max-w-none">
+      <div id=”pause-step” class=”prose text-lg mb-6 max-w-none”>
         <h2>Pause</h2>
-        <p>In difficult moments our first instinct is often to react quickly, emotionally, and without thought. The pause interrupts that autopilot and gives you back a sense of control. Try a slow breath, drop your shoulders, and notice any urge to rush.</p>
+        <p>In difficult moments our first instinct is often to react quickly, emotionally, and without thought. That reaction is not a character flaw — it is the nervous system doing its job. The problem is that the job it was designed for (immediate physical threat) is rarely the job you are actually facing. A difficult conversation, an unexpected setback, a sharp comment from someone you trust — these need a different kind of response.</p>
+        <p class=”mt-3”>The pause interrupts that autopilot and gives you back a choice. Try a slow breath — inhale for four counts, exhale for six. Drop your shoulders. Notice any urge to rush or speak. That 90-second window is often enough to shift from reactive to responsive. You are not delaying; you are choosing.</p>
+        <p class=”mt-3”><a href=”/pause-reclaiming-your-first-response/” class=”text-teal-700 hover:underline”>Full guide: Pause — Reclaiming Your First Response →</a></p>
       </div>
-      <div id="accept-step" class="prose text-lg mb-6  max-w-none">
+      <div id=”accept-step” class=”prose text-lg mb-6 max-w-none”>
         <h2>Accept</h2>
-        <p>Acceptance is not giving in or liking what’s happening. It’s acknowledging reality as it is, so you can work with it rather than fight against it. Name the feeling and remind yourself: “This is how it is right now — and I can choose my next step.”</p>
+        <p>Acceptance is not agreement. It is not giving in, tolerating the intolerable, or pretending things are fine. It is acknowledging reality as it is right now — so you can work with it rather than fight against it. Resistance to what is happening drains the energy you need to respond well.</p>
+        <p class=”mt-3”>In practice: name what is actually happening without dramatising or minimising it. “This is difficult and I did not want it to go this way” is acceptance. “This is a disaster and I cannot handle it” is resistance in a different costume. Name the feeling, note the facts, and remind yourself: “This is how it is right now — and I can choose my next step.”</p>
+        <p class=”mt-3”><a href=”/accept-naming-and-acknowledging-reality/” class=”text-teal-700 hover:underline”>Full guide: Accept — Naming and Acknowledging Reality →</a></p>
       </div>
-      <div id="understand-step" class="prose text-lg mb-6 max-w-none">
+      <div id=”understand-step” class=”prose text-lg mb-6 max-w-none”>
         <h2>Understand</h2>
-        <p>Ask what’s underneath the reaction: Is this about now, or does it echo something earlier? Identify triggers and patterns so you can address the cause, not just the surface feeling.</p>
+        <p>Once you have paused and accepted what is happening, you can look underneath the surface reaction. Ask: What is really driving this? Is this about now, or is it echoing something older — a pattern, a fear, a wound that has been activated before?</p>
+        <p class=”mt-3”>Understanding does not require perfect self-knowledge. It requires honest curiosity. Often, the strongest emotional reactions are not about the immediate situation at all — they are about what the situation means, or what it reminds us of. When you can see that, the reaction loses some of its power and your response becomes more deliberate.</p>
+        <p class=”mt-3”>Keep a brief note of the triggers and patterns you notice. Over time, these become the raw material for genuine self-knowledge — not theory, but your own lived data.</p>
+        <p class=”mt-3”><a href=”/understand-finding-the-why-beneath-the-reaction/” class=”text-teal-700 hover:underline”>Full guide: Understand — Finding the Why Beneath the Reaction →</a></p>
       </div>
-      <div id="strengthen-step" class="prose text-lg mb-6 max-w-none">
+      <div id=”strengthen-step” class=”prose text-lg mb-6 max-w-none”>
         <h2>Strengthen</h2>
-        <p>Resilience grows through practice and support. Use grounding tools (breath, journaling, a short walk), speak to yourself with encouragement, and lean on trusted people or routines.</p>
+        <p>Resilience does not grow from white-knuckling through hard moments. It grows from having reliable inner and outer resources you can access when things are difficult. This step is about building and using those resources — not just in a crisis, but consistently.</p>
+        <p class=”mt-3”>Inner resources: grounding tools (slow breath, a brief body scan, five things you can see right now), encouraging self-talk that coaches rather than criticises, and a written record of how you have handled difficulty before. Outer resources: people you trust, routines that steady you, physical movement, and — for many women — journaling.</p>
+        <p class=”mt-3”>The Strengthen step is also where you ask: what do I need right now that I am not giving myself? Often the answer is simpler than expected: rest, space, a conversation, or permission to not have it all figured out today.</p>
+        <p class=”mt-3”><a href=”/strengthen-building-your-resilience-muscle/” class=”text-teal-700 hover:underline”>Full guide: Strengthen — Building Your Resilience Muscle →</a></p>
       </div>
-      <div id="evolve-step" class="prose text-lg mb-6 max-w-none">
+      <div id=”evolve-step” class=”prose text-lg mb-6 max-w-none”>
         <h2>Evolve</h2>
-        <p>Each challenge can leave you stronger if you take the time to reflect and carry the lesson forward. Capture one takeaway in your journal or tracker so it becomes part of your toolkit.</p>
+        <p>Every difficult experience contains information. The Evolve step is where you decide what to do with it — rather than simply enduring it and moving on, or cycling back to the same pattern next time.</p>
+        <p class=”mt-3”>This is not about toxic positivity or forcing a silver lining. Some things are genuinely hard and leave a mark. Evolve means asking: what do I know now that I did not know before? What would I do differently? What does this tell me about what I need to protect, build, or change?</p>
+        <p class=”mt-3”>Capture one takeaway — a sentence in your journal, a note on your phone, a line in your weekly review. Over time, these become a personal resilience toolkit built entirely from your own experience. That is far more useful than generic advice, because it was earned.</p>
+        <p class=”mt-3”><a href=”/evolve-turning-survival-into-growth/” class=”text-teal-700 hover:underline”>Full guide: Evolve — Turning Survival into Growth →</a></p>
       </div>
     </section>
     {# --- Quick answers to resilience --- #}
@@ -277,7 +341,7 @@
       <h2 class="text-2xl font-semibold text-gray-900 mb-4">FAQ</h2>
       <div class="max-w-3xl">
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
-          <summary class="font-semibold cursor-pointer">What’s the quickest way to calm down during a stressful moment?</summary>
+          <summary class="font-semibold cursor-pointer">What's the quickest way to calm down during a stressful moment?</summary>
           <p class="mt-3 text-gray-700">Use the <em>Pause</em> step: inhale for four, exhale for six, drop your shoulders, and delay responding for 90 seconds. That window is often enough to choose a better next step.</p>
         </details>
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
@@ -290,29 +354,44 @@
         </details>
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
           <summary class="font-semibold cursor-pointer">Can I use PAUSE at work or with family?</summary>
-          <p class="mt-3 text-gray-700">Yes. It’s designed for real life — difficult meetings, parenting stress, health worries, and relationship tensions. Start with non‑urgent moments to build the habit.</p>
+          <p class="mt-3 text-gray-700">Yes. It's designed for real life — difficult meetings, parenting stress, health worries, and relationship tensions. Start with non‑urgent moments to build the habit.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Who created the PAUSE framework?</summary>
+          <p class="mt-3 text-gray-700">PAUSE was created by <a href="https://inspirationalguidance.com/diane-corriette/" class="text-teal-700 hover:underline">Diane Corriette</a>, Personal Growth Coach and founder of Inspirational Guidance. It was developed from over two decades of coaching experience and is the emotional resilience framework at the centre of her work with women.</p>
         </details>
       </div>
 
-      {# FAQ schema #}
       <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-          {"@type": "Question", "name": "What’s the quickest way to calm down during a stressful moment?", "acceptedAnswer": {"@type": "Answer", "text": "Use the Pause step: inhale for four, exhale for six, drop your shoulders, and delay responding for 90 seconds."}},
-          {"@type": "Question", "name": "Is PAUSE a mindfulness technique?", "acceptedAnswer": {"@type": "Answer", "text": "PAUSE is mindfulness‑friendly but action‑oriented. It gives you a simple sequence to apply under pressure."}},
+          {"@type": "Question", "name": "What's the quickest way to calm down during a stressful moment?", "acceptedAnswer": {"@type": "Answer", "text": "Use the Pause step: inhale for four, exhale for six, drop your shoulders, and delay responding for 90 seconds."}},
+          {"@type": "Question", "name": "Is PAUSE a mindfulness technique?", "acceptedAnswer": {"@type": "Answer", "text": "PAUSE is mindfulness-friendly but action-oriented. It gives you a simple sequence to apply under pressure."}},
           {"@type": "Question", "name": "How long does it take to build emotional resilience?", "acceptedAnswer": {"@type": "Answer", "text": "Resilience grows through repetition. Many notice a shift within weeks of small daily practice."}},
-          {"@type": "Question", "name": "Can I use PAUSE at work or with family?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It’s designed for real‑life moments — meetings, parenting, health worries, and relationship tensions."}}
+          {"@type": "Question", "name": "Can I use PAUSE at work or with family?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It's designed for real-life moments — meetings, parenting, health worries, and relationship tensions."}},
+          {"@type": "Question", "name": "Who created the PAUSE framework?", "acceptedAnswer": {"@type": "Answer", "text": "PAUSE was created by Diane Corriette, Personal Growth Coach and founder of Inspirational Guidance, from over two decades of coaching experience."}}
         ]
       }
       </script>
     </section>
+
     {# --- banner ad goes to shop --- #}
-    
-        <a href="https://www.inspirationalguidance.com/shop/category/emotional-resilience/" target="_blank">
-        <img src="https://inspirationalguidance.com/media/public/news/ads/emotional-resilience-pause-5_eK82xC1.webp?v=1756475650" alt="emotional resilience">
+    <a href="https://www.inspirationalguidance.com/shop/category/emotional-resilience/" target="_blank">
+      <img src="https://inspirationalguidance.com/media/public/news/ads/emotional-resilience-pause-5_eK82xC1.webp?v=1756475650" alt="emotional resilience">
     </a>
+
+    {# --- Sources --- #}
+    <section class="mt-12">
+      <h2 class="text-xl font-semibold text-gray-900 mb-3">Further Reading on Emotional Resilience</h2>
+      <ul class="space-y-2 text-base text-gray-700">
+        <li>Corriette, D. (2024). <em>The PAUSE Framework for Emotional Resilience.</em> Inspirational Guidance.</li>
+        <li><a href="https://positivepsychology.com/emotional-resilience/" class="text-teal-700 hover:underline" rel="noopener noreferrer" target="_blank">Positive Psychology — Emotional Resilience overview</a></li>
+        <li><a href="https://www.apa.org/topics/resilience" class="text-teal-700 hover:underline" rel="noopener noreferrer" target="_blank">American Psychological Association — Building Your Resilience</a></li>
+      </ul>
+    </section>
+
     {# --- Cross‑links to other pillars --- #}
     <section class="mt-16">
       <h2 class="text-2xl font-semibold text-gray-900">Related Pillars</h2>
@@ -321,17 +400,14 @@
           <h3 class="text-lg font-semibold text-teal-700">Build Self‑Confidence</h3>
           <p class="text-gray-700 mt-1">Use resilience to rebuild self‑belief and steady presence.</p>
         </a>
-        
         <a href="{% url 'core:self_authorship' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <h3 class="text-lg font-semibold text-teal-700">Self Authorship</h3>
-          <p class="text-gray-700 mt-1">If you are not living a self-authored life, then whose life are you living?
-          </p>
+          <p class="text-gray-700 mt-1">If you are not living a self-authored life, then whose life are you living?</p>
         </a>
         <a href="{% url 'core:live_with_purpose' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <h3 class="text-lg font-semibold text-teal-700">Live With Purpose</h3>
           <p class="text-gray-700 mt-1">Use Evolve to realign with your values after setbacks.</p>
         </a>
-        
         <a href="{% url 'core:empowered_living' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <h3 class="text-lg font-semibold text-teal-700">Empowered Living</h3>
           <p class="text-gray-700 mt-1">Turn PAUSE into daily habits that empower you.</p>
@@ -354,6 +430,7 @@
         <p class="text-gray-700 mt-2">This week, give yourself permission to <strong>pause before you respond</strong>. Note one thing you notice when you slow down.</p>
       </div>
     </section>
+
   </section>
 </div>
 {% endblock %}

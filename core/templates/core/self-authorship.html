@@ -6,47 +6,101 @@
 {# ===== Open Graph / Twitter Cards ===== #}
 {% block open_graph_tags %}
   <meta property="og:title" content="Self‑Authorship: Take Charge of Your Life Story" />
-  <meta property="og:description" content="Define your beliefs, decisions, and direction on your terms. A practical guide to reclaiming your life narrative — with steps, tools, and journal prompts." />
+  <meta property="og:description" content="Self-authorship is the ability to define your own beliefs, values, and direction — not someone else's. Learn the six steps to reclaim your life narrative, with journal prompts and practical tools from Inspirational Guidance." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/self-authorship-hero.jpg" />
+  <meta property="article:author" content="Diane Corriette" />
+  <meta property="article:published_time" content="2024-09-01" />
+  <meta property="article:modified_time" content="2026-05-01" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Self‑Authorship: Take Charge of Your Life Story">
-  <meta name="twitter:description" content="Define your beliefs, decisions, and direction on your terms. A practical guide to reclaiming your life narrative — with steps, tools, and journal prompts.">
+  <meta name="twitter:description" content="Self-authorship is the ability to define your own beliefs, values, and direction — not someone else's. Learn the six steps to reclaim your life narrative, with journal prompts and practical tools from Inspirational Guidance.">
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/self-authorship-hero.jpg">
 {% endblock %}
 
 {% block content %}
+
+{# ===== Article Schema ===== #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Self-Authorship: How to Take Control of Your Life",
+  "description": "A practical guide to self-authorship — spotting inherited rules, choosing your own values, and making confident decisions that align your life with what matters.",
+  "image": "{{ request.scheme }}://{{ request.get_host }}/static/images/self-authorship-hero.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Diane Corriette",
+    "url": "https://inspirationalguidance.com/diane-corriette/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inspirational Guidance",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.scheme }}://{{ request.get_host }}/static/images/logo.png"
+    }
+  },
+  "datePublished": "2024-09-01",
+  "dateModified": "2026-05-01",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request.build_absolute_uri }}"
+  }
+}
+</script>
+
 <div class="bg-white">
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    {# --- Author + Date bar --- #}
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-6">
+      <a href="https://inspirationalguidance.com/diane-corriette/" class="font-medium text-teal-700 hover:underline">Diane Corriette</a>
+      <span>·</span>
+      <time datetime="2024-09-01">Published September 2024</time>
+      <span>·</span>
+      <time datetime="2026-05-01">Updated May 2026</time>
+    </div>
+
     <header class="mb-8">
       <h1 class="text-4xl mb-4 font-bold text-gray-900">Self-Authorship: How to Take Control of Your Life</h1>
       <p class="leading-relaxed text-xl mt-2">
-        Self‑authorship is the ability to define your beliefs, identity, and direction on your terms and not by someone else’s script.
-        This guide shows you how to spot inherited rules, choose your own, and practice small, confident decisions that realign your life with what matters.
+        Self‑authorship is the ability to define your beliefs, identity, and direction on your terms — not by someone else's script.
+        This guide shows you how to spot inherited rules, choose your own, and practise small, confident decisions that realign your life with what matters.
       </p>
-       <p class="leading-relaxed text-xl mt-2">Take Control of Your Life. Live on Your Own Terms. Become the author of your life - <strong>that’s self-authorship.</strong>
+      <p class="leading-relaxed text-xl mt-2">Take control of your life. Live on your own terms. Become the author of your life — <strong>that's self-authorship.</strong></p>
     </header>
+
+    {# --- About this guide --- #}
+    <div class="bg-teal-50 border border-teal-200 rounded-xl p-5 mb-8 text-base text-teal-900 leading-relaxed">
+      <strong>About this guide:</strong> Written by <a href="https://inspirationalguidance.com/diane-corriette/" class="underline font-medium">Diane Corriette</a>, Personal Growth Coach, and founder of Inspirational Guidance. Diane draws on the research of developmental psychologist Marcia Baxter Magolda, whose <em>self-authorship</em> framework has shaped adult learning theory for over three decades, combining that evidence base with her own lived experience of self-authoring her life and over two decades of coaching work.
+    </div>
+
     {# --- quote --- #}
     <section class="w-full">
-            <div class="max-w-7xl mb-8 mx-auto">
-            <blockquote class="p-4  px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
-                <p class="py-8">“If you are not living a self-authored life, then whose life are you living?” <br> - Inspirational Guidance</p>
-            </blockquote>
-            </div>
-        </section>
+      <div class="max-w-7xl mb-8 mx-auto">
+        <blockquote class="p-4 px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
+          <p class="py-8">"If you are not living a self-authored life, then whose life are you living?" <br> — Inspirational Guidance</p>
+        </blockquote>
+      </div>
+    </section>
+
     {# --- What is Self‑Authorship? & Why it works --- #}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
       <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
         <h2 class="text-2xl font-semibold text-gray-900 mb-3">What Is Self‑Authorship?</h2>
         <p class="leading-relaxed text-xl mt-2">
-          Self‑authorship means you write the rules you live by. You examine expectations you’ve inherited from family, culture, and past versions of yourself and you replace them with values and principles you actually believe in. Then you practice making choices that reflect them.
+          Self‑authorship means you write the rules you live by. You examine expectations you have inherited from family, culture, and past versions of yourself — and you replace them with values and principles you actually believe in. Then you practise making choices that reflect them.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Psychologist Marcia Baxter Magolda, who studied adult development at Miami University over 25 years, found that self-authorship is the capacity to internally define your own beliefs, identity, and relationships — rather than having them shaped entirely by external authority. Her longitudinal research showed most people don't reach self-authorship until their late twenties or thirties, and many never make the transition fully.
         </p>
         <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-1">
-          <li><strong>Name the script:</strong> Notice where “should” is steering your life.</li>
+          <li><strong>Name the script:</strong> Notice where "should" is steering your life.</li>
           <li><strong>Choose your principles:</strong> Define 3–5 values and simple guardrails.</li>
-          <li><strong>Practice authorship:</strong> Make small, independent choices daily.</li>
+          <li><strong>Practise authorship:</strong> Make small, independent choices daily.</li>
           <li><strong>Hold boundaries:</strong> Protect your energy, time, and attention.</li>
           <li><strong>Iterate as you grow:</strong> Update the story when life changes.</li>
         </ul>
@@ -55,23 +109,27 @@
         <h3 class="text-xl font-semibold text-teal-800 mb-2">Why This Works</h3>
         <p class="text-teal-800/90 text-xl leading-relaxed">
           Direction beats approval. When your choices match your own values, follow‑through gets easier, confidence grows,
-          and life feels like it belongs to you again. Small, authorship‑based actions build identity‑level change.
+          and life feels like it belongs to you again. Small, authorship‑based actions build identity‑level change over time — not overnight, but consistently.
+        </p>
+        <p class="text-teal-800/90 text-xl leading-relaxed mt-3">
+          Research in adult development shows that the shift from <em>external</em> to <em>internal</em> authority is one of the most significant transitions a person can make — and it is learnable at any age.
         </p>
       </aside>
     </div>
-     {# --- banner ad goes to shop --- #}
-    
-        <a href="https://inspirationalguidance.com/shop/category/self-authorship/"  target="_blank">
-        <img src="https://inspirationalguidance.com/media/public/news/ads/start-something-new.png?v=1756474960" class="mt-12" alt="self-authorship design your life">
-        </a>
+
+    {# --- banner ad goes to shop --- #}
+    <a href="https://inspirationalguidance.com/shop/category/self-authorship/" target="_blank">
+      <img src="https://inspirationalguidance.com/media/public/news/ads/start-something-new.png?v=1756474960" class="mt-12" alt="self-authorship design your life">
+    </a>
+
     {# --- Six steps cards --- #}
     <section>
-      <h2 class="text-2xl mt-12 font-semibold ">Six Steps to Reclaim Your Life Narrative</h2>
+      <h2 class="text-2xl mt-12 font-semibold">Six Steps to Reclaim Your Life Narrative</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {# Card 1 #}
         <a href="/self-authorship-signs-script/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <div class="text-sm font-semibold text-teal-700">Step 1</div>
-          <h3 class="text-xl font-semibold text-gray-900 mt-1">Spot the Signs You’re Living by Someone Else’s Script</h3>
+          <h3 class="text-xl font-semibold text-gray-900 mt-1">Spot the Signs You're Living by Someone Else's Script</h3>
           <p class="text-gray-700 mt-2">Identify patterns of people‑pleasing, autopilot choices, and chronic over‑explaining.</p>
           <span class="inline-flex items-center text-teal-700 mt-3">Read more
             <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -80,28 +138,28 @@
         {# Card 2 #}
         <a href="/self-authorship-inherited-beliefs/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <div class="text-sm font-semibold text-teal-700">Step 2</div>
-          <h3 class="text-xl font-semibold  mt-1">Surface Inherited Beliefs and Hidden Rules</h3>
+          <h3 class="text-xl font-semibold mt-1">Surface Inherited Beliefs and Hidden Rules</h3>
           <p class="text-gray-700 mt-2">Name the expectations you absorbed and decide which ones no longer fit.</p>
           <span class="inline-flex items-center text-teal-700 mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
         </a>
         {# Card 3 #}
         <a href="/self-authorship-guiding-principles/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <div class="text-sm font-semibold text-teal-700">Step 3</div>
-          <h3 class="text-xl font-semibold  mt-1">Define Your Values and Guiding Principles</h3>
+          <h3 class="text-xl font-semibold mt-1">Define Your Values and Guiding Principles</h3>
           <p class="text-gray-700 mt-2">Choose plain‑language principles and simple decision rules you will actually use.</p>
-          <span class="inline-flex items-center text-teal-700 mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a 1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
+          <span class="inline-flex items-center text-teal-700 mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
         </a>
         {# Card 4 #}
         <a href="/self-authorship-independent-decisions/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <div class="text-sm font-semibold text-teal-700">Step 4</div>
-          <h3 class="text-xl font-semibold mt-1">Practice Low‑Risk Independent Decisions</h3>
+          <h3 class="text-xl font-semibold mt-1">Practise Low‑Risk Independent Decisions</h3>
           <p class="text-gray-700 mt-2">Build self‑trust by choosing for yourself in small, everyday situations.</p>
           <span class="inline-flex items-center text-teal-700 mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
         </a>
         {# Card 5 #}
         <a href="/self-authorship-rewrite-your-story/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <div class="text-sm font-semibold text-teal-700">Step 5</div>
-          <h3 class="text-xl font-semibold  mt-1">Rewrite the Parts of Your Story That Need Changing</h3>
+          <h3 class="text-xl font-semibold mt-1">Rewrite the Parts of Your Story That Need Changing</h3>
           <p class="text-gray-700 mt-2">Create updated narratives and boundary scripts that fit who you are now.</p>
           <span class="inline-flex items-center text-teal-700 mt-3">Read more<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></span>
         </a>
@@ -115,102 +173,176 @@
       </div>
     </section>
 
-    {# Infographic / Hero visual (placeholder) #}
+    {# Infographic / Hero visual #}
     <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm mt-10 mb-10">
-      <img src="{% static 'images/self-authorship-infographic.webp' %}" alt="Self‑Authorship visual placeholder" class="w-full h-auto">
+      <img src="{% static 'images/self-authorship-infographic.webp' %}" alt="Six steps to self-authorship — a visual overview" class="w-full h-auto">
     </div>
 
-    {# --- Deep content anchors --- #}
-    <section class="mt-12 mb-4 space-y-10">
+    {# --- Deep content anchors (expanded for E-E-A-T depth) --- #}
+    <section class="mt-12 mb-4 space-y-12">
+
       <div id="signs" class="prose text-lg mb-6 max-w-none">
-        <h2>Signs You’re Not in Control of Your Own Life</h2>
-        <p class="leading-relaxed text-xl mt-2">You over-explain simple decisions. You say yes before checking what you want. You feel pressure to meet expectations that no longer fit. Taking control starts with noticing where your choices are automatic instead of deliberate.</p>
+        <h2>Signs You're Not in Control of Your Own Life</h2>
+        <p class="leading-relaxed text-xl mt-2">
+          You over-explain simple decisions. You say yes before checking what you want. You feel persistent pressure to meet expectations that no longer fit who you are. These aren't personality quirks — they are signals that your choices are running on someone else's operating system.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          The most common pattern we see is what we call <em>automatic compliance</em>: agreeing to things before your own preferences have had a chance to register. It shows up in conversations ("of course, that's fine"), in career choices ("I should stay in this job"), and in relationships ("they'd be upset if I said no"). The decision appears to be yours, but the mechanism driving it is external approval.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Other signs include: chronic over-explaining or justifying your choices to others; difficulty answering "what do <em>you</em> want?" without referencing what someone else wants; feeling guilty when you prioritise yourself; and a persistent gap between the life you live and the life you feel is yours. If several of these resonate, you are living further from your own authorship than you may realise.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Taking control starts with noticing — without judgement — where your choices are automatic rather than deliberate. Awareness is not the same as action, but it is the prerequisite for it.
+          <a href="/self-authorship-signs-script/" class="text-teal-700 hover:underline">See the full guide to recognising the signs →</a>
+        </p>
       </div>
 
       <div id="beliefs" class="prose text-lg mb-6 max-w-none">
-        <h2>Identify the Rules You’re Following</h2>
-        <p class="leading-relaxed text-xl mt-2">List the rules you absorbed from family, culture, or past roles. Highlight the ones that no longer reflect who you are. Replace each with a rule that supports the life you want to build.</p>
+        <h2>Identify the Rules You're Following</h2>
+        <p class="leading-relaxed text-xl mt-2">
+          Every person carries an invisible rulebook — a set of beliefs about how they should behave, what they deserve, and what is possible for them. Most of these rules were written by other people: parents, teachers, peers, culture. You absorbed them before you were old enough to question them.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          The exercise we use at Inspirational Guidance is a simple audit. Write down five statements that begin with "I should…" or "People like me don't…" or "It's not okay to…". Then ask: who decided that? When did you agree to it? Is it still true for who you are now? Most people find that several of their strongest behavioural rules trace back to a single person or a single formative experience — not to a principle they have consciously chosen.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Baxter Magolda described this stage as moving from <em>following formulas</em> to <em>crossroads</em> — the point at which external expectations begin to feel constraining rather than guiding. That friction is not a problem to solve; it is the beginning of authorship. The rules that create the most internal resistance are usually the ones most ready to be updated.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Once you have your list, highlight the rules that no longer reflect who you are. Write a replacement for each — one that you would choose today.
+          <a href="/self-authorship-inherited-beliefs/" class="text-teal-700 hover:underline">Deeper guide to surfacing inherited beliefs →</a>
+        </p>
       </div>
 
       <div id="principles" class="prose text-lg mb-6 max-w-none">
         <h2>Choose Your Own Standards</h2>
-        <p class="leading-relaxed text-xl mt-2">Select 3–5 guiding principles in plain language (e.g., Autonomy, Growth, Stability). For each, define one daily behavior and one decision filter. Clear standards make independent choices easier.</p>
+        <p class="leading-relaxed text-xl mt-2">
+          Guiding principles are the internal compass that replaces the external rulebook. Without them, you are always at risk of defaulting back to other people's standards — especially under pressure, when clarity is hardest to maintain.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Select 3–5 values in plain language. Not abstract ideals like "integrity" or "success" — but specific, personal statements: <em>I choose depth over approval. I protect time for what matters most. I say what I mean, even when it is uncomfortable.</em> These should feel slightly challenging to hold, because real values require real trade-offs.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          For each principle, define one daily behaviour it requires and one decision filter it gives you. For example, if your principle is <em>Autonomy</em>, the daily behaviour might be making at least one unilateral decision each day without seeking permission, and the decision filter might be: "Does agreeing to this compromise my ability to manage my own time?" Clear standards make independent choices faster and more consistent, because you are not evaluating each situation from scratch.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Review your principles every quarter. They should evolve as you do.
+          <a href="/self-authorship-guiding-principles/" class="text-teal-700 hover:underline">Full guide to defining your values →</a>
+        </p>
       </div>
 
       <div id="decisions" class="prose text-lg mb-6 max-w-none">
         <h2>Strengthen Your Decision-Making</h2>
-        <p class="leading-relaxed text-xl mt-2">Start small. Make simple choices without seeking approval. Track outcomes. Confidence grows when you see evidence that you can choose and adjust without collapsing.</p>
+        <p class="leading-relaxed text-xl mt-2">
+          Self-authorship is built in micro-decisions. The most effective place to start is not with a major life change — it is with the dozens of small choices you currently outsource without noticing.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          What restaurant. What route to take. Whether to bring up that thing you've been sitting on. These feel trivial, but they are the practice ground where self-trust is built. Each time you make a low-stakes choice without seeking external validation, and then live with the outcome, you are adding to an internal evidence bank: <em>I chose. It was fine. I can do this.</em>
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          We recommend a 30-day decision journal. Each day, note one decision you made without asking for approval, and write one sentence on the outcome. After a month, most people are surprised by how consistently they made good calls — and how much mental energy they were spending seeking reassurance they didn't need.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Gradually move into higher-stakes territory: a work boundary, a relationship conversation, a creative risk. Confidence grows not from affirmation but from accumulated evidence.
+          <a href="/self-authorship-independent-decisions/" class="text-teal-700 hover:underline">Practise independent decisions — step by step →</a>
+        </p>
       </div>
 
       <div id="rewrite" class="prose text-lg mb-6 max-w-none">
         <h2>Rewrite the Direction of Your Life</h2>
-        <p class="leading-relaxed text-xl mt-2">Define new boundaries and identity statements (e.g., “I make decisions based on my priorities”). Keep them visible. Repetition reinforces ownership.</p>
+        <p class="leading-relaxed text-xl mt-2">
+          Once you can see the old script clearly and have practised making deliberate choices, the next step is to rewrite the narrative — the story you tell about who you are and where you are going.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          This is not about positive affirmations or wishful thinking. It is about identity statements that reflect choices you are already making. <em>"I am someone who makes decisions based on my own priorities."</em> <em>"I do not need external permission to pursue what matters to me."</em> These statements only land when they are grounded in real behaviour — which is why the decision-building phase comes first.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Boundary scripts are also part of rewriting. Instead of vague intentions to say no more often, write a specific script for the situations that most frequently pull you off course. <em>"I'm not available for that, but thank you for thinking of me."</em> Having the words ready removes the in-the-moment scramble that leads to automatic compliance.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Keep your identity statements visible — a note on your desk, a phone lock screen, a line in your journal header. Repetition reinforces ownership.
+          <a href="/self-authorship-rewrite-your-story/" class="text-teal-700 hover:underline">How to rewrite your life narrative →</a>
+        </p>
       </div>
 
       <div id="systems" class="prose text-lg mb-6 max-w-none">
-        <h2>Protect the Life You’re Building</h2>
-        <p class="leading-relaxed text-xl mt-2">Use a weekly review: What aligned with my priorities? Where did I default? What needs a clear no? Systems protect your authority over your life.</p>
+        <h2>Protect the Life You're Building</h2>
+        <p class="leading-relaxed text-xl mt-2">
+          Self-authorship is not a destination you arrive at; it is a practice you maintain. External pressures — other people's expectations, busy periods, setbacks — will regularly pull you towards old patterns. Systems are what hold your authorship in place when willpower and clarity are low.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          The most effective single habit is a weekly review. Block 15–20 minutes on the same day each week and ask three questions: What choices this week aligned with my principles? Where did I default to an old pattern? What does next week need a clear "no" to? This is not a journalling exercise — it is a governance check. You are the author reviewing the week's draft.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Beyond the weekly review, build simple guardrails — specific, pre-committed rules that protect your most important resources. <em>"No new commitments on weekday evenings."</em> <em>"I sleep on any decision that involves a significant time commitment."</em> Guardrails remove the decision from the moment of pressure, where you are least likely to author well.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          Audit your environment too. The people, inputs, and structures around you will either support or erode your authorship. This does not mean cutting everyone who challenges you — it means being deliberate about what you allow to shape your thinking.
+          <a href="/self-authorship-keep-it-in-place/" class="text-teal-700 hover:underline">Build systems that protect your authorship →</a>
+        </p>
       </div>
+
     </section>
 
-    {# --- Quick Answers (from your earlier snippet) --- #}
+    {# --- Quick Answers --- #}
     <section class="mt-12">
       <h2 class="text-2xl font-bold text-gray-900 mb-6">Quick Answers About Taking Control of Your Life</h2>
       <div class="space-y-6">
         <div>
           <h3 class="text-xl font-semibold text-gray-800">What is self‑authorship?</h3>
           <p class="leading-relaxed text-xl mt-2">
-            Self‑authorship is the ability to define your beliefs, identity, and life direction on your own terms, rather than following someone else’s script.
-            <a href="/what-is-self-authorship" class="text-teal-700 hover:underline">Learn more →</a>
+            Self‑authorship is the capacity to define your beliefs, identity, and life direction from an internal foundation — rather than by inherited expectations or the approval of others. The term originates in the work of developmental psychologist Marcia Baxter Magolda.
+            <a href="/what-is-self-authorship/" class="text-teal-700 hover:underline">Learn more →</a>
           </p>
         </div>
         <div>
-          <h3 class="text-xl font-semibold text-gray-800">What are the signs you’re living by someone else’s script?</h3>
+          <h3 class="text-xl font-semibold text-gray-800">What are the signs you're living by someone else's script?</h3>
           <p class="leading-relaxed text-xl mt-2">
-            You may feel detached from your choices, follow expectations you don’t believe in, or struggle to answer what you truly want.
-            <a href="/signs-you-are-living-by-someone-elses-script" class="text-teal-700 hover:underline">Read the full guide →</a>
+            Key signs include chronic over-explaining, saying yes before checking what you want, difficulty naming your own preferences, and a persistent gap between the life you live and the life that feels genuinely yours.
+            <a href="/self-authorship-signs-script/" class="text-teal-700 hover:underline">Read the full guide →</a>
           </p>
         </div>
         <div>
           <h3 class="text-xl font-semibold text-gray-800">How can I reclaim my life narrative?</h3>
           <p class="leading-relaxed text-xl mt-2">
-            Identify inherited beliefs, choose your own guiding principles, and start small actions that reflect the life you want.
-            <a href="/reclaim-your-life-narrative" class="text-teal-700 hover:underline">Step‑by‑step plan →</a>
+            Start by auditing the rules you live by — where did they come from and do you still agree with them? Replace inherited rules with values you have consciously chosen, then practise making decisions that reflect them.
+            <a href="/self-authorship-inherited-beliefs/" class="text-teal-700 hover:underline">Step‑by‑step plan →</a>
           </p>
         </div>
         <div>
           <h3 class="text-xl font-semibold text-gray-800">How can I build confidence in my own decisions?</h3>
           <p class="leading-relaxed text-xl mt-2">
-            Start with low‑risk decisions, note the results, and gradually expand your comfort zone for making independent choices.
-            <a href="/build-confidence-in-your-decisions" class="text-teal-700 hover:underline">Decision guide →</a>
+            Start with low‑risk decisions you normally outsource. Track outcomes in a brief daily note. Confidence grows from accumulated evidence that your own judgement is reliable — not from being told you are capable.
+            <a href="/self-authorship-independent-decisions/" class="text-teal-700 hover:underline">Decision-building guide →</a>
           </p>
         </div>
         <div>
           <h3 class="text-xl font-semibold text-gray-800">How do I stop letting others make my choices?</h3>
           <p class="leading-relaxed text-xl mt-2">
-            Set clear boundaries, practice saying no, and remind yourself of your long‑term vision before agreeing to anything.
-            <a href="/stop-letting-others-make-your-choices" class="text-teal-700 hover:underline">Full guide →</a>
+            Write clear boundary scripts for the situations that most often pull you off course. Pre-committed language removes the in-the-moment scramble. Then practise holding the boundary even when it creates discomfort — that discomfort is the feeling of authorship, not a sign you are doing it wrong.
+            <a href="/self-authorship-rewrite-your-story/" class="text-teal-700 hover:underline">Full guide →</a>
           </p>
         </div>
         <div>
           <h3 class="text-xl font-semibold text-gray-800">What obstacles make self‑authorship harder?</h3>
           <p class="leading-relaxed text-xl mt-2">
-            Fear of judgment, lack of clarity, and deep‑rooted habits can all make it challenging to step into self‑authorship.
-            <a href="/obstacles-to-self-authorship" class="text-teal-700 hover:underline">Overcome them →</a>
+            The biggest obstacles are deeply habituated compliance patterns, fear of other people's disapproval, and the absence of clear internal standards to replace external ones. Without a defined value system, every decision reverts to seeking external guidance.
+            <a href="/self-authorship-guiding-principles/" class="text-teal-700 hover:underline">Overcome them →</a>
           </p>
         </div>
         <div>
           <h3 class="text-xl font-semibold text-gray-800">How can self‑authorship help during life transitions?</h3>
-          <p class="mt-2 text-gray-700">
-            By grounding you in your own values and identity, self‑authorship makes it easier to navigate change with confidence.
-            <a href="/self-authorship-life-transitions" class="text-teal-700 hover:underline">Learn more →</a>
+          <p class="mt-2 text-gray-700 text-xl leading-relaxed">
+            Transitions — career changes, relationship shifts, loss, relocation — remove the familiar structures that previously made your choices feel obvious. Self-authorship gives you an internal anchor: your own values and identity, not the external situation, become the thing you navigate from.
+            <a href="/self-authorship-life-transitions/" class="text-teal-700 hover:underline">Learn more →</a>
           </p>
         </div>
         <div>
           <h3 class="text-xl font-semibold text-gray-800">What journal prompts support self‑authorship?</h3>
-          <p class="mt-2 text-gray-700">
-            Ask: “What rules do I live by and why?”, “What would I change if no one judged me?”, “What story do I want to tell about my life?”
-            <a href="/journal-prompts-self-authorship" class="text-teal-700 hover:underline">More prompts →</a>
+          <p class="mt-2 text-gray-700 text-xl leading-relaxed">
+            Try: "What rules do I live by and who wrote them?", "What would I choose if I knew no one would judge me?", "What story do I want to be able to tell about this period of my life in five years?"
+            <a href="/journal-prompts-self-authorship/" class="text-teal-700 hover:underline">More prompts →</a>
           </p>
         </div>
       </div>
@@ -222,10 +354,10 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-teal-500">
           <h3 class="font-semibold text-lg text-teal-700 mb-2"><a href="/reclaim-your-life-narrative/">Reclaim Your Life Narrative: A Gentle Reset Back to Yourself</a></h3>
-          <p class="text-gray-700">How to notice external scripts and re‑center on your own values.</p>
+          <p class="text-gray-700">How to notice external scripts and re‑centre on your own values.</p>
         </div>
         <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-teal-500">
-          <h3 class="font-semibold text-lg text-teal-700 mb-2"><a href="/signs-you-are-living-by-someone-elses-script/">7 Signs You’re Living by Someone Else’s Script</a></h3>
+          <h3 class="font-semibold text-lg text-teal-700 mb-2"><a href="/self-authorship-signs-script/">7 Signs You're Living by Someone Else's Script</a></h3>
           <p class="text-gray-700">Common patterns — and the first small shifts to change them.</p>
         </div>
         <div class="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-md hover:border-teal-500">
@@ -243,7 +375,7 @@
       <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-slate-50 border border-indigo-100 rounded-2xl p-6">
         <div class="md:col-span-3">
           <h2 class="text-2xl font-semibold text-gray-900">Free Download: Self‑Authorship Starter</h2>
-          <p class="text-gray-700 mt-2">A one‑page values‑to‑decisions sheet to begin reclaiming your life narrative. Swap link when your self‑authorship freebie is ready.</p>
+          <p class="text-gray-700 mt-2">A one‑page values‑to‑decisions sheet to begin reclaiming your life narrative.</p>
           <div class="mt-4 flex gap-3">
             <a href="/media/public/pdf/self-authorship-starter.pdf" class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-white font-medium hover:bg-teal-800">Get the PDF</a>
             <a href="/shop/" class="inline-flex items-center px-5 py-3 rounded-lg bg-white border border-gray-300 text-gray-800 font-medium hover:bg-gray-50">Explore Our Shop</a>
@@ -251,7 +383,7 @@
         </div>
         <div class="md:col-span-2">
           <div class="rounded-xl overflow-hidden border border-gray-200 mt-16 bg-white">
-            <img src="{% static 'images/self-authorship-infographic.webp' %}" alt="Self‑Authorship preview" class="w-full h-auto">
+            <img src="{% static 'images/self-authorship-infographic.webp' %}" alt="Self‑Authorship starter sheet preview" class="w-full h-auto">
           </div>
         </div>
       </div>
@@ -263,19 +395,23 @@
       <div class="max-w-3xl">
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
           <summary class="font-semibold cursor-pointer">How is self‑authorship different from living with purpose?</summary>
-          <p class="mt-3 text-gray-700">Self‑authorship is the inner work of choosing your beliefs and rules. Living with purpose is using those beliefs to guide daily choices. They reinforce each other.</p>
+          <p class="mt-3 text-gray-700">Self‑authorship is the inner work of choosing your beliefs and rules — it is about <em>who is writing</em> your life. Living with purpose is using those beliefs to guide daily choices — it is about <em>what you are writing towards</em>. They reinforce each other: authorship without direction drifts; purpose without authorship is borrowed from someone else.</p>
         </details>
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
-          <summary class="font-semibold cursor-pointer">Do I need a big life change to practice self‑authorship?</summary>
-          <p class="mt-3 text-gray-700">No. Start with low‑stakes decisions you normally outsource. Practice daily authorship in small ways — it compounds.</p>
+          <summary class="font-semibold cursor-pointer">Do I need a big life change to practise self‑authorship?</summary>
+          <p class="mt-3 text-gray-700">No. The most effective starting point is the opposite — the smallest, lowest-stakes decisions you currently outsource. Self-authorship is built in daily micro-choices, not grand gestures. Start there, and it compounds.</p>
         </details>
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
           <summary class="font-semibold cursor-pointer">What if people push back when I change?</summary>
-          <p class="mt-3 text-gray-700">Expect some resistance. Use clear, kind boundary scripts and repeat them. Consistency teaches others how to treat you.</p>
+          <p class="mt-3 text-gray-700">Expect resistance — it is normal, and it does not mean you are doing it wrong. Have a short, calm boundary script ready and repeat it without escalating. Consistency is what teaches people how to treat you; explanations rarely are.</p>
         </details>
         <details class="border border-gray-200 rounded-lg p-4 mb-4">
           <summary class="font-semibold cursor-pointer">How do I keep self‑authorship going when life gets busy?</summary>
-          <p class="mt-3 text-gray-700">Use a weekly review and simple guardrails (e.g., “No weekday commitments after 7 p.m.”). Systems protect your authorship.</p>
+          <p class="mt-3 text-gray-700">Use a weekly review (15 minutes, same day, three questions) and build simple pre-committed guardrails — e.g., "no new commitments after 6pm on weekdays". Systems protect your authorship precisely when willpower is depleted.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Is self-authorship a psychological concept?</summary>
+          <p class="mt-3 text-gray-700">Yes. Self-authorship is a well-established construct in adult developmental psychology, associated primarily with the research of Marcia Baxter Magolda, whose 25-year longitudinal study at Miami University tracked how adults develop the capacity to define their own beliefs, identities, and relationships. It is also referenced in the work of Robert Kegan, who describes self-authorship as a stage in the evolution of the "self-authoring mind".</p>
         </details>
       </div>
 
@@ -285,19 +421,32 @@
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-          {"@type": "Question", "name": "How is self‑authorship different from living with purpose?", "acceptedAnswer": {"@type": "Answer", "text": "Self‑authorship is the inner work of choosing your beliefs and rules. Living with purpose is using those beliefs to guide daily choices."}},
-          {"@type": "Question", "name": "Do I need a big life change to practice self‑authorship?", "acceptedAnswer": {"@type": "Answer", "text": "No. Start with low‑stakes decisions you normally outsource. Practice daily authorship in small ways — it compounds."}},
-          {"@type": "Question", "name": "What if people push back when I change?", "acceptedAnswer": {"@type": "Answer", "text": "Expect some resistance. Use clear, kind boundary scripts and repeat them. Consistency teaches others how to treat you."}},
-          {"@type": "Question", "name": "How do I keep self‑authorship going when life gets busy?", "acceptedAnswer": {"@type": "Answer", "text": "Use a weekly review and simple guardrails (e.g., ‘No weekday commitments after 7 p.m.’). Systems protect your authorship."}}
+          {"@type": "Question", "name": "How is self-authorship different from living with purpose?", "acceptedAnswer": {"@type": "Answer", "text": "Self-authorship is the inner work of choosing your beliefs and rules — who is writing your life. Living with purpose is using those beliefs to guide daily choices — what you are writing towards. They reinforce each other."}},
+          {"@type": "Question", "name": "Do I need a big life change to practise self-authorship?", "acceptedAnswer": {"@type": "Answer", "text": "No. The most effective starting point is the smallest decisions you currently outsource. Self-authorship is built in daily micro-choices, not grand gestures."}},
+          {"@type": "Question", "name": "What if people push back when I change?", "acceptedAnswer": {"@type": "Answer", "text": "Expect resistance — it is normal. Have a short, calm boundary script ready and repeat it without escalating. Consistency teaches people how to treat you."}},
+          {"@type": "Question", "name": "How do I keep self-authorship going when life gets busy?", "acceptedAnswer": {"@type": "Answer", "text": "Use a weekly review and build simple pre-committed guardrails. Systems protect your authorship when willpower is depleted."}},
+          {"@type": "Question", "name": "Is self-authorship a psychological concept?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Self-authorship originates in the adult developmental research of Marcia Baxter Magolda and is also referenced in Robert Kegan's work on the self-authoring mind."}}
         ]
       }
       </script>
     </section>
+
     {# --- banner ad goes to shop --- #}
-    
-        <a href="https://inspirationalguidance.com/shop/product/a-self-authored-life/"  target="_blank">
-        <img src="https://inspirationalguidance.com/media/public/news/ads/self-authored-6.webp?v=1756475338" class="mt-12" alt="self-authorship design your life">
-        </a>
+    <a href="https://inspirationalguidance.com/shop/product/a-self-authored-life/" target="_blank">
+      <img src="https://inspirationalguidance.com/media/public/news/ads/self-authored-6.webp?v=1756475338" class="mt-12" alt="self-authorship design your life">
+    </a>
+
+    {# --- Sources & Research --- #}
+    <section class="mt-16">
+      <h2 class="text-xl font-semibold text-gray-900 mb-3">Sources &amp; Further Reading</h2>
+      <ul class="space-y-2 text-base text-gray-700">
+        <li>Baxter Magolda, M. B. (2001). <em>Making Their Own Way: Narratives for Transforming Higher Education to Promote Self-Development.</em> Stylus Publishing.</li>
+        <li>Kegan, R. (1994). <em>In Over Our Heads: The Mental Demands of Modern Life.</em> Harvard University Press.</li>
+        <li><a href="https://www.apa.org/topics/personality" class="text-teal-700 hover:underline" rel="noopener noreferrer" target="_blank">American Psychological Association — Personality &amp; Self</a></li>
+        <li><a href="https://positivepsychology.com/self-authorship/" class="text-teal-700 hover:underline" rel="noopener noreferrer" target="_blank">Positive Psychology — Self-Authorship overview</a></li>
+      </ul>
+    </section>
+
     {# --- Cross‑links to other pillars --- #}
     <section class="mt-16">
       <h2 class="text-2xl font-semibold text-gray-900">Related Pillars</h2>
@@ -327,7 +476,6 @@
           <p class="text-gray-700 mt-1">Free personal development tools to continue your personal growth.</p>
         </a>
       </div>
-      
     </section>
 
     {# --- Inspiration / Reflection box --- #}
@@ -335,7 +483,7 @@
       <div class="rounded-2xl border border-slate-200 p-6 bg-slate-50">
         <h2 class="text-xl font-semibold text-gray-900">Reflection</h2>
         <p class="text-gray-700 mt-2">
-          Choose one inherited rule you’re ready to retire. Write the replacement you’ll live by this week, and the smallest action that proves it.
+          Choose one inherited rule you are ready to retire. Write the replacement you will live by this week, and name the smallest action that proves it.
         </p>
       </div>
     </section>

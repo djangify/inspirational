@@ -3,6 +3,22 @@
 {% load video_tags %}
 {% load resource_tags %}
 
+{% block title %}Inspirational Guidance -- Practical Personal Growth Tools for Women{% endblock %}
+
+{% block open_graph_tags %}
+  <meta property="og:title" content="Inspirational Guidance -- Practical Personal Growth Tools for Women" />
+  <meta property="og:description" content="Stop living in default mode. Inspirational Guidance offers practical tools for women ready to make intentional choices about how they live, feel, and grow -- through self-authorship, confidence, and purposeful living." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://inspirationalguidance.com/" />
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}" />
+  <meta property="og:site_name" content="Inspirational Guidance" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Inspirational Guidance -- Practical Personal Growth Tools for Women">
+  <meta name="twitter:description" content="Stop living in default mode. Practical tools for women ready to make intentional choices about how they live, feel, and grow.">
+  <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}">
+{% endblock %}
+
 {% block extra_head %}
 <script type="application/ld+json">
 {
@@ -35,8 +51,8 @@
       },
       "founder": {
         "@type": "Person",
-        "name": "{{ author_name|escapejs }}",
-        "url": "{{ request.scheme }}://{{ request.get_host }}{{ author_url }}"
+        "name": "Diane Corriette",
+        "url": "https://inspirationalguidance.com/diane-corriette/"
       },
       "sameAs": [
         "{{ social_youtube }}",

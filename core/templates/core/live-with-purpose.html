@@ -6,21 +6,51 @@
 {# ===== Open Graph / Twitter Cards ===== #}
 {% block open_graph_tags %}
   <meta property="og:title" content="Live With Purpose: A Practical Guide to Values‑Led Living" />
-  <meta property="og:description" content="A grounded, daily approach to living with purpose — clarify your values, design small habits, and make choices that feel like you." />
+  <meta property="og:description" content="Purpose is not something you find — it is something you choose to live by. Diane Corriette's six-step guide helps women clarify their values, design intentional habits, and make choices that feel genuinely theirs." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-  {# Placeholder image kept on purpose per request #}
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/live-with-purpose-infographic.webp" />
+  <meta property="article:author" content="Diane Corriette" />
+  <meta property="article:published_time" content="2024-09-01" />
+  <meta property="article:modified_time" content="2026-05-01" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Live With Purpose: A Practical Guide to Values‑Led Living">
-  <meta name="twitter:description" content="A grounded, daily approach to living with purpose — clarify your values, design small habits, and make choices that feel like you.">
+  <meta name="twitter:description" content="Purpose is not something you find — it is something you choose to live by. Start here with Diane Corriette's six-step values-led living guide.">
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}/static/images/live-with-purpose-infographic.webp">
 {% endblock %}
 
 {% block content %}
+
+{# ===== Article Schema ===== #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Live With Purpose: A Practical Guide to Values‑Led Living",
+  "description": "Purpose is not something you find — it is something you choose to live by. A six-step guide from Diane Corriette of Inspirational Guidance.",
+  "image": "{{ request.scheme }}://{{ request.get_host }}/static/images/live-with-purpose-infographic.webp",
+  "author": {"@type": "Person", "name": "Diane Corriette", "url": "https://inspirationalguidance.com/diane-corriette/"},
+  "publisher": {"@type": "Organization", "name": "Inspirational Guidance"},
+  "datePublished": "2024-09-01",
+  "dateModified": "2026-05-01",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "{{ request.build_absolute_uri }}"}
+}
+</script>
+
+
 <div class="bg-white">
   <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    {# --- Author + Date bar --- #}
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-6">
+      <a href="https://inspirationalguidance.com/diane-corriette/" class="font-medium text-teal-700 hover:underline">Diane Corriette</a>
+      <span>·</span>
+      <time datetime="2024-09-01">Published September 2024</time>
+      <span>·</span>
+      <time datetime="2026-05-01">Updated May 2026</time>
+    </div>
+
     <header class="mb-8">
       <h1 class="text-4xl mb-4 font-bold text-gray-900">Live With Purpose: A Practical Guide to Values‑Led Living</h1>
       <p class="mt-3 text-gray-700 max-w-3xl">
@@ -28,6 +58,11 @@
         daily choices, so your life feels aligned, not performed. Grounded, repeatable, and built for real life.
       </p>
     </header>
+
+    {# --- About this guide --- #}
+    <div class="bg-teal-50 border border-teal-200 rounded-xl p-5 mb-8 text-base text-teal-900 leading-relaxed">
+      <strong>About this guide:</strong> Written by <a href="https://inspirationalguidance.com/diane-corriette/" class="underline font-medium">Diane Corriette</a>, Personal Growth Coach, and founder of Inspirational Guidance. Diane has spent over two decades exploring what it means to live with genuine purpose — not as an abstract ideal, but as a daily practice grounded in real values. She writes from lived experience, including her own journey of moving out of default mode and into a life that feels deliberately chosen.
+    </div>
     {# --- quote --- #}
     <section class="w-full">
             <div class="max-w-7xl mb-8 mx-auto">
@@ -124,29 +159,35 @@
 
     {# --- Deep content anchors (kept 6 sections) --- #}
     <section class="mt-12 mb-4 space-y-10">
-      <div id="values-step" class="prose text-lg mb-6 max-w-none">
+      <div id=”values-step” class=”prose text-lg mb-6 max-w-none”>
         <h2>Clarify Your Values</h2>
-        <p>Start with what matters to you now, not five years ago and not to anyone else. Write 3–5 values in plain language and add one visible daily action for each. Direction over drift.</p>
+        <p>Values are not aspirations. They are the principles you actually use to make decisions — whether you are aware of them or not. If you have not named yours deliberately, you are probably living by defaults inherited from family, culture, or whoever was loudest in the room when you were growing up.</p>
+        <p class=”mt-3”>Start with what matters to you now, not five years ago and not in theory. Write 3–5 values in plain, specific language — not “success” but “financial stability built on my own terms”; not “relationships” but “deep connection with a small number of people I trust.” Then add one daily action for each. Direction over drift. <a href=”/purpose-values-led-choices/” class=”text-teal-700 hover:underline”>Full guide →</a></p>
       </div>
-      <div id="self-awareness-step" class="prose text-lg mb-6  max-w-none">
+      <div id=”self-awareness-step” class=”prose text-lg mb-6 max-w-none”>
         <h2>Build Self‑Awareness</h2>
-        <p>Notice when you feel most like yourself and when you don’t. Track energy, people, and places that support or drain you. Purpose grows where honesty lives.</p>
+        <p>Purpose grows where honesty lives. If you do not know what genuinely energises you versus what drains you — what feels like you versus what feels performed — you cannot build a life that fits.</p>
+        <p class=”mt-3”>Notice when you feel most like yourself and when you don’t. Track energy across different contexts: people, environments, types of work, times of day. The pattern that emerges is not a personality quiz result — it is real data about how you function best. Use it. <a href=”/purpose-self-awareness/” class=”text-teal-700 hover:underline”>Full guide →</a></p>
       </div>
-      <div id="habits-step" class="prose text-lg mb-6 max-w-none">
+      <div id=”habits-step” class=”prose text-lg mb-6 max-w-none”>
         <h2>Design Intentional Habits</h2>
-        <p>Translate values into 10‑minute routines: a morning check‑in, a short walk without your phone, a nightly “what mattered today?” line in your journal. Small steps, repeated.</p>
+        <p>Values without habits are just intentions. The gap between who you want to be and how you actually live is closed by small, repeated actions — not grand gestures.</p>
+        <p class=”mt-3”>Translate each value into one 10-minute routine: a morning check-in question (“What would make today feel aligned?”), a short walk without your phone, a nightly one-line journal entry (“What mattered today?”). These are not productivity hacks — they are anchors that keep your values visible when life gets loud. <a href=”/purpose-intentional-habits/” class=”text-teal-700 hover:underline”>Full guide →</a></p>
       </div>
-      <div id="decisions-step" class="prose text-lg mb-6 max-w-none">
+      <div id=”decisions-step” class=”prose text-lg mb-6 max-w-none”>
         <h2>Decide With Clarity</h2>
-        <p>Use simple rules: “If it aligns with X value, it’s a yes. If it competes, it’s a later or a no.” Reducing autopilot is how you reclaim time and attention.</p>
+        <p>Decision fatigue is what happens when you evaluate every choice from scratch without a consistent reference point. When your values are clear, most decisions become simpler: does this align with what I have decided matters? If yes, lean in. If not, it is a later or a no.</p>
+        <p class=”mt-3”>Build simple decision rules for the situations that cost you the most time and energy. “I do not take on new commitments during busy seasons.” “If it requires me to compromise X value, it is not a fit.” Pre-committed rules made during clear-headed moments protect you from autopilot decisions made under pressure. <a href=”/purpose-decision-making/” class=”text-teal-700 hover:underline”>Full guide →</a></p>
       </div>
-      <div id="realign-step" class="prose text-lg mb-6 max-w-none">
-        <h2>Realign & Iterate</h2>
-        <p>Review weekly. Ask: What moved me closer to what matters? What needs to change? Adjust without drama. Realigning is a strength, not a failure.</p>
+      <div id=”realign-step” class=”prose text-lg mb-6 max-w-none”>
+        <h2>Realign &amp; Iterate</h2>
+        <p>Living with purpose is not a destination — it is a practice with a built-in feedback loop. Life changes. Your values evolve. What felt right at 35 may not fit at 45. The skill is not getting it right once; it is knowing how to course-correct without drama.</p>
+        <p class=”mt-3”>Review weekly. Ask: What moved me closer to what matters? Where did I drift? What needs a clear no next week? Realigning is a strength, not evidence that you failed. The people who live most purposefully are not the ones who never wander — they are the ones who notice quickly and adjust. <a href=”/purpose-realign-iterate/” class=”text-teal-700 hover:underline”>Full guide →</a></p>
       </div>
-      <div id="journal-step" class="prose text-lg mb-6 max-w-none">
+      <div id=”journal-step” class=”prose text-lg mb-6 max-w-none”>
         <h2>Journal Writing For Purpose</h2>
-        <p>Journaling isn’t about filling a book with beautiful sentences. It’s about creating a daily habit of checking in with your values, your direction, and yourself. In just ten minutes a day, you can turn an ordinary notebook into a compass for how you want to live.</p>
+        <p>Journaling is not about filling a book with beautiful sentences. It is about creating a daily habit of checking in with your values, your direction, and yourself — so that your internal compass stays calibrated rather than drifting without you noticing.</p>
+        <p class=”mt-3”>In ten minutes a day, you can ask the questions that purposeful living requires: Am I choosing, or am I just responding? What do I actually want from this week? What am I tolerating that I should address? The answers do not need to be perfect. They just need to be honest. <a href=”/purpose-journaling/” class=”text-teal-700 hover:underline”>Full guide →</a></p>
       </div>
     </section>
     {# --- banner ad goes to shop --- #}
@@ -333,52 +374,16 @@
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What does “living with purpose” actually mean?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Living with purpose means using your values as a compass for daily choices. Purpose is chosen and practiced, not something you wait to find."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is the difference between living with purpose and living on purpose?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Living with purpose is about alignment — knowing what matters and letting your values guide your direction. Living on purpose is about deliberate action — taking daily steps that reflect those values. One gives you clarity, the other gets you moving. Together they create a life that feels like your own."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Do I have to quit my job to live with purpose?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Start by aligning parts of your current life — routines, boundaries, projects — and expand from there. Direction first; big changes later if needed."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How do I choose my values?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "List moments you felt most like yourself, extract themes, pick 3–5, and attach one daily action to each. Your values should be chosen, not inherited or assumed."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What if I feel lost or change my mind later?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "That’s normal. Review weekly, carry the lesson, and adjust. Realignment is part of living with purpose — not proof you chose wrong."
-            }
-          }
+          {"@type": "Question", "name": "What does living with purpose actually mean?", "acceptedAnswer": {"@type": "Answer", "text": "Living with purpose means using your values as a compass for daily choices. Purpose is chosen and practiced, not something you wait to find."}},
+          {"@type": "Question", "name": "What is the difference between living with purpose and living on purpose?", "acceptedAnswer": {"@type": "Answer", "text": "Living with purpose is about alignment — knowing what matters and letting your values guide your direction. Living on purpose is about deliberate action — taking daily steps that reflect those values."}},
+          {"@type": "Question", "name": "Do I have to quit my job to live with purpose?", "acceptedAnswer": {"@type": "Answer", "text": "No. Start by aligning parts of your current life — routines, boundaries, projects — and expand from there. Direction first; big changes later if needed."}},
+          {"@type": "Question", "name": "How do I choose my values?", "acceptedAnswer": {"@type": "Answer", "text": "List moments you felt most like yourself, extract themes, pick 3-5, and attach one daily action to each."}},
+          {"@type": "Question", "name": "What if I feel lost or change my mind later?", "acceptedAnswer": {"@type": "Answer", "text": "That's normal. Review weekly, carry the lesson, and adjust. Realignment is part of living with purpose."}}
         ]
       }
       </script>
-
     </section>
-    
+
     {# --- Cross‑links to other pillars --- #}
     <section class="mt-16">
       <h2 class="text-2xl font-semibold text-gray-900">Related Pillars</h2>
@@ -409,7 +414,7 @@
         </a>
       </div>
     </section>
-    
+
     {# --- Inspiration / Reflection box --- #}
     <section class="mt-16">
       <div class="rounded-2xl border border-gray-200 p-6 bg-gray-50">

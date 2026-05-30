@@ -1,4 +1,19 @@
 {% extends "base.html" %}
+
+{% block title %}Personal Growth Topics & Categories | Inspirational Guidance{% endblock %}
+
+{% block open_graph_tags %}
+  <meta property="og:title" content="Personal Growth Topics & Categories | Inspirational Guidance" />
+  <meta property="og:description" content="Explore all personal growth topics at Inspirational Guidance -- from self-authorship and emotional resilience to journaling, confidence, and empowered living. Practical guides for women." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:site_name" content="Inspirational Guidance" />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Personal Growth Topics & Categories | Inspirational Guidance">
+  <meta name="twitter:description" content="Explore all personal growth topics at Inspirational Guidance -- practical guides for women.">
+{% endblock %}
+
 {% block content %}
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold mb-6">Explore Categories</h1>
