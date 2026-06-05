@@ -1,6 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
-from django.db.models import Q
 
 UserModel = get_user_model()
 
@@ -10,11 +9,12 @@ class EmailOrUsernameModelBackend(ModelBackend):
         if username is None:
             username = kwargs.get(UserModel.USERNAME_FIELD)
         try:
-            # Try to fetch user by username or email
-            user = UserModel.objects.get(
-                Q(username__iexact=username) | Q(email__iexact=username)
-            )
-        except UserModel.DoesNotExist:
+            # Try username first, fall back to email
+            try:
+                user = UserModel.objects.get(username__iexact=username)
+            except UserModel.DoesNotExist:
+                user = UserModel.objects.get(email__iexact=username)
+        except (UserModel.DoesNotExist, UserModel.MultipleObjectsReturned):
             return None
         else:
             if user.check_password(password) and self.user_can_authenticate(user):

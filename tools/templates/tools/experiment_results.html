@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}The 1000 True Fans Experiment — Weekly Results | Inspirational Guidance{% endblock %}
+
+{% block meta_description %}A public weekly log of building inspirationalguidance.com to 1000 paying customers. Real numbers, real reflections, real results from driving traffic to digital products.{% endblock %}
+
+{% block content %}
+<div class="text-gray-800">
+
+  {# ── Hero ──────────────────────────────────────────────────────────────── #}
+  <section class="bg-slate-50 w-full py-16 px-4 sm:px-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-sm font-medium text-teal-700 uppercase tracking-widest mb-3">Live Experiment</p>
+      <h1 class="text-3xl sm:text-4xl font-serif font-medium leading-tight text-[color:var(--color-font-main)] mb-4">
+        The 1000 True Fans Experiment
+      </h1>
+      <p class="text-xl leading-relaxed text-gray-700 max-w-4xl mx-auto">
+        A public weekly log of building <strong>inspirationalguidance.com</strong> to 1000 true fans by driving traffic to our free online resources and digital products. No secrets, no spin - just the real numbers. 
+      </p>
+    </div>
+  </section>
+
+  {# ── Running Totals ────────────────────────────────────────────────────── #}
+  <section class="w-full bg-white py-14">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-teal-700 mb-8 text-center">
+        Running Totals
+      </h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-5 text-center">
+
+        <div class="bg-white rounded-md shadow-sm border border-gray-100 p-5 transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+          <p class="text-3xl font-bold text-gray-900">{{ total_true_fans }}</p>
+          <p class="text-sm text-gray-500 mt-1">True Fans</p>
+        </div>
+
+        <div class="bg-white rounded-md shadow-sm border border-gray-100 p-5 transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+          <p class="text-3xl font-bold text-gray-900">${{ total_revenue }}</p>
+          <p class="text-sm text-gray-500 mt-1">Total Revenue</p>
+        </div>
+
+        <div class="bg-white rounded-md shadow-sm border border-gray-100 p-5 transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+          <p class="text-3xl font-bold text-gray-900">{{ latest_email_total }}</p>
+          <p class="text-sm text-gray-500 mt-1">Email Subscribers</p>
+        </div>
+
+        <div class="bg-white rounded-md shadow-sm border border-gray-100 p-5 transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+          <p class="text-3xl font-bold text-gray-900">{{ total_posts_rewritten }}</p>
+          <p class="text-sm text-gray-500 mt-1">Posts Rewritten</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  {# ── Goals by Milestone ────────────────────────────────────────────────── #}
+  {% if goals_by_milestone.30 or goals_by_milestone.60 or goals_by_milestone.90 %}
+  <section class="w-full bg-slate-50 py-14">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-teal-700 mb-8 text-center">
+        Goals
+      </h2>
+      <div class="grid sm:grid-cols-3 gap-6">
+
+        {% if goals_by_milestone.30 %}
+        <div class="bg-white rounded-md shadow-sm overflow-hidden border border-gray-100">
+          <div class="px-5 py-4 border-b border-gray-100">
+            <h3 class="font-semibold text-gray-900">30-Day Goals</h3>
+          </div>
+          <ul class="p-5 space-y-3">
+            {% for goal in goals_by_milestone.30 %}
+            <li class="flex items-center gap-3 text-sm text-gray-700">
+              <span class="flex-shrink-0 w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center
+                {% if goal.is_achieved %}bg-teal-700 border-teal-700{% else %}border-gray-300{% endif %}">
+                {% if goal.is_achieved %}
+                  <svg class="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                {% endif %}
+              </span>
+              <span {% if goal.is_achieved %}class="line-through text-gray-400"{% endif %}>{{ goal.goal_text }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+          {% with reflection=reflections.30 %}
+          {% if reflection %}
+          <div class="px-5 pb-5 text-sm text-gray-500 italic border-t border-gray-100 pt-4">{{ reflection.reflection_text }}</div>
+          {% endif %}
+          {% endwith %}
+        </div>
+        {% endif %}
+
+        {% if goals_by_milestone.60 %}
+        <div class="bg-white rounded-md shadow-sm overflow-hidden border border-gray-100">
+          <div class="px-5 py-4 border-b border-gray-100">
+            <h3 class="font-semibold text-gray-900">60-Day Goals</h3>
+          </div>
+          <ul class="p-5 space-y-3">
+            {% for goal in goals_by_milestone.60 %}
+            <li class="flex items-center gap-3 text-sm text-gray-700">
+              <span class="flex-shrink-0 w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center
+                {% if goal.is_achieved %}bg-teal-700 border-teal-700{% else %}border-gray-300{% endif %}">
+                {% if goal.is_achieved %}
+                  <svg class="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                {% endif %}
+              </span>
+              <span {% if goal.is_achieved %}class="line-through text-gray-400"{% endif %}>{{ goal.goal_text }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+          {% with reflection=reflections.60 %}
+          {% if reflection %}
+          <div class="px-5 pb-5 text-sm text-gray-500 italic border-t border-gray-100 pt-4">{{ reflection.reflection_text }}</div>
+          {% endif %}
+          {% endwith %}
+        </div>
+        {% endif %}
+
+        {% if goals_by_milestone.90 %}
+        <div class="bg-white rounded-md shadow-sm overflow-hidden border border-gray-100">
+          <div class="px-5 py-4 border-b border-gray-100">
+            <h3 class="font-semibold text-gray-900">90-Day Goals</h3>
+          </div>
+          <ul class="p-5 space-y-3">
+            {% for goal in goals_by_milestone.90 %}
+            <li class="flex items-center gap-3 text-sm text-gray-700">
+              <span class="flex-shrink-0 w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center
+                {% if goal.is_achieved %}bg-teal-700 border-teal-700{% else %}border-gray-300{% endif %}">
+                {% if goal.is_achieved %}
+                  <svg class="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                {% endif %}
+              </span>
+              <span {% if goal.is_achieved %}class="line-through text-gray-400"{% endif %}>{{ goal.goal_text }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+          {% with reflection=reflections.90 %}
+          {% if reflection %}
+          <div class="px-5 pb-5 text-sm text-gray-500 italic border-t border-gray-100 pt-4">{{ reflection.reflection_text }}</div>
+          {% endif %}
+          {% endwith %}
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ── Weekly Log ────────────────────────────────────────────────────────── #}
+  <section class="w-full bg-white py-14">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-teal-700 mb-8 text-center">
+        Weekly Log
+      </h2>
+
+      {% if weeks %}
+        <div class="space-y-8">
+        {% for week in weeks %}
+
+          {# Milestone banner #}
+          {% if week.is_milestone %}
+          <div class="flex items-center gap-3 bg-slate-50 border border-gray-200 rounded-md px-5 py-3">
+            <span class="text-gray-400 text-lg">🏆</span>
+            <p class="font-serif font-medium text-gray-900">
+              {% if week.milestone_label %}{{ week.milestone_label }} Milestone{% else %}Milestone — Week {{ week.week_number }}{% endif %}
+            </p>
+          </div>
+          {% endif %}
+
+          {# Week card #}
+          <div class="bg-white rounded-md shadow-sm border border-gray-100 overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+
+            {# Card header #}
+            <div class="bg-slate-50 border-b border-gray-100 px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <span class="text-xs font-medium text-teal-700 uppercase tracking-wide">Week {{ week.week_number }}</span>
+                <h3 class="text-lg font-serif font-medium text-gray-900 mt-0.5">
+                  w/c {{ week.week_date|date:"j F Y" }}
+                </h3>
+              </div>
+              {% if week.revenue_this_week %}
+              <div class="text-right">
+                <p class="text-2xl font-bold text-gray-900">${{ week.revenue_this_week }}</p>
+                <p class="text-xs text-gray-400">{{ week.transactions }} transaction{{ week.transactions|pluralize }}</p>
+              </div>
+              {% endif %}
+            </div>
+
+            <div class="p-6 space-y-6">
+
+              {# Activity metrics #}
+              <div>
+                <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Activity This Week</h4>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" style="margin-bottom: 1.25rem">
+                  <div class="bg-slate-50 rounded-md p-3 text-center">
+                    <p class="text-xl font-bold text-gray-900">{{ week.blog_posts_rewritten }}</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Posts Rewritten</p>
+                  </div>
+                  <div class="bg-slate-50 rounded-md p-3 text-center">
+                    <p class="text-xl font-bold text-gray-900">{{ week.pinterest_pins }}</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Pinterest Pins</p>
+                  </div>
+                  <div class="bg-slate-50 rounded-md p-3 text-center">
+                    <p class="text-xl font-bold text-gray-900">{{ week.youtube_audio }}</p>
+                    <p class="text-xs text-gray-500 mt-0.5">YouTube / Audio</p>
+                  </div>
+                  <div class="bg-slate-50 rounded-md p-3 text-center">
+                    <p class="text-xl font-bold text-gray-900">{{ week.substack_posts }}</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Substack Posts</p>
+                  </div>
+                </div>
+              </div>
+
+              {# Growth tags #}
+              {% if week.emails_added or week.email_list_total or week.ga4_sessions %}
+              <div class="flex flex-wrap gap-2 text-sm">
+                {% if week.emails_added %}
+                <span class="inline-block bg-slate-100 text-gray-600 px-3 py-1">
+                  +{{ week.emails_added }} email{{ week.emails_added|pluralize }}
+                </span>
+                {% endif %}
+                {% if week.email_list_total %}
+                <span class="inline-block bg-slate-100 text-gray-600 px-3 py-1">
+                  {{ week.email_list_total }} on list
+                </span>
+                {% endif %}
+                {% if week.ga4_sessions %}
+                <span class="inline-block bg-slate-100 text-gray-600 px-3 py-1">
+                  {{ week.ga4_sessions }} sessions (GA4)
+                </span>
+                {% endif %}
+              </div>
+              {% endif %}
+
+              {# Reflections #}
+              {% if week.what_i_did or week.what_i_noticed or week.what_changed or week.went_well_wednesday %}
+              <div class="grid sm:grid-cols-2 gap-5 pt-1">
+
+                {% if week.what_i_did %}
+                <div>
+                  <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">What I Did</h4>
+                  <p class="text-sm text-gray-700 leading-relaxed">{{ week.what_i_did|linebreaksbr }}</p>
+                </div>
+                {% endif %}
+
+                {% if week.what_i_noticed %}
+                <div>
+                  <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">What I Noticed</h4>
+                  <p class="text-sm text-gray-700 leading-relaxed">{{ week.what_i_noticed|linebreaksbr }}</p>
+                </div>
+                {% endif %}
+
+                {% if week.what_changed %}
+                <div>
+                  <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">What Changed</h4>
+                  <p class="text-sm text-gray-700 leading-relaxed">{{ week.what_changed|linebreaksbr }}</p>
+                </div>
+                {% endif %}
+
+                {% if week.went_well_wednesday %}
+                <div class="bg-slate-50 border border-gray-200 rounded-md p-4">
+                  <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">Went Well Wednesday</h4>
+                  <p class="text-sm text-gray-700 leading-relaxed">{{ week.went_well_wednesday|linebreaksbr }}</p>
+                </div>
+                {% endif %}
+
+              </div>
+              {% endif %}
+
+            </div>
+          </div>
+
+        {% endfor %}
+        </div>
+
+      {% else %}
+        <p class="text-center text-gray-500 py-16">No weeks published yet — check back soon.</p>
+      {% endif %}
+
+    </div>
+  </section>
+
+</div>
+{% endblock %}

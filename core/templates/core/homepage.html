@@ -72,45 +72,6 @@
 
 <main class="text-gray-800">
 
-  <!-- Section: Latest Products (Top 4) -->
-  {% comment %} <section id="latest-products" class="py-16 ">
-    <div class="max-w-7xl mx-auto px-6 md:px-12">
-      <h2 class="text-3xl md:text-4xl font-semibold text-teal-700 mb-10 text-center">
-        Self-Authorship Guides & Life Design Workbooks
-      </h2>
-
-      {% if latest_products %}
-      <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-        {% for product in latest_products %}
-        <div class="border border-slate-200 rounded-lg p-4 hover:shadow-lg transition duration-300 flex flex-col justify-between bg-white">
-          <a href="{{ product.get_absolute_url }}">
-            <figure class="mb-4 aspect-[3/4] flex items-center justify-center overflow-hidden rounded-md bg-white">
-              {% if product.get_image_url %}
-                <img src="{{ product.get_image_url }}" alt="{{ product.title }}" class="object-contain w-full h-full">
-              {% else %}
-                <img src="{% static 'images/placeholder.webp' %}" alt="Placeholder" class="object-contain w-full h-full">
-              {% endif %}
-            </figure>
-            <h3 class="text-lg font-semibold text-teal-700 mb-2">{{ product.title }}</h3>
-          </a>
-          <div class="flex justify-between items-center mt-auto">
-            <span class="text-lg font-semibold text-gray-700">
-              ${{ product.current_price }}
-            </span>
-            <a href="{{ product.get_absolute_url }}"
-               class="text-sm uppercase border border-teal-600 text-teal-600 px-3 py-1.5 rounded hover:bg-teal-600 hover:text-teal-800 transition">
-              View
-            </a>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-      {% else %}
-      <p class="text-center text-gray-600">No latest products available at the moment.</p>
-      {% endif %}
-    </div>
-  </section> {% endcomment %}
-
   <!-- Section: Cluster Pages Resource boxes -->
     {% include 'core/components/cluster-boxes.html' %}
 
