@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ExperimentWeek, ExperimentGoal, MilestoneReflection
+from .models import ExperimentWeek, ExperimentGoal, MilestoneReflection, LiveItListItem
 
 
 @admin.register(ExperimentWeek)
@@ -28,3 +28,10 @@ class ExperimentGoalAdmin(admin.ModelAdmin):
 @admin.register(MilestoneReflection)
 class MilestoneReflectionAdmin(admin.ModelAdmin):
     list_display = ("milestone", "published_date")
+
+
+@admin.register(LiveItListItem)
+class LiveItListItemAdmin(admin.ModelAdmin):
+    list_display = ("user", "item_text", "is_living_it", "created")
+    list_filter = ("is_living_it",)
+    search_fields = ("user__email", "item_text")

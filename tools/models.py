@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -73,3 +74,25 @@ class MilestoneReflection(models.Model):
 
     def __str__(self):
         return f"{self.get_milestone_display()} Reflection"
+
+
+# ── Live It List Builder ──────────────────────────────────────────────────────
+
+class LiveItListItem(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="live_it_list_items",
+    )
+    item_text = models.CharField(max_length=300)
+    category = models.CharField(max_length=100, blank=True)
+    is_living_it = models.BooleanField(default=False)
+    order = models.PositiveSmallIntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["order", "created"]
+
+    def __str__(self):
+        return f"{self.user} — {self.item_text[:60]}"

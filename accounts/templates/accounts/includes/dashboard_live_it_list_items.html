@@ -1,0 +1,51 @@
+{% load static %}
+{% with items=request.user.live_it_list_items.all %}
+
+<div class="bg-slate-50 rounded-md overflow-hidden mb-4">
+  <!-- Accordion Header -->
+  <button class="accordion-header w-full flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none" data-target="live-it-list-items-content">
+    <h2 class="text-lg font-semibold">My Live It List Items</h2>
+    <svg class="accordion-icon h-6 w-6 transform text-gray-500 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+
+  <div id="live-it-list-items-content" class="accordion-content hidden border-t border-gray-200 p-6">
+
+    {% if items %}
+      <ul class="space-y-3 mb-5">
+        {% for item in items %}
+        <li class="flex items-start gap-3 p-3 rounded-xl bg-white border border-gray-100">
+          <!-- Living-it indicator -->
+          <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full border-2 inline-block
+            {% if item.is_living_it %}bg-teal-600 border-teal-600{% else %}bg-white border-gray-300{% endif %}">
+          </span>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm text-gray-800 leading-snug {% if item.is_living_it %}line-through text-gray-400{% endif %}">
+              {{ item.item_text }}
+            </p>
+            {% if item.category %}
+            <span class="inline-block mt-1 text-xs text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full font-medium">
+              {{ item.category|title }}
+            </span>
+            {% endif %}
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      <a href="{% url 'tools:live_it_list_builder' %}"
+         class="inline-block text-sm text-teal-700 hover:text-teal-900 font-medium underline underline-offset-2">
+        Add more items to your list →
+      </a>
+    {% else %}
+      <p class="text-gray-500 text-sm mb-4">You haven't added any Live It List items yet.</p>
+      <a href="{% url 'tools:live_it_list_builder' %}"
+         class="inline-block bg-teal-700 hover:bg-teal-800 text-white font-semibold py-2.5 px-5 rounded-xl text-sm transition-colors duration-200">
+        Build my Live It List
+      </a>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endwith %}
