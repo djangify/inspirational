@@ -25,7 +25,7 @@
   .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
   .font-sans-clean { font-family: 'Outfit', sans-serif; }
   .hero-gradient { background: linear-gradient(135deg, #134e4a 0%, #0f766e 40%, #115e59 100%); }
-  .diagonal-bottom { clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); padding-bottom: 8rem; }
+  .diagonal-bottom { clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); padding-bottom: 5rem; }
   .diagonal-top { margin-top: -4rem; padding-top: 6rem; }
   .form-card { background: rgba(255,255,255,0.97); backdrop-filter: blur(8px); border-radius: 2px; box-shadow: 0 24px 60px rgba(0,0,0,0.25), 0 4px 16px rgba(0,0,0,0.1); }
 .teal-line { width: 3rem; height: 2px; display: inline-block; }
@@ -73,8 +73,8 @@
 
 <!-- 1. HERO -->
 <section class="hero-gradient diagonal-bottom font-sans-clean">
-  <div class="max-w-7xl mx-auto px-6 lg:px-12 pt-20 lg:pt-28">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 pt-10 lg:pt-14">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
 
       <div class="fade-up">
         <div class="flex items-center gap-3 mb-8">
@@ -111,14 +111,17 @@
       </div>
 
 
-      <!-- RIGHT: IMAGE -->
-      <div class="w-full flex justify-center lg:justify-end fade-up delay-2">
-        <div class="relative max-w-sm lg:max-w-md xl:max-w-lg">
+      <!-- RIGHT: VIDEO -->
+      <div class="w-full fade-up delay-2">
+        <div class="relative w-full">
           <!-- Soft background glow -->
           <div class="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-2xl blur-xl opacity-30"></div>
-          <img src="{% static 'images/a-live-it-list-ig.webp' %}"
-              alt="personal development for women with live it list"
-              class="relative w-full h-auto object-cover rounded-2xl shadow-lg">
+          <video
+            class="relative w-full rounded-2xl shadow-lg"
+            style="max-height: 480px; object-fit: cover;"
+            muted playsinline controls>
+            <source src="{% static 'videos/inspirationalguidancevid.mp4' %}" type="video/mp4">
+          </video>
         </div>
       </div>
 

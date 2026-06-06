@@ -10,6 +10,7 @@ media
 staticfiles/
 db/
 static/images/
+static/videos/
 # Django.Python Stack #
 *.py[cod]
 *$py.class
