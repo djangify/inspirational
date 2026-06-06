@@ -27,9 +27,9 @@
   <!-- Accordion Content -->
   <div id="saved-prompts-content" class="accordion-content hidden border-t border-gray-200 p-6">
     {% if favourite_prompts %}
-    <div class="space-y-4">
+    <div class="space-y-4" id="saved-prompts-list">
       {% for prompt in favourite_prompts %}
-      <div class="border bg-white rounded-md p-4 relative">
+      <div class="border bg-white rounded-md p-4 relative" data-prompt-id="{{ prompt.id }}">
         <div class="prose prose-lg">
           <p class="text-gray-900">{{ prompt.text }}</p>
         </div>
@@ -63,7 +63,8 @@
       {% endfor %}
     </div>
     {% else %}
-    <div class="text-center py-8">
+    <div class="space-y-4 hidden" id="saved-prompts-list"></div>
+    <div class="text-center py-8" id="saved-prompts-empty">
       <p class="text-gray-600 mb-4">You haven't saved any prompts yet.</p>
       
         <a href="{% url 'prompt:journal_prompt_generator' %}"

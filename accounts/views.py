@@ -226,10 +226,16 @@ def add_favourite_prompt(request, prompt_id):
 
     # If the request is AJAX, return a JSON response
     if request.headers.get("x-requested-with", "").lower() == "xmlhttprequest":
+        is_favourite = prompt in user_profile.favourite_prompts.all()
         return JsonResponse(
             {
                 "status": "success",
-                "is_favourite": prompt in user_profile.favourite_prompts.all(),
+                "is_favourite": is_favourite,
+                "prompt_id": prompt.id,
+                "prompt_text": prompt.text,
+                "prompt_category": prompt.category.name if prompt.category else "General",
+                "prompt_difficulty": prompt.get_difficulty_display(),
+                "remove_url": f"/accounts/favourite-prompt/{prompt.id}/",
             }
         )
 

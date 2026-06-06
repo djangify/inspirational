@@ -55,6 +55,9 @@ document.addEventListener('DOMContentLoaded', function () {
           // Update button appearance based on favorite status
           updateFavouriteButtonAppearance(data.is_favourite);
 
+          // Dynamically update the saved prompts list if it exists on the page
+          updateSavedPromptsList(data);
+
           // Show a message
           showMessage(data.message || (data.is_favourite ?
             'Prompt added to your profile!' :
@@ -84,6 +87,88 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Dynamically add or remove a prompt card in the saved prompts list
+  function updateSavedPromptsList(data) {
+    const list = document.getElementById('saved-prompts-list');
+    const emptyState = document.getElementById('saved-prompts-empty');
+    if (!list) return;
+
+    if (data.is_favourite) {
+      // Don't add if already in the list
+      if (list.querySelector(`[data-prompt-id="${data.prompt_id}"]`)) return;
+
+      const card = document.createElement('div');
+      card.className = 'border bg-white rounded-md p-4 relative';
+      card.setAttribute('data-prompt-id', data.prompt_id);
+      card.innerHTML = `
+        <div class="prose prose-lg">
+          <p class="text-gray-900">${data.prompt_text}</p>
+        </div>
+        <div class="flex justify-between items-center mt-4">
+          <div>
+            <span class="text-sm font-medium text-teal-700">Category:</span>
+            <span class="text-sm ml-1">${data.prompt_category}</span>
+          </div>
+          <div>
+            <span class="text-sm font-medium text-teal-700">Time:</span>
+            <span class="text-sm ml-1">${data.prompt_difficulty}</span>
+          </div>
+        </div>
+        <a href="${data.remove_url}" class="absolute top-2 right-2 text-red-600 hover:text-red-800">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>`;
+
+      list.prepend(card);
+      list.classList.remove('hidden');
+      if (emptyState) emptyState.classList.add('hidden');
+
+    } else {
+      // Remove the card if it exists
+      const existing = list.querySelector(`[data-prompt-id="${data.prompt_id}"]`);
+      if (existing) existing.remove();
+
+      // Show empty state if list is now empty
+      if (list.children.length === 0) {
+        list.classList.add('hidden');
+        if (emptyState) emptyState.classList.remove('hidden');
+      }
+    }
+  }
+
+  // Handle X (remove) buttons on saved prompt cards without page reload
+  function initRemoveButtons() {
+    document.addEventListener('click', function (e) {
+      const removeLink = e.target.closest('#saved-prompts-list a[href*="favourite-prompt"]');
+      if (!removeLink) return;
+
+      e.preventDefault();
+
+      const card = removeLink.closest('[data-prompt-id]');
+      const url = removeLink.getAttribute('href');
+
+      fetch(url, {
+        method: 'GET',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        credentials: 'same-origin'
+      })
+        .then(r => r.json())
+        .then(data => {
+          if (data.status === 'success' && !data.is_favourite) {
+            if (card) card.remove();
+            const list = document.getElementById('saved-prompts-list');
+            const emptyState = document.getElementById('saved-prompts-empty');
+            if (list && list.children.length === 0) {
+              list.classList.add('hidden');
+              if (emptyState) emptyState.classList.remove('hidden');
+            }
+          }
+        })
+        .catch(err => console.error('Error removing prompt:', err));
+    });
+  }
+
   // Initialize favorite button functionality
   function initFavouriteButton() {
     console.log('Initializing favourite button');
@@ -103,6 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize
   initFavouriteButton();
+  initRemoveButtons();
 
   /**
    * Display a message to the user using Tailwind classes

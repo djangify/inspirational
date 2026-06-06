@@ -13,15 +13,20 @@
   <div id="live-it-list-items-content" class="accordion-content hidden border-t border-gray-200 p-6">
 
     {% if items %}
-      <ul class="space-y-3 mb-5">
+      <ul class="space-y-3 mb-5" id="dashboard-live-it-list">
         {% for item in items %}
-        <li class="flex items-start gap-3 p-3 rounded-xl bg-white border border-gray-100">
-          <!-- Living-it indicator -->
-          <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full border-2 inline-block
-            {% if item.is_living_it %}bg-teal-600 border-teal-600{% else %}bg-white border-gray-300{% endif %}">
-          </span>
+        <li class="flex items-start gap-3 p-3 rounded-xl bg-white border border-gray-100 group" data-item-id="{{ item.id }}">
+
+          <!-- Living-it toggle -->
+          <button type="button" title="Am I living it?"
+            data-item-id="{{ item.id }}"
+            data-living-it="{{ item.is_living_it|yesno:'true,false' }}"
+            class="lil-toggle mt-0.5 flex-shrink-0 w-5 h-5 rounded-full border-2 transition-colors duration-200
+              {% if item.is_living_it %}bg-teal-600 border-teal-600{% else %}bg-white border-gray-300 hover:border-teal-400{% endif %}">
+          </button>
+
           <div class="flex-1 min-w-0">
-            <p class="text-sm text-gray-800 leading-snug {% if item.is_living_it %}line-through text-gray-400{% endif %}">
+            <p class="lil-text text-sm leading-snug {% if item.is_living_it %}line-through text-gray-400{% else %}text-gray-800{% endif %}">
               {{ item.item_text }}
             </p>
             {% if item.category %}
@@ -30,6 +35,14 @@
             </span>
             {% endif %}
           </div>
+
+          <!-- Delete button -->
+          <button type="button" title="Remove"
+            data-item-id="{{ item.id }}"
+            class="lil-delete flex-shrink-0 text-gray-300 hover:text-red-400 transition-colors duration-200 opacity-0 group-hover:opacity-100 focus:opacity-100 text-lg leading-none">
+            ×
+          </button>
+
         </li>
         {% endfor %}
       </ul>
@@ -47,5 +60,52 @@
 
   </div>
 </div>
+
+<script>
+(function () {
+  const CSRF = '{{ csrf_token }}';
+  const URL  = '{% url "tools:live_it_list_builder" %}';
+
+  async function post(payload) {
+    const r = await fetch(URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
+      body: JSON.stringify(payload),
+    });
+    return r.json();
+  }
+
+  document.querySelectorAll('.lil-toggle').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id  = parseInt(btn.dataset.itemId);
+      const li  = btn.closest('li');
+      const txt = li.querySelector('.lil-text');
+      const data = await post({ action: 'toggle_living_it', item_id: id });
+      if (data.status !== 'ok') return;
+      btn.dataset.livingIt = data.is_living_it ? 'true' : 'false';
+      if (data.is_living_it) {
+        btn.classList.add('bg-teal-600', 'border-teal-600');
+        btn.classList.remove('bg-white', 'border-gray-300', 'hover:border-teal-400');
+        txt.classList.add('line-through', 'text-gray-400');
+        txt.classList.remove('text-gray-800');
+      } else {
+        btn.classList.remove('bg-teal-600', 'border-teal-600');
+        btn.classList.add('bg-white', 'border-gray-300', 'hover:border-teal-400');
+        txt.classList.remove('line-through', 'text-gray-400');
+        txt.classList.add('text-gray-800');
+      }
+    });
+  });
+
+  document.querySelectorAll('.lil-delete').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id   = parseInt(btn.dataset.itemId);
+      const li   = btn.closest('li');
+      const data = await post({ action: 'delete_item', item_id: id });
+      if (data.status === 'ok') li.remove();
+    });
+  });
+})();
+</script>
 
 {% endwith %}
