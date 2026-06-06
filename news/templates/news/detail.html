@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}{{ post.meta_title|default:post.title }} | Inspirational Guidance{% endblock %}
 
 {% block open_graph_tags %}
   <meta property="fb:app_id" content="2433552923679047" />

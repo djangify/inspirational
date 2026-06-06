@@ -1,25 +1,41 @@
 {% extends "base.html" %}
 {% load static %}
-{% load video_tags %}
-{% load resource_tags %}
 
-{% block title %}Inspirational Guidance -- Practical Personal Growth Tools for Women{% endblock %}
+{% block title %}Start Your Live It List — Free | Inspirational Guidance{% endblock %}
 
 {% block open_graph_tags %}
-  <meta property="og:title" content="Inspirational Guidance -- Practical Personal Growth Tools for Women" />
-  <meta property="og:description" content="Stop living in default mode. Inspirational Guidance offers practical tools for women ready to make intentional choices about how they live, feel, and grow -- through self-authorship, confidence, and purposeful living." />
+  <meta property="og:title" content="Start Your Live It List — Free | Inspirational Guidance" />
+  <meta property="og:description" content="Stop waiting for the right moment. A Live It List is simple — the things you want to do, feel, and live, written down. Free to start. No card needed." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://inspirationalguidance.com/" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}" />
   <meta property="og:site_name" content="Inspirational Guidance" />
-
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Inspirational Guidance -- Practical Personal Growth Tools for Women">
-  <meta name="twitter:description" content="Stop living in default mode. Practical tools for women ready to make intentional choices about how they live, feel, and grow.">
+  <meta name="twitter:title" content="Start Your Live It List — Free | Inspirational Guidance">
+  <meta name="twitter:description" content="Stop waiting for the right moment. A Live It List is simple — the things you want to do, feel, and live, written down.">
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}">
 {% endblock %}
 
 {% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+  .font-sans-clean { font-family: 'Outfit', sans-serif; }
+  .hero-gradient { background: linear-gradient(135deg, #134e4a 0%, #0f766e 40%, #115e59 100%); }
+  .diagonal-bottom { clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); padding-bottom: 8rem; }
+  .diagonal-top { margin-top: -4rem; padding-top: 6rem; }
+  .form-card { background: rgba(255,255,255,0.97); backdrop-filter: blur(8px); border-radius: 2px; box-shadow: 0 24px 60px rgba(0,0,0,0.25), 0 4px 16px rgba(0,0,0,0.1); }
+.teal-line { width: 3rem; height: 2px; display: inline-block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { animation: fadeUp 0.7s ease both; }
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+</style>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -29,16 +45,8 @@
       "@id": "{{ site_url }}/#website",
       "url": "{{ site_url }}/",
       "name": "{{ site_name|escapejs }}",
-      "description": "Practical tools to help women stop living in default mode and start making intentional choices about how they live, feel, and earn.",
-      "publisher": { "@id": "{{ site_url }}/#organization" },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "{{ site_url }}/blog/?q={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      }
+      "description": "Stop waiting for the right moment. Start a Live It List.",
+      "publisher": { "@id": "{{ site_url }}/#organization" }
     },
     {
       "@type": "Organization",
@@ -53,81 +61,247 @@
         "@type": "Person",
         "name": "Diane Corriette",
         "url": "https://inspirationalguidance.com/diane-corriette/"
-      },
-      "sameAs": [
-        "{{ social_youtube }}",
-        "{{ social_pinterest }}"
-      ]
+      }
     }
   ]
 }
 </script>
+
 {% endblock %}
 
 {% block content %}
-<!-- HERO SECTION -->
-<header>
-  {% include 'core/hero.html' %}
-</header>
 
-<main class="text-gray-800">
+<!-- 1. HERO -->
+<section class="hero-gradient diagonal-bottom font-sans-clean">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 pt-20 lg:pt-28">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-  <!-- Section: Cluster Pages Resource boxes -->
-    {% include 'core/components/cluster-boxes.html' %}
-
-  <!-- Section: 2 Featured Products Highlights -->
-    {% include 'core/components/home-featured.html' %}
-
-     <!-- Section: Products by Category -->
-    {% include 'core/components/category-products.html' %}
-  
- <!-- Section: Journal Prompt Box -->
-    {% include 'core/components/journalprompt.html' %}
-
-    <!-- Latest Blog Posts Section -->
-  <section class="w-full bg-white py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <a href="{% url 'news:list' %}" class="hover:text-teal-800">
-      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-teal-700 mb-4 text-center">
-      Things I’ve Noticed About How We Live
-      </h2>
-      </a>
-      <p class="text-gray-600 mb-8">Observations, reflections, and simple ways to think about your life differently - without pressure to change everything at once.</p>
-      {% if blog_posts %}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {% for post in blog_posts %}
-            <div class="bg-white rounded-md mb-6 md:mb-0 shadow-sm overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
-              <a href="{{ post.get_absolute_url }}" class="block">
-                <div class="h-48 overflow-hidden">
-                  {% if post.image %}
-                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
-                  {% elif post.external_image_url %}
-                    <img src="{{ post.external_image_url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
-                  {% elif post.youtube_url %}
-                    {% with post.youtube_url|youtube_id as video_id %}
-                      <img src="https://img.youtube.com/vi/{{ video_id }}/maxresdefault.jpg"
-                          alt="{{ post.title }}"
-                          class="w-full h-full object-cover"
-                          onerror="this.onerror=null; this.src='https://img.youtube.com/vi/{{ video_id }}/hqdefault.jpg';">
-                    {% endwith %}
-                  {% endif %}
-                </div>
-                <div class="p-4">
-                  <h3 class="text-lg font-bold text-gray-900 mb-2">{{ post.title }}</h3>
-                  <p class="text-md text-gray-700 mb-3">{{ post.content|striptags|truncatewords:25 }}</p>
-                  <span class="text-teal-700 hover:text-teal-700 text-sm font-medium">Read more →</span>
-                </div>
-              </a>
-            </div>
-          {% endfor %}
+      <div class="fade-up">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="teal-line bg-teal-300"></span>
+          <span class="font-sans-clean text-xs tracking-widest uppercase text-teal-200">Live It List</span>
         </div>
-      {% else %}
-        <p class="text-center text-gray-500">No posts available yet.</p>
-      {% endif %}
+        <h1 class="font-display leading-tight mb-8 text-white" style="font-size: clamp(2.8rem, 6vw, 5rem);">
+          Stop waiting<br>
+          for the<br>
+          <em class="text-teal-200">right moment.</em>
+        </h1>
+        <p class="font-sans-clean leading-relaxed mb-10 text-teal-100 max-w-md font-light text-2xl">
+          Start <strong>A Live It List </strong> of the things that make ordinary days feel alive.
+        </p>
+        <div class="flex flex-wrap gap-6 text-sm font-sans-clean text-teal-300 font-light">
+          <span>✦ Free to start</span>
+          <span>✦ No card needed</span>
+          <span>✦ Yours to keep</span>
+        </div>
+
+        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+          {% if user.is_authenticated %}
+            <a href="{% url 'accounts:dashboard' %}"
+              class="inline-flex items-center uppercase rounded-md justify-center px-14 py-5 text-xl  tracking-wide border-2 border-white text-white hover:bg-teal-300 hover:border-teal-300 hover:text-teal-900 transition">
+              Go To Dashboard
+            </a>
+          {% else %}
+            <a href="{% url 'accounts:register' %}"
+              class="inline-flex items-center uppercase rounded-md justify-center px-14 py-5 text-xl  tracking-wide border-2 border-white text-white hover:bg-teal-300 hover:border-teal-300 hover:text-teal-900 transition">
+              Start My List
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+
+      <!-- RIGHT: IMAGE -->
+      <div class="w-full flex justify-center lg:justify-end fade-up delay-2">
+        <div class="relative max-w-sm lg:max-w-md xl:max-w-lg">
+          <!-- Soft background glow -->
+          <div class="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-2xl blur-xl opacity-30"></div>
+          <img src="{% static 'images/a-live-it-list-ig.webp' %}"
+              alt="personal development for women with live it list"
+              class="relative w-full h-auto object-cover rounded-2xl shadow-lg">
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-</main>
 
-<script src="{% static 'js/category-filter.js' %}"></script>
+<!-- 2. RECOGNITION -->
+<section class="diagonal-top bg-white font-sans-clean pb-24">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <p class="font-display leading-snug mb-8 text-gray-800" style="font-size: clamp(1.6rem, 3.5vw, 2.5rem);">
+      Most people are waiting. For the kids to grow up. For work to calm down. For the right moment.
+    </p>
+    <div class="flex justify-center mb-8">
+      <span class="teal-line bg-teal-700" style="width: 4rem;"></span>
+    </div>
+    <p class="font-display font-semibold text-teal-700" style="font-size: clamp(1.4rem, 3vw, 2rem);">
+      The Live It List is what you do instead of waiting.
+    </p>
+  </div>
+</section>
+
+
+<!-- 3. WHAT IT IS -->
+<section class="bg-gray-50 py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+      <div class="relative">
+        
+        <p class="font-sans-clean text-xs tracking-widest uppercase mb-6 text-teal-700">What it is</p>
+        <h2 class="font-display mb-6 text-gray-800 leading-tight" style="font-size: clamp(2rem, 4vw, 3rem);">
+          Simple. Honest.<br>Entirely yours.
+        </h2>
+        <p class="font-sans-clean leading-relaxed mb-5 text-gray-500 font-light text-lg">
+          A Live It List is the things you want to do, feel, and live - written down, with one honest question to come back to:
+        </p>
+        <p class="font-display font-semibold text-2xl italic mb-5 text-teal-700">
+          "Am I living it?"
+        </p>
+        <p class="font-sans-clean leading-relaxed text-gray-500 font-light text-lg">
+          Just your list, your life, and one question that changes how you look at both.
+        </p>
+      </div>
+
+      <div class="bg-white border-t-4 border-teal-500 p-10 shadow-sm">
+        <p class="font-display italic mb-6 text-gray-500 text-lg">Things that might be on a Live It List...</p>
+        <ul class="font-sans-clean space-y-4 text-gray-700 font-light">
+          <li class="flex items-start gap-3"><span class="text-teal-500 mt-0.5">✦</span> Stop saying yes when I mean no</li>
+          <li class="flex items-start gap-3"><span class="text-teal-500 mt-0.5">✦</span>Get outside more</li>
+          <li class="flex items-start gap-3"><span class="text-teal-500 mt-0.5">✦</span> Write the thing I keep not writing</li>
+          <li class="flex items-start gap-3"><span class="text-teal-500 mt-0.5">✦</span> More mornings with nowhere to be</li>
+          <li class="flex items-start gap-3"><span class="text-teal-500 mt-0.5">✦</span> Read the book that's been on my shelf for months</li>
+          <li class="flex items-start gap-3"><span class="text-teal-500 mt-0.5">✦</span> Go for that coffee with a friend </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- 4. STORY -->
+<section class="bg-teal-900 py-28 px-6">
+  <div class="max-w-3xl mx-auto text-center">
+    <p class="font-sans-clean text-xs tracking-widest uppercase mb-8 text-teal-300">From Diane</p>
+    <p class="font-display italic leading-relaxed mb-6 text-white" style="font-size: clamp(1.3rem, 2.8vw, 1.9rem);">
+      "I created the Live It List because I was tired of bucket lists. Skydiving, climbing mountains, quitting everything and moving abroad."
+    </p>
+    <p class="font-sans-clean leading-relaxed mb-5 text-teal-100 font-light">
+      I just wanted to go for coffee with a friend. Walk somewhere. Spend a Sunday the way I actually wanted to spend it. Make memories with the people I love without waiting for the perfect occasion.
+    </p>
+    <p class="font-sans-clean leading-relaxed mb-10 text-teal-100 font-light">
+      So I wrote it down. The small things. The simple things. The things that make an ordinary day feel like mine.
+    </p>
+    <div class="flex justify-center items-center gap-4 mb-2">
+      <span class="teal-line bg-teal-600"></span>
+      <p class="font-display italic text-teal-300 text-xl">Diane Corriette</p>
+      <span class="teal-line bg-teal-600"></span>
+    </div>
+    <p class="font-sans-clean text-xs tracking-widest uppercase text-teal-700">Personal Growth Coach · Inspirational Guidance</p>
+  </div>
+</section>
+
+
+<!-- 5. WHAT YOU GET -->
+<section class="bg-white py-28 px-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="font-sans-clean text-xs tracking-widest uppercase mb-4 text-teal-700">What you get when you register for free</p>
+      <h2 class="font-display text-gray-800" style="font-size: clamp(2rem, 4vw, 3rem);">Everything you need.<br>Nothing you don't.</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border border-gray-100 shadow-sm">
+      <div class="p-8 border-r border-b border-gray-100">
+        <p class="text-2xl mb-3">📄</p>
+        <p class="font-display text-xl mb-2 text-gray-800">The PDF</p>
+        <p class="font-sans-clean text-md text-gray-500 font-light leading-relaxed">Download, print, and keep. Yours forever.</p>
+      </div>
+      <div class="p-8 border-r border-b border-gray-100">
+        <p class="text-2xl mb-3">✏️</p>
+        <p class="font-display text-xl mb-2 text-gray-800">List Builder</p>
+        <p class="font-sans-clean text-md text-gray-500 font-light leading-relaxed">Create and save your list online, at your pace.</p>
+      </div>
+      <div class="p-8 border-b border-gray-100">
+        <p class="text-2xl mb-3">📊</p>
+        <p class="font-display text-xl mb-2 text-gray-800">Progress Tracker</p>
+        <p class="font-sans-clean text-md text-gray-500 font-light leading-relaxed">See what you're actually living. What's moving.</p>
+      </div>
+      <div class="p-8 border-r border-gray-100">
+        <p class="text-2xl mb-3">💬</p>
+        <p class="font-display text-xl mb-2 text-gray-800">Journal Prompts</p>
+        <p class="font-sans-clean text-md text-gray-500 font-light leading-relaxed">Save the questions that make you think.</p>
+      </div>
+      <div class="p-8 border-r border-gray-100">
+        <p class="text-2xl mb-3">📚</p>
+        <p class="font-display text-xl mb-2 text-gray-800">Resource Library</p>
+        <p class="font-sans-clean text-md text-gray-500 font-light leading-relaxed">Practical personal development tools. All free.</p>
+      </div>
+      <div class="p-8 bg-teal-50 flex items-center justify-center text-center">
+        <p class="font-display italic text-xl text-teal-700">All yours.<br>No catch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 6. EMAIL LIST -->
+<section class="bg-gray-50 py-24 px-6">
+  <div class="max-w-2xl mx-auto">
+    <div class="border-l-4 border-teal-700 pl-8">
+      <p class="font-display italic leading-relaxed mb-5 text-gray-700" style="font-size: clamp(1.1rem, 2.5vw, 1.4rem);">
+        When you register you can opt in to the Live It List Letters. Do. They're not your typical emails — more like a message from a friend who occasionally pops into your inbox and asks:
+      </p>
+      <p class="font-display italic font-semibold text-2xl mb-5 text-teal-700">
+        "Are you living your list?"
+      </p>
+      <p class="font-sans-clean leading-relaxed text-gray-400 text-sm font-light">
+        No guilt. No pressure. Just a nudge from someone who gets it.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- 7. FINAL CTA -->
+<section class="hero-gradient py-28 px-6 font-sans-clean">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div>
+        <p class="font-sans-clean text-xs tracking-widest uppercase mb-6 text-teal-300">Ready To Join Us?</p>
+        <h2 class="font-display leading-tight mb-6 text-white" style="font-size: clamp(2.2rem, 5vw, 4rem);">
+          Start your list.<br>
+          <em class="text-teal-200">Start living it.</em>
+        </h2>
+        <p class="font-sans-clean leading-relaxed text-teal-200 font-light mb-4">
+          Free. No card needed. Just a list and one honest question.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+          {% if user.is_authenticated %}
+            <a href="{% url 'accounts:dashboard' %}"
+              class="inline-flex items-center uppercase rounded-md justify-center px-14 py-5 text-xl  tracking-wide border-2 border-white text-white hover:bg-teal-300 hover:border-teal-300 hover:text-teal-900 transition">
+              Go To Dashboard
+            </a>
+          {% else %}
+            <a href="{% url 'accounts:register' %}"
+              class="inline-flex items-center uppercase rounded-md justify-center px-14 py-5 text-xl  tracking-wide border-2 border-white text-white hover:bg-teal-300 hover:border-teal-300 hover:text-teal-900 transition">
+              Start My List
+            </a>
+          {% endif %}
+        </div>
+      
+        
+      </div>
+      <div class="relative max-w-sm lg:max-w-md xl:max-w-lg">
+          <!-- Soft background glow -->
+          <div class="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-2xl blur-xl opacity-30"></div>
+          <img src="{% static 'images/live-it-list.webp' %}"
+              alt="personal development for women with live it list"
+              class="relative w-full h-auto object-cover rounded-2xl shadow-lg">
+        </div>
+    </div>
+  </div>
+</section>
+
 {% endblock %}
