@@ -108,13 +108,13 @@
       <div class="bg-amber-50 border border-amber-100 rounded-2xl p-6 text-sm text-gray-700 space-y-3">
         <h3 class="font-semibold text-gray-900 text-base">How this works</h3>
         <ul class="space-y-2">
-          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span> Answer whichever questions resonate — skip the rest.</li>
-          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span> Use the "Add anything you like" box (bottom right) at any time — no question needed.</li>
-          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span> Logged in? Your list saves automatically to your <a href="{% url 'accounts:dashboard' %}" class="underline underline-offset-2 text-teal-700 hover:text-teal-900">dashboard</a>.</li>
-          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span> No account? <a href="{% url 'accounts:register' %}" class="underline underline-offset-2 text-teal-700 hover:text-teal-900">Register free</a> to save your list and come back to it any time.</li>
-          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span> Tick the circle next to an item when you start living it.</li>
-          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span> Share your list with family and friends — it makes a great conversation starter.</li>
-          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span> Come back any time to add more. Your list is never finished — that's the point.</li>
+          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Answer whichever questions resonate — skip the rest.</span></li>
+          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Use the "Add anything you like" box (bottom right) at any time — no question needed.</span></li>
+          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Logged in? Items save automatically — view them on your <a href="{% url 'accounts:dashboard' %}" class="underline underline-offset-2 text-teal-700 hover:text-teal-900">dashboard</a>.</span></li>
+          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>No account yet? It's free. <a href="{% url 'accounts:register' %}" class="underline underline-offset-2 text-teal-700 hover:text-teal-900">Register here</a> to save your list.</span></li>
+          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Tick the circle next to an item when you start living it.</span></li>
+          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Share your list with family and friends — it makes a great conversation starter.</span></li>
+          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Come back any time to add more. Your list is never finished — that's the point.</span></li>
         </ul>
       </div>
 
@@ -574,3 +574,4 @@
 })();
 </script>
 {% endblock %}
+   
