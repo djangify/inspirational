@@ -383,3 +383,31 @@ class DownloadLog(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.order_item.id} - {self.downloaded_at}"
+
+
+class ShopSettings(models.Model):
+    show_digital_withdrawal_consent = models.BooleanField(
+        default=False,
+        help_text="Show the EU/UK digital withdrawal consent checkbox at checkout.",
+    )
+    digital_withdrawal_consent_text = models.CharField(
+        max_length=500,
+        default=(
+            "I understand and agree that by completing this purchase I am requesting "
+            "immediate access to digital content, and I therefore waive my right to "
+            "withdraw from this contract under the EU/UK Consumer Rights Act "
+            "(14-day cooling-off period)."
+        ),
+    )
+
+    class Meta:
+        verbose_name = "Shop Settings"
+        verbose_name_plural = "Shop Settings"
+
+    def __str__(self):
+        return "Shop Settings"
+
+    @classmethod
+    def get_settings(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj

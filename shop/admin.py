@@ -12,6 +12,7 @@ from .models import (
     OrderItem,
     ProductReview,
     Purchase,
+    ShopSettings,
 )
 from django import forms
 
@@ -315,3 +316,25 @@ class ProductReviewAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
+
+
+@admin.register(ShopSettings)
+class ShopSettingsAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (
+            "Legal & Compliance",
+            {
+                "fields": (
+                    "show_digital_withdrawal_consent",
+                    "digital_withdrawal_consent_text",
+                )
+            },
+        ),
+    )
+
+    def has_add_permission(self, request):
+        # Only allow one instance
+        return not ShopSettings.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False

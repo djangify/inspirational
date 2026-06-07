@@ -1,5 +1,5 @@
 # shop/views.py
-from .models import Category, Product, Order, OrderItem
+from .models import Category, Product, Order, OrderItem, ShopSettings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -207,6 +207,8 @@ def checkout(request):
         ]
         request.session.modified = True
 
+        shop_settings = ShopSettings.get_settings()
+
         context = {
             "client_secret": intent.client_secret,
             "stripe_publishable_key": settings.STRIPE_PUBLISHABLE_KEY,
@@ -214,6 +216,8 @@ def checkout(request):
             "guest_form": guest_form,
             "is_guest": not request.user.is_authenticated,
             "payment_intent_id": intent.id,
+            "show_withdrawal_consent": shop_settings.show_digital_withdrawal_consent,
+            "withdrawal_consent_text": shop_settings.digital_withdrawal_consent_text,
         }
 
         return render(request, "shop/checkout.html", context)

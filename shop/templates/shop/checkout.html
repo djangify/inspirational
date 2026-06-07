@@ -72,6 +72,21 @@
                     </div>
                     <div id="card-errors" class="text-red-600 text-sm mb-4" role="alert"></div>
                 </div>
+                {% if show_withdrawal_consent %}
+                <div class="mb-4">
+                    <label class="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox"
+                               id="withdrawal-consent"
+                               class="mt-1 h-4 w-4 text-teal-700 border-gray-300 rounded"
+                               aria-required="true">
+                        <span class="text-sm text-gray-700">
+                            <span class="text-red-600 font-bold">*</span>
+                            {{ withdrawal_consent_text }}
+                        </span>
+                    </label>
+                    <div id="withdrawal-consent-error" class="text-red-600 text-sm mt-1" role="alert"></div>
+                </div>
+                {% endif %}
                 <button type="submit"
                         class="w-full px-6 py-3 bg-teal-700 text-white rounded-lg hover:bg-teal-800 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50"
                         id="submit-button">
@@ -126,6 +141,18 @@
         event.preventDefault();
         submitButton.disabled = true;
         errorElement.textContent = '';
+
+        {% if show_withdrawal_consent %}
+        const consentCheckbox = document.getElementById('withdrawal-consent');
+        const consentError = document.getElementById('withdrawal-consent-error');
+        if (!consentCheckbox.checked) {
+            consentError.textContent = 'You must confirm your agreement to continue.';
+            consentCheckbox.focus();
+            submitButton.disabled = false;
+            return;
+        }
+        consentError.textContent = '';
+        {% endif %}
 
         try {
             const { paymentIntent, error } = await stripe.confirmCardPayment('{{ client_secret }}', {
