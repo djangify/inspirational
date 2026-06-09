@@ -23,6 +23,9 @@
     <meta name="twitter:description" content="{{ post.content|striptags|truncatewords:25 }}" />
   {% endif %}
   <meta name="twitter:image" content="{{ post.featured_image.url|default:'/static/images/diana-morgan.webp' }}">
+  <!-- AI Search Metadata -->
+  <meta name="ai-page-type" content="article">
+  <meta name="ai-topics" content="{% if post.category %}{{ post.category.name }}, {% endif %}personal development{% if post.meta_keywords %}, {{ post.meta_keywords }}{% endif %}">
 {% endblock %}
 
 
@@ -243,7 +246,9 @@
     "image": "{{ request.scheme }}://{{ request.get_host }}{% static author_photo %}",
     "sameAs": [
       "{{ social_youtube }}",
-      "{{ social_pinterest }}"
+      "{{ social_pinterest }}",
+      "{{ social_substack }}",
+      "{{ social_substack_profile }}"
     ]
   },
   "publisher": {
@@ -260,6 +265,33 @@
     "@type": "WebPage",
     "@id": "{{ request.build_absolute_uri }}"
   }
+  {% if post.category %}
+  ,"articleSection": "{{ post.category.name|escapejs }}"
+  {% endif %}
+  {% if post.meta_keywords %}
+  ,"keywords": "{{ post.meta_keywords|escapejs }}"
+  {% endif %}
+}
+</script>
+
+<!-- BreadcrumbList Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home",
+     "item": "{{ request.scheme }}://{{ request.get_host }}/"},
+    {"@type": "ListItem", "position": 2, "name": "Blog",
+     "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'news:list' %}"}
+    {% if post.category %}
+    ,{"@type": "ListItem", "position": 3, "name": "{{ post.category.name|escapejs }}",
+     "item": "{{ request.scheme }}://{{ request.get_host }}{{ post.category.get_absolute_url }}"}
+    ,{"@type": "ListItem", "position": 4, "name": "{{ post.title|escapejs }}"}
+    {% else %}
+    ,{"@type": "ListItem", "position": 3, "name": "{{ post.title|escapejs }}"}
+    {% endif %}
+  ]
 }
 </script>
 

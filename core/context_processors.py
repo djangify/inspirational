@@ -15,6 +15,8 @@ def site_author(request):
         "author_url": settings.AUTHOR_URL,
         "social_youtube": settings.SOCIAL_YOUTUBE,
         "social_pinterest": settings.SOCIAL_PINTEREST,
+        "social_substack": settings.SOCIAL_SUBSTACK,
+        "social_substack_profile": settings.SOCIAL_SUBSTACK_PROFILE,
         "site_name": settings.SITE_NAME,
         "site_url": settings.SITE_URL,
     }

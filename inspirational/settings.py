@@ -257,8 +257,10 @@ AUTHOR_SHORT_BIO = (
 )
 AUTHOR_PHOTO = "images/diane-corriette-inspirational-guidance.jpg"
 AUTHOR_URL = "/diane-corriette"
-SOCIAL_YOUTUBE = "https://www.youtube.com/channel/UCecr_isX1vqBT_vLQ9H97ww"
+SOCIAL_YOUTUBE = "https://www.youtube.com/@agerewired"
 SOCIAL_PINTEREST = "https://uk.pinterest.com/personal_development_women/"
+SOCIAL_SUBSTACK = "https://todiane.substack.com"
+SOCIAL_SUBSTACK_PROFILE = "https://substack.com/@todiane"
 
 # -----------------------------------------------------------------------------
 # Stripe

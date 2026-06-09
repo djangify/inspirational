@@ -53,14 +53,44 @@
       "@id": "{{ site_url }}/#organization",
       "name": "{{ site_name|escapejs }}",
       "url": "{{ site_url }}/",
+      "foundingDate": "2008",
       "logo": {
         "@type": "ImageObject",
         "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}"
       },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "email": "hello@inspirationalguidance.com",
+        "availableLanguage": "English"
+      },
+      "sameAs": [
+        "{{ social_youtube }}",
+        "{{ social_pinterest }}",
+        "{{ social_substack }}",
+        "{{ social_substack_profile }}"
+      ],
       "founder": {
         "@type": "Person",
         "name": "Diane Corriette",
-        "url": "https://inspirationalguidance.com/diane-corriette/"
+        "url": "https://inspirationalguidance.com/diane-corriette/",
+        "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/diane-corriette-inspirational-guidance.jpg' %}",
+        "description": "Personal Growth Coach helping women move out of default mode into deliberate, purposeful living.",
+        "knowsAbout": [
+          "Self-Authorship",
+          "Emotional Resilience",
+          "Personal Development for Women",
+          "Intentional Living",
+          "Life Coaching",
+          "Self-Confidence",
+          "Journaling for Personal Growth"
+        ],
+        "sameAs": [
+          "{{ social_youtube }}",
+          "{{ social_pinterest }}",
+          "{{ social_substack }}",
+          "{{ social_substack_profile }}"
+        ]
       }
     }
   ]
@@ -119,7 +149,7 @@
           <video
             class="relative w-full rounded-2xl shadow-lg"
             style="max-height: 480px; object-fit: cover;"
-            muted playsinline controls>
+            muted loop playsinline controls>
             <source src="{% static 'videos/inspirationalguidancevid.mp4' %}" type="video/mp4">
           </video>
         </div>
