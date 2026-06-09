@@ -63,6 +63,11 @@ urlpatterns = [
         TemplateView.as_view(template_name="core/purpose-links.html"),
         name="linkhub",
     ),
+    path(
+        "develop-self-reliance/",
+        TemplateView.as_view(template_name="core/develop-self-reliance.html"),
+        name="develop_self_reliance",
+    ),
     path("category/", category_hub, name="category"),
     # Policy pages from templates/policy/
     path(

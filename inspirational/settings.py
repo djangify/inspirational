@@ -24,7 +24,7 @@ if os.path.exists(_dotenv_local):
 # --------------------------------------------------------------
 SECRET_KEY = env("SECRET_KEY")
 
-DEBUG = env.bool("DEBUG", default=False)
+DEBUG = env.bool("DEBUG", default=True)
 
 ALLOWED_HOSTS = [
     "inspirationalguidance.com",
