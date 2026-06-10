@@ -1,0 +1,15 @@
+{% if embed_url %}
+<div class="mb-8 rounded-xl overflow-hidden shadow-md {{ css_class }}">
+  <div class="aspect-video w-full">
+    <iframe
+      src="{{ embed_url }}"
+      class="w-full h-full"
+      frameborder="0"
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+{% endif %}

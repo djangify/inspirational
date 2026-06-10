@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+{% load filters %}
+{% load news_tags %}
+
+{% block title %}Blog – Inspirational Guidance{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --color-accent:    #2563eb;
+    --color-font-main: #111827;
+    --color-surface:   #f3f4f6;
+    --color-bg:        #ffffff;
+  }
+  body { font-family: 'Inter', system-ui, sans-serif; background-color: var(--color-bg); color: var(--color-font-main); }
+  nav { border-bottom: 1px solid #e5e7eb !important; box-shadow: none !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Section tabs -->
+<div class="border-b border-gray-200">
+  <div class="max-w-6xl mx-auto px-6">
+    <nav class="flex gap-0 -mb-px overflow-x-auto">
+      {% for label, type_val in section_tabs %}
+      <a href="{% if type_val %}?type={{ type_val }}{% else %}{% url 'news:list' %}{% endif %}"
+         class="shrink-0 px-5 py-4 text-sm font-semibold border-b-2 transition
+                {% if active_type == type_val %}border-[color:var(--color-accent)] text-[color:var(--color-accent)]{% else %}border-transparent text-gray-400 hover:text-[color:var(--color-accent)] hover:border-[color:var(--color-accent)]/40{% endif %}">
+        {{ label }}
+      </a>
+      {% endfor %}
+    </nav>
+  </div>
+</div>
+
+<div class="max-w-6xl mx-auto px-6 py-10">
+  <div class="flex flex-col lg:flex-row gap-12">
+
+    <!-- Main column -->
+    <div class="flex-1 min-w-0">
+
+      <!-- Hero featured post (All tab only) -->
+      {% if featured_posts %}
+      {% with hero=featured_posts.0 %}
+      <article class="mb-12 pb-12 border-b border-gray-200">
+
+        {# Hero: embedded video/audio > image > placeholder #}
+        {% if hero.content_type == "video" and hero.video_url %}
+          {% video_embed hero.video_url css_class="mb-5" %}
+        {% elif hero.content_type == "audio" and hero.audio_url %}
+          {% audio_embed hero.audio_url css_class="mb-5" %}
+        {% elif hero.get_image_url %}
+          <a href="{{ hero.get_absolute_url }}" class="block mb-5 overflow-hidden rounded">
+            <img src="{{ hero.get_image_url }}" alt="{{ hero.title }}"
+                 class="w-full h-64 object-cover hover:opacity-95 transition duration-300">
+          </a>
+        {% elif hero.content_type == "video" %}
+          <a href="{{ hero.get_absolute_url }}" class="block mb-5 bg-gray-900 rounded h-48 flex items-center justify-center">
+            <svg class="w-12 h-12 text-white opacity-60" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+          </a>
+        {% elif hero.content_type == "audio" %}
+          <a href="{{ hero.get_absolute_url }}" class="block mb-5 bg-purple-950 rounded h-48 flex items-center justify-center">
+            <svg class="w-12 h-12 text-white opacity-60" fill="currentColor" viewBox="0 0 20 20"><path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/></svg>
+          </a>
+        {% endif %}
+
+        <div class="flex flex-wrap items-center gap-2 mb-2">
+          {% include "news/components/content_type_badge.html" with post=hero %}
+          <time class="text-xs text-gray-400">{{ hero.publish_date|date:"F j, Y" }}</time>
+        </div>
+        <h2 class="text-2xl md:text-3xl font-bold text-[color:var(--color-font-main)] leading-tight mb-3">
+          <a href="{{ hero.get_absolute_url }}" class="hover:text-[color:var(--color-accent)] transition">{{ hero.title }}</a>
+        </h2>
+        <p class="text-gray-500 mb-4 leading-relaxed max-w-2xl">
+          {{ hero.content|striptags|truncatewords:40 }}
+        </p>
+        <a href="{{ hero.get_absolute_url }}" class="text-sm font-semibold text-[color:var(--color-accent)] hover:underline">
+          {% if hero.content_type == "video" %}Watch now →{% elif hero.content_type == "audio" %}Listen now →{% else %}Read on →{% endif %}
+        </a>
+      </article>
+      {% endwith %}
+      {% endif %}
+
+      <!-- Post list -->
+      <div class="divide-y divide-gray-100">
+        {% for post in posts %}
+        <article class="py-8 flex gap-5 items-start">
+
+          {# Thumbnail: image first (badge overlay), then embedded video, then placeholder #}
+          {% if post.get_image_url %}
+          <a href="{{ post.get_absolute_url }}" class="w-36 sm:w-44 shrink-0 block relative">
+            <img src="{{ post.get_image_url }}" alt="{{ post.title }}"
+                 class="w-full h-24 object-cover rounded hover:opacity-90 transition">
+            {% if post.content_type != "article" %}
+            <div class="absolute top-1 left-1">
+              {% include "news/components/content_type_badge.html" with post=post %}
+            </div>
+            {% endif %}
+          </a>
+          {% elif post.content_type == "video" and post.video_url %}
+          <div class="w-36 sm:w-44 shrink-0">
+            {% get_embed_url post.video_url as vembed %}
+            {% if vembed %}
+            <div class="aspect-video rounded overflow-hidden">
+              <iframe src="{{ vembed }}" class="w-full h-full" frameborder="0" loading="lazy" allowfullscreen></iframe>
+            </div>
+            {% endif %}
+          </div>
+          {% elif post.content_type == "video" %}
+          <a href="{{ post.get_absolute_url }}" class="w-36 sm:w-44 shrink-0 block bg-gray-900 rounded h-24 flex items-center justify-center">
+            <svg class="w-8 h-8 text-white opacity-60" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+          </a>
+          {% elif post.content_type == "audio" %}
+          <a href="{{ post.get_absolute_url }}" class="w-36 sm:w-44 shrink-0 block bg-purple-950 rounded h-24 flex items-center justify-center">
+            <svg class="w-8 h-8 text-white opacity-60" fill="currentColor" viewBox="0 0 20 20"><path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/></svg>
+          </a>
+          {% endif %}
+
+          <!-- Text -->
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              {% if not post.get_image_url %}
+                {% include "news/components/content_type_badge.html" with post=post %}
+              {% endif %}
+              <time class="text-xs text-gray-400">{{ post.publish_date|date:"M j, Y" }}</time>
+            </div>
+            <h2 class="font-semibold text-[color:var(--color-font-main)] leading-snug mb-1">
+              <a href="{{ post.get_absolute_url }}" class="hover:text-[color:var(--color-accent)] transition">{{ post.title }}</a>
+            </h2>
+            <p class="text-sm text-gray-500 leading-relaxed line-clamp-2">
+              {{ post.content|striptags|truncatewords:20 }}
+            </p>
+          </div>
+        </article>
+        {% empty %}
+        <p class="py-16 text-center text-gray-400 text-sm">No posts yet in this section.</p>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      {% if posts.has_other_pages %}
+      <div class="flex justify-between items-center pt-10 text-sm text-gray-500">
+        {% if posts.has_previous %}
+          <a href="?{% if active_type %}type={{ active_type }}&{% endif %}page={{ posts.previous_page_number }}"
+             class="hover:text-[color:var(--color-accent)] transition">← Previous</a>
+        {% else %}<span></span>{% endif %}
+        <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+        {% if posts.has_next %}
+          <a href="?{% if active_type %}type={{ active_type }}&{% endif %}page={{ posts.next_page_number }}"
+             class="hover:text-[color:var(--color-accent)] transition">Next →</a>
+        {% else %}<span></span>{% endif %}
+      </div>
+      {% endif %}
+
+    </div><!-- /main column -->
+
+    {% include "news/components/products_sidebar.html" %}
+
+  </div>
+</div>
+
+{% endblock %}

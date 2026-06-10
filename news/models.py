@@ -3,7 +3,18 @@ from django.urls import reverse
 from django.utils.text import slugify
 from inspirational.storage import public_storage
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 from tinymce.models import HTMLField
+
+
+def validate_audio_file(value):
+    """Accept common audio formats only."""
+    allowed = [".mp3", ".m4a", ".ogg", ".wav", ".aac", ".flac", ".opus"]
+    ext = "." + value.name.rsplit(".", 1)[-1].lower()
+    if ext not in allowed:
+        raise ValidationError(
+            f"Unsupported audio format '{ext}'. Allowed: {', '.join(allowed)}"
+        )
 
 
 class Category(models.Model):
@@ -27,6 +38,12 @@ class Post(models.Model):
         ("draft", "Draft"),
         ("published", "Published"),
     ]
+    CONTENT_TYPE_CHOICES = [
+        ("article", "Article"),
+        ("bite", "Bite — short quick-read"),
+        ("video", "Video"),
+        ("audio", "Audio / Podcast"),
+    ]
     AD_TYPE_CHOICES = [
         ("none", "No Advertisement"),
         ("adsense", "Google AdSense"),
@@ -48,6 +65,12 @@ class Post(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
     featured = models.BooleanField(
         default=False, help_text="Feature this post on the homepage"
+    )
+    content_type = models.CharField(
+        max_length=10,
+        choices=CONTENT_TYPE_CHOICES,
+        default="article",
+        help_text="Article = long-form post, Bite = short quick-read, Video = video embed, Audio = podcast/audio embed.",
     )
 
     # Dates
@@ -74,6 +97,26 @@ class Post(models.Model):
         help_text="External URL for product image (jpg/png only)",
     )
     youtube_url = models.URLField(blank=True, null=True)
+    video_url = models.URLField(
+        "Video URL",
+        blank=True,
+        null=True,
+        help_text="YouTube, Vimeo, or any video platform page URL — converted to an embed automatically.",
+    )
+    audio_url = models.URLField(
+        "Audio URL",
+        blank=True,
+        null=True,
+        help_text="SoundCloud, Spotify, Buzzsprout, Anchor etc. — paste the public page URL.",
+    )
+    audio_file = models.FileField(
+        "Audio File (Upload)",
+        upload_to="news/audio/",
+        blank=True,
+        null=True,
+        validators=[validate_audio_file],
+        help_text="Upload an MP3 or other audio file directly (max ~50 MB).",
+    )
     thumbnail = models.ImageField(
         upload_to="news/thumbnails/", null=True, blank=True, storage=public_storage
     )

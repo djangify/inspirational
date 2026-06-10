@@ -551,6 +551,12 @@ class SiteSettings(models.Model):
         ("EUR", "Euro (€)"),
     ]
 
+    THEME_CHOICES = [
+        ("classic", "Classic — default site design"),
+        ("editorial", "Editorial — warm tones, serif headings, magazine layout"),
+        ("minimal", "Minimal — clean black & white, Substack-style"),
+    ]
+
     google_analytics_id = models.CharField(
         max_length=30,
         blank=True,
@@ -589,6 +595,28 @@ class SiteSettings(models.Model):
         max_length=5,
         default="£",
         verbose_name="Currency Symbol",
+    )
+    active_theme = models.CharField(
+        "Site Theme",
+        max_length=20,
+        choices=THEME_CHOICES,
+        default="classic",
+        help_text=(
+            "Choose the visual theme for the blog and shop. "
+            "Classic uses your default design. Changes apply immediately."
+        ),
+    )
+    sidebar_heading = models.CharField(
+        "Blog Sidebar Heading",
+        max_length=100,
+        default="Featured Products",
+        blank=True,
+        help_text="Heading shown above the products sidebar on blog pages.",
+    )
+    sidebar_product_count = models.PositiveSmallIntegerField(
+        "Blog Sidebar Product Count",
+        default=5,
+        help_text="Number of featured products to show in the blog sidebar.",
     )
 
     class Meta:

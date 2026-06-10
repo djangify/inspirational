@@ -1,0 +1,23 @@
+{% extends "shop/detail.html" %}
+{# Minimal theme: inject clean black-and-white palette via CSS vars, keep all existing layout and functionality. #}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --color-accent:    #2563eb;
+    --color-font-main: #111827;
+    --color-surface:   #f3f4f6;
+    --color-bg:        #ffffff;
+  }
+  body { font-family: 'Inter', system-ui, sans-serif; background-color: var(--color-bg); color: var(--color-font-main); }
+  h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
+  nav { border-bottom: 1px solid #e5e7eb !important; box-shadow: none !important; }
+  /* Map teal accents → minimal accent colour */
+  .bg-teal-700, .hover\:bg-teal-800:hover { background-color: #111827 !important; }
+  .text-teal-700 { color: var(--color-accent) !important; }
+  .border-teal-700 { border-color: #e5e7eb !important; }
+</style>
+{% endblock %}

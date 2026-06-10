@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Shop – Inspirational Guidance{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --color-accent:    #2563eb;
+    --color-font-main: #111827;
+    --color-surface:   #f3f4f6;
+    --color-bg:        #ffffff;
+  }
+  body { font-family: 'Inter', system-ui, sans-serif; background-color: var(--color-bg); color: var(--color-font-main); }
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold text-[color:var(--color-font-main)]">Shop</h1>
+  </header>
+</div>
+
+<!-- Category tab bar with scroll arrows -->
+{% if categories %}
+<div class="bg-white">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 relative flex items-center">
+    <!-- Left arrow -->
+    <button id="tab-prev"
+            class="shrink-0 p-1 text-[color:var(--color-font-main)]/40 hover:text-[color:var(--color-accent)] transition"
+            aria-label="Scroll categories left">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <nav id="tab-nav" class="flex gap-0 overflow-x-auto no-scrollbar flex-1">
+      <a href="{% url 'shop:product_list' %}{% if query %}?q={{ query }}{% endif %}"
+         class="shrink-0 px-5 py-4 text-sm font-semibold uppercase tracking-widest border-b-2 transition
+                {% if not current_category %}border-[color:var(--color-accent)] text-[color:var(--color-accent)]{% else %}border-transparent text-[color:var(--color-font-main)]/40 hover:text-[color:var(--color-accent)] hover:border-[color:var(--color-accent)]/40{% endif %}">
+        All
+      </a>
+      {% for cat in categories %}
+      <a href="{{ cat.get_absolute_url }}{% if query %}?q={{ query }}{% endif %}"
+         class="shrink-0 px-5 py-4 text-sm font-semibold uppercase tracking-widest border-b-2 transition
+                {% if current_category.slug == cat.slug %}border-[color:var(--color-accent)] text-[color:var(--color-accent)]{% else %}border-transparent text-[color:var(--color-font-main)]/40 hover:text-[color:var(--color-accent)] hover:border-[color:var(--color-accent)]/40{% endif %}">
+        {{ cat.name }}
+      </a>
+      {% endfor %}
+    </nav>
+
+    <!-- Right arrow -->
+    <button id="tab-next"
+            class="shrink-0 p-1 text-[color:var(--color-font-main)]/40 hover:text-[color:var(--color-accent)] transition"
+            aria-label="Scroll categories right">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+</div>
+{% endif %}
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+
+  <!-- Search bar -->
+  <form method="get" class="mb-8 flex gap-2 items-center">
+    <input type="text" name="q" value="{{ query }}"
+           placeholder="Search…"
+           class="flex-1 min-w-0 border border-gray-200 rounded px-4 py-2 text-sm focus:outline-none focus:border-[color:var(--color-accent)]">
+    <button type="submit"
+            class="shrink-0 px-4 py-2 bg-[color:var(--color-font-main)] text-white text-sm font-medium rounded hover:opacity-80 transition">
+      Search
+    </button>
+    {% if query %}
+    <a href="{% url 'shop:product_list' %}" class="text-sm text-gray-400 hover:text-[color:var(--color-accent)] transition">Clear</a>
+    {% endif %}
+  </form>
+
+  <!-- Product grid -->
+  <div class="grid gap-6 grid-cols-2 md:grid-cols-3 xl:grid-cols-4 justify-items-center">
+    {% for product in products %}
+    {% include "shop/includes/product_card.html" with product=product %}
+    {% empty %}
+    <p class="col-span-full py-16 text-center text-gray-400 text-sm">No products found.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% if products.has_other_pages %}
+  <div class="flex justify-between items-center pt-10 text-sm text-gray-500">
+    {% if products.has_previous %}
+      <a href="?page={{ products.previous_page_number }}{% if query %}&q={{ query }}{% endif %}"
+         class="hover:text-[color:var(--color-accent)] transition">← Previous</a>
+    {% else %}<span></span>{% endif %}
+    <span>Page {{ products.number }} of {{ products.paginator.num_pages }}</span>
+    {% if products.has_next %}
+      <a href="?page={{ products.next_page_number }}{% if query %}&q={{ query }}{% endif %}"
+         class="hover:text-[color:var(--color-accent)] transition">Next →</a>
+    {% else %}<span></span>{% endif %}
+  </div>
+  {% endif %}
+
+</div>
+
+<script>
+  (function () {
+    var nav  = document.getElementById('tab-nav');
+    var prev = document.getElementById('tab-prev');
+    var next = document.getElementById('tab-next');
+    if (!nav) return;
+    var step = 200;
+    prev.addEventListener('click', function () { nav.scrollBy({ left: -step, behavior: 'smooth' }); });
+    next.addEventListener('click', function () { nav.scrollBy({ left:  step, behavior: 'smooth' }); });
+  })();
+</script>
+
+{% endblock %}

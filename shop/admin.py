@@ -429,6 +429,26 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 ),
             },
         ),
+        (
+            "Blog & Shop Theme",
+            {
+                "fields": ("active_theme",),
+                "description": (
+                    "Select a visual theme for the blog and shop pages. "
+                    "Classic keeps your current design. Editorial and Minimal "
+                    "apply alternative layouts immediately — no restart needed."
+                ),
+            },
+        ),
+        (
+            "Blog Sidebar",
+            {
+                "fields": ("sidebar_heading", "sidebar_product_count"),
+                "description": (
+                    "Controls the featured-products sidebar shown on blog pages."
+                ),
+            },
+        ),
     )
 
     def has_add_permission(self, request):

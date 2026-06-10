@@ -1,0 +1,176 @@
+{% comment %}
+  Podcast player card for directly uploaded audio files (post.audio_file).
+  Usage: {% include "news/components/audio_player_card.html" with post=post %}
+{% endcomment %}
+
+<style>
+.podcast-card {
+  display: flex;
+  align-items: stretch;
+  background: #1a1a2e;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  max-width: 100%;
+}
+.podcast-card__cover {
+  width: 140px;
+  min-width: 140px;
+  background: #16213e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.podcast-card__cover img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+.podcast-card__cover-placeholder {
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f3460, #533483);
+}
+.podcast-card__body {
+  flex: 1;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+.podcast-card__label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #e53e3e;
+  margin: 0;
+}
+.podcast-card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f7fafc;
+  margin: 0;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.podcast-card__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.podcast-card__play {
+  width: 40px; height: 40px; min-width: 40px;
+  border-radius: 50%;
+  background: #e53e3e;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(229,62,62,0.4);
+}
+.podcast-card__play:hover { background: #c53030; transform: scale(1.05); }
+.podcast-card__play svg { width: 16px; height: 16px; fill: white; margin-left: 2px; }
+.podcast-card__play.is-playing svg.icon-play  { display: none; }
+.podcast-card__play:not(.is-playing) svg.icon-pause { display: none; }
+.podcast-card__scrubber-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.podcast-card__scrubber {
+  width: 100%; height: 4px;
+  -webkit-appearance: none; appearance: none;
+  background: #4a5568; border-radius: 2px; outline: none; cursor: pointer;
+}
+.podcast-card__scrubber::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px; height: 12px;
+  border-radius: 50%; background: #e53e3e; cursor: pointer;
+}
+.podcast-card__scrubber::-moz-range-thumb {
+  width: 12px; height: 12px;
+  border-radius: 50%; background: #e53e3e; border: none; cursor: pointer;
+}
+.podcast-card__time {
+  font-size: 0.7rem; color: #a0aec0;
+  white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+</style>
+
+<div class="podcast-card" id="podcast-card-{{ post.pk }}">
+  <div class="podcast-card__cover">
+    {% if post.get_image_url %}
+      <img src="{{ post.get_image_url }}" alt="{{ post.title }}">
+    {% else %}
+      <div class="podcast-card__cover-placeholder">
+        <svg width="48" height="48" fill="none" viewBox="0 0 24 24">
+          <path fill="#a0aec0" d="M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2c.34 0 .666.04.973.115L7 5.82l10-2v11.295c-.307-.075-.633-.115-.973-.115C14.343 15 13 15.895 13 17s1.343 2 3 2 3-.895 3-2V3L7 5v14z"/>
+        </svg>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="podcast-card__body">
+    <p class="podcast-card__label">Episode</p>
+    <p class="podcast-card__title">{{ post.title }}</p>
+    <div class="podcast-card__controls">
+      <button class="podcast-card__play" id="play-btn-{{ post.pk }}" aria-label="Play / Pause">
+        <svg class="icon-play"  viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <div class="podcast-card__scrubber-wrap">
+        <input class="podcast-card__scrubber" type="range" id="scrubber-{{ post.pk }}" value="0" min="0" step="0.1">
+        <span class="podcast-card__time" id="time-{{ post.pk }}">0:00 / 0:00</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="audio-{{ post.pk }}" preload="metadata">
+  <source src="{{ post.audio_file.url }}">
+</audio>
+
+<script>
+(function() {
+  var audio    = document.getElementById("audio-{{ post.pk }}");
+  var btn      = document.getElementById("play-btn-{{ post.pk }}");
+  var scrubber = document.getElementById("scrubber-{{ post.pk }}");
+  var timeEl   = document.getElementById("time-{{ post.pk }}");
+  function fmt(s) {
+    s = Math.floor(s) || 0;
+    return Math.floor(s/60) + ":" + String(s%60).padStart(2,"0");
+  }
+  audio.addEventListener("loadedmetadata", function() {
+    scrubber.max = Math.floor(audio.duration);
+    timeEl.textContent = "0:00 / " + fmt(audio.duration);
+  });
+  audio.addEventListener("timeupdate", function() {
+    scrubber.value = audio.currentTime;
+    timeEl.textContent = fmt(audio.currentTime) + " / " + fmt(audio.duration);
+  });
+  audio.addEventListener("ended", function() {
+    btn.classList.remove("is-playing");
+    audio.currentTime = 0;
+  });
+  btn.addEventListener("click", function() {
+    if (audio.paused) { audio.play(); btn.classList.add("is-playing"); }
+    else              { audio.pause(); btn.classList.remove("is-playing"); }
+  });
+  scrubber.addEventListener("input", function() { audio.currentTime = scrubber.value; });
+})();
+</script>

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+{% load news_tags %}
+
+{% block title %}{{ post.meta_title|default:post.title }} | Inspirational Guidance{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --color-accent:    #2563eb;
+    --color-font-main: #111827;
+    --color-surface:   #f3f4f6;
+    --color-bg:        #ffffff;
+  }
+  body { font-family: 'Inter', system-ui, sans-serif; background-color: var(--color-bg); color: var(--color-font-main); font-size: 1rem; line-height: 1.7; }
+  nav { border-bottom: 1px solid #e5e7eb !important; box-shadow: none !important; }
+  h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% if request.GET.preview == "1" and request.user.is_staff %}
+<div class="bg-yellow-50 border-b border-yellow-200 text-yellow-800 text-center py-2 px-6 text-sm">⚠️ Draft Preview</div>
+{% endif %}
+
+<div class="max-w-6xl mx-auto px-6 py-12">
+  <div class="flex flex-col lg:flex-row gap-12">
+
+    <!-- Article -->
+    <div class="flex-1 min-w-0 max-w-2xl">
+
+      <a href="{% url 'news:list' %}"
+         class="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-[color:var(--color-accent)] mb-8 transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m7-7-7 7 7 7"/>
+        </svg>
+        Back to blog
+      </a>
+
+      <!-- Meta row -->
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-4">
+        {% include "news/components/content_type_badge.html" with post=post %}
+        <time class="text-sm text-gray-400">{{ post.publish_date|date:"F j, Y" }}</time>
+        {% if post.category %}
+        <span class="text-gray-300">·</span>
+        <a href="{{ post.category.get_absolute_url }}" class="text-sm text-gray-400 hover:text-[color:var(--color-accent)] transition">{{ post.category.name }}</a>
+        {% endif %}
+      </div>
+
+      <!-- Title -->
+      <h1 class="text-3xl md:text-4xl font-bold text-[color:var(--color-font-main)] leading-tight mb-8 tracking-tight">
+        {{ post.title }}
+      </h1>
+
+      <!-- Hero media -->
+      {% if post.content_type == "video" and post.video_url %}
+        {% video_embed post.video_url %}
+      {% elif post.content_type == "audio" and post.audio_file %}
+        {% include "news/components/audio_player_card.html" with post=post %}
+      {% elif post.content_type == "audio" and post.audio_url %}
+        {% audio_embed post.audio_url %}
+      {% elif post.get_image_url %}
+      <figure class="mb-10">
+        <img src="{{ post.get_image_url }}" alt="{{ post.title }}"
+             class="w-full rounded object-cover max-h-80">
+      </figure>
+      {% elif post.youtube_url and post.get_youtube_embed_url %}
+      <div class="mb-8 aspect-video">
+        <iframe src="{{ post.get_youtube_embed_url }}" class="w-full h-full rounded" frameborder="0"
+                loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      {% endif %}
+
+      <!-- Body -->
+      <div class="page-content text-[color:var(--color-font-main)] leading-loose text-[1.0625rem]">
+        {{ post.content|safe }}
+      </div>
+
+      <!-- Resource download -->
+      {% if post.resource_type != 'none' and post.resource %}
+      <div class="my-8 p-5 border border-gray-200 rounded">
+        <p class="font-semibold mb-2">{{ post.resource_title|default:post.title }}</p>
+        <a href="{{ post.resource.url }}" download="{{ post.resource_title|default:post.title }}"
+           class="inline-flex items-center gap-2 text-sm font-medium text-[color:var(--color-accent)] hover:underline">
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          Download {{ post.get_resource_type_display }}
+        </a>
+      </div>
+      {% endif %}
+
+      <!-- Ad -->
+      {% include "news/components/blogads.html" with post=post %}
+
+      <hr class="my-10 border-gray-100">
+
+      <!-- Extras: prev/next + related -->
+      {% include "news/components/extras.html" %}
+
+    </div>
+
+    <!-- Products sidebar -->
+    {% include "news/components/products_sidebar.html" %}
+
+  </div>
+</div>
+
+{% endblock %}

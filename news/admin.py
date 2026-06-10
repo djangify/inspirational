@@ -55,6 +55,7 @@ class PostAdmin(admin.ModelAdmin):
                     "title",
                     "slug",
                     "category",
+                    "content_type",
                     "content",
                     "status",
                     "publish_date",
@@ -69,10 +70,17 @@ class PostAdmin(admin.ModelAdmin):
                     "image",
                     "external_image_url",
                     "youtube_url",
+                    "video_url",
+                    "audio_url",
+                    "audio_file",
                     "thumbnail",
                     "display_media",
                 ),
                 "classes": ("collapse",),
+                "description": (
+                    "video_url / audio_url: paste the public page URL (YouTube, Vimeo, SoundCloud, Spotify, Buzzsprout…). "
+                    "audio_file: upload an MP3 or other audio file for the built-in player."
+                ),
             },
         ),
         (

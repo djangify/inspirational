@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Shop – Inspirational Guidance{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+  :root {
+    --color-accent:    #0f766e;
+    --color-font-main: #1e293b;
+    --color-surface:   #f1f5f9;
+    --color-bg:        #ffffff;
+  }
+  body { background-color: var(--color-bg); color: var(--color-font-main); }
+  .font-heading { font-family: 'Playfair Display', Georgia, serif; }
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Editorial masthead -->
+<div class="bg-white py-8 px-4 sm:px-6 md:px-16">
+  <div class="max-w-7xl mx-auto">
+    <p class="text-xs font-semibold uppercase tracking-widest text-[color:var(--color-accent)] mb-1">Inspirational Guidance</p>
+    <h1 class="font-heading text-3xl md:text-5xl font-bold text-[color:var(--color-font-main)] leading-tight">Shop</h1>
+  </div>
+</div>
+
+<!-- Category tab bar with scroll arrows -->
+{% if categories %}
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-16 relative flex items-center">
+    <!-- Left arrow -->
+    <button id="tab-prev"
+            class="shrink-0 p-1 text-[color:var(--color-font-main)]/40 hover:text-[color:var(--color-accent)] transition"
+            aria-label="Scroll categories left">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <nav id="tab-nav" class="flex gap-0 overflow-x-auto no-scrollbar flex-1">
+      <a href="{% url 'shop:product_list' %}{% if query %}?q={{ query }}{% endif %}"
+         class="shrink-0 px-5 py-4 text-sm font-semibold uppercase tracking-widest border-b-2 transition
+                {% if not current_category %}border-[color:var(--color-accent)] text-[color:var(--color-accent)]{% else %}border-transparent text-[color:var(--color-font-main)]/50 hover:text-[color:var(--color-accent)] hover:border-[color:var(--color-accent)]/40{% endif %}">
+        All
+      </a>
+      {% for cat in categories %}
+      <a href="{{ cat.get_absolute_url }}{% if query %}?q={{ query }}{% endif %}"
+         class="shrink-0 px-5 py-4 text-sm font-semibold uppercase tracking-widest border-b-2 transition
+                {% if current_category.slug == cat.slug %}border-[color:var(--color-accent)] text-[color:var(--color-accent)]{% else %}border-transparent text-[color:var(--color-font-main)]/50 hover:text-[color:var(--color-accent)] hover:border-[color:var(--color-accent)]/40{% endif %}">
+        {{ cat.name }}
+      </a>
+      {% endfor %}
+    </nav>
+
+    <!-- Right arrow -->
+    <button id="tab-next"
+            class="shrink-0 p-1 text-[color:var(--color-font-main)]/40 hover:text-[color:var(--color-accent)] transition"
+            aria-label="Scroll categories right">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+</div>
+{% endif %}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-16 py-8">
+
+  <!-- Search bar -->
+  <form method="get" class="mb-8 flex gap-3 items-center flex-wrap">
+    <input type="text" name="q" value="{{ query }}"
+           placeholder="Search products…"
+           class="flex-1 min-w-0 border border-[color:var(--color-accent)]/30 rounded px-4 py-2 text-sm bg-white focus:outline-none focus:border-[color:var(--color-accent)]">
+    <button type="submit"
+            class="shrink-0 px-5 py-2 bg-[color:var(--color-accent)] text-white text-sm font-semibold rounded hover:opacity-90 transition">
+      Search
+    </button>
+    {% if query %}
+    <a href="{% url 'shop:product_list' %}" class="text-sm text-[color:var(--color-accent)] hover:underline">Clear</a>
+    {% endif %}
+  </form>
+
+  <!-- Product grid -->
+  <div class="grid gap-5 grid-cols-2 md:grid-cols-3 xl:grid-cols-4 justify-items-center">
+    {% for product in products %}
+    {% include "shop/includes/product_card.html" with product=product %}
+    {% empty %}
+    <p class="col-span-full py-16 text-center text-[color:var(--color-font-main)]/50 italic">No products found.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% if products.has_other_pages %}
+  <div class="flex justify-center items-center gap-2 pt-10 flex-wrap">
+    {% if products.has_previous %}
+      <a href="?page={{ products.previous_page_number }}{% if query %}&q={{ query }}{% endif %}"
+         class="px-4 py-2 border border-[color:var(--color-accent)] text-[color:var(--color-accent)] rounded hover:bg-[color:var(--color-accent)] hover:text-white transition text-sm">← Previous</a>
+    {% endif %}
+    {% for num in products.paginator.page_range %}
+      {% if products.number == num %}
+        <span class="px-4 py-2 bg-[color:var(--color-accent)] text-white rounded text-sm">{{ num }}</span>
+      {% else %}
+        <a href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}"
+           class="px-4 py-2 border border-[color:var(--color-accent)] text-[color:var(--color-accent)] rounded hover:bg-[color:var(--color-accent)] hover:text-white transition text-sm">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+    {% if products.has_next %}
+      <a href="?page={{ products.next_page_number }}{% if query %}&q={{ query }}{% endif %}"
+         class="px-4 py-2 border border-[color:var(--color-accent)] text-[color:var(--color-accent)] rounded hover:bg-[color:var(--color-accent)] hover:text-white transition text-sm">Next →</a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+</div>
+
+<script>
+  (function () {
+    var nav  = document.getElementById('tab-nav');
+    var prev = document.getElementById('tab-prev');
+    var next = document.getElementById('tab-next');
+    if (!nav) return;
+    var step = 200;
+    prev.addEventListener('click', function () { nav.scrollBy({ left: -step, behavior: 'smooth' }); });
+    next.addEventListener('click', function () { nav.scrollBy({ left:  step, behavior: 'smooth' }); });
+  })();
+</script>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% comment %}
+Reusable content-type badge.
+Usage: {% include "news/components/content_type_badge.html" with post=post %}
+{% endcomment %}
+{% if post.content_type == "video" %}
+  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-semibold bg-red-600 text-white shadow-sm">
+    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+    </svg>
+    Video
+  </span>
+{% elif post.content_type == "audio" %}
+  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-semibold bg-purple-600 text-white shadow-sm">
+    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/>
+    </svg>
+    Audio
+  </span>
+{% elif post.content_type == "bite" %}
+  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-semibold bg-amber-500 text-white shadow-sm">
+    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+    </svg>
+    Bite
+  </span>
+{% endif %}

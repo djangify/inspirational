@@ -79,6 +79,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "inspirational.theme_middleware.ThemeMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
@@ -132,8 +133,14 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [BASE_DIR / "templates"],
-        "APP_DIRS": True,
+        # APP_DIRS is intentionally omitted — required when using custom loaders.
+        # app_directories.Loader below provides the same behaviour.
         "OPTIONS": {
+            "loaders": [
+                "inspirational.theme_loader.ThemeLoader",
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+            ],
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
@@ -141,6 +148,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "shop.context_processors.cart",
                 "shop.context_processors.site_settings",
+                "shop.context_processors.sidebar_products",
                 "core.context_processors.site_author",
             ],
         },

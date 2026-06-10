@@ -1,0 +1,20 @@
+{% if embed_url %}
+<div class="mb-8 rounded-xl overflow-hidden shadow-md bg-gray-50 {{ css_class }}">
+  <iframe
+    src="{{ embed_url }}"
+    class="w-full"
+    height="180"
+    frameborder="0"
+    loading="lazy"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+  </iframe>
+</div>
+{% elif original_url %}
+{# Fallback: native audio player if URL isn't a known platform #}
+<div class="mb-8 {{ css_class }}">
+  <audio controls class="w-full rounded-lg">
+    <source src="{{ original_url }}">
+    Your browser does not support the audio element.
+  </audio>
+</div>
+{% endif %}

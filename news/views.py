@@ -6,32 +6,57 @@ from .models import Post, Category
 from django.utils import timezone
 
 
+# Maps the ?type= query param to content_type values
+SECTION_FILTERS = {
+    "writing": ["article", "bite"],
+    "video":   ["video"],
+    "audio":   ["audio"],
+}
+
+# Tab definitions for templates — (label, type_value)
+SECTION_TABS = [
+    ("All",     None),
+    ("Writing", "writing"),
+    ("Videos",  "video"),
+    ("Audio",   "audio"),
+]
+
+
 def news_list(request):
-    posts = Post.objects.filter(
+    active_type = request.GET.get("type", "").strip().lower() or None
+
+    qs = Post.objects.filter(
         status="published", publish_date__lte=timezone.now()
     ).select_related("category")
 
-    # Get featured posts (limit to 5)
-    featured_posts = posts.filter(featured=True).order_by("-publish_date")[:5]
+    # Apply content-type filter when a tab is active
+    if active_type and active_type in SECTION_FILTERS:
+        qs = qs.filter(content_type__in=SECTION_FILTERS[active_type])
 
-    # Get list of featured IDs
-    featured_ids = [post.id for post in featured_posts]
+    qs = qs.order_by("-publish_date")
 
-    # Filter regular posts after featured have been determined
-    regular_posts = posts.exclude(id__in=featured_ids)
+    # Featured hero posts — only on the "All" tab
+    if active_type is None:
+        featured_posts = list(qs.filter(featured=True)[:5])
+        featured_ids = [p.id for p in featured_posts]
+        regular_posts = qs.exclude(id__in=featured_ids)
+    else:
+        featured_posts = []
+        regular_posts = qs
 
-    # Paginate the regular posts
     paginator = Paginator(regular_posts, 33)
     page = request.GET.get("page")
-    posts = paginator.get_page(page)
+    posts_page = paginator.get_page(page)
 
     context = {
-        "posts": posts,
+        "posts": posts_page,
         "categories": Category.objects.all(),
-        "title": "News",
-        "meta_description": "Latest news and updates from Inspirational Guidance",
-        "debug": settings.DEBUG,
         "featured_posts": featured_posts,
+        "active_type": active_type,
+        "section_tabs": SECTION_TABS,
+        "title": "Blog",
+        "meta_description": "Latest posts from Inspirational Guidance",
+        "debug": settings.DEBUG,
     }
     return render(request, "news/list.html", context)
 
@@ -46,19 +71,20 @@ def category_list(request, slug):
         "category": category,
         "posts": posts,
         "categories": Category.objects.all(),
-        "title": f"{category.name} - News",
-        "meta_description": f"Latest news and updates about {category.name} from Inspirational Guidance",
+        "title": f"{category.name} - Blog",
+        "meta_description": f"Latest posts about {category.name} from Inspirational Guidance",
     }
-
     return render(request, "news/category.html", context)
 
 
 def post_detail(request, slug):
-    post = get_object_or_404(
-        Post, slug=slug, status="published", publish_date__lte=timezone.now()
-    )
+    if request.user.is_staff and request.GET.get("preview") == "1":
+        post = get_object_or_404(Post, slug=slug)
+    else:
+        post = get_object_or_404(
+            Post, slug=slug, status="published", publish_date__lte=timezone.now()
+        )
 
-    # Get next and previous posts
     next_post = (
         Post.objects.filter(
             status="published",
@@ -79,7 +105,6 @@ def post_detail(request, slug):
         .first()
     )
 
-    # Get related posts from same category
     related_posts = (
         Post.objects.filter(
             status="published", publish_date__lte=timezone.now(), category=post.category

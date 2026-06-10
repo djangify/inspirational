@@ -1,0 +1,31 @@
+{% if sidebar_products %}
+<aside class="w-full lg:w-72 shrink-0">
+  <div class="sticky top-6">
+    <h2 class="text-lg font-bold text-[color:var(--color-primary,#0e7490)] mb-4 pb-2 border-b border-gray-200">
+      {{ sidebar_heading|default:"Featured Products" }}
+    </h2>
+    <ul class="space-y-4 list-none p-0">
+      {% for product in sidebar_products %}
+      <li>
+        <a href="{{ product.get_absolute_url }}"
+           class="flex gap-3 items-start group hover:opacity-80 transition">
+          {% if product.get_image_url %}
+          <img src="{{ product.get_image_url }}"
+               alt="{{ product.title }}"
+               class="w-16 h-16 object-cover rounded-md shrink-0 border border-gray-200">
+          {% endif %}
+          <div class="flex flex-col min-w-0">
+            <span class="text-sm font-semibold text-[color:var(--color-font-main,#1a1a1a)] group-hover:text-[color:var(--color-primary,#0e7490)] leading-snug">
+              {{ product.title }}
+            </span>
+            <span class="text-sm font-bold text-[color:var(--color-primary,#0e7490)] mt-1">
+              {{ site_settings.currency_symbol|default:"£" }}{{ product.current_price }}
+            </span>
+          </div>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</aside>
+{% endif %}

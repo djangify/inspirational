@@ -1,0 +1,15 @@
+{% if post.ad_type == 'banner' and post.ad_image %}
+<section class="my-12 text-center">
+  {% if post.ad_url %}
+  <a href="{{ post.ad_url }}" target="_blank" rel="noopener noreferrer" class="block">
+    <img src="{{ post.get_ad_image_url }}"
+         alt="Advertisement"
+         class="mx-auto max-w-full h-auto rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition">
+  </a>
+  {% else %}
+  <img src="{{ post.get_ad_image_url }}"
+       alt="Advertisement"
+       class="mx-auto max-w-full h-auto rounded-lg shadow-sm border border-gray-200">
+  {% endif %}
+</section>
+{% endif %}
