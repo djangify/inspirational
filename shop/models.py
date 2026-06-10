@@ -271,6 +271,9 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     payment_intent_id = models.CharField(max_length=250, blank=True)
 
+    coupon_code = models.CharField(max_length=50, blank=True, default="")
+    coupon_discount_pence = models.PositiveIntegerField(default=0)
+
     class Meta:
         ordering = ["-created"]
 
@@ -406,6 +409,199 @@ class ShopSettings(models.Model):
 
     def __str__(self):
         return "Shop Settings"
+
+    @classmethod
+    def get_settings(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+# ============================================================
+# ORDER BUMP
+# ============================================================
+
+class OrderBump(models.Model):
+    """
+    A special add-on offer shown at checkout.
+    If trigger_product is set, the bump only appears when that product is in the cart.
+    Leave trigger_product blank to show the bump for all checkouts.
+    The bump_product must not already be in the cart for the offer to display.
+    """
+
+    trigger_product = models.ForeignKey(
+        Product,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="order_bump_triggers",
+        help_text="Only show this bump when this product is in the cart. Leave blank to always show.",
+    )
+    bump_product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="order_bumps",
+        help_text="The product being offered as the bump add-on.",
+    )
+    headline = models.CharField(
+        max_length=200,
+        default="Special One-Time Offer!",
+        help_text="Bold headline shown on the bump box.",
+    )
+    description = models.TextField(
+        blank=True,
+        help_text="Short pitch for why the customer should add this.",
+    )
+    is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(
+        default=0,
+        help_text="Display order if multiple bumps are active.",
+    )
+
+    class Meta:
+        ordering = ["order"]
+        verbose_name = "Order Bump"
+        verbose_name_plural = "Order Bumps"
+
+    def __str__(self):
+        return f"{self.bump_product.title} (bump)"
+
+    @property
+    def bump_price(self):
+        return self.bump_product.current_price
+
+    @property
+    def bump_price_pence(self):
+        return self.bump_product.sale_price_pence or self.bump_product.price_pence
+
+
+# ============================================================
+# COUPON
+# ============================================================
+
+class Coupon(models.Model):
+    DISCOUNT_TYPE_CHOICES = [
+        ("percentage", "Percentage"),
+        ("fixed", "Fixed Amount"),
+    ]
+
+    code = models.CharField(max_length=50, unique=True)
+    discount_type = models.CharField(
+        max_length=20,
+        choices=DISCOUNT_TYPE_CHOICES,
+        default="percentage",
+    )
+    discount_value = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        help_text="Percentage (e.g. 10 for 10%) or fixed amount in pounds (e.g. 5 for £5).",
+    )
+    is_active = models.BooleanField(default=True)
+    valid_from = models.DateTimeField(null=True, blank=True)
+    valid_to = models.DateTimeField(null=True, blank=True)
+    usage_limit = models.PositiveIntegerField(
+        null=True, blank=True,
+        help_text="Max total uses. Leave blank for unlimited.",
+    )
+    times_used = models.PositiveIntegerField(default=0)
+    minimum_order_pence = models.PositiveIntegerField(
+        default=0,
+        help_text="Minimum cart total (in pence) required for this coupon.",
+    )
+
+    class Meta:
+        ordering = ["-id"]
+        verbose_name = "Coupon"
+        verbose_name_plural = "Coupons"
+
+    def __str__(self):
+        return self.code.upper()
+
+    def is_valid(self, cart_total_pence=0):
+        from django.utils import timezone
+        now = timezone.now()
+        if not self.is_active:
+            return False, "This coupon is inactive."
+        if self.valid_from and now < self.valid_from:
+            return False, "This coupon is not yet valid."
+        if self.valid_to and now > self.valid_to:
+            return False, "This coupon has expired."
+        if self.usage_limit is not None and self.times_used >= self.usage_limit:
+            return False, "This coupon has reached its usage limit."
+        if cart_total_pence < self.minimum_order_pence:
+            min_pounds = self.minimum_order_pence / 100
+            return False, f"A minimum order of £{min_pounds:.2f} is required."
+        return True, "Valid"
+
+    def calculate_discount_pence(self, cart_total_pence):
+        if self.discount_type == "percentage":
+            discount = int(round(cart_total_pence * float(self.discount_value) / 100))
+        else:
+            discount = int(round(float(self.discount_value) * 100))
+        return min(discount, cart_total_pence)
+
+
+# ============================================================
+# SITE SETTINGS (singleton)
+# ============================================================
+
+class SiteSettings(models.Model):
+    CURRENCY_CHOICES = [
+        ("GBP", "British Pound (£)"),
+        ("USD", "US Dollar ($)"),
+        ("EUR", "Euro (€)"),
+    ]
+
+    google_analytics_id = models.CharField(
+        max_length=30,
+        blank=True,
+        default="",
+        help_text="Google Analytics measurement ID, e.g. G-XXXXXXXXXX.",
+        verbose_name="Google Analytics ID",
+    )
+    google_search_console_verification = models.CharField(
+        max_length=255,
+        blank=True,
+        default="",
+        help_text="Verification token from Google Search Console meta tag.",
+        verbose_name="GSC Verification Token",
+    )
+    og_image = models.ImageField(
+        upload_to="site/og/",
+        blank=True,
+        null=True,
+        help_text="Default Open Graph image (1200x630 px recommended).",
+        verbose_name="Default OG Image",
+    )
+    facebook_app_id = models.CharField(
+        max_length=50,
+        blank=True,
+        default="",
+        help_text="Facebook App ID for Open Graph fb:app_id tag.",
+        verbose_name="Facebook App ID",
+    )
+    currency_code = models.CharField(
+        max_length=3,
+        choices=CURRENCY_CHOICES,
+        default="GBP",
+        verbose_name="Currency Code",
+    )
+    currency_symbol = models.CharField(
+        max_length=5,
+        default="£",
+        verbose_name="Currency Symbol",
+    )
+
+    class Meta:
+        verbose_name = "Site Settings"
+        verbose_name_plural = "Site Settings"
+
+    def __str__(self):
+        return "Site Settings"
+
+    def save(self, *args, **kwargs):
+        if not self.pk and SiteSettings.objects.exists():
+            raise ValueError("Only one SiteSettings instance is allowed.")
+        super().save(*args, **kwargs)
 
     @classmethod
     def get_settings(cls):

@@ -1,5 +1,6 @@
 # accounts/views.py
 from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -12,8 +13,8 @@ from django.urls import reverse
 import time
 from prompt.models import WritingPrompt
 from shop.models import Product, OrderItem
-from .forms import UserRegistrationForm, UserProfileForm
-from .models import EmailVerificationToken, MemberResource
+from .forms import UserRegistrationForm, UserProfileForm, SupportForm
+from .models import EmailVerificationToken, MemberResource, SupportRequest
 from prompt.models_tracker import WritingGoal, WritingSession
 from accounts.services.mailerlite import add_subscriber
 
@@ -270,10 +271,49 @@ def add_favourite_product(request, product_slug):
     return redirect(request.META.get("HTTP_REFERER", "core:homepage"))
 
 
-def public_resources_preview(request):
-    resources = MemberResource.objects.filter(is_active=True).order_by(
-        "order", "-created_at"
-    )[:4]
-    return render(
-        request, "partials/public_resources_preview.html", {"resources": resources}
-    )
+@login_required
+def support_view(request):
+    user = request.user
+
+    if request.method == "POST":
+        form = SupportForm(request.POST)
+        if form.is_valid():
+            support_request = form.save(commit=False)
+            support_request.user = user
+            support_request.save()
+            from django.core.mail import send_mail
+            send_mail(
+                subject="We received your support request",
+                message=(
+                    f"Hi {user.first_name or user.username},\n\n"
+                    "Thanks for reaching out. We'll get back to you shortly.\n\n"
+                    f"Your message:\n{support_request.message}"
+                ),
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[user.email],
+                fail_silently=True,
+            )
+            messages.success(request, "Your message has been sent. We'll be in touch soon.")
+            return redirect("accounts:support")
+    else:
+        form = SupportForm()
+
+    return render(request, "accounts/support.html", {"form": form, "user": user})
+
+
+@login_required
+@require_POST
+def subscribe_updates_view(request):
+    user = request.user
+    profile = user.profile
+    try:
+        profile.is_subscribed = True
+        profile.save(update_fields=["is_subscribed"])
+        from accounts.services.mailerlite import add_subscriber
+        add_subscriber(user)
+        messages.success(request, "You're subscribed! You'll hear from us when new content goes live.")
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).error(f"Subscribe error for {user.email}: {e}")
+        messages.error(request, "Something went wrong. Please try again.")
+    return redirect("accounts:dashboard")

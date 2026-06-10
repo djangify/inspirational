@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import MemberResource, UserProfile
+from .models import MemberResource, UserProfile, SupportRequest
 from django.utils.timesince import timesince
 
 
@@ -69,4 +69,19 @@ class MemberResourceAdmin(admin.ModelAdmin):
     list_editable = ("order",)
     list_filter = ("is_active", "created_at")
     search_fields = ("title", "description")
-    ordering = ("order",)
+    ordering = ["order"]
+
+
+@admin.register(SupportRequest)
+class SupportRequestAdmin(admin.ModelAdmin):
+    list_display = ["user", "subject", "created_at", "handled"]
+    list_editable = ["handled"]
+    list_filter = ["handled", "created_at"]
+    search_fields = ["user__username", "user__email", "subject", "message"]
+    readonly_fields = ["user", "subject", "message", "created_at"]
+    ordering = ["-created_at"]
+
+    def has_add_permission(self, request):
+        return False
+
+

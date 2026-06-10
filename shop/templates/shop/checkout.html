@@ -14,170 +14,140 @@
                     <div class="py-4 flex justify-between">
                         <div class="flex-1">
                             <h3 class="text-gray-900">{{ item.product.title }}</h3>
-                            <p class="text-sm text-gray-500">
-                                Quantity: {{ item.quantity }}
-                            </p>
+                            <p class="text-sm text-gray-500">Quantity: {{ item.quantity }}</p>
                         </div>
                         <div class="text-right">
-                            <p class="text-gray-900">${{ item.total_price|floatformat:2 }}</p>
+                            <p class="text-gray-900">{{ site_settings.currency_symbol|default:"$" }}{{ item.total_price|floatformat:2 }}</p>
                         </div>
                     </div>
                     {% endfor %}
+
+                    {% if bump_accepted and accepted_bump %}
+                    <div class="py-4 flex justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-gray-900">{{ accepted_bump.bump_product.title }}</h3>
+                            <p class="text-sm text-green-600">✓ Order bump added</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-gray-900">{{ site_settings.currency_symbol|default:"$" }}{{ accepted_bump.bump_price|floatformat:2 }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if applied_coupon_code and coupon_discount %}
+                    <div class="py-4 flex justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-green-700 font-medium">Discount ({{ applied_coupon_code }})</h3>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-green-700 font-semibold">-{{ site_settings.currency_symbol|default:"$" }}{{ coupon_discount|floatformat:2 }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
+
                 <div class="mt-6 pt-6 border-t border-gray-200">
                     <div class="flex justify-between text-lg font-bold">
                         <span>Total</span>
-                        <span>${{ cart.get_total_price|floatformat:2 }}</span>
+                        <span>{{ site_settings.currency_symbol|default:"$" }}{{ checkout_total|floatformat:2 }}</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        {% if is_guest %}
-        <!-- Unregistered user Form -->
+        <!-- Coupon Code -->
         <div class="bg-white rounded-lg shadow p-6 mb-8">
-            <h1 class="text-xl font-bold mb-4">Register First Or LogIn</h1>
-            <div class="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
-                <p class="text-teal-700 font-bold text-md">
-                    Your downloads will be available in your account area. Please <a href="{% url 'accounts:register' %}" class="font-bold underline hover:underline">Register for an account </a> or <a href="{% url 'accounts:login' %}" class="font-bold underline hover:underline">LOGIN HERE</a> before completing this purchase.
+            <h2 class="text-lg font-semibold mb-4">Discount Code</h2>
+            {% if applied_coupon_code %}
+            <div class="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg p-4">
+                <p class="text-green-700 font-medium">
+                    ✓ Code <strong>{{ applied_coupon_code }}</strong> applied — you save {{ site_settings.currency_symbol|default:"$" }}{{ coupon_discount|floatformat:2 }}
                 </p>
+                <form method="post" action="{% url 'shop:remove_coupon' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="text-sm text-red-600 hover:underline ml-4">
+                        Remove
+                    </button>
+                </form>
             </div>
-        </div>
-        {% endif %}
-
-        <div class="mb-6 p-4 border border-gray-200 rounded-md bg-gray-50">
-            <h2 class="text-lg font-semibold mb-2 text-gray-800">Customer Details</h2>
-            <p class="text-md text-gray-700">
-                <strong>Name:</strong> {{ request.user.first_name }} {{ request.user.last_name }}<br>
-                <strong>Username:</strong> {{ request.user.username }}<br>
-                <strong>Email:</strong> {{ request.user.email }}
-            </p>
-            <p class="mt-2 text-xs text-gray-500 italic">
-                These details will be used for your order and receipt.
-            </p>
-        </div>
-
-        <!-- Payment Form -->
-        <div class="bg-white rounded-lg shadow p-6">
-            <h2 class="text-xl font-bold mb-4">Payment Details</h2>
-            <form id="payment-form" class="space-y-4">
+            {% else %}
+            <form method="post" action="{% url 'shop:apply_coupon' %}"
+                  hx-post="{% url 'shop:apply_coupon' %}"
+                  hx-target="#coupon-message"
+                  hx-swap="innerHTML">
                 {% csrf_token %}
-                <div class="form-row">
-                    <div id="card-element" class="p-4 border border-gray-300 rounded-md mb-4">
-                        <!-- Stripe Elements will be mounted here -->
-                    </div>
-                    <div class="mb-4">
-                        <label for="postal-code" class="block text-sm font-medium text-gray-700">Zip/Postcode</label>
-                        <input type="text" id="postal-code" class="mt-1 p-2 w-full border border-gray-300 rounded-md" placeholder="Enter your zip or postcode">
-                    </div>
-                    <div id="card-errors" class="text-red-600 text-sm mb-4" role="alert"></div>
+                <div class="flex gap-3">
+                    <input type="text"
+                           name="coupon_code"
+                           placeholder="Enter discount code"
+                           class="flex-1 border border-gray-300 rounded-md px-3 py-2 text-sm"
+                           style="text-transform: uppercase;">
+                    <button type="submit"
+                            class="px-4 py-2 bg-teal-700 text-white rounded-md text-sm font-semibold hover:bg-teal-800 transition">
+                        Apply
+                    </button>
                 </div>
-                {% if show_withdrawal_consent %}
-                <div class="mb-4">
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox"
-                               id="withdrawal-consent"
-                               class="mt-1 h-4 w-4 text-teal-700 border-gray-300 rounded"
-                               aria-required="true">
-                        <span class="text-sm text-gray-700">
-                            <span class="text-red-600 font-bold">*</span>
-                            {{ withdrawal_consent_text }}
-                        </span>
-                    </label>
-                    <div id="withdrawal-consent-error" class="text-red-600 text-sm mt-1" role="alert"></div>
-                </div>
-                {% endif %}
-                <button type="submit"
-                        class="w-full px-6 py-3 bg-teal-700 text-white rounded-lg hover:bg-teal-800 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50"
-                        id="submit-button">
-                    Pay ${{ cart.get_total_price|floatformat:2 }}
+                <div id="coupon-message" class="mt-2 text-sm"></div>
+            </form>
+            {% endif %}
+        </div>
+
+        <!-- Order Bump: Accepted confirmation strip -->
+        {% if bump_accepted and accepted_bump %}
+        <div class="border border-green-300 bg-green-50 rounded-lg p-4 mb-8 flex items-center justify-between">
+            <p class="text-green-800 font-medium text-sm">
+                ✓ <strong>{{ accepted_bump.bump_product.title }}</strong> added to your order for {{ site_settings.currency_symbol|default:"$" }}{{ accepted_bump.bump_price|floatformat:2 }}
+            </p>
+            <form method="post" action="{% url 'shop:toggle_order_bump' %}"
+                  hx-post="{% url 'shop:toggle_order_bump' %}"
+                  hx-swap="none">
+                {% csrf_token %}
+                <input type="hidden" name="bump_product_id" value="{{ accepted_bump.bump_product.id }}">
+                <button type="submit" class="ml-4 text-sm text-red-600 underline hover:text-red-800 transition">
+                    Remove
                 </button>
             </form>
         </div>
-
-    </div>
-</div>
-{% endblock %}
-
-{% block scripts %}
-{{ block.super }}
-<script>
-    const stripe = Stripe('{{ stripe_publishable_key }}');
-    const elements = stripe.elements();
-
-    const style = {
-        base: {
-            fontSize: '16px',
-            color: '#32325d',
-            '::placeholder': {
-                color: '#aab7c4'
-            }
-        },
-        invalid: {
-            color: '#dc3545',
-            iconColor: '#dc3545'
-        }
-    };
-
-    const card = elements.create('card', {
-        style: style,
-        hidePostalCode: true
-    });
-    card.mount('#card-element');
-
-    const form = document.getElementById('payment-form');
-    const submitButton = document.getElementById('submit-button');
-    const errorElement = document.getElementById('card-errors');
-
-    card.addEventListener('change', function(event) {
-        if (event.error) {
-            errorElement.textContent = event.error.message;
-        } else {
-            errorElement.textContent = '';
-        }
-    });
-
-    form.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        submitButton.disabled = true;
-        errorElement.textContent = '';
-
-        {% if show_withdrawal_consent %}
-        const consentCheckbox = document.getElementById('withdrawal-consent');
-        const consentError = document.getElementById('withdrawal-consent-error');
-        if (!consentCheckbox.checked) {
-            consentError.textContent = 'You must confirm your agreement to continue.';
-            consentCheckbox.focus();
-            submitButton.disabled = false;
-            return;
-        }
-        consentError.textContent = '';
         {% endif %}
 
-        try {
-            const { paymentIntent, error } = await stripe.confirmCardPayment('{{ client_secret }}', {
-                payment_method: {
-                    card: card,
-                    billing_details: {
-                        name: '{{ request.user.first_name }} {{ request.user.last_name }}',
-                        email: '{{ request.user.email }}'
-                    }
-                }
-            });
+        <!-- Order Bump: Offer -->
+        {% if active_bump %}
+        <div class="border-2 border-dashed border-teal-600 rounded-lg p-6 mb-8 bg-teal-50">
+            <p class="text-xs font-bold uppercase tracking-widest text-teal-700 mb-2">Special One-Time Offer</p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                {% if active_bump.bump_product.get_image_url %}
+                <div class="flex-shrink-0">
+                    <img src="{{ active_bump.bump_product.get_image_url }}"
+                         alt="{{ active_bump.bump_product.title }}"
+                         style="width:120px;height:120px;object-fit:cover;border-radius:0.5rem;">
+                </div>
+                {% endif %}
+                <div class="flex-1">
+                    <h2 class="text-xl font-bold text-teal-800 mb-2">{{ active_bump.headline }}</h2>
+                    {% if active_bump.description %}
+                    <p class="text-gray-700 text-sm mb-4">{{ active_bump.description }}</p>
+                    {% endif %}
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <p class="text-gray-800 font-semibold">
+                            Add <strong>{{ active_bump.bump_product.title }}</strong> for just {{ site_settings.currency_symbol|default:"$" }}{{ active_bump.bump_price|floatformat:2 }}
+                        </p>
+                        <form method="post" action="{% url 'shop:toggle_order_bump' %}"
+                              hx-post="{% url 'shop:toggle_order_bump' %}"
+                              hx-swap="none">
+                            {% csrf_token %}
+                            <input type="hidden" name="bump_product_id" value="{{ active_bump.bump_product.id }}">
+                            <button type="submit"
+                                    class="px-5 py-2 rounded-lg bg-teal-700 text-white font-semibold text-sm hover:bg-teal-800 transition">
+                                Yes! Add This to My Order
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
 
-            if (error) {
-                throw error;
-            }
-
-            if (paymentIntent.status === 'succeeded') {
-                window.location.href = "{% url 'shop:payment_success' %}?payment_intent=" + paymentIntent.id;
-            }
-
-        } catch (error) {
-            console.error('Payment error:', error);
-            errorElement.textContent = error.message;
-            submitButton.disabled = false;
-        }
-    });
-</script>
-{% endblock %}
+        {% if is_guest %}
+        <!-- Unregistered user prompt -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h1 class="text-xl font-bold mb-4">Registe

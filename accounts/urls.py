@@ -72,4 +72,6 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path("support/", views.support_view, name="support"),
+    path("subscribe-updates/", views.subscribe_updates_view, name="subscribe_updates"),
 ]

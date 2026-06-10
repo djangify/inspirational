@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, SupportRequest
 import re
 import random
 
@@ -130,6 +130,27 @@ class UserProfileForm(forms.ModelForm):
             "bio": forms.Textarea(
                 attrs={
                     "rows": 4,
+                    "class": "w-full rounded-md border-gray-300 shadow-sm",
+                }
+            ),
+        }
+
+
+class SupportForm(forms.ModelForm):
+    class Meta:
+        model = SupportRequest
+        fields = ["subject", "message"]
+        widgets = {
+            "subject": forms.TextInput(
+                attrs={
+                    "placeholder": "What can we help you with?",
+                    "class": "w-full rounded-md border-gray-300 shadow-sm",
+                }
+            ),
+            "message": forms.Textarea(
+                attrs={
+                    "rows": 6,
+                    "placeholder": "Please describe your question or issue in as much detail as you can...",
                     "class": "w-full rounded-md border-gray-300 shadow-sm",
                 }
             ),

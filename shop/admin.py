@@ -13,6 +13,9 @@ from .models import (
     ProductReview,
     Purchase,
     ShopSettings,
+    OrderBump,
+    Coupon,
+    SiteSettings,
 )
 from django import forms
 
@@ -258,6 +261,58 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Purchase)
 
 
+@admin.register(OrderBump)
+class OrderBumpAdmin(admin.ModelAdmin):
+    list_display = ["bump_product", "trigger_product", "headline", "is_active", "order"]
+    list_editable = ["is_active", "order"]
+    list_filter = ["is_active"]
+    search_fields = ["bump_product__title", "trigger_product__title", "headline"]
+
+    fieldsets = (
+        (None, {
+            "fields": ("is_active", "order"),
+        }),
+        ("Trigger & Offer", {
+            "fields": ("trigger_product", "bump_product"),
+            "description": "Leave trigger product blank to show this bump on all checkouts.",
+        }),
+        ("Copy", {
+            "fields": ("headline", "description"),
+        }),
+    )
+
+
+@admin.register(Coupon)
+class CouponAdmin(admin.ModelAdmin):
+    list_display = [
+        "code",
+        "discount_type",
+        "discount_value",
+        "is_active",
+        "times_used",
+        "usage_limit",
+        "valid_from",
+        "valid_to",
+    ]
+    list_editable = ["is_active"]
+    list_filter = ["is_active", "discount_type"]
+    search_fields = ["code"]
+    readonly_fields = ["times_used"]
+
+    fieldsets = (
+        (None, {
+            "fields": ("code", "is_active"),
+        }),
+        ("Discount", {
+            "fields": ("discount_type", "discount_value", "minimum_order_pence"),
+            "description": "For percentage, enter a number like 10 for 10%. For fixed, enter dollars like 5.00.",
+        }),
+        ("Usage Limits", {
+            "fields": ("usage_limit", "times_used", "valid_from", "valid_to"),
+        }),
+    )
+
+
 class ProductReviewAdminForm(forms.ModelForm):
     # Use a DIFFERENT name than the model field to avoid Django's
     # "non-editable field" check.
@@ -335,6 +390,49 @@ class ShopSettingsAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         # Only allow one instance
         return not ShopSettings.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (
+            "Analytics",
+            {
+                "fields": (
+                    "google_analytics_id",
+                    "google_search_console_verification",
+                ),
+                "description": (
+                    "Changes here override the hardcoded values in base.html. "
+                    "Leave blank to keep using the current hardcoded values."
+                ),
+            },
+        ),
+        (
+            "Social / SEO",
+            {
+                "fields": (
+                    "og_image",
+                    "facebook_app_id",
+                ),
+            },
+        ),
+        (
+            "Currency",
+            {
+                "fields": (
+                    "currency_code",
+                    "currency_symbol",
+                ),
+            },
+        ),
+    )
+
+    def has_add_permission(self, request):
+        return not SiteSettings.objects.exists()
 
     def has_delete_permission(self, request, obj=None):
         return False

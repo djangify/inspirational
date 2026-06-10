@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     "prompt",
     "accounts",
     "bots",
+    "pseo",
 ]
 
 MIDDLEWARE = [
@@ -139,6 +140,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "shop.context_processors.cart",
+                "shop.context_processors.site_settings",
                 "core.context_processors.site_author",
             ],
         },

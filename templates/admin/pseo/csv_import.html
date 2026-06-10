@@ -1,0 +1,65 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}Import pages from CSV{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+    <nav class="text-sm text-gray-500 mb-2">
+        <a href="{% url 'admin:index' %}">Home</a> ›
+        <a href="{% url 'admin:pseo_programmaticpage_changelist' %}">Programmatic Pages</a> ›
+        <span>Import from CSV</span>
+    </nav>
+    <h1 class="text-2xl font-bold">Import pages from CSV</h1>
+    <p class="mt-2 text-sm text-gray-600">
+        Upload a CSV file to bulk-create draft keyword pages. After import, select the pages you want to
+        process, choose <strong>"Set template and generate content"</strong> from the Actions menu, and
+        paste your template.
+    </p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- Column reference -->
+    <div class="lg:col-span-1">
+        <div class="module">
+            <h2 class="module__title">CSV columns</h2>
+            <table class="form-table">
+                <tr><th><code>keyword</code> <span style="color:red">*</span></th><td>The topic word or phrase. Slug is auto-generated.</td></tr>
+                <tr><th><code>meta_title</code></th><td>Optional. Max 60 chars.</td></tr>
+                <tr><th><code>meta_description</code></th><td>Optional. Max 160 chars.</td></tr>
+                <tr><th><code>cta_text</code></th><td>Optional. Max 200 chars.</td></tr>
+                <tr><th><code>cta_url</code></th><td>Optional. Full URL for the CTA button.</td></tr>
+            </table>
+        </div>
+        <div class="help" style="margin-top:1rem">
+            <p>Rows where the slug already exists will be skipped and reported as duplicates. All imported pages are created as <strong>Draft</strong>.</p>
+        </div>
+    </div>
+
+    <!-- Upload form -->
+    <div class="lg:col-span-2">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="module">
+                <h2 class="module__title">Upload file</h2>
+                <div class="form-row">
+                    {% for field in form %}
+                    <div class="fieldWrapper">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}<div class="help">{{ field.help_text }}</div>{% endif %}
+                        {% for error in field.errors %}<p class="errornote">{{ error }}</p>{% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div style="margin-top:1rem;display:flex;justify-content:space-between;align-items:center">
+                <a href="{% url 'admin:pseo_programmaticpage_changelist' %}" class="button cancel-link">← Cancel</a>
+                <input type="submit" value="Import CSV" class="default">
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

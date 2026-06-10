@@ -7,7 +7,7 @@ app_name = "shop"
 urlpatterns = [
     path("", views.product_list, name="product_list"),
     path("category/<slug:slug>/", views.category_list, name="category"),
-    path("category/", views.category_hub, name="category_hub"),  # <-- hub
+    path("category/", views.category_hub, name="category_hub"),
     path("product/<slug:slug>/", views.product_detail, name="product_detail"),
     path("cart/", views.cart_detail, name="cart_detail"),
     path("cart/add/<int:product_id>/", views.cart_add, name="cart_add"),
@@ -26,4 +26,7 @@ urlpatterns = [
     path("orders/<str:order_id>/", views.order_detail, name="order_detail"),
     path("purchases/", views.purchases, name="purchases"),
     path("product/<int:product_id>/review/", views.add_review, name="add_review"),
+    path("checkout/toggle-bump/", views.toggle_order_bump, name="toggle_order_bump"),
+    path("checkout/apply-coupon/", views.apply_coupon, name="apply_coupon"),
+    path("checkout/remove-coupon/", views.remove_coupon, name="remove_coupon"),
 ]

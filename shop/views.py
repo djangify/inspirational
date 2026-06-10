@@ -1,5 +1,5 @@
 # shop/views.py
-from .models import Category, Product, Order, OrderItem, ShopSettings
+from .models import Category, Product, Order, OrderItem, ShopSettings, OrderBump, Coupon
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -12,7 +12,9 @@ from django.views.decorators.csrf import csrf_exempt
 import stripe
 import os
 import logging
+from decimal import Decimal
 from django.db.models import Q
+from django.urls import reverse
 import mimetypes
 from django.utils import timezone
 from datetime import timedelta
@@ -174,8 +176,60 @@ def checkout(request):
             messages.error(request, "Invalid cart total")
             return redirect("shop:cart_detail")
 
+        # --- Order Bump logic ---
+        cart_product_ids = [int(k) for k in cart.cart.keys()]
+
+        accepted_bump_product_id = request.session.get("order_bump_product_id")
+        bump_accepted = False
+        active_bump = None
+        accepted_bump = None
+
+        eligible_bumps = (
+            OrderBump.objects.filter(is_active=True)
+            .filter(
+                Q(trigger_product__isnull=True)
+                | Q(trigger_product_id__in=cart_product_ids)
+            )
+            .exclude(bump_product_id__in=cart_product_ids)
+            .filter(bump_product__is_active=True)
+            .select_related("bump_product", "trigger_product")
+            .order_by("order")
+        )
+
+        if accepted_bump_product_id:
+            accepted_bump = (
+                OrderBump.objects.filter(
+                    is_active=True,
+                    bump_product_id=accepted_bump_product_id,
+                )
+                .select_related("bump_product")
+                .first()
+            )
+            if accepted_bump:
+                bump_accepted = True
+                total_price += accepted_bump.bump_price
+                active_bump = eligible_bumps.exclude(
+                    bump_product_id=accepted_bump_product_id
+                ).first()
+            else:
+                request.session.pop("order_bump_product_id", None)
+                active_bump = eligible_bumps.first()
+        else:
+            active_bump = eligible_bumps.first()
+        # --- End Order Bump logic ---
+
+        # --- Coupon logic ---
+        coupon_code = request.session.get("coupon_code", "")
+        coupon_discount_pence = request.session.get("coupon_discount_pence", 0)
+        coupon_discount = Decimal(coupon_discount_pence) / 100
+
+        if coupon_discount > 0:
+            # Stripe minimum charge is $0.50 — never go below that
+            total_price = max(total_price - coupon_discount, Decimal("0.50"))
+        # --- End Coupon logic ---
+
         payment_intent_data = {
-            "amount": int(total_price * 100),
+            "amount": int(round(total_price * 100)),
             "currency": "usd",
             "payment_method_types": ["card"],
             "metadata": {
@@ -183,6 +237,8 @@ def checkout(request):
                     str(request.user.id) if request.user.is_authenticated else "guest"
                 ),
                 "is_guest": str(not request.user.is_authenticated),
+                "order_bump_product_id": str(accepted_bump_product_id) if bump_accepted else "",
+                "coupon_code": coupon_code,
             },
         }
 
@@ -218,6 +274,14 @@ def checkout(request):
             "payment_intent_id": intent.id,
             "show_withdrawal_consent": shop_settings.show_digital_withdrawal_consent,
             "withdrawal_consent_text": shop_settings.digital_withdrawal_consent_text,
+            # Order bump
+            "active_bump": active_bump,
+            "accepted_bump": accepted_bump,
+            "bump_accepted": bump_accepted,
+            # Coupon
+            "checkout_total": total_price,
+            "applied_coupon_code": coupon_code,
+            "coupon_discount": coupon_discount,
         }
 
         return render(request, "shop/checkout.html", context)
@@ -261,12 +325,17 @@ def payment_success(request):
         cart_snapshot = request.session.get(snapshot_key)
         live_cart = Cart(request)
 
+        coupon_code_session = request.session.get("coupon_code", "")
+        coupon_discount_pence_session = request.session.get("coupon_discount_pence", 0)
+
         order = Order.objects.create(
             user=request.user,
             email=request.user.email,
             payment_intent_id=payment_intent_id,
             paid=True,
             status="completed",
+            coupon_code=coupon_code_session,
+            coupon_discount_pence=coupon_discount_pence_session,
         )
 
         items_created = 0
@@ -305,6 +374,39 @@ def payment_success(request):
                 product.purchase_count += item["quantity"]
                 product.save()
                 items_created += 1
+
+        # --- Order Bump: create OrderItem if accepted ---
+        bump_product_id = request.session.get("order_bump_product_id")
+        if bump_product_id:
+            try:
+                bump_product = Product.objects.get(id=bump_product_id)
+                OrderItem.objects.create(
+                    order=order,
+                    product=bump_product,
+                    price_paid_pence=bump_product.sale_price_pence or bump_product.price_pence,
+                    quantity=1,
+                )
+                bump_product.purchase_count += 1
+                bump_product.save()
+                items_created += 1
+            except Exception as e:
+                logger.error(f"Error adding bump product to order {order.order_id}: {str(e)}")
+            finally:
+                request.session.pop("order_bump_product_id", None)
+        # --- End Order Bump ---
+
+        # --- Coupon: increment times_used and clear session ---
+        if coupon_code_session:
+            try:
+                coupon = Coupon.objects.get(code=coupon_code_session)
+                coupon.times_used += 1
+                coupon.save(update_fields=["times_used"])
+            except Exception as e:
+                logger.error(f"Error updating coupon usage for order {order.order_id}: {str(e)}")
+            finally:
+                request.session.pop("coupon_code", None)
+                request.session.pop("coupon_discount_pence", None)
+        # --- End Coupon ---
 
         if items_created == 0:
             logger.error(
@@ -422,7 +524,6 @@ def handle_successful_payment(payment_intent):
         order.paid = True
         order.status = "completed"
         order.save()
-
         try:
             send_order_confirmation_email(order)
             send_admin_new_order_email(order)
@@ -442,23 +543,19 @@ def handle_failed_payment(payment_intent):
 def secure_download(request, order_item_id):
     order_item = get_object_or_404(OrderItem, id=order_item_id)
 
-    # Ownership check
     if order_item.order.user != request.user:
         messages.error(request, "You do not have permission to access this file.")
         return redirect("shop:order_history")
 
-    # File check
     if not order_item.product.files:
         messages.error(request, "File not available for this product.")
         return redirect("shop:order_history")
 
-    # Download limit check
     if order_item.download_count >= order_item.product.download_limit:
         logger.warning(f"Download limit reached for OrderItem {order_item.id}")
         messages.error(request, "You have reached your download limit.")
         return redirect("shop:order_history")
 
-    # DUPLICATE REQUEST PROTECTION (CRITICAL)
     recent_download = DownloadLog.objects.filter(
         order_item=order_item,
         user=request.user,
@@ -468,36 +565,21 @@ def secure_download(request, order_item_id):
     if not recent_download:
         order_item.download_count += 1
         order_item.save()
-
         DownloadLog.objects.create(order_item=order_item, user=request.user)
 
-    # File path
     file_path = order_item.product.files.path
 
     if not os.path.exists(file_path):
         error_msg = f"File missing for OrderItem {order_item.id} | Path: {file_path}"
-
         logger.error(error_msg)
-
-        mail_admins(
-            subject="Download Failure: File Missing",
-            message=error_msg,
-            fail_silently=True,
-        )
-
+        mail_admins(subject="Download Failure: File Missing", message=error_msg, fail_silently=True)
         messages.error(request, "File could not be found.")
         return redirect("shop:order_history")
 
-    # MIME type
     content_type, _ = mimetypes.guess_type(file_path)
     content_type = content_type or "application/octet-stream"
-
-    # SERVE FILE (NO FileWrapper)
     response = FileResponse(open(file_path, "rb"), content_type=content_type)
-    response["Content-Disposition"] = (
-        f'attachment; filename="{os.path.basename(file_path)}"'
-    )
-
+    response["Content-Disposition"] = f'attachment; filename="{os.path.basename(file_path)}"'
     return response
 
 
@@ -505,7 +587,6 @@ def secure_download(request, order_item_id):
 def add_review(request, product_id):
     product = get_object_or_404(Product, id=product_id)
 
-    # Allow superusers to review without purchase verification
     if not request.user.is_superuser:
         if not product.can_review(request.user):
             messages.error(request, "You can only review products you have purchased.")
@@ -525,3 +606,79 @@ def add_review(request, product_id):
         form = ProductReviewForm()
 
     return render(request, "shop/add_review.html", {"form": form, "product": product})
+
+
+# ============================================================
+# ORDER BUMP & COUPON VIEWS
+# ============================================================
+
+@require_POST
+def toggle_order_bump(request):
+    product_id = request.POST.get("product_id") or request.POST.get("bump_product_id")
+    if not product_id:
+        return HttpResponse(status=400)
+
+    current = request.session.get("order_bump_product_id")
+    if str(current) == str(product_id):
+        request.session.pop("order_bump_product_id", None)
+    else:
+        request.session["order_bump_product_id"] = int(product_id)
+
+    checkout_url = reverse("shop:checkout")
+    if request.headers.get("HX-Request"):
+        response = HttpResponse(status=204)
+        response["HX-Redirect"] = checkout_url
+        return response
+    return redirect(checkout_url)
+
+
+@require_POST
+def apply_coupon(request):
+    from .models import Coupon
+    code = request.POST.get("coupon_code", "").strip().upper()
+    checkout_url = reverse("shop:checkout")
+
+    if not code:
+        error_html = '<p class="text-red-600 text-sm mt-1">Please enter a coupon code.</p>'
+        if request.headers.get("HX-Request"):
+            return HttpResponse(error_html, status=200)
+        return redirect(checkout_url)
+
+    try:
+        coupon = Coupon.objects.get(code__iexact=code)
+    except Coupon.DoesNotExist:
+        error_html = f'<p class="text-red-600 text-sm mt-1">"{code}" is not a valid coupon code.</p>'
+        if request.headers.get("HX-Request"):
+            return HttpResponse(error_html, status=200)
+        return redirect(checkout_url)
+
+    from .cart import Cart
+    cart = Cart(request)
+    cart_total_pence = int(round(sum(
+        (item["product"].sale_price_pence or item["product"].price_pence) * item["quantity"]
+        for item in cart
+    )))
+
+    valid, message = coupon.is_valid(cart_total_pence)
+    if not valid:
+        error_html = f'<p class="text-red-600 text-sm mt-1">{message}</p>'
+        if request.headers.get("HX-Request"):
+            return HttpResponse(error_html, status=200)
+        return redirect(checkout_url)
+
+    discount_pence = coupon.calculate_discount_pence(cart_total_pence)
+    request.session["coupon_code"] = coupon.code
+    request.session["coupon_discount_pence"] = discount_pence
+
+    if request.headers.get("HX-Request"):
+        response = HttpResponse(status=204)
+        response["HX-Redirect"] = checkout_url
+        return response
+    return redirect(checkout_url)
+
+
+@require_POST
+def remove_coupon(request):
+    request.session.pop("coupon_code", None)
+    request.session.pop("coupon_discount_pence", None)
+    return redirect(reverse("shop:checkout"))
