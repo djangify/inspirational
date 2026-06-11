@@ -4,6 +4,10 @@
 
 {% block title %}{{ post.meta_title|default:post.title }} | Inspirational Guidance{% endblock %}
 
+{% block meta_description %}{{ post.meta_description|default:post.content|striptags|truncatechars:160 }}{% endblock %}
+
+{% block open_graph_tags %}{% include 'news/components/article_og.html' %}{% endblock %}
+
 {% block extra_head %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,11 +26,22 @@
 
 {% block content %}
 
+{% if request.user.is_superuser %}
+<div class="bg-yellow-50 border-b border-yellow-200 px-4 py-2 text-sm flex justify-between items-center">
+  <span class="text-yellow-800">Admin: <strong>{{ post.title }}</strong></span>
+  <a href="/admin/news/post/{{ post.id }}/change/" class="bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-medium px-3 py-1 rounded text-xs">Edit Article</a>
+</div>
+{% endif %}
+
 {% if request.GET.preview == "1" and request.user.is_staff %}
 <div class="bg-yellow-100 text-yellow-900 text-center py-3 px-6 font-bold">⚠️ Draft Preview</div>
 {% endif %}
 
 <div class="h-1 bg-[color:var(--color-accent)] w-full"></div>
+
+<div class="max-w-6xl mx-auto px-6 md:px-16 pt-8">
+  {% include 'news/components/breadcrumb.html' %}
+</div>
 
 <!-- Hero media -->
 {% if post.content_type == "video" and post.video_url %}
@@ -42,9 +57,9 @@
   {% audio_embed post.audio_url %}
 </div>
 {% elif post.get_image_url %}
-<div class="w-full">
+<div class="max-w-6xl mx-auto px-6 md:px-16 pt-8">
   <img src="{{ post.get_image_url }}" alt="{{ post.title }}"
-       class="w-full max-h-[520px] object-cover">
+       class="w-full h-auto rounded-lg">
 </div>
 {% elif post.youtube_url and post.get_youtube_embed_url %}
 <div class="w-full bg-stone-950">
@@ -69,6 +84,10 @@
         <span class="opacity-30 text-xs">·</span>
         {% endif %}
         <span class="text-xs text-[color:var(--color-font-main)]/50">{{ post.publish_date|date:"F j, Y" }}</span>
+        {% if post.content_updated %}
+        <span class="opacity-30 text-xs">·</span>
+        <span class="text-xs italic text-[color:var(--color-font-main)]/50">Updated {{ post.content_updated|date:"F j, Y" }}</span>
+        {% endif %}
       </div>
 
       <h1 class="font-heading text-4xl md:text-5xl font-bold text-[color:var(--color-font-main)] leading-tight mb-8">
@@ -83,6 +102,12 @@
       <div class="page-content prose-lg leading-loose text-[color:var(--color-font-main)] max-w-none">
         {{ post.content|safe }}
       </div>
+
+      <!-- Share buttons -->
+      {% include 'components/social_share.html' %}
+
+      <!-- Author profile (E-E-A-T) -->
+      {% include "news/components/author_bio.html" %}
 
       <!-- Resource download -->
       {% if post.resource_type != 'none' and post.resource %}
@@ -112,5 +137,7 @@
 
   </div>
 </div>
+
+{% include "news/components/article_schema.html" %}
 
 {% endblock %}

@@ -17,6 +17,7 @@ from .forms import UserRegistrationForm, UserProfileForm, SupportForm
 from .models import EmailVerificationToken, MemberResource, SupportRequest
 from prompt.models_tracker import WritingGoal, WritingSession
 from accounts.services.mailerlite import add_subscriber
+from news.views import latest_published_posts
 
 
 def register_view(request):
@@ -186,7 +187,11 @@ def dashboard_view(request):
     # Recent writing sessions
     recent_sessions = WritingSession.objects.filter(user=user).order_by("-date")[:3]
 
+    # Latest blog posts (reuses the same query as the homepage)
+    latest_posts = latest_published_posts(3)
+
     context = {
+        "latest_posts": latest_posts,
         "purchased_count": purchased_count,
         "favourite_prompts": favourite_prompts,
         "favourite_products": favourite_products,

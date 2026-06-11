@@ -1,9 +1,36 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
+from django.db.models import Q, Count
 from shop.cart import Cart
 from django.conf import settings
 from .models import Post, Category
 from django.utils import timezone
+
+
+def latest_published_posts(limit=3):
+    """Most recent published posts — reused by homepage and dashboard."""
+    return (
+        Post.objects.filter(status="published", publish_date__lte=timezone.now())
+        .select_related("category")
+        .order_by("-publish_date")[:limit]
+    )
+
+
+def browse_categories():
+    """Published-post categories with counts, for the sidebar browse list."""
+    return (
+        Category.objects.annotate(
+            num_posts=Count(
+                "post",
+                filter=Q(
+                    post__status="published",
+                    post__publish_date__lte=timezone.now(),
+                ),
+            )
+        )
+        .filter(num_posts__gt=0)
+        .order_by("name")
+    )
 
 
 # Maps the ?type= query param to content_type values
@@ -24,6 +51,7 @@ SECTION_TABS = [
 
 def news_list(request):
     active_type = request.GET.get("type", "").strip().lower() or None
+    query = request.GET.get("q", "").strip()
 
     qs = Post.objects.filter(
         status="published", publish_date__lte=timezone.now()
@@ -33,10 +61,14 @@ def news_list(request):
     if active_type and active_type in SECTION_FILTERS:
         qs = qs.filter(content_type__in=SECTION_FILTERS[active_type])
 
+    # Keyword search across title and body
+    if query:
+        qs = qs.filter(Q(title__icontains=query) | Q(content__icontains=query))
+
     qs = qs.order_by("-publish_date")
 
-    # Featured hero posts — only on the "All" tab
-    if active_type is None:
+    # Featured hero posts — only on the "All" tab and when not searching
+    if active_type is None and not query:
         featured_posts = list(qs.filter(featured=True)[:5])
         featured_ids = [p.id for p in featured_posts]
         regular_posts = qs.exclude(id__in=featured_ids)
@@ -44,15 +76,17 @@ def news_list(request):
         featured_posts = []
         regular_posts = qs
 
-    paginator = Paginator(regular_posts, 33)
+    paginator = Paginator(regular_posts, 12)
     page = request.GET.get("page")
     posts_page = paginator.get_page(page)
 
     context = {
         "posts": posts_page,
-        "categories": Category.objects.all(),
+        "categories": browse_categories(),
         "featured_posts": featured_posts,
         "active_type": active_type,
+        "query": query,
+        "total_results": paginator.count,
         "section_tabs": SECTION_TABS,
         "title": "Blog",
         "meta_description": "Latest posts from Inspirational Guidance",
@@ -70,7 +104,7 @@ def category_list(request, slug):
     context = {
         "category": category,
         "posts": posts,
-        "categories": Category.objects.all(),
+        "categories": browse_categories(),
         "title": f"{category.name} - Blog",
         "meta_description": f"Latest posts about {category.name} from Inspirational Guidance",
     }
@@ -118,7 +152,7 @@ def post_detail(request, slug):
         "next_post": next_post,
         "previous_post": previous_post,
         "related_posts": related_posts,
-        "categories": Category.objects.all(),
+        "categories": browse_categories(),
         "title": post.meta_title or post.title,
         "meta_description": post.meta_description,
         "meta_keywords": post.meta_keywords,

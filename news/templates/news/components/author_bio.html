@@ -1,0 +1,31 @@
+{% comment %}news/templates/news/components/author_bio.html
+E-E-A-T author profile shown at the end of each blog post. Theme-aware:
+uses the active theme's CSS colour variables so it fits any theme.
+{% endcomment %}
+{% load static %}
+<aside class="mt-12 mb-4 flex flex-col sm:flex-row items-start gap-5 rounded-xl border border-[color:var(--color-accent)]/20 bg-[color:var(--color-surface,#f1f5f9)] p-6">
+  <img src="{% static author_photo %}"
+       alt="{{ author_name }}"
+       class="w-16 h-16 rounded-full object-cover flex-shrink-0 shadow-sm">
+  <div>
+    <p class="text-sm font-semibold text-[color:var(--color-font-main,#1a1a1a)] mb-1">
+      Written by
+      <a href="{{ author_url }}" class="text-[color:var(--color-accent,#0f766e)] hover:underline">{{ author_name }}</a>
+    </p>
+    <p class="text-sm text-[color:var(--color-font-main,#1a1a1a)]/70 leading-relaxed">{{ author_short_bio }}</p>
+    <div class="flex flex-wrap gap-4 mt-3 text-xs text-[color:var(--color-font-main,#1a1a1a)]/60">
+      {% if social_youtube %}
+      <a href="{{ social_youtube }}" target="_blank" rel="noopener noreferrer"
+         class="hover:text-[color:var(--color-accent,#0f766e)] transition-colors">YouTube</a>
+      {% endif %}
+      {% if social_pinterest %}
+      <a href="{{ social_pinterest }}" target="_blank" rel="noopener noreferrer"
+         class="hover:text-[color:var(--color-accent,#0f766e)] transition-colors">Pinterest</a>
+      {% endif %}
+      {% if social_substack %}
+      <a href="{{ social_substack }}" target="_blank" rel="noopener noreferrer"
+         class="hover:text-[color:var(--color-accent,#0f766e)] transition-colors">Substack</a>
+      {% endif %}
+    </div>
+  </div>
+</aside>

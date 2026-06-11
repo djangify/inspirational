@@ -1,0 +1,28 @@
+{% comment %}news/templates/news/components/article_og.html
+Per-post Open Graph, Twitter Card and AI-search meta. Included by the
+theme detail templates via {% block open_graph_tags %} so shared links
+and AI crawlers get the article's own title, description and image.
+{% endcomment %}
+<meta property="fb:app_id" content="2433552923679047" />
+<meta property="og:title" content="{{ post.meta_title|default:post.title }}" />
+{% if post.meta_description %}
+  <meta property="og:description" content="{{ post.meta_description|truncatewords:25 }}" />
+{% else %}
+  <meta property="og:description" content="{{ post.content|striptags|truncatewords:25 }}" />
+{% endif %}
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:image" content="{% if post.get_image_url %}{{ request.scheme }}://{{ request.get_host }}{{ post.get_image_url }}{% endif %}" />
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ post.meta_title|default:post.title }}">
+{% if post.meta_description %}
+  <meta name="twitter:description" content="{{ post.meta_description|truncatewords:25 }}" />
+{% else %}
+  <meta name="twitter:description" content="{{ post.content|striptags|truncatewords:25 }}" />
+{% endif %}
+<meta name="twitter:image" content="{% if post.get_image_url %}{{ request.scheme }}://{{ request.get_host }}{{ post.get_image_url }}{% else %}{{ request.scheme }}://{{ request.get_host }}/static/images/diana-morgan.webp{% endif %}">
+
+<!-- AI Search Metadata -->
+<meta name="ai-page-type" content="article">
+<meta name="ai-topics" content="{% if post.category %}{{ post.category.name }}, {% endif %}personal development{% if post.meta_keywords %}, {{ post.meta_keywords }}{% endif %}">

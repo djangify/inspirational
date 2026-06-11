@@ -137,7 +137,7 @@
             <div class="flex justify-center mb-24 mt-12">
                 <div class="inline-flex rounded-md shadow-sm">
                     {% if posts.has_previous %}
-                        <a href="?page={{ posts.previous_page_number }}" class="px-4 py-2 rounded-l-md border border-teal-600 text-teal-600 hover:bg-teal-700 hover:text-white transition-colors">
+                        <a href="?{% if active_type %}type={{ active_type }}&{% endif %}{% if query %}q={{ query }}&{% endif %}page={{ posts.previous_page_number }}" class="px-4 py-2 rounded-l-md border border-teal-600 text-teal-600 hover:bg-teal-700 hover:text-white transition-colors">
                             Previous
                         </a>
                     {% else %}
@@ -152,14 +152,14 @@
                                 {{ i }}
                             </span>
                         {% else %}
-                            <a href="?page={{ i }}" class="px-4 py-2 border-t border-b border-teal-600 text-teal-600 hover:bg-teal-700 hover:text-white transition-colors">
+                            <a href="?{% if active_type %}type={{ active_type }}&{% endif %}{% if query %}q={{ query }}&{% endif %}page={{ i }}" class="px-4 py-2 border-t border-b border-teal-600 text-teal-600 hover:bg-teal-700 hover:text-white transition-colors">
                                 {{ i }}
                             </a>
                         {% endif %}
                     {% endfor %}
                     
                     {% if posts.has_next %}
-                        <a href="?page={{ posts.next_page_number }}" class="px-4 py-2 rounded-r-md border border-teal-600 text-teal-600 hover:bg-teal-700 hover:text-white transition-colors">
+                        <a href="?{% if active_type %}type={{ active_type }}&{% endif %}{% if query %}q={{ query }}&{% endif %}page={{ posts.next_page_number }}" class="px-4 py-2 rounded-r-md border border-teal-600 text-teal-600 hover:bg-teal-700 hover:text-white transition-colors">
                             Next
                         </a>
                     {% else %}

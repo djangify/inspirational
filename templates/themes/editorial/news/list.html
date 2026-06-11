@@ -153,19 +153,19 @@
       {% if posts.has_other_pages %}
       <div class="flex justify-center items-center gap-2 pt-10 flex-wrap">
         {% if posts.has_previous %}
-          <a href="?{% if active_type %}type={{ active_type }}&{% endif %}page={{ posts.previous_page_number }}"
+          <a href="?{% if active_type %}type={{ active_type }}&{% endif %}{% if query %}q={{ query }}&{% endif %}page={{ posts.previous_page_number }}"
              class="px-4 py-2 border border-[color:var(--color-accent)] text-[color:var(--color-accent)] rounded hover:bg-[color:var(--color-accent)] hover:text-white transition text-sm">← Prev</a>
         {% endif %}
         {% for num in posts.paginator.page_range %}
           {% if posts.number == num %}
             <span class="px-4 py-2 bg-[color:var(--color-accent)] text-white rounded text-sm">{{ num }}</span>
           {% else %}
-            <a href="?{% if active_type %}type={{ active_type }}&{% endif %}page={{ num }}"
+            <a href="?{% if active_type %}type={{ active_type }}&{% endif %}{% if query %}q={{ query }}&{% endif %}page={{ num }}"
                class="px-4 py-2 border border-[color:var(--color-accent)] text-[color:var(--color-accent)] rounded hover:bg-[color:var(--color-accent)] hover:text-white transition text-sm">{{ num }}</a>
           {% endif %}
         {% endfor %}
         {% if posts.has_next %}
-          <a href="?{% if active_type %}type={{ active_type }}&{% endif %}page={{ posts.next_page_number }}"
+          <a href="?{% if active_type %}type={{ active_type }}&{% endif %}{% if query %}q={{ query }}&{% endif %}page={{ posts.next_page_number }}"
              class="px-4 py-2 border border-[color:var(--color-accent)] text-[color:var(--color-accent)] rounded hover:bg-[color:var(--color-accent)] hover:text-white transition text-sm">Next →</a>
         {% endif %}
       </div>
