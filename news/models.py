@@ -19,7 +19,7 @@ def validate_audio_file(value):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -59,7 +59,7 @@ class Post(models.Model):
 
     # Basic fields
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
     content = HTMLField("Content")
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
