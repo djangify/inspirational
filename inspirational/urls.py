@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
+from django.views.generic import TemplateView
 from django.contrib.sitemaps.views import sitemap
 from inspirational.sitemaps import (
     ShopCategorySitemap,
@@ -33,6 +34,28 @@ urlpatterns = [
     # Sitemap and robots.txt
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
     path("robots.txt", robots_txt, name="robots_txt"),
+    # PWA: manifest, service worker (must be at site root for full scope), offline fallback
+    path(
+        "manifest.webmanifest",
+        TemplateView.as_view(
+            template_name="pwa/manifest.webmanifest",
+            content_type="application/manifest+json",
+        ),
+        name="manifest",
+    ),
+    path(
+        "sw.js",
+        TemplateView.as_view(
+            template_name="pwa/sw.js",
+            content_type="application/javascript",
+        ),
+        name="service_worker",
+    ),
+    path(
+        "offline/",
+        TemplateView.as_view(template_name="pwa/offline.html"),
+        name="offline",
+    ),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,124 @@
+{% load static %}
+<!-- PWA install invite banner -->
+<div id="pwa-install-banner" role="dialog" aria-label="Add Inspirational Guidance to your phone"
+  style="display:none; position:fixed; left:50%; transform:translateX(-50%); bottom:1rem; z-index:9999;
+         max-width:420px; width:calc(100% - 2rem); background:#ffffff; border:1px solid #e2e8f0;
+         border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,0.18); padding:14px 16px; font-family:inherit;">
+  <div style="display:flex; align-items:center; gap:12px;">
+    <img src="{% static 'images/android-chrome-192x192.png' %}" alt="" width="44" height="44"
+         style="border-radius:10px; flex:0 0 auto;">
+    <div style="flex:1 1 auto; min-width:0;">
+      <div style="font-weight:700; color:#0f172a; font-size:15px; display:flex; align-items:center; gap:6px;">
+        <span>Add our free shortcut</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#227c81" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto;">
+          <path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"></path>
+          <path d="M9 12l2 2 4-4"></path>
+        </svg>
+      </div>
+      <div id="pwa-install-text" style="color:#475569; font-size:13px; line-height:1.35;">
+        Pop the Inspirational Guidance icon on your home screen for one-tap access. Nothing to install. Just a safe shortcut that even works offline.
+      </div>
+    </div>
+    <button id="pwa-install-close" type="button" aria-label="Dismiss"
+      style="flex:0 0 auto; background:none; border:none; color:#94a3b8; font-size:22px; line-height:1; cursor:pointer; padding:2px 4px;">&times;</button>
+  </div>
+  <div id="pwa-install-actions" style="margin-top:10px; text-align:right;">
+    <button id="pwa-install-btn" type="button"
+      style="background:#227c81; color:#fff; border:none; border-radius:9px; padding:9px 18px; font-weight:600; font-size:14px; cursor:pointer;">
+      Add to home screen
+    </button>
+  </div>
+  <div id="pwa-ios-hint" style="display:none; margin-top:10px; color:#475569; font-size:13px; line-height:1.45;">
+    Tap the <strong>Share</strong> button, then choose <strong>&ldquo;Add to Home Screen&rdquo;</strong>.
+  </div>
+</div>
+
+<script>
+  (function () {
+    var DISMISS_KEY = "pwaInstallDismissed";
+    var banner = document.getElementById("pwa-install-banner");
+    if (!banner) return;
+
+    var actions = document.getElementById("pwa-install-actions");
+    var iosHint = document.getElementById("pwa-ios-hint");
+    var textEl = document.getElementById("pwa-install-text");
+    var installBtn = document.getElementById("pwa-install-btn");
+    var closeBtn = document.getElementById("pwa-install-close");
+    var deferredPrompt = null;
+
+    function safeGet(key) {
+      try { return localStorage.getItem(key); } catch (e) { return null; }
+    }
+    function safeSet(key, val) {
+      try { localStorage.setItem(key, val); } catch (e) {}
+    }
+    function isStandalone() {
+      return (
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true
+      );
+    }
+    function dismissed() { return safeGet(DISMISS_KEY) === "1"; }
+    function cookiesAccepted() { return safeGet("cookiesAccepted") === "true"; }
+    function isIOS() {
+      return /iphone|ipad|ipod/i.test(window.navigator.userAgent) && !window.MSStream;
+    }
+    function isIOSSafari() {
+      var ua = window.navigator.userAgent;
+      return isIOS() && /safari/i.test(ua) && !/crios|fxios|edgios/i.test(ua);
+    }
+
+    function show() {
+      if (dismissed() || isStandalone()) return;
+      // Wait until the cookie banner has been dealt with, so we don't stack two bars.
+      if (!cookiesAccepted()) return;
+      banner.style.display = "block";
+    }
+
+    closeBtn.addEventListener("click", function () {
+      banner.style.display = "none";
+      safeSet(DISMISS_KEY, "1");
+    });
+
+    // Android / Chromium: capture the real install prompt and surface our own button.
+    window.addEventListener("beforeinstallprompt", function (e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      actions.style.display = "";
+      iosHint.style.display = "none";
+      show();
+    });
+
+    installBtn.addEventListener("click", function () {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function () {
+        deferredPrompt = null;
+        banner.style.display = "none";
+        safeSet(DISMISS_KEY, "1");
+      });
+    });
+
+    window.addEventListener("appinstalled", function () {
+      banner.style.display = "none";
+      safeSet(DISMISS_KEY, "1");
+    });
+
+    // If the visitor accepts cookies after load, the install prompt may already be waiting.
+    var acceptCookiesBtn = document.getElementById("accept-cookies");
+    if (acceptCookiesBtn) {
+      acceptCookiesBtn.addEventListener("click", function () {
+        setTimeout(show, 300);
+      });
+    }
+
+    // iOS Safari: there is no install event, so show manual Share instructions instead.
+    if (isIOSSafari() && !isStandalone()) {
+      actions.style.display = "none";
+      iosHint.style.display = "block";
+      textEl.textContent = "Pop our icon on your home screen for one-tap access. Nothing to install. A safe shortcut that even works offline.";
+      setTimeout(show, 1500);
+    }
+  })();
+</script>

@@ -16,6 +16,14 @@
 <link rel="stylesheet" href="{% static 'css/output.css' %}" />
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+<!-- PWA -->
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#227c81">
+<link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Inspirational Guidance">
 <!-- Canonical URL -->
 {% if canonical_url %}
   <link rel="canonical" href="{{ canonical_url }}">
@@ -103,5 +111,18 @@
       <script src="{% static 'js/favourite-products.js' %}" defer></script>
       <script src="{% static 'js/accordion.js' %}" defer></script>
     {% endblock %}
+
+    <!-- PWA: register the service worker -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("/sw.js").catch(function (err) {
+            console.warn("Service worker registration failed:", err);
+          });
+        });
+      }
+    </script>
+
+    {% include 'partials/_pwa_install.html' %}
   </body>
 </html>

@@ -1,0 +1,27 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're offline — Inspirational Guidance</title>
+  <meta name="theme-color" content="#227c81" />
+  <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+</head>
+<body class="bg-white text-slate-800 antialiased min-h-screen flex items-center justify-center p-6">
+  <div class="max-w-md text-center">
+    <img src="{% static 'images/bookgirl.svg' %}" alt="" class="w-24 h-24 mx-auto mb-6" onerror="this.style.display='none'" />
+    <h1 class="text-2xl font-bold mb-3" style="color:#227c81">You're offline</h1>
+    <p class="mb-6 text-base">
+      It looks like you've lost your connection. Your Live It List, articles and
+      dashboard will be right here when you're back online.
+    </p>
+    <button
+      onclick="location.reload()"
+      class="inline-block px-6 py-2.5 rounded-lg text-white font-medium"
+      style="background-color:#227c81"
+    >
+      Try again
+    </button>
+  </div>
+</body>
+</html>

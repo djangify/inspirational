@@ -1,0 +1,25 @@
+{% load static %}{
+  "name": "Inspirational Guidance",
+  "short_name": "Inspire",
+  "description": "Stop putting your life on hold. Start your Live It List and begin choosing the things that make ordinary days feel alive.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#227c81",
+  "icons": [
+    {
+      "src": "{% static 'images/android-chrome-192x192.png' %}",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "{% static 'images/android-chrome-512x512.png' %}",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -17,4 +17,7 @@ def programmatic_page_detail(request, slug):
         "meta_description": page.meta_description,
     }
 
-    return render(request, "pseo/detail.html", context)
+    response = render(request, "pseo/detail.html", context)
+    if not is_preview:
+        response["X-PWA-Cacheable"] = "1"  # allow offline reading (PWA)
+    return response

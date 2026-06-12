@@ -92,7 +92,9 @@ def news_list(request):
         "meta_description": "Latest posts from Inspirational Guidance",
         "debug": settings.DEBUG,
     }
-    return render(request, "news/list.html", context)
+    response = render(request, "news/list.html", context)
+    response["X-PWA-Cacheable"] = "1"  # allow offline reading (PWA)
+    return response
 
 
 def category_list(request, slug):
@@ -108,7 +110,9 @@ def category_list(request, slug):
         "title": f"{category.name} - Blog",
         "meta_description": f"Latest posts about {category.name} from Inspirational Guidance",
     }
-    return render(request, "news/category.html", context)
+    response = render(request, "news/category.html", context)
+    response["X-PWA-Cacheable"] = "1"  # allow offline reading (PWA)
+    return response
 
 
 def post_detail(request, slug):
@@ -159,4 +163,8 @@ def post_detail(request, slug):
         "user": request.user,
         "cart": Cart(request),
     }
-    return render(request, "news/detail.html", context)
+    response = render(request, "news/detail.html", context)
+    is_preview = request.user.is_staff and request.GET.get("preview") == "1"
+    if not is_preview:
+        response["X-PWA-Cacheable"] = "1"  # allow offline reading (PWA)
+    return response
