@@ -1,0 +1,14 @@
+{% comment %}
+Clickable topic tags for a post.
+Usage: {% include "news/components/post_tags.html" with post=post %}
+{% endcomment %}
+{% if post.tags.all %}
+<div class="flex flex-wrap gap-1.5">
+  {% for tag in post.tags.all %}
+    <a href="{% url 'news:list' %}?type={{ tag.slug }}"
+       class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-50 text-teal-700 border border-teal-200 hover:bg-teal-100 transition">
+      #{{ tag.name }}
+    </a>
+  {% endfor %}
+</div>
+{% endif %}

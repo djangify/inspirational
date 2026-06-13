@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 import requests
 from django import forms
 from django.contrib.admin.widgets import AdminTextareaWidget
-from .models import Category, Post
+from .models import Category, Post, Tag
 
 
 @admin.register(Category)
@@ -14,6 +14,17 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ["name", "slug"]
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ["name"]
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ["name", "slug", "post_count"]
+    prepopulated_fields = {"slug": ("name",)}
+    search_fields = ["name"]
+
+    @admin.display(description="Posts")
+    def post_count(self, obj):
+        return obj.posts.count()
 
 
 class PostAdminForm(forms.ModelForm):
@@ -40,13 +51,14 @@ class PostAdmin(admin.ModelAdmin):
         "has_ad",
     ]
     list_editable = ["featured"]
-    list_filter = ["status", "category", "featured", "created", "publish_date"]
 
     search_fields = ["title", "content", "featured", "meta_title", "meta_description"]
     prepopulated_fields = {"slug": ("title",)}
     date_hierarchy = "publish_date"
     readonly_fields = ["display_media"]
     form = PostAdminForm
+    filter_horizontal = ["tags"]
+    list_filter = ["status", "category", "content_type", "tags", "featured", "created", "publish_date"]
     fieldsets = (
         (
             None,
@@ -56,10 +68,16 @@ class PostAdmin(admin.ModelAdmin):
                     "slug",
                     "category",
                     "content_type",
+                    "tags",
                     "content",
                     "status",
                     "publish_date",
                     "featured",
+                ),
+                "description": (
+                    "Content type = the FORMAT (Lil & Lol, Bites, Video, Audio). "
+                    "Tags = the TOPIC (Choices, Updates, or any you add). A post can "
+                    "have one format and several tags, so it shows up under each."
                 ),
             },
         ),

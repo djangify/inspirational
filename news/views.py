@@ -33,19 +33,28 @@ def browse_categories():
     )
 
 
-# Maps the ?type= query param to content_type values
-SECTION_FILTERS = {
-    "writing": ["article", "bite"],
+# Format sections — map the ?type= slug to content_type values.
+# Anything NOT listed here is treated as a Tag slug (topic) instead.
+FORMAT_FILTERS = {
+    "writing": ["article"],
+    "lillol":  ["lillol"],
+    "bites":   ["bite"],
     "video":   ["video"],
     "audio":   ["audio"],
 }
 
-# Tab definitions for templates — (label, type_value)
+# Tab definitions for templates — (label, type_value).
+# "choices" and "updates" are Tag slugs; any other tab whose slug is a Tag
+# slug will filter by topic automatically.
 SECTION_TABS = [
-    ("All",     None),
-    ("Writing", "writing"),
-    ("Videos",  "video"),
-    ("Audio",   "audio"),
+    ("All",       None),
+    ("Audio",     "audio"),
+    ("Bites",     "bites"),
+    ("Choices",   "choices"),
+    ("Lil & Lol", "lillol"),
+    ("Updates",   "updates"),
+    ("Videos",    "video"),
+    ("Writing",   "writing"),
 ]
 
 
@@ -57,9 +66,13 @@ def news_list(request):
         status="published", publish_date__lte=timezone.now()
     ).select_related("category")
 
-    # Apply content-type filter when a tab is active
-    if active_type and active_type in SECTION_FILTERS:
-        qs = qs.filter(content_type__in=SECTION_FILTERS[active_type])
+    # Apply the active tab filter: format tabs filter by content_type,
+    # everything else is treated as a topic Tag slug.
+    if active_type:
+        if active_type in FORMAT_FILTERS:
+            qs = qs.filter(content_type__in=FORMAT_FILTERS[active_type])
+        else:
+            qs = qs.filter(tags__slug=active_type).distinct()
 
     # Keyword search across title and body
     if query:

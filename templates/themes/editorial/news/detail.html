@@ -103,6 +103,13 @@
         {{ post.content|safe }}
       </div>
 
+      <!-- Topic tags -->
+      {% if post.tags.all %}
+      <div class="mt-8 pt-6 border-t border-[color:var(--color-accent)]/15">
+        {% include "news/components/post_tags.html" with post=post %}
+      </div>
+      {% endif %}
+
       <!-- Share buttons -->
       {% include 'components/social_share.html' %}
 

@@ -33,14 +33,39 @@ class Category(models.Model):
         return reverse("news:category", kwargs={"slug": self.slug})
 
 
+class Tag(models.Model):
+    """A topic label. Posts can have several; topic tabs on the blog filter by these."""
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(
+        max_length=50,
+        unique=True,
+        help_text="Used in the blog URL (e.g. ?type=choices). Auto-filled from the name.",
+    )
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return f"{reverse('news:list')}?type={self.slug}"
+
+
 class Post(models.Model):
     STATUS_CHOICES = [
         ("draft", "Draft"),
         ("published", "Published"),
     ]
     CONTENT_TYPE_CHOICES = [
-        ("article", "Article"),
-        ("bite", "Bite — short quick-read"),
+        ("article", "Writing"),
+        ("lillol", "Lil & Lol"),
+        ("bite", "Bites — short quick-read"),
         ("video", "Video"),
         ("audio", "Audio / Podcast"),
     ]
@@ -70,7 +95,15 @@ class Post(models.Model):
         max_length=10,
         choices=CONTENT_TYPE_CHOICES,
         default="article",
-        help_text="Article = long-form post, Bite = short quick-read, Video = video embed, Audio = podcast/audio embed.",
+        help_text="The FORMAT of the post: Writing = standard post (default), Lil & Lol = short and playful, Bites = short quick-read, Video = video embed, Audio = podcast/audio embed. Use Tags below for TOPICS like Choices or Updates.",
+    )
+
+    # Topics — a post can carry several (Choices, Updates, or any you create)
+    tags = models.ManyToManyField(
+        "Tag",
+        blank=True,
+        related_name="posts",
+        help_text="Topics this post belongs to (e.g. Choices, Updates). A post can have more than one, and they work alongside the format above.",
     )
 
     # Dates
