@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-
+ 
 {% block title %}Live It List Builder — Discover What Goes On Your List | Inspirational Guidance{% endblock %}
-
-
+ 
+ 
 {% block open_graph_tags %}
   <meta property="fb:app_id" content="2433552923679047" />
   <meta property="og:title" content="Build Your Live It List — Discover What Makes You Feel Alive" />
@@ -16,12 +16,12 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/live-it-list.webp' %}" />
 {% endblock %}
-
+ 
 {% block meta_description %}Answer 10 guided questions and discover exactly what belongs on your Live It List — the list of experiences that make you feel alive.{% endblock %}
-
+ 
 {% block content %}
 <div class="max-w-6xl mx-auto px-4 py-12 sm:py-16">
-
+ 
   <!-- Breadcrumb -->
   <nav class="mb-8 -mt-4" aria-label="Breadcrumb">
     <ol class="flex items-center gap-2 text-sm text-gray-500">
@@ -32,24 +32,38 @@
       <li class="text-gray-400">Live It List Builder</li>
     </ol>
   </nav>
-
+ 
   <!-- Page Header -->
   <div class="text-center mb-10">
     <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Build Your Live It List</h1>
     <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-      Ten questions. Each one unlocks something you already know but haven't written down yet.
-      Answer honestly — nobody's watching.
+      Ten questions. Each one unlocks something you already know but haven't written down yet. Answer each one or create your own.
+       
     </p>
+    {% if not user_authenticated %}
+    <div class="mt-5 max-w-2xl mx-auto bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 text-left flex items-start gap-3">
+      <svg class="w-5 h-5 flex-shrink-0 text-amber-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+      </svg>
+      <p class="text-sm text-amber-800">
+        <strong>Log in before you build your list.</strong>   Anything you add as a guest will be lost the moment you log in or leave the page.
+        <a href="{% url 'accounts:login' %}?next={% url 'tools:live_it_list_builder' %}" class="font-semibold underline underline-offset-2 hover:text-amber-900">Log in</a>
+        or
+        <a href="{% url 'accounts:register' %}" class="font-semibold underline underline-offset-2 hover:text-amber-900">register free</a>
+        to start.
+      </p>
+    </div>
+    {% endif %}
   </div>
-
+ 
   <div class="flex flex-col lg:flex-row gap-8 items-start">
-
+ 
     <!-- ── LEFT COLUMN: Question + Instructions + Share ──────────────────── -->
     <div class="w-full lg:w-1/2 space-y-6">
-
+ 
       <!-- Question panel -->
       <div id="question-panel" class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 sm:p-8">
-
+ 
         <!-- Progress -->
         <div class="flex items-center justify-between mb-6">
           <span id="progress-text" class="text-sm text-gray-500 font-medium">Question 1 of 10</span>
@@ -59,18 +73,18 @@
             {% endfor %}
           </div>
         </div>
-
+ 
         <!-- Question -->
         <div id="question-wrap" class="transition-opacity duration-300">
           <p id="question-text" class="text-gray-800 text-lg sm:text-xl leading-relaxed font-medium mb-6"></p>
-
+ 
           <textarea
             id="answer-input"
             rows="3"
             placeholder="What comes to mind…"
             class="w-full border border-gray-300 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-base"
           ></textarea>
-
+ 
           <div class="flex items-center gap-3 mt-4">
             <button
               id="add-btn"
@@ -86,7 +100,7 @@
             </button>
           </div>
         </div>
-
+ 
         <!-- Completion message (hidden until done) -->
         <div id="completion-wrap" class="hidden text-center py-4">
           <div class="text-4xl mb-4">✨</div>
@@ -95,26 +109,34 @@
             These are the things that make you feel alive. Keep adding to your list whenever something sparks that feeling.
           </p>
           {% if not user_authenticated %}
+          <p class="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-5">
+            <strong>Your list isn't saved yet.</strong> It lives on this page only. Register now to attach it to your profile and come back to it any time — otherwise it will be lost when you leave.
+          </p>
           <a href="{% url 'accounts:register' %}"
              class="inline-block bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 px-8 rounded-xl transition-colors duration-200">
             Save my list — register free
           </a>
           {% endif %}
         </div>
-
+ 
       </div>
-
+ 
       <!-- How this works -->
       <div class="bg-amber-50 border border-amber-100 rounded-2xl p-6 text-sm text-gray-700 space-y-3">
         <h3 class="font-semibold text-gray-900 text-base">How this works</h3>
+        {% if not user_authenticated %}
+        <p class="bg-white border border-amber-200 rounded-xl px-4 py-3 text-gray-800">
+          <strong>Important:</strong> your list is saved to your profile, so you must be logged in for it to be kept. Log in or register <em>before</em> you start.
+        </p>
+        {% endif %}
         <ul class="space-y-2">
           <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Answer whichever questions resonate — skip the rest.</span></li>
           <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Use the "Add anything you like" box (bottom right) at any time — no question needed.</span></li>
-          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Logged in? Items save automatically — view them on your <a href="{% url 'accounts:dashboard' %}" class="underline underline-offset-2 text-teal-700 hover:text-teal-900">dashboard</a>.</span></li>
+          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span><strong>Log in first to save.</strong> Your list is attached to your profile — once you're logged in, items save automatically to your <a href="{% url 'accounts:dashboard' %}" class="underline underline-offset-2 text-teal-700 hover:text-teal-900">dashboard</a>.</span></li>
           <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>No account yet? It's free. <a href="{% url 'accounts:register' %}" class="underline underline-offset-2 text-teal-700 hover:text-teal-900">Register here</a> to save your list.</span></li>
           <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Tick the circle next to an item when you start living it.</span></li>
           <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Share your list with family and friends — it makes a great conversation starter.</span></li>
-          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Come back any time to add more. Your list is never finished — that's the point.</span></li>
+          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span><strong>Registered users only:</strong> Come back any time to add more. Your list is never finished — that's the point.</span></li>
         </ul>
       </div>
 
