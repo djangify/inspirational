@@ -12,3 +12,391 @@
     color: #1d4ed8;
   }
 }
+
+/* ============================================================
+   HOMEPAGE  —  "A Live It List" landing page
+   ------------------------------------------------------------
+   All homepage styling lives here. The template
+   core/templates/core/homepage.html uses ONLY these named
+   classes — no inline styles, no utility classes.
+   Edit colours, fonts and spacing through the variables below.
+   ============================================================ */
+
+:root {
+  /* palette */
+  --ig-teal-900: #134e4a;
+  --ig-teal-800: #115e59;
+  --ig-teal-700: #0f766e;
+  --ig-teal-600: #0d9488;
+  --ig-teal-300: #5eead4;
+  --ig-teal-200: #99f6e4;
+  --ig-teal-100: #ccfbf1;
+  --ig-teal-50:  #f0fdfa;
+  --ig-ink:      #1f2937; /* headings */
+  --ig-body:     #4b5563; /* body text */
+  --ig-muted:    #6b7280; /* secondary text */
+  --ig-soft:     #9ca3af; /* fine print */
+  --ig-surface:  #f8fafc; /* light section background */
+  --ig-white:    #ffffff;
+
+  /* type */
+  --ig-font-display: 'Cormorant Garamond', Georgia, serif;
+  --ig-font-sans:    'Outfit', system-ui, -apple-system, sans-serif;
+
+  /* layout */
+  --ig-container: 72rem;
+  --ig-gutter: 1.5rem;
+  --ig-section-y: 4rem;
+  --ig-hero-gradient: linear-gradient(135deg, #134e4a 0%, #0f766e 40%, #115e59 100%);
+}
+
+/* ---------- shared building blocks ---------- */
+.home { font-family: var(--ig-font-sans); overflow-x: clip; }
+
+.home-container {
+  width: 100%;
+  max-width: var(--ig-container);
+  margin-inline: auto;
+  padding-inline: var(--ig-gutter);
+}
+.home-container--narrow { max-width: 48rem; }
+.home-container--mid    { max-width: 64rem; }
+
+.home-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.home-rule {
+  display: inline-block;
+  width: 3rem;
+  height: 2px;
+  flex: none;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.1rem 3rem;
+  border: 2px solid var(--ig-white);
+  border-radius: 0.4rem;
+  color: var(--ig-white);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+.home-btn:hover {
+  background: var(--ig-teal-300);
+  border-color: var(--ig-teal-300);
+  color: var(--ig-teal-900);
+}
+
+/* gentle entrance animation */
+@keyframes ig-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: ig-fade-up .7s ease both; }
+.fade-up--delay { animation-delay: .25s; }
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { animation: none; }
+}
+
+/* ============================================================
+   1. HERO
+   ============================================================ */
+.hero {
+  background: var(--ig-hero-gradient);
+  color: var(--ig-white);
+  padding-block: 2.5rem 5rem;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2.5rem), 0 100%);
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+.hero-eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+  color: var(--ig-teal-200);
+}
+.hero-eyebrow-row .home-rule { background: var(--ig-teal-300); }
+.hero-title {
+  font-family: var(--ig-font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.5rem, 9vw, 4.5rem);
+}
+.hero-title em { font-style: italic; color: var(--ig-teal-200); }
+.hero-subtitle {
+  font-size: clamp(1.15rem, 4.5vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--ig-teal-100);
+  max-width: 30rem;
+  margin: 0 0 2rem;
+}
+.hero-subtitle strong { font-weight: 600; }
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: var(--ig-teal-300);
+}
+.hero-actions { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.hero-media { position: relative; width: 100%; }
+.hero-video {
+  display: block;
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 1rem;
+  box-shadow: 0 12px 32px rgba(0,0,0,.25);
+}
+
+/* ============================================================
+   2. RECOGNITION
+   ============================================================ */
+.recognition {
+  background: var(--ig-white);
+  padding-block: var(--ig-section-y);
+  text-align: center;
+}
+.recognition-lead {
+  font-family: var(--ig-font-display);
+  line-height: 1.3;
+  color: var(--ig-ink);
+  margin: 0 0 1rem;
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+}
+.recognition-sub {
+  font-family: var(--ig-font-display);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--ig-ink);
+  margin: 0 0 2rem;
+  font-size: clamp(1.25rem, 5vw, 1.5rem);
+}
+.recognition-rule { background: var(--ig-teal-700); width: 4rem; margin-bottom: 2rem; }
+.recognition-point {
+  font-family: var(--ig-font-display);
+  font-weight: 600;
+  color: var(--ig-teal-700);
+  margin: 0;
+  font-size: clamp(1.4rem, 5.5vw, 2rem);
+}
+
+/* ============================================================
+   3. WHAT IT IS
+   ============================================================ */
+.about {
+  background: var(--ig-surface);
+  padding-block: var(--ig-section-y);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+.about-eyebrow { color: var(--ig-teal-700); margin-bottom: 1.25rem; }
+.about-title {
+  font-family: var(--ig-font-display);
+  line-height: 1.1;
+  color: var(--ig-ink);
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.9rem, 7vw, 3rem);
+}
+.about-text {
+  font-size: 1.0625rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--ig-muted);
+  margin: 0 0 1.25rem;
+}
+.about-question {
+  font-family: var(--ig-font-display);
+  font-weight: 600;
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--ig-teal-700);
+  margin: 0 0 1.25rem;
+}
+.about-card {
+  background: var(--ig-white);
+  border-top: 4px solid var(--ig-teal-700);
+  padding: 2.25rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+.about-card-title {
+  font-family: var(--ig-font-display);
+  font-style: italic;
+  font-size: 1.125rem;
+  color: var(--ig-body);
+  margin: 0 0 1.25rem;
+}
+.about-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+.about-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-weight: 300;
+  color: var(--ig-body);
+}
+.about-list-item::before { content: "\2726"; color: var(--ig-teal-700); line-height: 1.4; }
+
+/* ============================================================
+   4. STORY
+   ============================================================ */
+.story {
+  background: var(--ig-teal-900);
+  color: var(--ig-white);
+  padding-block: calc(var(--ig-section-y) + 1rem);
+  text-align: center;
+}
+.story-eyebrow { color: var(--ig-teal-300); margin-bottom: 2rem; }
+.story-quote {
+  font-family: var(--ig-font-display);
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.3rem, 5vw, 1.9rem);
+}
+.story-text {
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--ig-teal-100);
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.05rem, 4vw, 1.4rem);
+}
+.story-text:last-of-type { margin-bottom: 2.5rem; }
+.story-author-row { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.5rem; }
+.story-author-row .home-rule { background: var(--ig-teal-600); }
+.story-author { font-family: var(--ig-font-display); font-style: italic; color: var(--ig-teal-300); font-size: 1.25rem; margin: 0; }
+.story-role { color: var(--ig-teal-300); }
+
+/* ============================================================
+   5. WHAT YOU GET
+   ============================================================ */
+.offer {
+  background: var(--ig-white);
+  padding-block: calc(var(--ig-section-y) + 1rem);
+}
+.offer-head { text-align: center; margin-bottom: 3rem; }
+.offer-eyebrow { color: var(--ig-teal-700); margin-bottom: 1rem; }
+.offer-title {
+  font-family: var(--ig-font-display);
+  color: var(--ig-ink);
+  margin: 0;
+  font-size: clamp(1.9rem, 7vw, 3rem);
+  line-height: 1.15;
+}
+.offer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.offer-item {
+  padding: 2rem;
+  border: 1px solid #eef1f4;
+  border-radius: 0.5rem;
+}
+.offer-item-icon { font-size: 1.5rem; margin: 0 0 0.75rem; }
+.offer-item-title { font-family: var(--ig-font-display); font-size: 1.25rem; color: var(--ig-ink); margin: 0 0 0.5rem; }
+.offer-item-text { font-size: 0.95rem; font-weight: 300; line-height: 1.6; color: var(--ig-muted); margin: 0; }
+.offer-item--highlight {
+  background: var(--ig-teal-50);
+  border-color: var(--ig-teal-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.offer-item--highlight p {
+  font-family: var(--ig-font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--ig-teal-700);
+  margin: 0;
+}
+
+/* ============================================================
+   6. LETTERS (email opt-in)
+   ============================================================ */
+.letters {
+  background: var(--ig-surface);
+  padding-block: var(--ig-section-y);
+}
+.letters-card { border-left: 4px solid var(--ig-teal-700); padding-left: 2rem; }
+.letters-text {
+  font-family: var(--ig-font-display);
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--ig-body);
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.15rem, 4.5vw, 1.4rem);
+}
+.letters-question {
+  font-family: var(--ig-font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--ig-teal-700);
+  margin: 0 0 1.25rem;
+}
+.letters-note { font-size: 0.875rem; font-weight: 300; line-height: 1.6; color: var(--ig-soft); margin: 0; }
+
+/* ============================================================
+   7. FINAL CTA
+   ============================================================ */
+.cta {
+  background: var(--ig-hero-gradient);
+  color: var(--ig-white);
+  padding-block: calc(var(--ig-section-y) + 1rem);
+}
+.cta-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center; }
+.cta-eyebrow { color: var(--ig-teal-300); margin-bottom: 1.5rem; }
+.cta-title {
+  font-family: var(--ig-font-display);
+  line-height: 1.1;
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.1rem, 8vw, 4rem);
+}
+.cta-title em { font-style: italic; color: var(--ig-teal-200); }
+.cta-text { font-weight: 300; line-height: 1.6; color: var(--ig-teal-200); margin: 0 0 1rem; }
+.cta-media { position: relative; width: 100%; max-width: 24rem; margin-inline: auto; }
+.cta-image { display: block; width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 12px 32px rgba(0,0,0,.25); }
+
+/* ============================================================
+   RESPONSIVE  —  tablet & up
+   ============================================================ */
+@media (min-width: 640px) {
+  .offer-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-actions { flex-direction: row; }
+}
+
+@media (min-width: 1024px) {
+  :root { --ig-gutter: 3rem; --ig-section-y: 6rem; }
+
+  .hero { padding-block: 3.5rem 6rem; }
+  .hero-grid { grid-template-columns: 1fr 1fr; gap: 3.5rem; }
+
+  .about-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+
+  .offer-grid { grid-template-columns: repeat(3, 1fr); }
+
+  .cta-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .cta-media { max-width: 32rem; margin-inline: 0; }
+}
