@@ -1,0 +1,10 @@
+{% comment %}Compact card for the "Recent" row. Expects: post.{% endcomment %}
+<a href="{{ post.get_absolute_url }}" class="group flex items-start gap-3">
+  <span class="min-w-0 flex-1">
+    <span class="block text-sm font-semibold text-[color:var(--color-font-main)] leading-snug line-clamp-2 group-hover:text-[color:var(--color-accent)] transition">{{ post.title }}</span>
+    <time class="block text-xs text-[color:var(--color-font-main)]/40 mt-1">{{ post.publish_date|date:"M j, Y" }}</time>
+  </span>
+  <span class="shrink-0 w-14 h-14 rounded overflow-hidden bg-gray-100 relative block">
+    {% include "news/includes/spotlight_post_image.html" with post=post %}
+  </span>
+</a>

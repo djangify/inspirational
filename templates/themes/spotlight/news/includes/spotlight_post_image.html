@@ -1,0 +1,16 @@
+{% comment %}Fills its (relative) parent with the post's media or a content-type placeholder.{% endcomment %}
+{% if post.get_image_url %}
+  <img src="{{ post.get_image_url }}" alt="{{ post.title }}" class="w-full h-full object-cover group-hover:opacity-90 transition" loading="lazy">
+{% elif post.content_type == "audio" %}
+  <span class="absolute inset-0 flex items-center justify-center bg-indigo-100">
+    <svg class="w-8 h-8 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/></svg>
+  </span>
+{% elif post.content_type == "video" %}
+  <span class="absolute inset-0 flex items-center justify-center bg-gray-900">
+    <svg class="w-8 h-8 text-white opacity-70" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+  </span>
+{% else %}
+  <span class="absolute inset-0 flex items-center justify-center bg-gray-50">
+    <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+  </span>
+{% endif %}

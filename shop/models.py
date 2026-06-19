@@ -555,6 +555,7 @@ class SiteSettings(models.Model):
         ("classic", "Classic — default site design"),
         ("editorial", "Editorial — warm tones, serif headings, magazine layout"),
         ("minimal", "Minimal — clean black & white, Substack-style"),
+        ("spotlight", "Spotlight — featured products over a clean minimal feed"),
     ]
 
     google_analytics_id = models.CharField(

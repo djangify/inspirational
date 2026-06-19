@@ -1,0 +1,13 @@
+{% comment %}Hero card. Expects: post, size ("large" or "small"). Headings only — no excerpt.{% endcomment %}
+<article class="group flex flex-col">
+  <a href="{{ post.get_absolute_url }}" class="block relative rounded-lg overflow-hidden bg-gray-100 mb-3 {% if size == 'large' %}aspect-[4/3]{% else %}aspect-[16/10]{% endif %}">
+    {% include "news/includes/spotlight_post_image.html" with post=post %}
+  </a>
+  <div class="flex items-center gap-2 mb-1">
+    {% if post.content_type != "article" %}{% include "news/components/content_type_badge.html" with post=post %}{% endif %}
+    <time class="text-xs text-[color:var(--color-font-main)]/40">{{ post.publish_date|date:"M j, Y" }}</time>
+  </div>
+  <h3 class="font-heading font-bold text-[color:var(--color-font-main)] leading-snug {% if size == 'large' %}text-2xl lg:text-3xl{% else %}text-base{% endif %}">
+    <a href="{{ post.get_absolute_url }}" class="hover:text-[color:var(--color-accent)] transition">{{ post.title }}</a>
+  </h3>
+</article>

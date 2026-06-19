@@ -1,0 +1,18 @@
+{% comment %}Feed row. Expects: post.{% endcomment %}
+<article class="py-6 flex items-start gap-4">
+  <a href="{{ post.get_absolute_url }}" class="shrink-0 w-24 h-16 sm:w-32 sm:h-20 rounded overflow-hidden block relative bg-gray-100">
+    {% include "news/includes/spotlight_post_image.html" with post=post %}
+  </a>
+  <div class="flex-1 min-w-0">
+    <div class="flex items-center gap-2 mb-1">
+      {% if post.content_type != "article" %}{% include "news/components/content_type_badge.html" with post=post %}{% endif %}
+      <time class="text-xs text-[color:var(--color-font-main)]/40">{{ post.publish_date|date:"M j, Y" }}</time>
+    </div>
+    <h2 class="text-base font-semibold text-[color:var(--color-font-main)] leading-snug mb-1">
+      <a href="{{ post.get_absolute_url }}" class="hover:text-[color:var(--color-accent)] transition">{{ post.title }}</a>
+    </h2>
+    <p class="text-sm text-[color:var(--color-font-main)]/60 leading-relaxed line-clamp-2">
+      {{ post.content|striptags|truncatewords:20|safe }}
+    </p>
+  </div>
+</article>

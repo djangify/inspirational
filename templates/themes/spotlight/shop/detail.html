@@ -1,0 +1,22 @@
+{% extends "shop/detail.html" %}
+{# Spotlight theme: inject minimal Inter palette via CSS vars, keep all existing layout and functionality. #}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --color-accent:    #0F766E;
+    --color-font-main: #111827;
+    --color-surface:   #f3f4f6;
+    --color-bg:        #ffffff;
+  }
+  body { background-color: var(--color-bg); color: var(--color-font-main); font-family: 'Inter', system-ui, sans-serif; }
+  h1, h2, h3, h4 { font-family: 'Inter', system-ui, sans-serif; letter-spacing: -0.02em; }
+  /* Teal → spotlight accent on key interactive elements */
+  .bg-teal-700, .hover\:bg-teal-800:hover { background-color: var(--color-accent) !important; }
+  .text-teal-700 { color: var(--color-accent) !important; }
+  .border-teal-700 { border-color: var(--color-accent) !important; }
+</style>
+{% endblock %}

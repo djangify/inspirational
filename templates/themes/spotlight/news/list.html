@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load static %}
+{% load filters %}
+{% load news_tags %}
+{% load spotlight_tags %}
+
+{% block title %}Blog – Inspirational Guidance{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --color-accent:    #0F766E;
+    --color-font-main: #111827;
+    --color-surface:   #f3f4f6;
+    --color-bg:        #ffffff;
+  }
+  body { background-color: var(--color-bg); color: var(--color-font-main); font-family: 'Inter', system-ui, sans-serif; }
+  h1, h2, h3, h4, .font-heading { font-family: 'Inter', system-ui, sans-serif; letter-spacing: -0.02em; }
+  @media (min-width: 1024px) {
+    .spotlight-hero-feature {
+      border-left: 1px solid #e5e7eb;
+      border-right: 1px solid #e5e7eb;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+{% recent_products 5 as spotlight_sidebar %}
+
+<!-- Masthead -->
+<div class="bg-white pt-10 pb-6 px-6 md:px-16">
+  <div class="max-w-6xl mx-auto">
+    <p class="text-xs font-semibold uppercase tracking-widest text-[color:var(--color-accent)] mb-1">Inspirational Guidance</p>
+    <h1 class="text-3xl md:text-5xl font-bold text-[color:var(--color-font-main)] leading-tight">Blog</h1>
+  </div>
+</div>
+
+<!-- Section tabs -->
+<div class="bg-white border-b border-[color:var(--color-font-main)]/10">
+  <div class="max-w-6xl mx-auto px-6 md:px-16">
+    <nav class="flex gap-0 -mb-px overflow-x-auto">
+      {% for label, type_val in section_tabs %}
+      <a href="{% if type_val %}?type={{ type_val }}{% else %}{% url 'news:list' %}{% endif %}"
+         class="shrink-0 px-5 py-4 text-sm font-semibold uppercase tracking-widest border-b-2 transition {% if active_type == type_val %}border-[color:var(--color-accent)] text-[color:var(--color-accent)]{% else %}border-transparent text-[color:var(--color-font-main)]/50 hover:text-[color:var(--color-accent)] hover:border-[color:var(--color-accent)]/40{% endif %}">{{ label }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</div>
+
+<div class="max-w-6xl mx-auto px-6 md:px-16 py-10">
+
+  <!-- Search -->
+  <form method="get" action="{% url 'news:list' %}" role="search" class="mb-10 max-w-md">
+    <label class="sr-only" for="blog-search">Search the blog</label>
+    <div class="flex">
+      <input id="blog-search" type="search" name="q" value="{{ query }}" placeholder="Search…"
+             class="w-full px-3 py-2 text-sm border border-[color:var(--color-font-main)]/15 rounded-l bg-white focus:outline-none focus:border-[color:var(--color-accent)]">
+      <button type="submit" class="px-4 py-2 bg-[color:var(--color-accent)] text-white rounded-r text-sm font-medium hover:opacity-90 transition">Go</button>
+    </div>
+  </form>
+
+  {% if not active_type and not query %}
+    {% with hero=featured_posts recentrow=posts.object_list|slice:":4" %}
+
+    <!-- ===== HERO: featured posts (big centre, two each side) ===== -->
+    {% if hero %}
+    <section class="mb-14">
+      <div class="grid gap-8 lg:grid-cols-4 items-start">
+        <div class="space-y-8 order-2 lg:order-1">
+          {% if hero.1 %}{% include "news/includes/spotlight_hero_card.html" with post=hero.1 size="small" %}{% endif %}
+          {% if hero.2 %}{% include "news/includes/spotlight_hero_card.html" with post=hero.2 size="small" %}{% endif %}
+        </div>
+        {% if hero.0 %}
+        <div class="order-1 lg:order-2 lg:col-span-2 spotlight-hero-feature">
+          {% include "news/includes/spotlight_hero_card.html" with post=hero.0 size="large" %}
+        </div>
+        {% endif %}
+        <div class="space-y-8 order-3">
+          {% if hero.3 %}{% include "news/includes/spotlight_hero_card.html" with post=hero.3 size="small" %}{% endif %}
+          {% if hero.4 %}{% include "news/includes/spotlight_hero_card.html" with post=hero.4 size="small" %}{% endif %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- ===== RECENT row ===== -->
+    {% if recentrow %}
+    <section class="mb-14 pt-10 border-t border-[color:var(--color-font-main)]/10">
+      <h2 class="text-xs font-semibold uppercase tracking-widest text-[color:var(--color-font-main)]/50 mb-6">Recent</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {% for post in recentrow %}
+          {% include "news/includes/spotlight_recent_card.html" with post=post %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% endwith %}
+  {% endif %}
+
+  <!-- ===== LOWER: post feed + products sidebar ===== -->
+  <div class="lg:grid lg:grid-cols-3 lg:gap-12 pt-10 border-t border-[color:var(--color-font-main)]/10">
+
+    <!-- LEFT: post feed -->
+    <div class="lg:col-span-2">
+      <div class="divide-y divide-[color:var(--color-font-main)]/10">
+        {% if not active_type and not query %}
+          {% for post in posts.object_list|slice:"4:" %}
+            {% include "news/includes/spotlight_post_row.html" with post=post %}
+          {% empty %}
+            <p class="py-10 text-[color:var(--color-font-main)]/40 text-sm">That's everything for now.</p>
+          {% endfor %}
+        {% else %}
+          {% for post in posts %}
+            {% include "news/includes/spotlight_post_row.html" with post=post %}
+          {% empty %}
+            <p class="py-12 text-center text-[color:var(--color-font-main)]/40 text-sm">No posts found.</p>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      <!-- Pagination -->
+      {% if posts.has_other_pages %}
+      <div class="flex justify-between items-center pt-10 text-sm text-[color:var(--color-font-main)]/60">
+        {% if posts.has_previous %}
+          <a href="?{% if active_type %}type={{ active_type }}&{% endif %}{% if query %}q={{ query }}&{% endif %}page={{ posts.previous_page_number }}" class="hover:text-[color:var(--color-accent)] transition">← Older</a>
+        {% else %}<span></span>{% endif %}
+        <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+        {% if posts.has_next %}
+          <a href="?{% if active_type %}type={{ active_type }}&{% endif %}{% if query %}q={{ query }}&{% endif %}page={{ posts.next_page_number }}" class="hover:text-[color:var(--color-accent)] transition">Newer →</a>
+        {% else %}<span></span>{% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- RIGHT: latest products sidebar -->
+    {% if spotlight_sidebar %}
+    <aside class="mt-12 lg:mt-0 lg:col-span-1">
+      <div class="lg:sticky lg:top-8">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-[color:var(--color-font-main)]/50 mb-5 pb-3 border-b border-[color:var(--color-font-main)]/10">Latest products</h2>
+        <ul class="space-y-5 list-none pl-0 m-0">
+          {% for product in spotlight_sidebar %}
+          <li class="list-none">
+            <a href="{{ product.get_absolute_url }}" class="group flex items-center gap-3">
+              <span class="shrink-0 w-14 h-14 rounded overflow-hidden bg-gray-50 block">
+                {% if product.get_image_url %}
+                <img src="{{ product.get_image_url }}" alt="{{ product.title }}" class="w-full h-full object-cover group-hover:opacity-90 transition" loading="lazy">
+                {% endif %}
+              </span>
+              <span class="min-w-0">
+                <span class="block text-sm text-[color:var(--color-font-main)] leading-snug line-clamp-2 group-hover:text-[color:var(--color-accent)] transition">{{ product.title }}</span>
+                <span class="block text-sm font-medium text-[color:var(--color-font-main)] mt-0.5">{{ site_settings.currency_symbol|default:"£" }}{{ product.current_price|floatformat:2 }}</span>
+              </span>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        <a href="{% url 'shop:product_list' %}" class="inline-block mt-6 text-sm font-medium text-[color:var(--color-accent)] hover:underline">View all products →</a>
+      </div>
+    </aside>
+    {% endif %}
+
+  </div>
+
+</div>
+{% endblock %}

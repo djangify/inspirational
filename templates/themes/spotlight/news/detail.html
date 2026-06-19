@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+{% load news_tags %}
+
+{% block title %}{{ post.meta_title|default:post.title }} | Inspirational Guidance{% endblock %}
+
+{% block meta_description %}{{ post.meta_description|default:post.content|striptags|truncatechars:160 }}{% endblock %}
+
+{% block open_graph_tags %}{% include 'news/components/article_og.html' %}{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --color-accent:    #0F766E;
+    --color-font-main: #111827;
+    --color-surface:   #f3f4f6;
+    --color-bg:        #ffffff;
+  }
+  body { background-color: var(--color-bg); color: var(--color-font-main); font-family: 'Inter', system-ui, sans-serif; }
+  .font-heading { font-family: 'Inter', system-ui, sans-serif; letter-spacing: -0.02em; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% if request.user.is_superuser %}
+<div class="bg-yellow-50 border-b border-yellow-200 px-4 py-2 text-sm flex justify-between items-center">
+  <span class="text-yellow-800">Admin: <strong>{{ post.title }}</strong></span>
+  <a href="/admin/news/post/{{ post.id }}/change/" class="bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-medium px-3 py-1 rounded text-xs">Edit Article</a>
+</div>
+{% endif %}
+
+{% if request.GET.preview == "1" and request.user.is_staff %}
+<div class="bg-yellow-100 text-yellow-900 text-center py-3 px-6 font-bold">⚠️ Draft Preview</div>
+{% endif %}
+
+<div class="h-1 bg-[color:var(--color-accent)] w-full"></div>
+
+<div class="max-w-6xl mx-auto px-6 md:px-16 pt-8">
+  {% include 'news/components/breadcrumb.html' %}
+</div>
+
+<!-- Hero media -->
+{% if post.content_type == "video" and post.video_url %}
+<div class="w-full bg-stone-950">
+  <div class="max-w-5xl mx-auto">
+    {% video_embed post.video_url %}
+  </div>
+</div>
+{% elif post.content_type == "audio" and post.audio_file %}
+{# uploaded file — show full player card below article header #}
+{% elif post.content_type == "audio" and post.audio_url %}
+<div class="max-w-5xl mx-auto px-6 md:px-16 pt-8">
+  {% audio_embed post.audio_url %}
+</div>
+{% elif post.get_image_url %}
+<div class="max-w-6xl mx-auto px-6 md:px-16 pt-8">
+  <img src="{{ post.get_image_url }}" alt="{{ post.title }}"
+       class="w-full h-auto rounded-lg">
+</div>
+{% elif post.youtube_url and post.get_youtube_embed_url %}
+<div class="w-full bg-stone-950">
+  <div class="max-w-5xl mx-auto aspect-video">
+    <iframe src="{{ post.get_youtube_embed_url }}" class="w-full h-full" frameborder="0"
+            loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+{% endif %}
+
+<div class="max-w-6xl mx-auto px-6 md:px-16 py-12">
+  <div class="flex flex-col lg:flex-row gap-12">
+
+    <!-- Article -->
+    <article class="flex-1 min-w-0 max-w-2xl">
+
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        {% include "news/components/content_type_badge.html" with post=post %}
+        {% if post.category %}
+        <a href="{{ post.category.get_absolute_url }}"
+           class="text-xs uppercase tracking-widest text-[color:var(--color-accent)] font-semibold hover:underline">{{ post.category.name }}</a>
+        <span class="opacity-30 text-xs">·</span>
+        {% endif %}
+        <span class="text-xs text-[color:var(--color-font-main)]/50">{{ post.publish_date|date:"F j, Y" }}</span>
+        {% if post.content_updated %}
+        <span class="opacity-30 text-xs">·</span>
+        <span class="text-xs italic text-[color:var(--color-font-main)]/50">Updated {{ post.content_updated|date:"F j, Y" }}</span>
+        {% endif %}
+      </div>
+
+      <h1 class="font-heading text-4xl md:text-5xl font-bold text-[color:var(--color-font-main)] leading-tight mb-8">
+        {{ post.title }}
+      </h1>
+
+      <!-- Audio player card for uploaded files -->
+      {% if post.content_type == "audio" and post.audio_file %}
+      {% include "news/components/audio_player_card.html" with post=post %}
+      {% endif %}
+
+      <div class="page-content prose-lg leading-loose text-[color:var(--color-font-main)] max-w-none">
+        {{ post.content|safe }}
+      </div>
+
+      <!-- Topic tags -->
+      {% if post.tags.all %}
+      <div class="mt-8 pt-6 border-t border-[color:var(--color-font-main)]/10">
+        {% include "news/components/post_tags.html" with post=post %}
+      </div>
+      {% endif %}
+
+      <!-- Share buttons -->
+      {% include 'components/social_share.html' %}
+
+      <!-- Author profile (E-E-A-T) -->
+      {% include "news/components/author_bio.html" %}
+
+      <!-- Resource download -->
+      {% if post.resource_type != 'none' and post.resource %}
+      <div class="mt-10 p-6 border-l-4 border-[color:var(--color-accent)] bg-[color:var(--color-surface)] rounded-r">
+        <h3 class="font-heading text-xl font-bold mb-2">Download</h3>
+        <p class="mb-4 text-[color:var(--color-font-main)]/80">{{ post.resource_title|default:post.title }}</p>
+        <a href="{{ post.resource.url }}" download="{{ post.resource_title|default:post.title }}"
+           class="inline-flex items-center gap-2 px-5 py-2.5 bg-[color:var(--color-accent)] text-white font-semibold rounded hover:opacity-90 transition">
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          Download {{ post.get_resource_type_display }}
+        </a>
+      </div>
+      {% endif %}
+
+      <!-- Ad -->
+      {% include "news/components/blogads.html" with post=post %}
+
+      <!-- Extras: prev/next + related -->
+      {% include "news/components/extras.html" %}
+
+    </article>
+
+    <!-- Products sidebar -->
+    {% include "news/components/products_sidebar.html" %}
+
+  </div>
+</div>
+
+{% include "news/components/article_schema.html" %}
+
+{% endblock %}
