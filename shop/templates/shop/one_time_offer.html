@@ -19,6 +19,16 @@
   .oto-body strong, .oto-body b { font-weight: 700; }
   .oto-body em, .oto-body i { font-style: italic; }
   .oto-body a { text-decoration: underline; }
+  .oto-body h2, .oto-body h3 { font-weight: 700; margin: 1.5rem 0 0.5rem; line-height: 1.25; }
+  .oto-body h2 { font-size: 1.35rem; }
+  .oto-body h3 { font-size: 1.15rem; }
+  .oto-body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.25rem auto;
+    border-radius: 0.5rem;
+  }
 </style>
 
 <section class="w-full bg-gray-50 py-12 px-4">
@@ -59,24 +69,23 @@
       </div>
 
       <!-- Offer item + pitch -->
-      <div class="p-8 sm:p-10 flex flex-col sm:flex-row gap-6 border-b border-gray-100">
+      <div class="px-5 py-8 sm:px-10 sm:py-10 border-b border-gray-100">
         {% if offer.image %}
           <img src="{{ offer.image.url }}" alt="{{ offer.title }}"
-               class="w-48 h-48 object-cover rounded-lg flex-shrink-0">
+               class="block w-full max-w-xl h-auto mx-auto rounded-lg mb-8">
         {% endif %}
 
-        <div class="flex-1 min-w-0">
-          <h2 class="text-xl font-semibold text-gray-900 mb-2">{{ offer.title }}</h2>
-          {% if offer.body %}
-            <div class="oto-body text-sm leading-relaxed text-gray-700 mb-4">{{ offer.body|safe }}</div>
-          {% endif %}
+        <h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-5 text-center">{{ offer.title }}</h2>
 
-          <div class="flex items-baseline gap-3">
-            <span class="text-3xl font-bold text-gray-900">{{ sym }}{{ offer_price|floatformat:2 }}</span>
-            {% if has_special_price %}
-              <span class="text-lg text-gray-400 line-through">{{ sym }}{{ normal_price|floatformat:2 }}</span>
-            {% endif %}
-          </div>
+        {% if offer.body %}
+          <div class="oto-body text-base leading-relaxed text-gray-700">{{ offer.body|safe }}</div>
+        {% endif %}
+
+        <div class="flex flex-wrap items-baseline justify-center gap-3 mt-8">
+          <span class="text-4xl font-bold text-gray-900">{{ sym }}{{ offer_price|floatformat:2 }}</span>
+          {% if has_special_price %}
+            <span class="text-xl text-gray-400 line-through">{{ sym }}{{ normal_price|floatformat:2 }}</span>
+          {% endif %}
         </div>
       </div>
 
