@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}A special offer | Inspirational Guidance{% endblock %}
+{% block meta_description %}A one-time offer, just for you.{% endblock %}
+
+{% block extra_head %}
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block content %}
+{% with sym=site_settings.currency_symbol|default:"£" %}
+<style>
+  .oto-body p { margin: 0 0 0.75rem; }
+  .oto-body ul, .oto-body ol { margin: 0 0 0.75rem 1.25rem; padding-left: 1rem; }
+  .oto-body ul { list-style: disc; }
+  .oto-body ol { list-style: decimal; }
+  .oto-body li { margin-bottom: 0.25rem; }
+  .oto-body strong, .oto-body b { font-weight: 700; }
+  .oto-body em, .oto-body i { font-style: italic; }
+  .oto-body a { text-decoration: underline; }
+</style>
+
+<section class="w-full bg-gray-50 py-12 px-4">
+  <div class="max-w-3xl mx-auto">
+
+    {% if preview %}
+    <div class="mb-6 rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 text-amber-800 text-sm text-center">
+      👁 Preview mode (staff only) — this is how the offer page looks. Don't submit a real payment here.
+    </div>
+    {% endif %}
+
+    {% if messages %}
+      {% for message in messages %}
+      <div class="mb-6 rounded-lg bg-blue-50 border border-blue-200 px-4 py-3 text-blue-800 text-sm text-center">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    <div class="bg-white rounded-2xl border border-gray-900 shadow-lg overflow-hidden">
+
+      <!-- Offer header -->
+      <div class="p-8 sm:p-10 border-b border-gray-100 text-center">
+        <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">
+          One-time offer
+        </p>
+        <h1 class="text-3xl font-bold text-gray-900 mb-3">{{ offer.headline }}</h1>
+        {% if offer.subheadline %}
+        <p class="text-lg text-gray-600 mb-2">{{ offer.subheadline }}</p>
+        {% endif %}
+
+        {% if offer.show_timer %}
+        <div id="oto-timer" class="inline-flex items-center gap-2 mt-3 text-sm font-semibold text-red-600">
+          <span>⏳ This offer expires in</span>
+          <span id="oto-countdown" class="tabular-nums">--:--</span>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Offer item + pitch -->
+      <div class="p-8 sm:p-10 flex flex-col sm:flex-row gap-6 border-b border-gray-100">
+        {% if offer.image %}
+          <img src="{{ offer.image.url }}" alt="{{ offer.title }}"
+               class="w-48 h-48 object-cover rounded-lg flex-shrink-0">
+        {% endif %}
+
+        <div class="flex-1 min-w-0">
+          <h2 class="text-xl font-semibold text-gray-900 mb-2">{{ offer.title }}</h2>
+          {% if offer.body %}
+            <div class="oto-body text-sm leading-relaxed text-gray-700 mb-4">{{ offer.body|safe }}</div>
+          {% endif %}
+
+          <div class="flex items-baseline gap-3">
+            <span class="text-3xl font-bold text-gray-900">{{ sym }}{{ offer_price|floatformat:2 }}</span>
+            {% if has_special_price %}
+              <span class="text-lg text-gray-400 line-through">{{ sym }}{{ normal_price|floatformat:2 }}</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment -->
+      <div class="p-8 sm:p-10">
+        <h2 class="text-lg font-semibold mb-4 text-gray-900">Payment details</h2>
+        <p class="text-sm text-gray-500 mb-4">
+          Charged to <strong>{{ request.user.email }}</strong>. Your download will appear in your account.
+        </p>
+
+        <form id="payment-form" class="space-y-4">
+          {% csrf_token %}
+          <div id="card-element" class="border border-gray-300 rounded-md p-3 mb-2"></div>
+          <div id="card-errors" class="text-red-600 text-sm" role="alert"></div>
+
+          {% if show_withdrawal_consent %}
+          <div class="flex items-start gap-3 pt-2 pb-1">
+            <input type="checkbox" id="withdrawal_consent" name="withdrawal_consent"
+                   class="mt-1 shrink-0" aria-required="true">
+            <label for="withdrawal_consent" class="text-sm text-gray-700 leading-snug">
+              <span class="text-red-600 font-semibold">* </span>{{ withdrawal_consent_text }}
+            </label>
+          </div>
+          <div id="consent-error" class="text-red-600 text-sm hidden">
+            You must tick this box to complete your purchase.
+          </div>
+          {% endif %}
+
+          <button type="submit" id="submit-button" {% if preview %}disabled{% endif %}
+                  class="w-full px-6 py-3 bg-gray-900 hover:bg-black text-white font-semibold rounded-lg transition {% if preview %}opacity-50 cursor-not-allowed{% endif %}">
+            {{ offer.button_text }} — {{ sym }}{{ offer_price|floatformat:2 }}
+          </button>
+        </form>
+
+        <!-- Decline -->
+        <div class="text-center mt-5">
+          <a href="{% url 'shop:one_time_offer_decline' %}"
+             class="text-sm text-gray-500 hover:text-gray-700 underline">
+            {{ offer.decline_text }}
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  (function () {
+    var stripe = Stripe("{{ stripe_publishable_key|escapejs }}");
+    var elements = stripe.elements();
+    var style = {
+      base: { fontSize: "16px", color: "#111827", "::placeholder": { color: "#9ca3af" } },
+      invalid: { color: "#dc2626", iconColor: "#dc2626" }
+    };
+    var card = elements.create("card", { style: style, hidePostalCode: true });
+    card.mount("#card-element");
+
+    var form = document.getElementById("payment-form");
+    var submitButton = document.getElementById("submit-button");
+    var errorElement = document.getElementById("card-errors");
+    var isPreview = {% if preview %}true{% else %}false{% endif %};
+
+    card.addEventListener("change", function (event) {
+      errorElement.textContent = event.error ? event.error.message : "";
+    });
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      if (isPreview) return;
+      errorElement.textContent = "";
+
+      {% if show_withdrawal_consent %}
+      var consentBox = document.getElementById("withdrawal_consent");
+      var consentError = document.getElementById("consent-error");
+      if (consentBox && !consentBox.checked) {
+        consentError.classList.remove("hidden");
+        consentBox.focus();
+        return;
+      }
+      if (consentError) consentError.classList.add("hidden");
+      {% endif %}
+
+      submitButton.disabled = true;
+      var clientSecret = "{{ client_secret|escapejs }}";
+      if (!clientSecret) {
+        errorElement.textContent = "Missing client secret. Please refresh the page.";
+        submitButton.disabled = false;
+        return;
+      }
+
+      try {
+        var result = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: card,
+            billing_details: {
+              name: "{{ request.user.first_name|escapejs }} {{ request.user.last_name|escapejs }}",
+              email: "{{ request.user.email|escapejs }}"
+            }
+          }
+        });
+        if (result.error) {
+          errorElement.textContent = result.error.message;
+          submitButton.disabled = false;
+        } else if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
+          window.location.href = "{% url 'shop:one_time_offer_success' %}?payment_intent=" + result.paymentIntent.id;
+        } else {
+          errorElement.textContent = "Payment did not succeed. Please try again.";
+          submitButton.disabled = false;
+        }
+      } catch (err) {
+        errorElement.textContent = err.message || "Unexpected error. Please try again.";
+        submitButton.disabled = false;
+      }
+    });
+
+    {% if offer.show_timer %}
+    (function () {
+      var remaining = {{ offer.timer_minutes }} * 60;
+      var el = document.getElementById("oto-countdown");
+      function render() {
+        if (remaining < 0) remaining = 0;
+        var m = String(Math.floor(remaining / 60)).padStart(2, "0");
+        var s = String(remaining % 60).padStart(2, "0");
+        el.textContent = m + ":" + s;
+        if (remaining > 0) { remaining -= 1; }
+      }
+      render();
+      setInterval(render, 1000);
+    })();
+    {% endif %}
+  })();
+</script>
+{% endwith %}
+{% endblock %}

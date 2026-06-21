@@ -16,6 +16,7 @@ from .models import (
     OrderBump,
     Coupon,
     SiteSettings,
+    OneTimeOffer,
 )
 from django import forms
 
@@ -51,6 +52,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ["status", "category", "product_type", "featured", "created"]
     search_fields = ["title", "description", "public_id"]
     prepopulated_fields = {"slug": ("title",)}
+
+    def get_queryset(self, request):
+        # Hide the internal one-time-offer download record from the product list.
+        return super().get_queryset(request).filter(one_time_offer__isnull=True)
+
     readonly_fields = ["public_id", "purchase_count", "display_preview"]
     list_editable = [
         "order",
@@ -280,6 +286,85 @@ class OrderBumpAdmin(admin.ModelAdmin):
             "fields": ("headline", "description"),
         }),
     )
+
+
+@admin.register(OneTimeOffer)
+class OneTimeOfferAdmin(admin.ModelAdmin):
+    """Singleton admin for the post-registration one-time offer."""
+
+    list_display = ["__str__", "enabled", "product", "updated", "preview_link"]
+    list_editable = ["enabled"]
+
+    def _preview_url(self):
+        from django.urls import reverse
+        return f"{reverse('shop:one_time_offer')}?preview=1"
+
+    def view_on_site(self, obj):
+        return self._preview_url()
+
+    def preview_link(self, obj):
+        return format_html(
+            '<a href="{}" target="_blank">Preview</a>', self._preview_url()
+        )
+
+    preview_link.short_description = "Preview"
+
+    fieldsets = (
+        ("Offer", {
+            "fields": (
+                "enabled",
+                "title",
+                "price_pence",
+                "compare_at_pence",
+                "file",
+                "image",
+                "download_limit",
+            ),
+            "description": (
+                "Write the offer here — there's no store product to pick. Give it a "
+                "title, set the price in pence (4700 = £47.00). The file is an optional "
+                "bonus download; the main value is the bundle below. This offer is never "
+                "shown in the shop. Tick 'enabled' to switch it on."
+            ),
+        }),
+        ("Bundle — products included in this offer", {
+            "fields": ("included_products",),
+            "description": (
+                "Tick the products this offer includes. On purchase the buyer gets each "
+                "product's download AND its existing AI coach automatically — you don't "
+                "re-upload anything."
+            ),
+        }),
+        ("Copy", {
+            "fields": (
+                "headline",
+                "subheadline",
+                "body",
+                "button_text",
+                "decline_text",
+            ),
+        }),
+        ("Urgency", {
+            "fields": ("show_timer", "timer_minutes"),
+            "classes": ("collapse",),
+        }),
+    )
+
+    filter_horizontal = ("included_products",)
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "included_products":
+            # Don't offer the offer's own hidden record as a choice.
+            kwargs["queryset"] = Product.objects.filter(one_time_offer__isnull=True)
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
+
+    def has_add_permission(self, request):
+        if OneTimeOffer.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(Coupon)

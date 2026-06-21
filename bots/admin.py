@@ -11,10 +11,10 @@ class BotKnowledgeInline(admin.TabularInline):
 
 @admin.register(BotProduct)
 class BotProductAdmin(admin.ModelAdmin):
-    list_display = ['product', 'bot_name', 'message_limit', 'access_days', 'is_active']
-    list_filter = ['is_active']
+    list_display = ['product', 'bot_name', 'model', 'message_limit', 'access_days', 'is_active']
+    list_filter = ['is_active', 'model']
     search_fields = ['product__title', 'bot_name']
-    readonly_fields = ['created', 'updated']
+    readonly_fields = ['created', 'updated', 'knowledge_size']
     inlines = [BotKnowledgeInline]
 
     fieldsets = (
@@ -25,6 +25,15 @@ class BotProductAdmin(admin.ModelAdmin):
             'fields': ('welcome_message', 'system_prompt'),
             'classes': ('wide',)
         }),
+        ('Model & cost', {
+            'fields': ('model', 'max_tokens', 'knowledge_size'),
+            'description': (
+                'Haiku costs about a third of Sonnet to run and is well suited to '
+                'answering from a workbook PDF. The knowledge size below is sent on every '
+                "message — keep it small (ideally one PDF) to keep costs down and to stay "
+                "inside the model's context window."
+            ),
+        }),
         ('Access Settings', {
             'fields': ('message_limit', 'access_days')
         }),
@@ -33,6 +42,36 @@ class BotProductAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+    def knowledge_size(self, obj):
+        """Estimate the token size of the attached PDFs and warn if large."""
+        if obj is None or not obj.pk:
+            return "Save the bot first; attached files are then measured here."
+        try:
+            from pypdf import PdfReader
+        except Exception:
+            return "Install pypdf to see the size estimate."
+        chars = 0
+        files = 0
+        for kf in obj.knowledge_files.all():
+            try:
+                reader = PdfReader(kf.knowledge_file.path)
+                chars += sum(len(p.extract_text() or "") for p in reader.pages)
+                files += 1
+            except Exception:
+                continue
+        tokens = chars // 4
+        if tokens < 25_000:
+            colour, note = "green", "good — cheap and well within the context window"
+        elif tokens < 100_000:
+            colour, note = "orange", "getting large — consider fewer / shorter PDFs"
+        else:
+            colour, note = "red", "too large — likely to exceed the context window and cost a lot per message"
+        return format_html(
+            '<strong style="color:{}">~{} tokens</strong> across {} file(s) — {}',
+            colour, f"{tokens:,}", files, note,
+        )
+    knowledge_size.short_description = "Knowledge size (sent every message)"
 
 
 @admin.register(BotAccess)

@@ -85,7 +85,10 @@ class ShopProductSitemap(Sitemap):
     priority = 0.9
 
     def items(self):
-        return Product.objects.filter(status="publish", is_active=True)
+        from shop.models import OneTimeOffer
+        return Product.objects.filter(
+            status="publish", is_active=True
+        ).exclude(id__in=OneTimeOffer.hidden_product_ids())
 
     def lastmod(self, obj):
         return obj.updated

@@ -197,8 +197,8 @@ def bot_message(request, product_slug):
             system = f"{bot_product.system_prompt}{INJECTION_GUARD}"
 
         response = client.messages.create(
-            model="claude-sonnet-4-5",
-            max_tokens=1000,
+            model=bot_product.model,
+            max_tokens=bot_product.max_tokens,
             system=system,
             messages=messages,
             extra_headers={"anthropic-beta": "prompt-caching-2024-07-31"}

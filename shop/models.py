@@ -636,3 +636,228 @@ class SiteSettings(models.Model):
     def get_settings(cls):
         obj, _ = cls.objects.get_or_create(pk=1)
         return obj
+
+
+# ============================================================
+# ONE-TIME OFFER  (post-registration tripwire)
+# ============================================================
+
+class OneTimeOffer(models.Model):
+    """
+    Singleton. A post-registration one-time offer shown once, on a user's first
+    login after email verification, instead of the dashboard.
+
+    The offer is fully self-contained: you write the copy, set the price, and
+    upload the downloadable file right here — there is NO store product to pick.
+    Behind the scenes it keeps a single hidden, unpublished Product (`product`,
+    set automatically and never edited directly) so that purchases, downloads
+    and the customer's account all work through the existing order system. That
+    hidden record is never shown in the shop.
+    """
+
+    enabled = models.BooleanField(
+        default=False,
+        help_text="Tick to show the one-time offer to eligible users on their next login.",
+    )
+
+    # ---- The offer itself (no store product needed) ----
+    title = models.CharField(
+        max_length=200,
+        default="",
+        help_text="Name of what they're buying (shown as the item title).",
+    )
+    price_pence = models.PositiveIntegerField(
+        default=700,
+        help_text="Price they pay, in pence (e.g. 700 = £7.00).",
+    )
+    compare_at_pence = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text="Optional 'normal' price in pence, shown with a line through it for contrast.",
+    )
+    file = models.FileField(
+        upload_to="products/files/",
+        null=True,
+        blank=True,
+        storage=secure_storage,
+        help_text="The downloadable file (PDF or ZIP) the buyer receives. Upload it here.",
+    )
+    image = models.ImageField(
+        upload_to="products/images/",
+        null=True,
+        blank=True,
+        storage=public_storage,
+        help_text="Optional image shown alongside the offer.",
+    )
+    download_limit = models.PositiveIntegerField(
+        default=5,
+        help_text="How many times the buyer can download the file.",
+    )
+
+    # Bundle: existing shop products this offer includes. Buyers get each
+    # product's download AND its existing AI coach — nothing is re-uploaded.
+    included_products = models.ManyToManyField(
+        Product,
+        blank=True,
+        related_name="in_one_time_offers",
+        help_text=(
+            "Tick the products this offer includes. On purchase the buyer gets "
+            "each product's download and its existing AI coach — no need to "
+            "re-upload anything."
+        ),
+    )
+
+    # Copy
+    headline = models.CharField(
+        max_length=200,
+        default="A one-time offer, just for you",
+    )
+    subheadline = models.CharField(max_length=300, blank=True, default="")
+    body = HTMLField(
+        blank=True,
+        help_text="Sales pitch shown under the headline.",
+    )
+    button_text = models.CharField(
+        max_length=80,
+        default="Yes, add this to my account",
+    )
+    decline_text = models.CharField(
+        max_length=80,
+        default="No thanks, take me to my dashboard",
+    )
+
+    # Urgency
+    show_timer = models.BooleanField(
+        default=False,
+        help_text="Show a countdown timer on the offer page.",
+    )
+    timer_minutes = models.PositiveIntegerField(
+        default=15,
+        help_text="Countdown length in minutes (visual urgency only).",
+    )
+
+    # Internal: the hidden download record. Managed automatically — do not edit.
+    product = models.OneToOneField(
+        Product,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        editable=False,
+        related_name="one_time_offer",
+    )
+
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "One-Time Offer"
+        verbose_name_plural = "One-Time Offer"
+
+    def __str__(self):
+        return "One-Time Offer"
+
+    def save(self, *args, **kwargs):
+        # Enforce singleton
+        if not self.pk and OneTimeOffer.objects.exists():
+            raise ValueError("Only one OneTimeOffer instance is allowed.")
+        super().save(*args, **kwargs)
+        self._sync_hidden_product()
+
+    def _sync_hidden_product(self):
+        """
+        Keep the hidden, unpublished Product in sync with the offer so the
+        existing order/download/account system can deliver the file. The hidden
+        product stays status='draft' and inactive, so it never appears in the
+        shop, on the homepage, or under any category.
+        """
+        # A dedicated, unpublished holder category (reuse if it exists).
+        category = (
+            Category.objects.filter(slug="one-time-offer").first()
+            or Category.objects.create(
+                name="One-Time Offer", slug="one-time-offer",
+                description="Internal — holds the one-time offer download. Not shown in the shop.",
+            )
+        )
+
+        product = self.product or Product()
+        product.title = self.title or "One-Time Offer"
+        product.category = category
+        product.product_type = "download"
+        # status='draft' keeps it out of the shop everywhere (every catalog query
+        # filters status in publish/soon/full). We keep is_active=True so the
+        # bots system can attach an AI coach to it (bot_chat requires an active
+        # product); 'draft' alone still guarantees it never shows in the shop.
+        product.status = "draft"
+        product.is_active = True
+        product.featured = False
+        product.price_pence = self.price_pence
+        product.sale_price_pence = None
+        product.download_limit = self.download_limit
+        if not product.description:
+            product.description = self.body or self.title or "One-Time Offer"
+        # Point the hidden product at the same uploaded file/image (no copy).
+        product.files.name = self.file.name if self.file else ""
+        product.preview_image.name = self.image.name if self.image else ""
+        product.save()
+
+        if self.product_id != product.id:
+            # Link without re-triggering the full save/sync loop.
+            OneTimeOffer.objects.filter(pk=self.pk).update(product=product)
+            self.product = product
+
+    @property
+    def price(self):
+        """Charge amount in pounds."""
+        return Decimal(self.price_pence) / 100
+
+    @property
+    def has_special_price(self):
+        """True if a 'normal' compare-at price is set above the offer price."""
+        return bool(self.compare_at_pence and self.compare_at_pence > self.price_pence)
+
+    @property
+    def normal_price(self):
+        """The compare-at price in pounds, for the strikethrough."""
+        if self.compare_at_pence:
+            return Decimal(self.compare_at_pence) / 100
+        return self.price
+
+    def is_eligible_for(self, user):
+        """
+        Should this user see the offer right now?
+        Gated so it can only ever show once (via UserProfile.oto_seen_at).
+        """
+        if not self.enabled:
+            return False
+        if not user or not user.is_authenticated:
+            return False
+        if user.is_staff or user.is_superuser:
+            return False
+        # The offer must deliver something: either its own file, or bundled
+        # products. (The file is optional now that offers can be a bundle.)
+        has_deliverable = bool(self.file) or self.included_products.exists()
+        if not has_deliverable or not self.product:
+            return False
+
+        profile = getattr(user, "profile", None)
+        if profile is not None and profile.oto_seen_at is not None:
+            return False
+
+        already_owns = OrderItem.objects.filter(
+            order__user=user, product=self.product, order__status="completed"
+        ).exists()
+        if already_owns:
+            return False
+
+        return True
+
+    @classmethod
+    def hidden_product_ids(cls):
+        """
+        Product ids reserved for an enabled one-time offer. The hidden product
+        is already unpublished/inactive (so excluded from the catalog), but we
+        also exclude it explicitly as belt-and-braces.
+        """
+        return list(
+            cls.objects.filter(product__isnull=False)
+            .values_list("product_id", flat=True)
+        )

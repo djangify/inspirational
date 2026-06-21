@@ -30,6 +30,22 @@ class BotProduct(models.Model):
         default=60,
         help_text="Number of days access is granted after purchase (60 for individual, 90 for bundles)"
     )
+
+    MODEL_CHOICES = [
+        ("claude-haiku-4-5-20251001", "Haiku 4.5 — recommended"),
+        ("claude-sonnet-4-5", "Sonnet — more capable"),
+    ]
+    model = models.CharField(
+        max_length=64,
+        choices=MODEL_CHOICES,
+        default="claude-haiku-4-5-20251001",
+        help_text="Which Claude model this coach uses. Haiku keeps running costs down and is well suited to answering from a workbook PDF.",
+    )
+    max_tokens = models.PositiveIntegerField(
+        default=1000,
+        help_text="Maximum length of each reply, in tokens. Lower = shorter, cheaper answers.",
+    )
+
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

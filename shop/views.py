@@ -1,5 +1,5 @@
 # shop/views.py
-from .models import Category, Product, Order, OrderItem, ShopSettings, OrderBump, Coupon
+from .models import Category, Product, Order, OrderItem, ShopSettings, OrderBump, Coupon, OneTimeOffer
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -36,7 +36,7 @@ def product_list(request):
 
     products = Product.objects.filter(
         is_active=True, status__in=["publish", "soon", "full"]
-    ).order_by("order", "-created")
+    ).exclude(id__in=OneTimeOffer.hidden_product_ids()).order_by("order", "-created")
 
     if query:
         products = products.filter(
@@ -64,11 +64,16 @@ def product_detail(request, slug):
         Product, slug=slug, is_active=True, status__in=["publish", "soon", "full"]
     )
 
+    # The one-time offer product is reserved for the offer page only.
+    hidden_ids = OneTimeOffer.hidden_product_ids()
+    if product.id in hidden_ids:
+        raise Http404("Product not available.")
+
     related_products = Product.objects.filter(
         category=product.category,
         status__in=["publish", "full"],
         is_active=True,
-    ).exclude(id=product.id)[:3]
+    ).exclude(id=product.id).exclude(id__in=hidden_ids)[:3]
 
     has_purchased = False
     order_item = None
@@ -460,7 +465,7 @@ def category_list(request, slug):
     category = get_object_or_404(Category, slug=slug)
     products = Product.objects.filter(
         category=category, status__in=["publish", "soon", "full"], is_active=True
-    ).order_by("order", "-created")
+    ).exclude(id__in=OneTimeOffer.hidden_product_ids()).order_by("order", "-created")
     categories = Category.objects.all()
 
     paginator = Paginator(products, 20)
@@ -606,6 +611,169 @@ def add_review(request, product_id):
         form = ProductReviewForm()
 
     return render(request, "shop/add_review.html", {"form": form, "product": product})
+
+
+# ============================================================
+# ONE-TIME OFFER VIEWS  (post-registration tripwire)
+# ============================================================
+
+def _mark_oto_seen(user):
+    """Stamp the user's profile so the offer can never show again."""
+    profile = getattr(user, "profile", None)
+    if profile is not None and profile.oto_seen_at is None:
+        profile.oto_seen_at = timezone.now()
+        profile.save(update_fields=["oto_seen_at"])
+
+
+@login_required
+def one_time_offer(request):
+    """
+    Display the one-time offer with an embedded Stripe payment form. Marks the
+    offer as 'seen' on render so it is strictly one-time. Staff can add
+    ?preview=1 to view the page without becoming ineligible or being stamped.
+    """
+    offer = OneTimeOffer.objects.select_related("product").first()
+
+    preview = request.GET.get("preview") == "1" and request.user.is_staff
+
+    # Not configured / not eligible -> straight to the dashboard.
+    if not offer or (not preview and not offer.is_eligible_for(request.user)):
+        return redirect("accounts:dashboard")
+
+    product = offer.product
+
+    try:
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        intent = stripe.PaymentIntent.create(
+            amount=offer.price_pence,
+            currency="usd",
+            payment_method_types=["card"],
+            metadata={
+                "user_id": str(request.user.id),
+                "oto": "1",
+                "product_id": str(product.id),
+            },
+            receipt_email=request.user.email,
+        )
+    except stripe.error.StripeError as e:
+        logger.error(f"Stripe error building one-time offer: {str(e)}")
+        if not preview:
+            _mark_oto_seen(request.user)
+        return redirect("accounts:dashboard")
+
+    # Digital withdrawal consent (EU/UK) — reuse the shop-wide setting.
+    shop_settings = ShopSettings.objects.first()
+    show_withdrawal_consent = (
+        shop_settings.show_digital_withdrawal_consent if shop_settings else False
+    )
+    withdrawal_consent_text = (
+        shop_settings.digital_withdrawal_consent_text if shop_settings else ""
+    )
+
+    # One-time guarantee: stamp now that we have a valid intent + page to show.
+    if not preview:
+        _mark_oto_seen(request.user)
+
+    context = {
+        "offer": offer,
+        "product": product,
+        "offer_price": offer.price,
+        "normal_price": offer.normal_price,
+        "has_special_price": offer.has_special_price,
+        "client_secret": intent.client_secret,
+        "stripe_publishable_key": settings.STRIPE_PUBLISHABLE_KEY,
+        "payment_intent_id": intent.id,
+        "show_withdrawal_consent": show_withdrawal_consent,
+        "withdrawal_consent_text": withdrawal_consent_text,
+        "preview": preview,
+    }
+    return render(request, "shop/one_time_offer.html", context)
+
+
+@login_required
+def one_time_offer_success(request):
+    """
+    Stripe return target. Creates a single-item completed order for the offer
+    product, mirroring checkout.payment_success. Downloads are accessed via the
+    account — no cart involved.
+    """
+    payment_intent_id = request.GET.get("payment_intent")
+    if not payment_intent_id:
+        messages.error(request, "No payment information found.")
+        return redirect("accounts:dashboard")
+
+    try:
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        payment_intent = stripe.PaymentIntent.retrieve(payment_intent_id)
+        if payment_intent.status != "succeeded":
+            messages.error(request, "Payment was not successful.")
+            return redirect("accounts:dashboard")
+
+        # Prevent duplicate orders (also guards against the webhook racing us).
+        existing_order = Order.objects.filter(
+            payment_intent_id=payment_intent_id
+        ).first()
+        if existing_order:
+            return redirect("shop:purchases")
+
+        offer = OneTimeOffer.objects.select_related("product").first()
+        if not offer:
+            messages.error(request, "This offer is no longer available.")
+            return redirect("accounts:dashboard")
+
+        product = offer.product
+
+        order = Order.objects.create(
+            user=request.user,
+            email=request.user.email,
+            payment_intent_id=payment_intent_id,
+            paid=True,
+            status="completed",
+        )
+
+        OrderItem.objects.create(
+            order=order,
+            product=product,
+            price_paid_pence=offer.price_pence,
+            quantity=1,
+        )
+
+        product.purchase_count += 1
+        product.save()
+
+        # Bundle: unlock every included product (download + existing AI coach)
+        # by creating a completed £0 line item for each.
+        for bundled in offer.included_products.all():
+            OrderItem.objects.create(
+                order=order,
+                product=bundled,
+                price_paid_pence=0,
+                quantity=1,
+            )
+            bundled.purchase_count += 1
+            bundled.save(update_fields=["purchase_count"])
+
+        # Confirmation emails (order + admin) — best effort.
+        try:
+            send_order_confirmation_email(order)
+            send_admin_new_order_email(order)
+        except Exception as e:
+            logger.error(f"Error sending OTO emails for order {order.order_id}: {str(e)}")
+
+        messages.success(request, "Thank you! Your purchase is in your account.")
+        return redirect("shop:purchases")
+
+    except Exception as e:
+        logger.error(f"Error in one_time_offer_success: {str(e)}")
+        messages.error(request, "There was an error processing your order.")
+        return redirect("accounts:dashboard")
+
+
+@login_required
+def one_time_offer_decline(request):
+    """Customer declined the offer. Ensure it's marked seen, go to dashboard."""
+    _mark_oto_seen(request.user)
+    return redirect("accounts:dashboard")
 
 
 # ============================================================

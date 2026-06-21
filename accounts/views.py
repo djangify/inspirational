@@ -134,11 +134,21 @@ def login_view(request):
                 messages.success(request, f"Welcome back, {username}!")
 
                 next_page = request.GET.get("next")
-                return (
-                    redirect(next_page)
-                    if next_page
-                    else redirect(settings.LOGIN_REDIRECT_URL)
-                )
+                if next_page:
+                    return redirect(next_page)
+
+                # One-time offer: on a user's first eligible login, show the
+                # offer instead of the dashboard. The offer view stamps the
+                # user so it can only ever appear once.
+                try:
+                    from shop.models import OneTimeOffer
+                    offer = OneTimeOffer.objects.first()
+                    if offer and offer.is_eligible_for(user):
+                        return redirect("shop:one_time_offer")
+                except Exception:
+                    pass
+
+                return redirect(settings.LOGIN_REDIRECT_URL)
             else:
                 messages.error(
                     request,

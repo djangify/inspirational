@@ -15,6 +15,11 @@ class UserProfile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     is_subscribed = models.BooleanField(default=True)
     mailerlite_id = models.CharField(max_length=255, blank=True, null=True)
+    oto_seen_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="When the one-time offer was first shown to this user. Set once; ensures the offer is strictly one-time.",
+    )
 
     favourite_prompts = models.ManyToManyField(
         WritingPrompt, blank=True, related_name="favorited_by"

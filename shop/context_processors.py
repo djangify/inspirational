@@ -20,13 +20,14 @@ def sidebar_products(request):
     Featured products appear first; falls back to all published if none are featured.
     """
     try:
-        from .models import Product, SiteSettings
+        from .models import Product, SiteSettings, OneTimeOffer
         settings_obj = SiteSettings.objects.first()
         count = settings_obj.sidebar_product_count if settings_obj else 5
         heading = settings_obj.sidebar_heading if settings_obj else "Featured Products"
         # featured first, then fill with other published products
         products = list(
             Product.objects.filter(status="publish")
+            .exclude(id__in=OneTimeOffer.hidden_product_ids())
             .order_by("-featured", "id")[:count]
         )
     except Exception:
