@@ -11,7 +11,8 @@
 {% block content %}
 {% with sym=site_settings.currency_symbol|default:"£" %}
 <style>
-  .oto-body p { margin: 0 0 0.75rem; }
+  .oto-body { font-size: 18px; line-height: 1.8; }
+  .oto-body p { margin: 0 0 0.9rem; }
   .oto-body ul, .oto-body ol { margin: 0 0 0.75rem 1.25rem; padding-left: 1rem; }
   .oto-body ul { list-style: disc; }
   .oto-body ol { list-style: decimal; }
@@ -78,7 +79,7 @@
         <h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-5 text-center">{{ offer.title }}</h2>
 
         {% if offer.body %}
-          <div class="oto-body text-base leading-relaxed text-gray-700">{{ offer.body|safe }}</div>
+          <div class="oto-body text-gray-700">{{ offer.body|safe }}</div>
         {% endif %}
 
         <div class="flex flex-wrap items-baseline justify-center gap-3 mt-8">
