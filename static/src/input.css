@@ -61,6 +61,7 @@
 }
 .home-container--narrow { max-width: 48rem; }
 .home-container--mid    { max-width: 64rem; }
+.home-container--wide   { max-width: 72rem; }
 
 .home-eyebrow {
   font-size: 0.75rem;
