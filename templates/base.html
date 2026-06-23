@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
    <!-- Meta Description -->
-<meta name="description" content="{% block meta_description %}Stop putting your life on hold. Inspirational Guidance helps you get back to the small, everyday moments that make life feel like yours. Start with A Live It List and begin choosing the things that make ordinary days feel alive.{% endblock %}">
-<meta name="keywords" content="{% block meta_keywords %}  intentional choices, life on hold, why am I stuck, live it list, alternative bucket list, Diane Corriette, ready to choose myself, life that feels like yours, personal growth for women, what do I want from life,   life list ideas, inspirational guidance, what makes you feel alive{% endblock %}">
+<meta name="description" content="{% block meta_description %}Stop putting your life on hold. Inspirational Guidance helps you get back to the small, everyday moments that make life feel like yours. Start with An ALIVE List and begin choosing the things that make ordinary days feel alive.{% endblock %}">
+<meta name="keywords" content="{% block meta_keywords %}  intentional choices, life on hold, why am I stuck, ALIVE List, alternative bucket list, Diane Corriette, ready to choose myself, life that feels like yours, personal growth for women, what do I want from life,   life list ideas, inspirational guidance, what makes you feel alive{% endblock %}">
 {% if site_settings and site_settings.google_search_console_verification %}<meta name="google-site-verification" content="{{ site_settings.google_search_console_verification }}" />{% else %}<meta name="google-site-verification" content="Ue5GABXu1Gj9dp1oyFy7DSN9XSH4eYXJo7rFLDB35co" />{% endif %}
 
 <!-- Preload Critical Resources -->
@@ -32,15 +32,15 @@
 <!-- Open Graph Tags -->
 {% block open_graph_tags %}
   <meta property="fb:app_id" content="2433552923679047" />
-  <meta property="og:title" content="Start Your Live It List — A List That Helps You Feel ALIVE | Inspirational Guidance" />
-  <meta property="og:description" content="A Live It List is a list of things you enjoy that helps you feel ALIVE. Big things, small things, things you're already doing and loving. Write them down. Add to them. Start yours free today." />
+  <meta property="og:title" content="Start Your ALIVE List — A List That Helps You Feel ALIVE | Inspirational Guidance" />
+  <meta property="og:description" content="An ALIVE List is a list of things you enjoy that helps you feel ALIVE. Big things, small things, things you're already doing and loving. Write them down. Add to them. Start yours free today." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/personal-development-for-women.webp' %}" />
 {% endblock %}
 
 <!-- Page Title -->
-<title>{% block title %}Live It List — An Alternative Bucket List | Inspirational Guidance{% endblock %}</title>
+<title>{% block title %}ALIVE List — An Alternative Bucket List | Inspirational Guidance{% endblock %}</title>
     {% block extra_meta %}{% endblock %}
     {% block extra_head %}{% endblock %}
     <!-- Google tag (gtag.js) -->
@@ -79,7 +79,7 @@
 
     <!-- COOKIE BANNER -->
     <div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #f8fafc; padding: 1em; text-align: center; font-size: 14px; box-shadow: 0 -1px 4px rgba(0,0,0,0.1); display: none;">
-      This website uses cookies to ensure you get the best Live It List experience.
+      This website uses cookies to ensure you get the best ALIVE List experience.
       <a href="{% url 'core:cookie_policy' %}" style="text-decoration: underline;">How We Use Cookies</a>.
       <button id="accept-cookies" style="margin-left: 1em; background-color: #216a95; color: white; border: none; padding: 0.5em 1em; cursor: pointer;">
         Accept

@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Sum, Max
 from django.views.decorators.http import require_POST
 
-from .models import ExperimentWeek, ExperimentGoal, MilestoneReflection, LiveItListItem
+from .models import ExperimentWeek, ExperimentGoal, MilestoneReflection, AliveListItem
 
 
 def experiment_results(request):
@@ -55,7 +55,7 @@ def tap_to_calm(request):
     return render(request, "tools/tap_to_calm.html")
 
 
-def live_it_list_builder(request):
+def alive_list_builder(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
@@ -72,7 +72,7 @@ def live_it_list_builder(request):
             category = data.get("category", "").strip()
             if not item_text:
                 return JsonResponse({"error": "item_text required"}, status=400)
-            item = LiveItListItem.objects.create(
+            item = AliveListItem.objects.create(
                 user=request.user,
                 item_text=item_text,
                 category=category,
@@ -81,13 +81,13 @@ def live_it_list_builder(request):
 
         elif action == "delete_item":
             item_id = data.get("item_id")
-            item = get_object_or_404(LiveItListItem, id=item_id, user=request.user)
+            item = get_object_or_404(AliveListItem, id=item_id, user=request.user)
             item.delete()
             return JsonResponse({"status": "ok"})
 
         elif action == "toggle_living_it":
             item_id = data.get("item_id")
-            item = get_object_or_404(LiveItListItem, id=item_id, user=request.user)
+            item = get_object_or_404(AliveListItem, id=item_id, user=request.user)
             item.is_living_it = not item.is_living_it
             item.save(update_fields=["is_living_it", "updated"])
             return JsonResponse({"status": "ok", "is_living_it": item.is_living_it})
@@ -98,12 +98,12 @@ def live_it_list_builder(request):
     existing_items = []
     if request.user.is_authenticated:
         existing_items = list(
-            LiveItListItem.objects.filter(user=request.user).values(
+            AliveListItem.objects.filter(user=request.user).values(
                 "id", "item_text", "category", "is_living_it", "order"
             )
         )
 
-    return render(request, "tools/live_it_list_builder.html", {
+    return render(request, "tools/alive_list_builder.html", {
         "existing_items_json": json.dumps(existing_items),
         "user_authenticated": request.user.is_authenticated,
     })

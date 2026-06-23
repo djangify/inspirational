@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
  
-{% block title %}Live It List Builder — Discover What Goes On Your List | Inspirational Guidance{% endblock %}
+{% block title %}ALIVE List Builder — Discover What Goes On Your List | Inspirational Guidance{% endblock %}
  
  
 {% block open_graph_tags %}
   <meta property="fb:app_id" content="2433552923679047" />
-  <meta property="og:title" content="Build Your Live It List — Discover What Makes You Feel Alive" />
-  <meta property="og:description" content="Answer 10 questions and discover exactly what belongs on your Live It List — the experiences that make you feel truly alive." />
+  <meta property="og:title" content="Build Your ALIVE List — Discover What Makes You Feel Alive" />
+  <meta property="og:description" content="Answer 10 questions and discover exactly what belongs on your ALIVE List — the experiences that make you feel truly alive." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/live-it-list.webp' %}" />
@@ -17,7 +17,7 @@
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/live-it-list.webp' %}" />
 {% endblock %}
  
-{% block meta_description %}Answer 10 guided questions and discover exactly what belongs on your Live It List — the list of experiences that make you feel alive.{% endblock %}
+{% block meta_description %}Answer 10 guided questions and discover exactly what belongs on your ALIVE List — the list of experiences that make you feel alive.{% endblock %}
  
 {% block content %}
 <div class="max-w-6xl mx-auto px-4 py-12 sm:py-16">
@@ -29,13 +29,13 @@
       <li><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
       <li><a href="{% url 'tools:index' %}" class="hover:text-teal-700 transition-colors">Tools</a></li>
       <li><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
-      <li class="text-gray-400">Live It List Builder</li>
+      <li class="text-gray-400">ALIVE List Builder</li>
     </ol>
   </nav>
  
   <!-- Page Header -->
   <div class="text-center mb-10">
-    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Build A Live It List</h1>
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Build An ALIVE List</h1>
     <p class="text-gray-600 text-lg max-w-2xl mx-auto">
       Ten questions. Each one unlocks something you already know but haven't written down yet. Answer each one or create your own.
        
@@ -47,7 +47,7 @@
       </svg>
       <p class="text-sm text-amber-800">
         <strong>Log in before you build your list.</strong>   Anything you add as a guest will be lost the moment you log in or leave the page.
-        <a href="{% url 'accounts:login' %}?next={% url 'tools:live_it_list_builder' %}" class="font-semibold underline underline-offset-2 hover:text-amber-900">Log in</a>
+        <a href="{% url 'accounts:login' %}?next={% url 'tools:alive_list_builder' %}" class="font-semibold underline underline-offset-2 hover:text-amber-900">Log in</a>
         or
         <a href="{% url 'accounts:register' %}" class="font-semibold underline underline-offset-2 hover:text-amber-900">register free</a>
         to start.
@@ -104,7 +104,7 @@
         <!-- Completion message (hidden until done) -->
         <div id="completion-wrap" class="hidden text-center py-4">
           <div class="text-4xl mb-4">✨</div>
-          <h2 class="text-2xl font-bold text-gray-900 mb-3">Your Live It List is taking shape.</h2>
+          <h2 class="text-2xl font-bold text-gray-900 mb-3">Your ALIVE List is taking shape.</h2>
           <p class="text-gray-600 leading-relaxed mb-6">
             These are the things that make you feel alive. Keep adding to your list whenever something sparks that feeling.
           </p>
@@ -175,12 +175,12 @@
     </div>
     <!-- end left column -->
 
-    <!-- ── RIGHT COLUMN: Live It List Panel ──────────────────────────────── -->
+    <!-- ── RIGHT COLUMN: ALIVE List Panel ──────────────────────────────── -->
     <div class="w-full lg:w-1/2">
       <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 sm:p-8 sticky top-8">
 
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-bold text-gray-900">My Live It List</h2>
+          <h2 class="text-xl font-bold text-gray-900">My ALIVE List</h2>
           <span id="item-count" class="text-sm text-gray-400 font-medium">0 items</span>
         </div>
 
@@ -195,7 +195,7 @@
         {% else %}
         <div class="mb-5 flex items-center justify-between gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
           <p class="text-sm text-amber-800">Log in to save your list to your dashboard.</p>
-          <a href="{% url 'accounts:login' %}?next={% url 'tools:live_it_list_builder' %}"
+          <a href="{% url 'accounts:login' %}?next={% url 'tools:alive_list_builder' %}"
              class="flex-shrink-0 bg-teal-700 hover:bg-teal-800 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors duration-200">
             Log in to save
           </a>
@@ -234,7 +234,7 @@
           <a href="https://inspirationalguidance.com/media/member_resources/live-it-list-template-inspirational-guidance.pdf"
              target="_blank" rel="noopener noreferrer"
              class="text-teal-700 hover:text-teal-900 text-sm font-medium underline underline-offset-2 transition-colors duration-200">
-            Download the Live It List PDF template &#8595;
+            Download the ALIVE List PDF template &#8595;
           </a>
         </div>
 
@@ -249,7 +249,7 @@
 (function () {
   const IS_AUTHENTICATED = {{ user_authenticated|yesno:"true,false" }};
   const CSRF_TOKEN = '{{ csrf_token }}';
-  const SAVE_URL = '{% url "tools:live_it_list_builder" %}';
+  const SAVE_URL = '{% url "tools:alive_list_builder" %}';
 
   const QUESTIONS = [
     {
@@ -298,7 +298,7 @@
       label: "People"
     },
     {
-      text: "Is there anything else you want on your Live It List? Add as many as you like — big, small, wild, or quiet.",
+      text: "Is there anything else you want on your ALIVE List? Add as many as you like — big, small, wild, or quiet.",
       category: "open",
       label: "My Choice",
       optional: true,
@@ -560,7 +560,7 @@
 
   // ── Session Storage (guest) ───────────────────────────────────────────────
 
-  const SESSION_KEY = 'live_it_list_items';
+  const SESSION_KEY = 'alive_list_items';
 
   function saveToSession() {
     try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(listItems)); } catch (e) {}

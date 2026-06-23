@@ -76,13 +76,13 @@ class MilestoneReflection(models.Model):
         return f"{self.get_milestone_display()} Reflection"
 
 
-# ── Live It List Builder ──────────────────────────────────────────────────────
+# ── ALIVE List Builder ──────────────────────────────────────────────────────
 
-class LiveItListItem(models.Model):
+class AliveListItem(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="live_it_list_items",
+        related_name="alive_list_items",
     )
     item_text = models.CharField(max_length=300)
     category = models.CharField(max_length=100, blank=True)

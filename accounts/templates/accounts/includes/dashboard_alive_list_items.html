@@ -1,10 +1,10 @@
 {% load static %}
-{% with items=request.user.live_it_list_items.all %}
+{% with items=request.user.alive_list_items.all %}
 
 <div class="bg-slate-50 rounded-md overflow-hidden mb-4">
   <!-- Accordion Header -->
   <button class="accordion-header w-full flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none" data-target="live-it-list-items-content">
-    <h2 class="text-lg font-semibold">My Live It List Items</h2>
+    <h2 class="text-lg font-semibold">My ALIVE List Items</h2>
     <svg class="accordion-icon h-6 w-6 transform text-gray-500 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
     </svg>
@@ -46,15 +46,15 @@
         </li>
         {% endfor %}
       </ul>
-      <a href="{% url 'tools:live_it_list_builder' %}"
+      <a href="{% url 'tools:alive_list_builder' %}"
          class="inline-block text-sm text-teal-700 hover:text-teal-900 font-medium underline underline-offset-2">
         Add more items to your list →
       </a>
     {% else %}
-      <p class="text-gray-500 text-sm mb-4">You haven't added any Live It List items yet.</p>
-      <a href="{% url 'tools:live_it_list_builder' %}"
+      <p class="text-gray-500 text-sm mb-4">You haven't added any ALIVE List items yet.</p>
+      <a href="{% url 'tools:alive_list_builder' %}"
          class="inline-block bg-teal-700 hover:bg-teal-800 text-white font-semibold py-2.5 px-5 rounded-xl text-sm transition-colors duration-200">
-        Build my Live It List
+        Build my ALIVE List
       </a>
     {% endif %}
 
@@ -64,7 +64,7 @@
 <script>
 (function () {
   const CSRF = '{{ csrf_token }}';
-  const URL  = '{% url "tools:live_it_list_builder" %}';
+  const URL  = '{% url "tools:alive_list_builder" %}';
 
   async function post(payload) {
     const r = await fetch(URL, {

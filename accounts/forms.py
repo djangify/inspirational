@@ -32,7 +32,7 @@ class UserRegistrationForm(UserCreationForm):
     subscribe = forms.BooleanField(
         required=False,
         initial=True,
-        label="Yes — send me the free “Live It List” template and occasional supportive emails.",
+        label="Yes — send me the free “ALIVE List” template and occasional supportive emails.",
     )
 
     class Meta:

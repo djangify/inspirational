@@ -11,9 +11,9 @@
 
 Welcome to the GitHub repository for [Inspirational Guidance](https://www.inspirationalguidance.com) — a calm, capable platform that helps women **stop putting their life on hold** and get back to the small, everyday moments that make life feel like theirs.
 
-This Django-powered site brings together a digital shop, AI Mentor guides, journaling prompts, a goal tracker, the A Live It List builder, a blog, and printable resources — all supporting intentional living for women navigating change, burnout, reinvention, and rediscovery.
+This Django-powered site brings together a digital shop, AI Mentor guides, journaling prompts, a goal tracker, the ALIVE List builder, a blog, and printable resources — all supporting intentional living for women navigating change, burnout, reinvention, and rediscovery.
 
-> **Core message:** Start with *A Live It List* — and begin choosing the things that make ordinary days feel alive.
+> **Core message:** Start with *An ALIVE List* — and begin choosing the things that make ordinary days feel alive.
 
 ---
 
@@ -29,7 +29,7 @@ Take a look at the getting started guide for new members.
 
 ## Core Features
 
-- ✅ **A Live It List** builder — save and revisit the things that make ordinary days feel alive
+- ✅ **An ALIVE List** builder — save and revisit the things that make ordinary days feel alive
 - ✅ **AI Mentor guides** — purchasable, knowledge-grounded chatbots powered by Anthropic Claude
 - ✅ Guided journaling prompts with categories, tags, and writing styles
 - ✅ Writing goal tracker with sessions and progress tracking
@@ -54,7 +54,7 @@ inspirational/
 ├── shop/            # Products, categories, orders, reviews, coupons, order bumps, Stripe
 ├── bots/            # AI Mentor guides — bot products, knowledge, access, conversations
 ├── prompt/          # Journaling prompts, categories, writing styles + writing goal tracker
-├── tools/           # A Live It List, Experiment Weeks, goals, milestone reflections
+├── tools/           # An ALIVE List, Experiment Weeks, goals, milestone reflections
 ├── news/            # Blog posts, categories, tags
 ├── pseo/            # Programmatic SEO landing pages
 ├── templates/       # HTML templates (Tailwind + HTMX), including themes/ and pwa/
@@ -92,8 +92,8 @@ Supporting libraries: `django-environ` (environment management), `django-tinymce
 
 ## Features Overview
 
-### A Live It List
-The signature feature. Members build and save their Live It List — the small, everyday moments worth choosing — directly from their dashboard.
+### An ALIVE List
+The signature feature. Members build and save their ALIVE List — the small, everyday moments worth choosing — directly from their dashboard.
 
 ### AI Mentor Guides
 Purchasable chatbots (the `bots` app) backed by a shop product. Each bot has its own name, welcome message, system prompt, knowledge base, message limit, and time-bound access. Bundles grant higher message limits and longer access. Conversations are stored per member, with PDF download support.

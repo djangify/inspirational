@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Start A Live It List — Free | Inspirational Guidance{% endblock %}
+{% block title %}Start An ALIVE List — Free | Inspirational Guidance{% endblock %}
 
 {% block open_graph_tags %}
-  <meta property="og:title" content="Start Your Live It List — Free | Inspirational Guidance" />
-  <meta property="og:description" content="Stop waiting for the right moment. A Live It List is simple — the things you want to do, feel, and live, written down. Free to start. No card needed." />
+  <meta property="og:title" content="Start An ALIVE List — Free | Inspirational Guidance" />
+  <meta property="og:description" content="Your days are full but something feels missing. An ALIVE List is a simple, free tool to help you deliberately choose the small moments that make ordinary days feel like yours." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://inspirationalguidance.com/" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}" />
   <meta property="og:site_name" content="Inspirational Guidance" />
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Start Your Live It List — Free | Inspirational Guidance">
-  <meta name="twitter:description" content="Stop waiting for the right moment. A Live It List is simple — the things you want to do, feel, and live, written down.">
+  <meta name="twitter:title" content="Start An ALIVE List — Free | Inspirational Guidance">
+  <meta name="twitter:description" content="Your days are full but something feels missing. An ALIVE List helps you choose the small moments that make ordinary days feel like yours.">
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}">
 {% endblock %}
 
@@ -30,7 +30,7 @@
       "@id": "{{ site_url }}/#website",
       "url": "{{ site_url }}/",
       "name": "{{ site_name|escapejs }}",
-      "description": "Stop waiting for the right moment. Start a Live It List.",
+      "description": "Your days are full but something feels missing. Start An ALIVE List.",
       "publisher": { "@id": "{{ site_url }}/#organization" }
     },
     {
@@ -94,15 +94,15 @@
         <div class="fade-up">
           <p class="hero-eyebrow-row">
             <span class="home-rule"></span>
-            <span class="home-eyebrow">A Live It List</span>
+            <span class="home-eyebrow">An ALIVE List</span>
           </p>
           <h1 class="hero-title">
-            Stop waiting<br>
-            for the<br>
-            <em>right moment.</em>
+            Feel like you're<br>
+            living the same<br>
+            <em>day on a loop?</em>
           </h1>
           <p class="hero-subtitle">
-            Start a simple list designed to snap you out of the daily rut and make ordinary days feel alive. I call it <i>"A Live It List"</i>  
+            An ALIVE List is a simple, free tool to help you deliberately choose the small moments that make ordinary days feel like yours.
           </p>
           <div class="hero-badges">
             <span>✦ Free to start</span>
@@ -113,15 +113,22 @@
             {% if user.is_authenticated %}
               <a href="{% url 'accounts:dashboard' %}" class="home-btn">Go To Dashboard</a>
             {% else %}
-              <a href="{% url 'accounts:register' %}" class="home-btn">Start My List</a>
+              <a href="{% url 'accounts:register' %}" class="home-btn">Start My ALIVE List</a>
             {% endif %}
           </div>
         </div>
 
         <div class="hero-media fade-up fade-up--delay">
-          <video class="hero-video" muted loop playsinline controls>
-            <source src="{% static 'videos/inspirationalguidancevid.mp4' %}" type="video/mp4">
-          </video>
+          <img
+            src="https://inspirationalguidance.com/media/public/news/images/analivelist.webp"
+            alt="An ALIVE List — a simple, free tool to help women make small, intentional choices that make ordinary days feel alive"
+            aria-label="An ALIVE List by Inspirational Guidance"
+            class="hero-image"
+            loading="eager"
+            decoding="async"
+            width="600"
+            height="600"
+          >
         </div>
 
       </div>
@@ -131,11 +138,11 @@
 
   <!-- 2. RECOGNITION -->
   <section class="recognition">
-    <div class="home-container home-container--narrow">
-      <p class="recognition-lead">Most people are waiting. For the kids to grow up. For work to calm down. For the right moment.</p>
-      <p class="recognition-sub">And somewhere along the way, your days start to blur into one another.</p>
+    <div class="home-container home-container--mid">
+      <p class="recognition-lead">Your days are full. You're managing everything...</p>
+      <p class="recognition-sub">And somehow, somewhere along the way, your day stopped feeling like yours.</p>
       <span class="home-rule recognition-rule"></span>
-      <p class="recognition-point">A Live It List is what you do instead of waiting.</p>
+      <p class="recognition-point">An ALIVE List is what you do instead of waiting for things to change on their own.</p>
     </div>
   </section>
 
@@ -148,13 +155,13 @@
         <div>
           <p class="home-eyebrow about-eyebrow">What it is</p>
           <h2 class="about-title">Simple. Honest.<br>Entirely yours.</h2>
-          <p class="about-text">A Live It List is a list of small things that make you feel more alive, with one honest question to come back to:</p>
+          <p class="about-text">An ALIVE List is a list of small things that make you feel more alive, with one honest question to come back to:</p>
           <p class="about-question">"Am I living it?"</p>
-          <p class="about-text">Not because any single moment changes your life, but because repeated acts of aliveness change how life feels.</p>
+          <p class="about-text">Not because any single moment changes your life, but because small, deliberate choices — repeated — change how life feels.</p>
         </div>
 
         <div class="about-card">
-          <p class="about-card-title">Things that might be on a Live It List...</p>
+          <p class="about-card-title">Things that might be on an ALIVE List...</p>
           <ul class="about-list">
             <li class="about-list-item">Visit a bookshop</li>
             <li class="about-list-item">Take a different route home</li>
@@ -174,8 +181,8 @@
   <section class="story">
     <div class="home-container home-container--wide">
       <p class="home-eyebrow story-eyebrow">From Diane</p>
-      <p class="story-quote">"I created A Live It List because I was tired of bucket lists. Skydiving, climbing mountains, quitting everything and moving abroad."</p>
-      <p class="story-text">I spent years managing a busy freelance business, family, and my own daily loops. I just wanted a simple way to feel alive inside my actual, everyday life. 
+      <p class="story-quote">"I created An ALIVE List because I was tired of bucket lists. Skydiving, climbing mountains, quitting everything and moving abroad."</p>
+      <p class="story-text">I spent years managing a busy freelance business, family, and my own daily loops. I just wanted a simple way to feel alive inside my actual, everyday life.
       So I wrote it down. The small things. The simple things. The things that make an ordinary day feel like mine.</p>
       <p class="story-text">I taught myself what was needed to disrupt the monotony and pull me out of my rut. I built this space for you to do the same.</p>
       <div class="story-author-row">
@@ -198,12 +205,12 @@
       <div class="offer-grid">
         <div class="offer-item">
           <p class="offer-item-icon">📄</p>
-          <p class="offer-item-title">The Live It List Template</p>
+          <p class="offer-item-title">The ALIVE List Template</p>
           <p class="offer-item-text">Download, print, and keep. Yours forever.</p>
         </div>
         <div class="offer-item">
           <p class="offer-item-icon">✏️</p>
-          <p class="offer-item-title">List Builder</p>
+          <p class="offer-item-title">ALIVE List Builder</p>
           <p class="offer-item-text">Create and save your list online, at your pace.</p>
         </div>
         <div class="offer-item">
@@ -233,8 +240,8 @@
   <section class="letters">
     <div class="home-container home-container--narrow">
       <div class="letters-card">
-        <p class="letters-text">When you register you can opt in to the Live It List Letters. Do. They're not your typical emails — more like a message from a friend who occasionally pops into your inbox and asks:</p>
-        <p class="letters-question">"Are you living your list?"</p>
+        <p class="letters-text">When you register you can opt in to the ALIVE List Letters. Do. They're not your typical emails — more like a message from a friend who occasionally pops into your inbox and asks:</p>
+        <p class="letters-question">"Are you living it?"</p>
         <p class="letters-note">No guilt. No pressure. Just a nudge from someone who gets it.</p>
       </div>
     </div>
@@ -247,18 +254,18 @@
       <div class="cta-grid">
         <div>
           <p class="home-eyebrow cta-eyebrow">Ready To Join Us?</p>
-          <h2 class="cta-title">Start your list.<br><em>Start living it.</em></h2>
+          <h2 class="cta-title">Your life direction<br><em>starts here.</em></h2>
           <p class="cta-text">Free. No card needed. Just a list and one honest question.</p>
           <div class="hero-actions">
             {% if user.is_authenticated %}
               <a href="{% url 'accounts:dashboard' %}" class="home-btn">Go To Dashboard</a>
             {% else %}
-              <a href="{% url 'accounts:register' %}" class="home-btn">Start My List</a>
+              <a href="{% url 'accounts:register' %}" class="home-btn">Start My ALIVE List</a>
             {% endif %}
           </div>
         </div>
         <div class="cta-media">
-          <img src="{% static 'images/live-it-list.webp' %}" alt="personal development for women with live it list" class="cta-image">
+          <img src="{% static 'images/live-it-list.webp' %}" alt="personal development for women with An ALIVE List" class="cta-image">
         </div>
       </div>
     </div>
