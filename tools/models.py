@@ -1,5 +1,12 @@
+import os
+
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
+
+from inspirational.storage import secure_storage
+from inspirational.utils import custom_slugify
 
 
 # ── Experiment: The 1000 True Fans ───────────────────────────────────────────
@@ -96,3 +103,94 @@ class AliveListItem(models.Model):
 
     def __str__(self):
         return f"{self.user} — {self.item_text[:60]}"
+
+
+# ── Hosted Tools (upload-an-HTML-artifact) ──────────────────────────────────
+
+# Slugs already used by hand-built tool pages in tools/urls.py. An uploaded
+# tool may not claim one of these, or it would shadow the existing page.
+RESERVED_TOOL_SLUGS = {
+    "",
+    "calming-game",
+    "tap-to-calm",
+    "experiment-results",
+    "an-alive-list-builder",
+    "live-it-list-builder",
+}
+
+
+def validate_html(value):
+    """Only allow .html / .htm uploads (a Claude artifact is a single HTML file)."""
+    ext = os.path.splitext(value.name)[1].lower()
+    if ext not in [".html", ".htm"]:
+        raise ValidationError(
+            "Only .html files are allowed. Upload the single HTML file Claude gives you."
+        )
+
+
+class HostedTool(models.Model):
+    """
+    A self-contained HTML 'artifact' (e.g. a Claude-generated interactive tool)
+    uploaded by the site owner and served live at /tools/<slug>/.
+
+    The file is stored with secure_storage so it is NOT reachable directly on
+    the web. It is only ever served through the sandboxed iframe view
+    (see tools/views.py tool_raw), which keeps the artifact's JavaScript
+    isolated from the site's own origin (cookies, session, DOM).
+
+    Note: the sandbox uses an opaque origin (no allow-same-origin), so an
+    uploaded tool CANNOT call back to this site's logged-in endpoints. Keep
+    all state in memory inside the artifact.
+    """
+
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(
+        max_length=200,
+        unique=True,
+        blank=True,
+        help_text="Used in the public URL: /tools/<slug>/ . Leave blank to auto-fill from the title.",
+    )
+    description = models.TextField(
+        blank=True,
+        help_text="Optional short caption shown above the tool on its public page.",
+    )
+    html_file = models.FileField(
+        upload_to="hosted_tools/",
+        storage=secure_storage,
+        validators=[validate_html],
+        help_text="Upload the single .html file. Hit save and it goes live at the URL above.",
+    )
+    published = models.BooleanField(
+        default=True,
+        help_text="Untick to take the tool offline without deleting it.",
+    )
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["title"]
+        verbose_name = "Hosted Tool"
+        verbose_name_plural = "Hosted Tools"
+
+    def __str__(self):
+        return self.title
+
+    def clean(self):
+        # No per-site quota — unlimited hosted tools.
+        # Guard only against colliding with a hand-built tool URL.
+        slug = self.slug or custom_slugify(self.title)
+        if slug in RESERVED_TOOL_SLUGS:
+            raise ValidationError(
+                {"slug": f"'{slug}' is reserved by a built-in tool page. Choose a different title or slug."}
+            )
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = custom_slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("tools:hosted_tool_detail", kwargs={"slug": self.slug})
+
+    def get_raw_url(self):
+        return reverse("tools:hosted_tool_raw", kwargs={"slug": self.slug})

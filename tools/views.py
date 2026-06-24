@@ -1,12 +1,19 @@
 import json
 
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Sum, Max
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.http import require_POST
 
-from .models import ExperimentWeek, ExperimentGoal, MilestoneReflection, AliveListItem
+from .models import (
+    ExperimentWeek,
+    ExperimentGoal,
+    MilestoneReflection,
+    AliveListItem,
+    HostedTool,
+)
 
 
 def experiment_results(request):
@@ -107,3 +114,77 @@ def alive_list_builder(request):
         "existing_items_json": json.dumps(existing_items),
         "user_authenticated": request.user.is_authenticated,
     })
+
+
+# ── Hosted Tools (upload-an-HTML-artifact) ──────────────────────────────────
+
+def _staff_preview(request):
+    return request.GET.get("preview") == "1" and request.user.is_staff
+
+
+def hosted_tool_detail(request, slug):
+    """
+    Public wrapper page for an uploaded tool. Shows site chrome (nav/footer)
+    and embeds the artifact in a sandboxed iframe pointing at the raw view.
+    """
+    if _staff_preview(request):
+        tool = get_object_or_404(HostedTool, slug=slug)
+    else:
+        tool = get_object_or_404(HostedTool, slug=slug, published=True)
+    return render(request, "tools/hosted_tool_detail.html", {"tool": tool})
+
+
+@xframe_options_sameorigin
+def hosted_tool_raw(request, slug):
+    """
+    Serve the raw artifact HTML so its JavaScript executes.
+
+    Security model:
+      - The file lives in secure_storage, so it is not directly web-served;
+        this view is the only way to reach it.
+      - It is only ever loaded inside the sandboxed iframe on the detail page
+        (sandbox WITHOUT allow-same-origin => opaque origin => the artifact
+        cannot read this site's cookies, session or DOM).
+      - X-Frame-Options: SAMEORIGIN (decorator) lets our own page frame it
+        while blocking other sites; frame-ancestors 'self' is the modern
+        equivalent / belt-and-braces.
+    """
+    if _staff_preview(request):
+        tool = get_object_or_404(HostedTool, slug=slug)
+    else:
+        tool = get_object_or_404(HostedTool, slug=slug, published=True)
+
+    if not tool.html_file:
+        raise Http404("No file attached to this tool.")
+
+    try:
+        with tool.html_file.open("rb") as fh:
+            html = fh.read()
+    except (FileNotFoundError, ValueError):
+        raise Http404("Tool file missing on server.")
+
+    # Inject a tiny height-reporter so the parent page can size the iframe to
+    # the content (no inner scroll). Runs inside the sandbox via allow-scripts;
+    # only posts a number, so it needs no same-origin access.
+    reporter = (
+        b"<script>(function(){"
+        b"function r(){var h=Math.max("
+        b"document.body?document.body.scrollHeight:0,"
+        b"document.documentElement?document.documentElement.scrollHeight:0);"
+        b"parent.postMessage({__toolHeight:h},'*');}"
+        b"window.addEventListener('load',r);"
+        b"window.addEventListener('resize',r);"
+        b"if(window.ResizeObserver){new ResizeObserver(r).observe(document.documentElement);}"
+        b"setTimeout(r,300);setTimeout(r,1200);"
+        b"})();</script>"
+    )
+    if b"</body>" in html:
+        head, sep, tail = html.rpartition(b"</body>")
+        html = head + reporter + sep + tail
+    else:
+        html = html + reporter
+
+    response = HttpResponse(html, content_type="text/html; charset=utf-8")
+    response["Content-Security-Policy"] = "frame-ancestors 'self'"
+    response["X-Content-Type-Options"] = "nosniff"
+    return response

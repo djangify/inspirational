@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tool.title }} — Inspirational Guidance{% endblock %}
+
+{% block meta_description %}{{ tool.description|default:tool.title }}{% endblock %}
+
+{% block content %}
+
+{% if request.GET.preview == "1" and request.user.is_staff and not tool.published %}
+<div class="bg-yellow-100 text-yellow-900 text-center py-3 px-6 font-bold">
+    ⚠️ DRAFT Preview — this tool is not published and is only visible to staff
+</div>
+{% endif %}
+
+<section class="max-w-6xl mx-auto px-4 py-8">
+    <header class="mb-6">
+        <h1 class="text-3xl font-bold">{{ tool.title }}</h1>
+        {% if tool.description %}
+        <p class="mt-2 text-gray-600">{{ tool.description }}</p>
+        {% endif %}
+    </header>
+
+    <!--
+      Sandboxed iframe: the artifact's JS runs in an opaque origin (no
+      allow-same-origin), so it cannot touch this site's cookies/session/DOM.
+    -->
+    <div class="w-full rounded-lg overflow-hidden border border-slate-200 shadow-sm bg-white">
+        <iframe
+            id="tool-frame"
+            src="{{ tool.get_raw_url }}{% if request.GET.preview == '1' %}?preview=1{% endif %}"
+            title="{{ tool.title }}"
+            loading="lazy"
+            sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads"
+            style="width:100%; min-height:400px; border:0; display:block;"
+        ></iframe>
+    </div>
+
+    <script>
+    (function () {
+        var frame = document.getElementById("tool-frame");
+        if (!frame) return;
+        window.addEventListener("message", function (e) {
+            if (e.source !== frame.contentWindow) return;   // only our iframe
+            var h = e.data && e.data.__toolHeight;
+            if (typeof h === "number" && h > 0 && h < 50000) {
+                frame.style.height = h + "px";               // grow to content
+            }
+        });
+    })();
+    </script>
+</section>
+
+{% endblock %}

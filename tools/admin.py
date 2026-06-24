@@ -1,5 +1,13 @@
 from django.contrib import admin
-from .models import ExperimentWeek, ExperimentGoal, MilestoneReflection, AliveListItem
+from django.utils.html import format_html
+
+from .models import (
+    ExperimentWeek,
+    ExperimentGoal,
+    MilestoneReflection,
+    AliveListItem,
+    HostedTool,
+)
 
 
 @admin.register(ExperimentWeek)
@@ -35,3 +43,46 @@ class AliveListItemAdmin(admin.ModelAdmin):
     list_display = ("user", "item_text", "is_living_it", "created")
     list_filter = ("is_living_it",)
     search_fields = ("user__email", "item_text")
+
+
+@admin.register(HostedTool)
+class HostedToolAdmin(admin.ModelAdmin):
+    list_display = ("title", "slug", "published", "view_link", "updated")
+    list_filter = ("published",)
+    list_editable = ("published",)
+    prepopulated_fields = {"slug": ("title",)}
+    readonly_fields = ("created", "updated")
+
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": ("title", "slug", "html_file", "description", "published"),
+                "description": (
+                    "Upload the single .html file Claude gives you, then save — "
+                    "your tool goes live at /tools/&lt;slug&gt;/. "
+                    "There is no limit on how many tools you can host. "
+                    "Note: tools run in an isolated sandbox, so they cannot use "
+                    "browser localStorage or call your logged-in pages — keep all "
+                    "state in memory inside the artifact."
+                ),
+            },
+        ),
+        (
+            "Info",
+            {
+                "fields": ("created", "updated"),
+                "classes": ("collapse",),
+            },
+        ),
+    )
+
+    def view_link(self, obj):
+        if not obj.pk:
+            return "—"
+        url = obj.get_absolute_url()
+        if not obj.published:
+            url = f"{url}?preview=1"
+        return format_html('<a href="{}" target="_blank">View</a>', url)
+
+    view_link.short_description = "Live page"

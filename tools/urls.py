@@ -15,4 +15,9 @@ urlpatterns = [
         "live-it-list-builder/",
         RedirectView.as_view(pattern_name="tools:alive_list_builder", permanent=True),
     ),
+    # ── Uploaded "hosted tools" (Claude HTML artifacts) ──────────────────────
+    # These slug routes MUST stay last so they don't shadow the named paths
+    # above. The /raw/ route comes before the bare slug so it resolves first.
+    path("<slug:slug>/raw/", views.hosted_tool_raw, name="hosted_tool_raw"),
+    path("<slug:slug>/", views.hosted_tool_detail, name="hosted_tool_detail"),
 ]
