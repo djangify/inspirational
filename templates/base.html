@@ -24,10 +24,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Inspirational Guidance">
-<!-- Canonical URL -->
-{% if canonical_url %}
-  <link rel="canonical" href="{{ canonical_url }}">
-{% endif %}
+ 
+ <!-- Canonical URL -->
+  <link rel="canonical" href="{% block canonical_url %}{{ request.scheme }}://{{ request.get_host }}{{ request.path }}{% endblock %}">
 
 <!-- Open Graph Tags -->
 {% block open_graph_tags %}
