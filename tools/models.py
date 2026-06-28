@@ -154,11 +154,43 @@ class HostedTool(models.Model):
         blank=True,
         help_text="Optional short caption shown above the tool on its public page.",
     )
+    link_text = models.CharField(
+        "URL name",
+        max_length=120,
+        blank=True,
+        help_text=(
+            "Optional. The clickable label for a link button shown at the top "
+            "AND bottom of the tool's page (e.g. 'Back to the shop', "
+            "'Get the full guide'). Leave blank to hide the link."
+        ),
+    )
+    link_url = models.URLField(
+        "URL link",
+        max_length=500,
+        blank=True,
+        help_text="Where the link button points. Only shown if both fields are filled.",
+    )
     html_file = models.FileField(
         upload_to="hosted_tools/",
         storage=secure_storage,
         validators=[validate_html],
         help_text="Upload the single .html file. Hit save and it goes live at the URL above.",
+    )
+    ACCESS_FREE = "free"
+    ACCESS_PAID = "paid"
+    ACCESS_CHOICES = [
+        (ACCESS_FREE, "Free — anyone can use it"),
+        (ACCESS_PAID, "Paid — only buyers can use it"),
+    ]
+    access = models.CharField(
+        max_length=10,
+        choices=ACCESS_CHOICES,
+        default=ACCESS_FREE,
+        help_text=(
+            "Free tools are public at /tools/<slug>/. Paid tools are unlocked "
+            "only by buying a linked shop product (attach this tool to a Product "
+            "in the shop, then it appears in the buyer's downloads area)."
+        ),
     )
     published = models.BooleanField(
         default=True,
@@ -194,3 +226,46 @@ class HostedTool(models.Model):
 
     def get_raw_url(self):
         return reverse("tools:hosted_tool_raw", kwargs={"slug": self.slug})
+
+    @property
+    def has_link(self):
+        """True when both the link name and link URL are set (show the button)."""
+        return bool(self.link_text and self.link_url)
+
+    # -- Selling a tool ------------------------------------------------------
+    # access == "paid" gates the tool: its public page is only reachable by
+    # someone who has purchased the linked shop product (or by staff). The link
+    # itself is made on the shop side (Product.hosted_tool, reverse accessor
+    # `self.product`). Free tools stay public for everyone.
+
+    @property
+    def linked_product(self):
+        """The shop Product selling this tool, or None if it isn't linked."""
+        try:
+            return self.product
+        except Exception:
+            return None
+
+    @property
+    def requires_purchase(self):
+        """True if this tool is marked Paid and must be unlocked by a purchase."""
+        return self.access == self.ACCESS_PAID
+
+    def user_has_access(self, user):
+        """
+        Can `user` view this tool? Free tools: always. Sold tools: only the
+        buyer (a completed order for the linked product) or staff.
+        """
+        if not self.requires_purchase:
+            return True
+        if not user or not user.is_authenticated:
+            return False
+        if user.is_staff or user.is_superuser:
+            return True
+        # Local import avoids a circular import at module load time.
+        from shop.models import OrderItem
+        return OrderItem.objects.filter(
+            order__user=user,
+            order__status="completed",
+            product__hosted_tool=self,
+        ).exists()

@@ -53,6 +53,15 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ["title", "description", "public_id"]
     prepopulated_fields = {"slug": ("title",)}
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        # Only PAID hosted tools may be sold, so the picker must never list free
+        # tools. Keep any tool already attached to this product selectable too.
+        if db_field.name == "hosted_tool":
+            from tools.models import HostedTool
+
+            kwargs["queryset"] = HostedTool.objects.filter(access="paid")
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
     def get_queryset(self, request):
         # Hide the internal one-time-offer download record from the product list.
         return super().get_queryset(request).filter(one_time_offer__isnull=True)
@@ -96,6 +105,18 @@ class ProductAdmin(admin.ModelAdmin):
                     "sale_price_pence",
                     "price_per_hour",
                 )
+            },
+        ),
+        (
+            "Hosted Tool",
+            {
+                "fields": ("hosted_tool",),
+                "description": (
+                    "Attach a Hosted Tool to sell it as this product. Buyers open "
+                    "the live tool from their downloads area, and the tool's public "
+                    "page becomes purchase-only. Leave blank for a normal download. "
+                    "Tip: set Product type to 'Hosted Tool' and leave the file blank."
+                ),
             },
         ),
         (

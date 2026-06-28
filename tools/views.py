@@ -1,8 +1,11 @@
 import json
+import re
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.db.models import Sum, Max
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.http import require_POST
@@ -122,7 +125,59 @@ def _staff_preview(request):
     return request.GET.get("preview") == "1" and request.user.is_staff
 
 
-def _build_pdf_branding():
+# Anchor tags that carry a real, followable link. We deliberately keep this to
+# http(s) and mailto so we surface the kind of link a tool author puts on a
+# "button", and skip in-page anchors (#...), javascript: handlers and relative
+# paths that mean nothing once the page is a saved PDF.
+_ANCHOR_RE = re.compile(
+    r'<a\b[^>]*\bhref\s*=\s*(["\'])(?P<href>.*?)\1[^>]*>(?P<label>.*?)</a>',
+    re.IGNORECASE | re.DOTALL,
+)
+_TAG_RE = re.compile(r"<[^>]+>")
+_WS_RE = re.compile(r"\s+")
+_MAX_HARVESTED_LINKS = 25
+
+
+def _harvest_tool_links(html_bytes):
+    """
+    Pull followable links out of an uploaded artifact so they can be reprinted
+    as plain "label — URL" text on the PDF attribution page.
+
+    A tool author often adds a "button" that is really an <a href="..."> link.
+    In a saved/printed PDF that button loses its destination, so here we scan
+    the raw artifact HTML, collect each external link's visible text + URL,
+    de-duplicate by URL and cap the count. Returns a list of (label, url)
+    tuples (raw/unescaped -- the caller escapes them).
+
+    NOTE: this only sees real <a href> links. A <button onclick="location=...">
+    style button hides its URL inside JavaScript and is not harvested.
+    """
+    try:
+        html = html_bytes.decode("utf-8", "ignore")
+    except Exception:
+        return []
+
+    seen = set()
+    links = []
+    for m in _ANCHOR_RE.finditer(html):
+        href = (m.group("href") or "").strip()
+        low = href.lower()
+        if not (low.startswith("http://") or low.startswith("https://") or low.startswith("mailto:")):
+            continue
+        if href in seen:
+            continue
+        seen.add(href)
+        # Strip any inner tags (e.g. an icon <svg>) and collapse whitespace.
+        label = _WS_RE.sub(" ", _TAG_RE.sub("", m.group("label") or "")).strip()
+        if not label:
+            label = href
+        links.append((label, href))
+        if len(links) >= _MAX_HARVESTED_LINKS:
+            break
+    return links
+
+
+def _build_pdf_branding(links=None):
     """
     Build the HTML injected into every served hosted tool to give visitors a
     "Download PDF" button plus a branded attribution page.
@@ -166,6 +221,18 @@ def _build_pdf_branding():
         meta.append('<a href="' + about_safe + '">About</a>')
     if meta:
         parts.append('<p class="meta">' + " &nbsp;&bull;&nbsp; ".join(meta) + "</p>")
+    # Links the tool author put on the page (e.g. "buttons"), reprinted as
+    # plain text + URL so they survive being saved as a PDF.
+    if links:
+        parts.append('<div class="tool-pdf-links">')
+        parts.append('<p class="links-title">Links referenced in this tool</p>')
+        parts.append("<ul>")
+        for label, link_url in links:
+            parts.append(
+                '<li><span class="lbl">' + escape(label) + '</span><br>'
+                '<a href="' + escape(link_url) + '">' + escape(link_url) + '</a></li>'
+            )
+        parts.append("</ul></div>")
     source = business or url_safe or "Inspirational Guidance"
     parts.append('<p class="meta">You received this from ' + source +
                  '. Thank you for your support.</p>')
@@ -196,6 +263,13 @@ def _build_pdf_branding():
         "max-width:540px;}"
         ".tool-pdf-attribution a{color:#0f766e;text-decoration:none;}"
         ".tool-pdf-attribution .meta{font-size:12px;color:#555;}"
+        ".tool-pdf-attribution .tool-pdf-links{margin:22px 0 0;}"
+        ".tool-pdf-attribution .tool-pdf-links .links-title{font-size:13px;"
+        "letter-spacing:.06em;text-transform:uppercase;color:#555;margin:0 0 10px;}"
+        ".tool-pdf-attribution .tool-pdf-links ul{list-style:none;padding:0;margin:0;}"
+        ".tool-pdf-attribution .tool-pdf-links li{margin:0 0 11px;font-size:13px;"
+        "line-height:1.5;word-break:break-all;}"
+        ".tool-pdf-attribution .tool-pdf-links .lbl{font-weight:bold;color:#111;}"
         "}"
         "</style>"
     )
@@ -206,15 +280,49 @@ def _build_pdf_branding():
     return style + button + attribution
 
 
+def _purchase_gate(request, tool):
+    """
+    Enforce the purchase wall for a tool that is sold via a shop product.
+
+    Returns an HttpResponse to send instead (redirect) when the visitor may NOT
+    see the tool, or None when access is allowed. Free tools (no linked product)
+    and staff always pass.
+    """
+    if _staff_preview(request) or tool.user_has_access(request.user):
+        return None
+
+    product = tool.linked_product
+    if not request.user.is_authenticated:
+        messages.info(request, "Please sign in to access your purchased tool.")
+        login_url = f"{reverse('accounts:login')}?next={request.path}"
+        return redirect(login_url)
+
+    # Authenticated but hasn't bought it — send them to the product page to buy.
+    if product is not None and product.status == "publish" and product.is_active:
+        messages.info(
+            request,
+            "This tool is part of a product. Purchase it to unlock access.",
+        )
+        return redirect("shop:product_detail", slug=product.slug)
+    raise Http404("Tool not available.")
+
+
 def hosted_tool_detail(request, slug):
     """
     Public wrapper page for an uploaded tool. Shows site chrome (nav/footer)
     and embeds the artifact in a sandboxed iframe pointing at the raw view.
+
+    If the tool is sold via a shop product, it is purchase-gated: only the
+    buyer (or staff) gets through; everyone else is sent to sign in / buy.
     """
     if _staff_preview(request):
         tool = get_object_or_404(HostedTool, slug=slug)
     else:
         tool = get_object_or_404(HostedTool, slug=slug, published=True)
+
+    blocked = _purchase_gate(request, tool)
+    if blocked is not None:
+        return blocked
     return render(request, "tools/hosted_tool_detail.html", {"tool": tool})
 
 
@@ -237,6 +345,10 @@ def hosted_tool_raw(request, slug):
         tool = get_object_or_404(HostedTool, slug=slug)
     else:
         tool = get_object_or_404(HostedTool, slug=slug, published=True)
+
+    blocked = _purchase_gate(request, tool)
+    if blocked is not None:
+        return blocked
 
     if not tool.html_file:
         raise Http404("No file attached to this tool.")
@@ -270,7 +382,10 @@ def hosted_tool_raw(request, slug):
     )
     # Branded "Download PDF" button + attribution page (appears only in the
     # saved/printed PDF). Same approach as the eBuilder hosted tools.
-    branding = _build_pdf_branding().encode("utf-8")
+    # Also reprint any links the author put in the tool (e.g. "buttons") as
+    # plain text + URL so they survive being saved as a PDF.
+    tool_links = _harvest_tool_links(html)
+    branding = _build_pdf_branding(tool_links).encode("utf-8")
     injected = reporter + branding
 
     if b"</body>" in html:

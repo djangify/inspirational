@@ -221,6 +221,14 @@
             {% if has_purchased and order_item %}
             <div class="bg-teal-50 border border-teal-700 text-teal-900 font-semibold p-4 rounded mb-4">
               ✅ You purchased this product on {{ order_item.order.created|date:"j M Y" }} (Order ID: {{ order_item.order.order_id }})
+              {% if product.is_hosted_tool %}
+              <div class="mt-3">
+                <a href="{{ product.get_tool_url }}"
+                   class="inline-flex items-center gap-1 bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-800 transition">
+                  ⚡ Open Tool
+                </a>
+              </div>
+              {% endif %}
             </div>
             {% endif %}
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-600">

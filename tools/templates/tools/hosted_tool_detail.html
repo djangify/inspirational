@@ -18,6 +18,14 @@
         {% if tool.description %}
         <p class="mt-2 text-gray-600">{{ tool.description }}</p>
         {% endif %}
+        {% if tool.has_link %}
+        <p class="mt-4">
+            <a href="{{ tool.link_url }}"
+               class="inline-flex items-center gap-1 bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-800 transition font-medium">
+                {{ tool.link_text }}
+            </a>
+        </p>
+        {% endif %}
     </header>
 
     <!--
@@ -48,6 +56,15 @@
         });
     })();
     </script>
+
+    {% if tool.has_link %}
+    <footer class="mt-6 text-center">
+        <a href="{{ tool.link_url }}"
+           class="inline-flex items-center gap-1 bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-800 transition font-medium">
+            {{ tool.link_text }}
+        </a>
+    </footer>
+    {% endif %}
 </section>
 
 {% endblock %}

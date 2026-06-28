@@ -41,7 +41,10 @@ class Product(models.Model):
         ("full", "Fully Booked"),
         ("draft", "Draft"),
     ]
-    PRODUCT_TYPES = [("download", "Digital Download")]
+    PRODUCT_TYPES = [
+        ("download", "Digital Download"),
+        ("tool", "Hosted Tool"),
+    ]
 
     # Basic Fields
     public_id = models.CharField(max_length=130, blank=True, null=True, db_index=True)
@@ -88,6 +91,20 @@ class Product(models.Model):
         blank=True,
         storage=secure_storage,
         help_text="Upload a PDF or ZIP file. Use ZIP for bundles.",
+    )
+    hosted_tool = models.OneToOneField(
+        "tools.HostedTool",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="product",
+        limit_choices_to={"access": "paid"},
+        help_text=(
+            "Optional: attach a Hosted Tool to sell it as this product. Only "
+            "tools set to 'Paid' can be selected here. Buyers reach the live tool "
+            "from their downloads area, and the tool's public page becomes "
+            "purchase-only. Leave blank for a normal file download."
+        ),
     )
     preview_file = models.FileField(
         upload_to="products/previews/", null=True, blank=True, storage=public_storage
@@ -165,6 +182,23 @@ class Product(models.Model):
     def get_download_url(self):
         if self.files:
             return self.files.url
+        return None
+
+    @property
+    def is_hosted_tool(self):
+        """
+        True only if this product delivers a PAID Hosted Tool. Free tools are
+        never sold, so they never show as a download option on the product page.
+        """
+        return (
+            self.hosted_tool_id is not None
+            and self.hosted_tool.access == "paid"
+        )
+
+    def get_tool_url(self):
+        """Public page of the attached (paid) Hosted Tool, or None."""
+        if self.is_hosted_tool:
+            return self.hosted_tool.get_absolute_url()
         return None
 
     @property
