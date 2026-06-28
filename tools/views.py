@@ -381,10 +381,14 @@ def hosted_tool_raw(request, slug):
         b"})();</script>"
     )
     # Branded "Download PDF" button + attribution page (appears only in the
-    # saved/printed PDF). Same approach as the eBuilder hosted tools.
-    # Also reprint any links the author put in the tool (e.g. "buttons") as
-    # plain text + URL so they survive being saved as a PDF.
+    # saved/printed PDF). Reprint links so they survive being saved: first the
+    # explicit link the owner added on the tool (URL name + URL link), then any
+    # links the author put inside the artifact itself, de-duplicated.
     tool_links = _harvest_tool_links(html)
+    if tool.link_text and tool.link_url:
+        tool_links = [(tool.link_text, tool.link_url)] + [
+            link for link in tool_links if link[1] != tool.link_url
+        ]
     branding = _build_pdf_branding(tool_links).encode("utf-8")
     injected = reporter + branding
 
