@@ -157,8 +157,10 @@ def robots_txt(request):
         "User-agent: *",
         "Disallow: /admin/",
         "Disallow: /accounts/",
-        "Disallow: /media/",
+        "Disallow: /shop/secure-download/",
+        "Disallow: /media/secure_downloads/",
         "Allow: /",
+        "",
         f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")

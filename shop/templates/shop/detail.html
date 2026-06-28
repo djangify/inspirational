@@ -56,7 +56,7 @@
   "offers": {
     "@type": "Offer",
     "url": "{{ request.build_absolute_uri }}",
-    "priceCurrency": "GBP",
+    "priceCurrency": "{{ site_settings.currency_code|default:'GBP' }}",
     "price": "{{ product.current_price }}",
     "availability": "https://schema.org/{% if product.is_active and not product.is_coming_soon and not product.is_fully_booked %}InStock{% else %}OutOfStock{% endif %}",
     "itemCondition": "https://schema.org/NewCondition",
@@ -65,7 +65,7 @@
       "shippingRate": {
         "@type": "MonetaryAmount",
         "value": "0.00",
-        "currency": "GBP"
+        "currency": "{{ site_settings.currency_code|default:'GBP' }}"
       },
       "shippingDestination": {
         "@type": "DefinedRegion",

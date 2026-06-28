@@ -85,13 +85,18 @@
   "url": "{{ request.build_absolute_uri }}",
   "mainEntity": {
     "@type": "ItemList",
+    "numberOfItems": {{ categories|length }},
     "itemListElement": [
       {% for category in categories %}
       {
         "@type": "ListItem",
         "position": {{ forloop.counter }},
-        "name": "{{ category.name|escapejs }}",
-        "url": "{{ category.get_absolute_url }}"
+        "item": {
+          "@type": "WebPage",
+          "name": "{{ category.name|escapejs }}",
+          "url": "{{ request.scheme }}://{{ request.get_host }}{{ category.get_absolute_url }}"
+          {% if category.description %},"description": "{{ category.description|striptags|truncatechars:160|escapejs }}"{% endif %}
+        }
       }{% if not forloop.last %},{% endif %}
       {% endfor %}
     ]

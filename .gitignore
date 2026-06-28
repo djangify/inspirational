@@ -11,6 +11,7 @@ staticfiles/
 db/
 static/images/
 static/videos/
+OPERATIONS.md
 # Django.Python Stack #
 *.py[cod]
 *$py.class

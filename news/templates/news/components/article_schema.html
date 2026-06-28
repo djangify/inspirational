@@ -19,6 +19,15 @@ content_updated field (set only on meaningful content changes).
     "description": "{{ author_short_bio|escapejs }}",
     "url": "{{ request.scheme }}://{{ request.get_host }}{{ author_url }}",
     "image": "{{ request.scheme }}://{{ request.get_host }}{% static author_photo %}",
+    "knowsAbout": [
+      "Self-Authorship",
+      "Emotional Resilience",
+      "Personal Development for Women",
+      "Intentional Living",
+      "Life Coaching",
+      "Self-Confidence",
+      "Journaling for Personal Growth"
+    ],
     "sameAs": [
       "{{ social_youtube }}",
       "{{ social_pinterest }}",
