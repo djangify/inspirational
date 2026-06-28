@@ -116,10 +116,94 @@ def alive_list_builder(request):
     })
 
 
-# ── Hosted Tools (upload-an-HTML-artifact) ──────────────────────────────────
+# -- Hosted Tools (upload-an-HTML-artifact) ----------------------------------
 
 def _staff_preview(request):
     return request.GET.get("preview") == "1" and request.user.is_staff
+
+
+def _build_pdf_branding():
+    """
+    Build the HTML injected into every served hosted tool to give visitors a
+    "Download PDF" button plus a branded attribution page.
+
+    - On screen: only a small floating "Download PDF" button is visible.
+    - When the visitor saves/prints to PDF: the button is hidden and a clean
+      final page is appended carrying Inspirational Guidance's identity (site
+      name, author, bio, URL) so they always remember where the PDF came from.
+
+    Brand details come from Django settings (SITE_NAME / AUTHOR_*), so a missing
+    value never breaks the tool -- the button always renders and the attribution
+    block only includes the pieces that are available.
+    """
+    from django.conf import settings
+    from django.utils.html import escape
+
+    business = escape((getattr(settings, "SITE_NAME", "") or "").strip())
+    author = escape((getattr(settings, "AUTHOR_NAME", "") or "").strip())
+    bio = escape((getattr(settings, "AUTHOR_SHORT_BIO", "") or "").strip())
+    url = (getattr(settings, "SITE_URL", "") or "").strip()
+    author_url = (getattr(settings, "AUTHOR_URL", "") or "").strip()
+    url_safe = escape(url)
+
+    # AUTHOR_URL is stored as a path (e.g. "/diane-corriette"); make it absolute.
+    if author_url.startswith("/") and url:
+        about_safe = escape(url.rstrip("/") + author_url)
+    else:
+        about_safe = escape(author_url)
+
+    parts = ['<section class="tool-pdf-attribution">', '<div class="tool-pdf-rule"></div>']
+    if business:
+        parts.append('<p class="biz">' + business + '</p>')
+    if author:
+        parts.append("<h2>Created by " + author + "</h2>")
+    if bio:
+        parts.append("<p>" + bio + "</p>")
+    meta = []
+    if url:
+        meta.append('<a href="' + url_safe + '">' + url_safe + '</a>')
+    if about_safe:
+        meta.append('<a href="' + about_safe + '">About</a>')
+    if meta:
+        parts.append('<p class="meta">' + " &nbsp;&bull;&nbsp; ".join(meta) + "</p>")
+    source = business or url_safe or "Inspirational Guidance"
+    parts.append('<p class="meta">You received this from ' + source +
+                 '. Thank you for your support.</p>')
+    parts.append("</section>")
+    attribution = "".join(parts)
+
+    style = (
+        '<style id="tool-pdf-style">'
+        "@media screen{"
+        ".tool-pdf-attribution{display:none;}"
+        ".tool-pdf-btn{position:fixed;right:16px;bottom:16px;z-index:2147483647;"
+        "font:600 14px/1 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;"
+        "padding:11px 18px;background:#0f766e;color:#fff;border:0;border-radius:9999px;"
+        "box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:pointer;}"
+        ".tool-pdf-btn:hover{background:#134e4a;}"
+        "}"
+        "@media print{"
+        ".tool-pdf-btn{display:none !important;}"
+        ".tool-pdf-attribution{display:block !important;page-break-before:always;"
+        "break-before:page;font-family:Georgia,'Times New Roman',serif;color:#111;"
+        "padding:56px 40px;}"
+        ".tool-pdf-attribution .tool-pdf-rule{height:3px;width:64px;background:#0f766e;"
+        "margin:0 0 22px;}"
+        ".tool-pdf-attribution .biz{font-size:13px;letter-spacing:.08em;"
+        "text-transform:uppercase;color:#555;margin:0 0 6px;}"
+        ".tool-pdf-attribution h2{font-size:22px;margin:0 0 14px;}"
+        ".tool-pdf-attribution p{font-size:13px;line-height:1.6;margin:0 0 12px;"
+        "max-width:540px;}"
+        ".tool-pdf-attribution a{color:#0f766e;text-decoration:none;}"
+        ".tool-pdf-attribution .meta{font-size:12px;color:#555;}"
+        "}"
+        "</style>"
+    )
+    button = (
+        '<button class="tool-pdf-btn" type="button" onclick="window.print()" '
+        'aria-label="Download this as a PDF">&#8595; Download PDF</button>'
+    )
+    return style + button + attribution
 
 
 def hosted_tool_detail(request, slug):
@@ -168,21 +252,32 @@ def hosted_tool_raw(request, slug):
     # only posts a number, so it needs no same-origin access.
     reporter = (
         b"<script>(function(){"
-        b"function r(){var h=Math.max("
+        b"var t;"
+        b"function measure(){var h=Math.max("
         b"document.body?document.body.scrollHeight:0,"
         b"document.documentElement?document.documentElement.scrollHeight:0);"
         b"parent.postMessage({__toolHeight:h},'*');}"
+        b"function r(){clearTimeout(t);t=setTimeout(measure,60);}"
         b"window.addEventListener('load',r);"
         b"window.addEventListener('resize',r);"
-        b"if(window.ResizeObserver){new ResizeObserver(r).observe(document.documentElement);}"
+        b"if(window.ResizeObserver){var ro=new ResizeObserver(r);"
+        b"if(document.body){ro.observe(document.body);}}"
+        b"if(window.MutationObserver){new MutationObserver(r).observe("
+        b"document.documentElement,{childList:true,subtree:true,attributes:true});}"
+        b"document.addEventListener('click',function(){setTimeout(r,60);setTimeout(r,450);});"
         b"setTimeout(r,300);setTimeout(r,1200);"
         b"})();</script>"
     )
+    # Branded "Download PDF" button + attribution page (appears only in the
+    # saved/printed PDF). Same approach as the eBuilder hosted tools.
+    branding = _build_pdf_branding().encode("utf-8")
+    injected = reporter + branding
+
     if b"</body>" in html:
         head, sep, tail = html.rpartition(b"</body>")
-        html = head + reporter + sep + tail
+        html = head + injected + sep + tail
     else:
-        html = html + reporter
+        html = html + injected
 
     response = HttpResponse(html, content_type="text/html; charset=utf-8")
     response["Content-Security-Policy"] = "frame-ancestors 'self'"

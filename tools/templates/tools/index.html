@@ -9,8 +9,44 @@
   </p>
 
   <div class="grid gap-6 sm:grid-cols-2">
-    
-    <!-- Game Card -->
+
+    <!-- ALIVE List Questionnaire Card -->
+    <div class="border border-slate-200 rounded-lg p-6 hover:shadow transition text-left">
+      <h2 class="text-xl font-semibold mb-2">ALIVE List Questionnaire</h2>
+      <p class="text-gray-600 text-sm mb-4">
+        Answer a few quick questions to find your next ALIVE step — a personal starter plan you can save or print. Free, no account needed.
+      </p>
+      <a href="{% url 'tools:hosted_tool_detail' slug='an-alive-list-direction-finder' %}"
+         class="inline-block text-white bg-teal-700 hover:bg-teal-800 px-4 py-2 rounded text-sm font-medium">
+        Find My Direction
+      </a>
+    </div>
+
+    <!-- ALIVE List Builder Card -->
+    <div class="border border-slate-200 rounded-lg p-6 hover:shadow transition text-left">
+      <h2 class="text-xl font-semibold mb-2">ALIVE List Builder</h2>
+      <p class="text-gray-600 text-sm mb-4">
+        Answer 9 questions to discover what goes on your ALIVE List — the experiences that make you feel truly alive.
+      </p>
+      <a href="{% url 'tools:alive_list_builder' %}"
+         class="inline-block text-white bg-teal-700 hover:bg-teal-800 px-4 py-2 rounded text-sm font-medium">
+        Build My List
+      </a>
+    </div>
+
+    <!-- ALIVE List Prompts Card -->
+    <div class="border border-slate-200 rounded-lg p-6 hover:shadow transition text-left">
+      <h2 class="text-xl font-semibold mb-2">ALIVE List Prompts</h2>
+      <p class="text-gray-600 text-sm mb-4">
+        Seven ready-to-use coaching prompts — copy any one into Claude or ChatGPT for a self-guided session. Free to use.
+      </p>
+      <a href="{% url 'tools:hosted_tool_detail' slug='an-alive-list-prompts' %}"
+         class="inline-block text-white bg-teal-700 hover:bg-teal-800 px-4 py-2 rounded text-sm font-medium">
+        Get the Prompts
+      </a>
+    </div>
+
+    <!-- Journaling Help Card -->
     <div class="border border-slate-200 rounded-lg p-6 hover:shadow transition text-left">
       <h2 class="text-xl font-semibold mb-2">Journaling Help</h2>
       <p class="text-gray-600 text-sm mb-4">
@@ -20,10 +56,9 @@
          class="inline-block text-white bg-teal-700 hover:bg-teal-800 px-4 py-2 rounded text-sm font-medium">
         Journal Prompts
       </a>
-      
     </div>
 
-    <!-- Tap to Calm Card -->
+    <!-- Goal Tracker Card -->
     <div class="border border-slate-200 rounded-lg p-6 hover:shadow transition text-left">
       <h2 class="text-xl font-semibold mb-2">Goal Tracker</h2>
       <p class="text-gray-600 text-sm mb-4">
@@ -33,9 +68,9 @@
         class="inline-block text-white bg-teal-700 hover:bg-teal-800 px-4 py-2 rounded text-sm font-medium">
         Register HERE
       </a>
-      
     </div>
-    <!-- Game Card -->
+
+    <!-- Stress-Relief Game Card -->
     <div class="border border-slate-200 rounded-lg p-6 hover:shadow transition text-left">
       <h2 class="text-xl font-semibold mb-2">Stress‑Relief Game</h2>
       <p class="text-gray-600 text-sm mb-4">
@@ -67,18 +102,6 @@
           Learn more about the game →
         </a>
       </p>
-    </div>
-
-    <!-- ALIVE List Builder Card -->
-    <div class="border border-slate-200 rounded-lg p-6 hover:shadow transition text-left">
-      <h2 class="text-xl font-semibold mb-2">ALIVE List Builder</h2>
-      <p class="text-gray-600 text-sm mb-4">
-        Answer 9 questions to discover what goes on your ALIVE List — the experiences that make you feel truly alive.
-      </p>
-      <a href="{% url 'tools:alive_list_builder' %}"
-         class="inline-block text-white bg-teal-700 hover:bg-teal-800 px-4 py-2 rounded text-sm font-medium">
-        Build My List
-      </a>
     </div>
 
     <!-- Placeholder for future tools -->
