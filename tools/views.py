@@ -16,6 +16,7 @@ from .models import (
     MilestoneReflection,
     AliveListItem,
     HostedTool,
+    ToolSavedResult,
 )
 
 
@@ -307,6 +308,111 @@ def _purchase_gate(request, tool):
     raise Http404("Tool not available.")
 
 
+@login_required
+@require_POST
+def save_tool_result(request):
+    """
+    API endpoint called by uploaded HTML tools to persist a result to the
+    user's dashboard.
+
+    Expects JSON body:
+        {
+            "tool_slug": "values-compass",
+            "tool_title": "Core Values Tool",   // optional
+            "label": "My top 3 values",
+            "data": { ... }                      // any JSON the tool needs
+        }
+
+    Returns:
+        200  { "ok": true, "id": <int> }
+        400  { "ok": false, "error": "<reason>" }
+    """
+    try:
+        payload = json.loads(request.body)
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse({"ok": False, "error": "Invalid JSON."}, status=400)
+
+    tool_slug = (payload.get("tool_slug") or "").strip()[:200]
+    tool_title = (payload.get("tool_title") or "").strip()[:200]
+    label = (payload.get("label") or "").strip()[:300]
+    data = payload.get("data", {})
+
+    if not tool_slug or not label:
+        return JsonResponse(
+            {"ok": False, "error": "tool_slug and label are required."}, status=400
+        )
+    if not isinstance(data, (dict, list)):
+        data = {}
+
+    result = ToolSavedResult.objects.create(
+        user=request.user,
+        tool_slug=tool_slug,
+        tool_title=tool_title,
+        label=label,
+        data=data,
+    )
+    return JsonResponse({"ok": True, "id": result.pk})
+
+
+@login_required
+@require_POST
+def generate_compass_statement(request):
+    """
+    Calls Anthropic to generate a personalised compass statement for the user's
+    top 3 values. Called from premium uploaded HTML tools via fetch.
+
+    Expects JSON: { "values": ["Value1", "Value2", "Value3"] }
+    Returns:      { "ok": true, "statement": "..." }
+               or { "ok": false, "error": "..." }
+    """
+    try:
+        payload = json.loads(request.body)
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse({"ok": False, "error": "Invalid JSON."}, status=400)
+
+    raw_values = payload.get("values", [])
+    if not raw_values or not isinstance(raw_values, list):
+        return JsonResponse({"ok": False, "error": "values list required."}, status=400)
+
+    values = [str(v).strip()[:60] for v in raw_values[:3] if str(v).strip()]
+    if not values:
+        return JsonResponse({"ok": False, "error": "No valid values supplied."}, status=400)
+
+    from django.conf import settings as _settings
+    api_key = getattr(_settings, "ANTHROPIC_API_KEY", None)
+    if not api_key:
+        return JsonResponse({"ok": False, "error": "AI not configured."}, status=503)
+
+    try:
+        import anthropic as _anthropic
+        client = _anthropic.Anthropic(api_key=api_key)
+        names = ", ".join(values)
+        prompt = (
+            f"You are a warm, insightful life coach. A woman has just identified her top "
+            f"core values as: {names}.\n\n"
+            f"Write a single short paragraph (3–4 sentences, no more than 80 words total) "
+            f"that serves as her personal values compass statement. It must:\n"
+            f"- Feel intimate and specific to these exact values — not generic\n"
+            f"- Reference each value naturally by name\n"
+            f"- End with a practical decision-making question she can ask herself at a crossroads\n"
+            f"- Use warm, direct second-person language (\"you\", \"your\")\n"
+            f"- Have no bullet points, no headers — just the paragraph."
+        )
+        message = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=200,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        statement = message.content[0].text.strip()
+        return JsonResponse({"ok": True, "statement": statement})
+
+    except Exception:
+        return JsonResponse(
+            {"ok": False, "error": "Could not generate statement. Please try again."},
+            status=500,
+        )
+
+
 def hosted_tool_detail(request, slug):
     """
     Public wrapper page for an uploaded tool. Shows site chrome (nav/footer)
@@ -359,6 +465,15 @@ def hosted_tool_raw(request, slug):
     except (FileNotFoundError, ValueError):
         raise Http404("Tool file missing on server.")
 
+    # Inject the CSRF token so uploaded tools can call our own API endpoints
+    # (e.g. /tools/api/save-result/ or /tools/api/generate-compass/) via fetch
+    # without depending on cookie-read access (which varies by CSRF_COOKIE_HTTPONLY).
+    from django.middleware.csrf import get_token
+    csrf_token = get_token(request)
+    csrf_inject = (
+        b"<script>window.__CSRF=" + json.dumps(csrf_token).encode("utf-8") + b";</script>"
+    )
+
     # Inject a tiny height-reporter so the parent page can size the iframe to
     # the content (no inner scroll). Runs inside the sandbox via allow-scripts;
     # only posts a number, so it needs no same-origin access.
@@ -390,7 +505,7 @@ def hosted_tool_raw(request, slug):
             link for link in tool_links if link[1] != tool.link_url
         ]
     branding = _build_pdf_branding(tool_links).encode("utf-8")
-    injected = reporter + branding
+    injected = csrf_inject + reporter + branding
 
     if b"</body>" in html:
         head, sep, tail = html.rpartition(b"</body>")

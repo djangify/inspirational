@@ -18,6 +18,7 @@ from .models import EmailVerificationToken, MemberResource, SupportRequest
 from prompt.models_tracker import WritingGoal, WritingSession
 from accounts.services.mailerlite import add_subscriber
 from news.views import latest_published_posts
+from tools.models import ToolSavedResult
 
 
 def register_view(request):
@@ -200,6 +201,8 @@ def dashboard_view(request):
     # Latest blog posts (reuses the same query as the homepage)
     latest_posts = latest_published_posts(3)
 
+    tool_saved_results = ToolSavedResult.objects.filter(user=user).order_by("-created")[:10]
+
     context = {
         "latest_posts": latest_posts,
         "purchased_count": purchased_count,
@@ -209,6 +212,7 @@ def dashboard_view(request):
         "active_goals": active_goals,
         "recent_sessions": recent_sessions,
         "goal_count": goal_count,
+        "tool_saved_results": tool_saved_results,
     }
 
     return render(request, "accounts/dashboard.html", context)

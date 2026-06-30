@@ -269,3 +269,42 @@ class HostedTool(models.Model):
             order__status="completed",
             product__hosted_tool=self,
         ).exists()
+
+
+# ── Tool saved results ────────────────────────────────────────────────────────
+
+class ToolSavedResult(models.Model):
+    """
+    Generic JSON store for results that an uploaded HTML tool wants to
+    persist to the user's dashboard (e.g. top 3 core values + compass text).
+    """
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="tool_saved_results",
+    )
+    tool_slug = models.SlugField(
+        max_length=200,
+        help_text="Slug of the HostedTool that created this result.",
+    )
+    tool_title = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Human-readable tool name, captured at save time.",
+    )
+    label = models.CharField(
+        max_length=300,
+        help_text="Short name for this result, e.g. 'My top 3 values'.",
+    )
+    data = models.JSONField(
+        default=dict,
+        help_text="Arbitrary JSON payload from the tool.",
+    )
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created"]
+
+    def __str__(self):
+        return f"{self.user} — {self.tool_slug} — {self.label[:60]}"
