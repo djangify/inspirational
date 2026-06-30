@@ -103,7 +103,7 @@ secrets.json
 
 Production/
 .env
-
+tools/uploads/
 staticfiles/
 .htaccess
 *.log

@@ -29,8 +29,10 @@
     </header>
 
     <!--
-      Sandboxed iframe: the artifact's JS runs in an opaque origin (no
-      allow-same-origin), so it cannot touch this site's cookies/session/DOM.
+      Sandboxed iframe: allow-same-origin lets the tool use localStorage and
+      call this site's own API endpoints (e.g. /tools/api/save-result/).
+      X-Frame-Options: SAMEORIGIN (set by the raw view decorator) still
+      prevents other sites from embedding this page.
     -->
     <div class="w-full rounded-lg overflow-hidden border border-slate-200 shadow-sm bg-white">
         <iframe
@@ -38,7 +40,7 @@
             src="{{ tool.get_raw_url }}{% if request.GET.preview == '1' %}?preview=1{% endif %}"
             title="{{ tool.title }}"
             loading="lazy"
-            sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads"
+            sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads allow-same-origin"
             style="width:100%; min-height:400px; border:0; display:block;"
         ></iframe>
     </div>
