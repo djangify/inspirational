@@ -4,7 +4,7 @@
 
 {% block open_graph_tags %}
   <meta property="og:title" content="Personal Growth Topics & Categories | Inspirational Guidance" />
-  <meta property="og:description" content="Explore all personal growth topics at Inspirational Guidance -- from self-authorship and emotional resilience to journaling, confidence, and empowered living. Practical guides for women." />
+  <meta property="og:description" content="Explore all personal growth topics at Inspirational Guidance -- from reinventing your life on your own terms to emotional resilience, journaling, confidence, and empowered living. Practical guides for women." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta property="og:site_name" content="Inspirational Guidance" />
@@ -19,7 +19,7 @@
     <h1 class="text-3xl font-bold mb-6">Explore Categories</h1>
     <h2 class="text-xl mb-4 text-gray-700">Browse all personal growth topics available on Inspirational Guidance</h2>
     <p class="mb-8 text-gray-600">
-        Discover our key categories — from self-authorship to emotional resilience — and find guides, tools, and reflections 
+        Discover our key categories — from Own Your Terms to emotional resilience — and find guides, tools, and reflections
         that support you in building a life that feels like yours.
     </p>
 
@@ -49,7 +49,7 @@
       <h2 class="text-2xl font-semibold text-gray-900">Core Themes to Explore at Inspirational Guidance</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
         <a href="{% url 'core:self_authorship' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
-          <h3 class="text-lg font-semibold text-teal-700">Self Authorship</h3>
+          <h3 class="text-lg font-semibold text-teal-700">Own Your Terms</h3>
           <p class="text-gray-700 mt-1">Learn how to take charge of your own story and shape a path that reflects your true priorities.</p>
         </a>
         <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg">
@@ -81,7 +81,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Inspirational Guidance Categories",
-  "description": "Explore all categories on Inspirational Guidance, from journaling and self-authorship to living with purpose and emotional resilience.",
+  "description": "Explore all categories on Inspirational Guidance, from journaling and reinvention to living with purpose and emotional resilience.",
   "url": "{{ request.build_absolute_uri }}",
   "mainEntity": {
     "@type": "ItemList",
