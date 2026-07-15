@@ -1,5 +1,5 @@
 from django.contrib.sitemaps import Sitemap
-from django.urls import reverse
+from django.urls import reverse, NoReverseMatch
 from news.models import Post
 from news.models import Category as NewsCategory
 from shop.models import Category, Product
@@ -11,31 +11,36 @@ class StaticViewSitemap(Sitemap):
     changefreq = "weekly"
 
     def items(self):
-        return [
+        candidates = [
             "core:homepage",
+            "core:get_out_of_a_rut",
             "core:personal_development_resources",
             "core:diane_corriette",
-            "core:support",
             "core:category",
-            "core:about",
-            "core:live_with_purpose",
-            "core:contact",
-            "core:empowered_living",
-            "core:build_self_confidence",
-            "core:emotional_resilience",
-            "core:self_authorship",
-            "core:purpose",
+            "core:support",
+            "shop:product_list",
             "shop:category_hub",
-            "tools:index",  #  Mindful Tools index page (/tools/)
+            "tools:index",  # Mindful Tools index page (/tools/)
+            "tools:alive_list_builder",
             "tools:calming_game",
             "tools:tap_to_calm",
             "prompt:journal_prompt_generator",
-            "privacy_policy",
-            "cookie_policy",
-            "terms_conditions",
-            "ai_disclaimer",
-            "affiliate",
+            "core:privacy_policy",
+            "core:cookie_policy",
+            "core:terms_conditions",
+            "core:ai_disclaimer",
+            "core:affiliate",
         ]
+        # Only include names that currently resolve, so a stale or renamed
+        # entry can never take down the whole sitemap.
+        resolvable = []
+        for name in candidates:
+            try:
+                reverse(name)
+            except NoReverseMatch:
+                continue
+            resolvable.append(name)
+        return resolvable
 
     def location(self, item):
         return reverse(item)

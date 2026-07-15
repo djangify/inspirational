@@ -5,6 +5,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.sitemaps.views import sitemap
 from inspirational.sitemaps import (
+    StaticViewSitemap,
     ShopCategorySitemap,
     ShopProductSitemap,
     NewsSitemap,
@@ -14,6 +15,7 @@ from inspirational.sitemaps import (
 from core.views import robots_txt
 
 sitemaps = {
+    "static": StaticViewSitemap,
     "shop_categories": ShopCategorySitemap,
     "shop_products": ShopProductSitemap,
     "news": NewsSitemap,

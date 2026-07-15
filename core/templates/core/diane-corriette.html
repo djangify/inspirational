@@ -5,7 +5,7 @@
 
 {% block open_graph_tags %}
   <meta property="og:title" content="Diane Corriette — Personal Growth Coach & Founder of Inspirational Guidance" />
-  <meta property="og:description" content="Diane Corriette is a Personal Growth Coach, and founder of Inspirational Guidance. She helps women move out of default mode and into a life of deliberate, purposeful choices — and lives what she teaches." />
+  <meta property="og:description" content="Diane Corriette is a Personal Growth Coach, and founder of Inspirational Guidance. She helps women get out of a rut and make everyday life more interesting through small, intentional choices — and lives what she teaches." />
   <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://inspirationalguidance.com/diane-corriette/" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/diane-corriette-inspirational-guidance.jpg' %}" />
@@ -14,7 +14,7 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Diane Corriette — Personal Growth Coach & Founder of Inspirational Guidance">
-  <meta name="twitter:description" content="Diane Corriette is a Personal Growth Coach, and founder of Inspirational Guidance — helping women choose their own direction.">
+  <meta name="twitter:description" content="Diane Corriette is a Personal Growth Coach, and founder of Inspirational Guidance — helping women get out of a rut and make everyday life more interesting.">
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/diane-corriette-inspirational-guidance.jpg' %}">
 {% endblock %}
 
@@ -25,21 +25,17 @@
   "@type": "Person",
   "name": "Diane Corriette",
   "jobTitle": "Personal Growth Coach",
-  "description": "Diane Corriette is a Personal Growth Coach, and founder of Inspirational Guidance. She helps women reinvent their lives on their own terms through the PAUSE Method, confidence-building, and intentional habits.",
+  "description": "Diane Corriette is a Personal Growth Coach, and founder of Inspirational Guidance. She helps women get out of a rut and make everyday life more interesting through the PAUSE Method, journaling, and small intentional choices.",
   "url": "https://inspirationalguidance.com/diane-corriette/",
   "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/diane-corriette-inspirational-guidance.jpg' %}",
   "knowsAbout": [
-    "Own Your Terms",
-    "Reinvention & Starting Over",
-    "Emotional Resilience",
-    "Personal Development for Women",
-    "Intentional Living",
-    "NLP (Neuro-Linguistic Programming)",
-    "Life Coaching",
-    "Self-Confidence",
-    "Empowered Living",
+    "Getting Out of a Rut",
+    "Everyday Novelty & Intentional Choices",
+    "Rediscovering Enjoyment",
+    "The ALIVE List Method",
     "Journaling for Personal Growth",
-    "Values-Led Decision Making"
+    "Life Coaching",
+    "NLP (Neuro-Linguistic Programming)"
   ],
   "hasCredential": [
     {
@@ -207,30 +203,31 @@
     <section class="w-full py-12">
       <div>
         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">What I Write About</h2>
-        <p class="text-gray-700 lg:text-lg mb-8">Every guide, article, and tool on Inspirational Guidance connects back to one core idea: that women deserve a life they have deliberately chosen. These are the six topic areas I write about — each grounded in my coaching training, NLP practice, and lived experience.</p>
+        <p class="text-gray-700 lg:text-lg mb-8">I write about how women can get out of a rut and make everyday life more interesting through small, intentional choices. My work centers on An ALIVE List, supported by practical guidance for finding inspiration, making choices, creating room for yourself, taking action and using journaling for clarity.</p>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <a href="{% url 'core:self_authorship' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
-            <h3 class="text-lg font-semibold text-teal-700 mb-1">Own Your Terms</h3>
-            <p class="text-gray-600 text-sm">How to define your own beliefs, identity, and direction — rather than living by someone else's script. The central thread of my work.</p>
+          <a href="{% url 'core:get_out_of_a_rut' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
+            <h3 class="text-lg font-semibold text-teal-700 mb-1">An ALIVE List</h3>
+            <p class="text-gray-600 text-sm">How to define your own beliefs, identity, and direction. The central thread of my work.A practical way to collect ideas, choose enjoyable experiences, plan them and stop leaving them for someday.</p>
           </a>
-          <a href="{% url 'core:emotional_resilience' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
-            <h3 class="text-lg font-semibold text-teal-700 mb-1">Emotional Resilience — the PAUSE Framework</h3>
-            <p class="text-gray-600 text-sm">My own five-step framework for responding to stress and setbacks with calm and clarity. Created from over two decades of coaching experience.</p>
+   
+          <a href="{% url 'news:category' 'feel-inspired' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
+            <h3 class="text-lg font-semibold text-teal-700 mb-1">Feel Inspired</h3>
+            <p class="text-gray-600 text-sm">Ideas to help women rediscover their interests, notice what brings enjoyment and find new things to look forward to.</p>
           </a>
-          <a href="{% url 'core:build_self_confidence' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
-            <h3 class="text-lg font-semibold text-teal-700 mb-1">Build Self-Confidence</h3>
-            <p class="text-gray-600 text-sm">Confidence as a practised skill — built through clarity, language, small actions, and evidence. Not motivation. Not affirmations. Real, repeatable steps.</p>
+          <a href="{% url 'news:category' 'make-a-choice' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
+            <h3 class="text-lg font-semibold text-teal-700 mb-1">Make A Choice</h3>
+            <p class="text-gray-600 text-sm">Guidance for deciding what matters, choosing what to do next and turning possibilities into small, intentional everyday choices.</p>
           </a>
-          <a href="{% url 'core:live_with_purpose' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
-            <h3 class="text-lg font-semibold text-teal-700 mb-1">Live With Purpose</h3>
-            <p class="text-gray-600 text-sm">Purpose as a daily practice of values-led choices — not a grand calling to locate once. How to align your everyday decisions with what genuinely matters.</p>
+          <a href="{% url 'news:category' 'choose-yourself' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
+            <h3 class="text-lg font-semibold text-teal-700 mb-1">Choose Yourself</h3>
+            <p class="text-gray-600 text-sm">Support for protecting your time, honoring your preferences and creating room for the things you want to experience.</p>
           </a>
-          <a href="{% url 'core:empowered_living' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
-            <h3 class="text-lg font-semibold text-teal-700 mb-1">Empowered Living</h3>
-            <p class="text-gray-600 text-sm">Boundaries, self-reliance, confident decisions, and turning awareness into action. Practical tools for women ready to take ownership of their lives.</p>
+          <a href="{% url 'news:category' 'take-action' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
+            <h3 class="text-lg font-semibold text-teal-700 mb-1">Take Action</h3>
+            <p class="text-gray-600 text-sm">Practical guidance for starting before you feel completely ready, overcoming postponement and following through on your choices.</p>
           </a>
-          <a href="{% url 'core:journaling' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
-            <h3 class="text-lg font-semibold text-teal-700 mb-1">Journaling for Personal Growth</h3>
+                 <a href="{% url 'news:category' 'journaling' %}" class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-teal-500 transition-all">
+            <h3 class="text-lg font-semibold text-teal-700 mb-1">Journaling For Personal Growth</h3>
             <p class="text-gray-600 text-sm">A 10-minute daily practice for clarity, resilience, confidence, and self-knowledge. I have used journaling as a personal tool for over two decades.</p>
           </a>
         </div>
@@ -265,7 +262,7 @@
 
             <div class="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-[color:var(--color-border)]">
                 
-                <img src="{% static 'images/self-authorship-inspirational-guidance900.webp' %}" alt="Inspirational Guidance Manifesto for owning your terms" class="w-full h-auto rounded-md shadow-md">
+                <img src="{% static 'images/self-authorship-inspirational-guidance900.webp' %}" alt="Inspirational Guidance manifesto" class="w-full h-auto rounded-md shadow-md">
 
                 <p class="text-lg text-[color:var(--color-text)] leading-relaxed mt-8 mb-6">
                     This manifesto captures the shift from living on default to choosing your own direction. Each line was chosen to reflect a specific moment in that process - from noticing what isn’t fully chosen, to making small, deliberate decisions, to building a life that feels like yours.

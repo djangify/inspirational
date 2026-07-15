@@ -1,0 +1,519 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}How to Get Out of a Rut and Make Everyday Life More Interesting{% endblock %}
+{% block meta_description %}A practical guide to getting out of a rut — rediscover what interests you, decide what you want, protect time for it, and take small action. Includes the PAUSE Framework, journaling prompts, and An ALIVE List from Inspirational Guidance.{% endblock %}
+
+{# ===== Open Graph / Twitter Cards ===== #}
+{% block open_graph_tags %}
+  <meta property="og:title" content="How to Get Out of a Rut and Make Everyday Life More Interesting" />
+  <meta property="og:description" content="Stuck on autopilot? This guide walks you through four simple moves — Feel Inspired, Make a Choice, Choose Yourself, and Take Action — plus the PAUSE Framework for when life knocks you off course." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:site_name" content="Inspirational Guidance" />
+  <meta property="article:author" content="Diane Corriette" />
+  <meta property="article:published_time" content="2026-07-15" />
+  <meta property="article:modified_time" content="2026-07-15" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Get Out of a Rut and Make Everyday Life More Interesting">
+  <meta name="twitter:description" content="Feel Inspired, Make a Choice, Choose Yourself, Take Action — a practical guide to getting unstuck and making everyday life more interesting.">
+{% endblock %}
+
+{% block content %}
+
+{# ===== Article Schema ===== #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Get Out of a Rut and Make Everyday Life More Interesting",
+  "description": "A practical guide to getting out of a rut — rediscover what interests you, decide what you want, protect time for it, and take small action, with the PAUSE Framework and journaling tools.",
+  "author": {
+    "@type": "Person",
+    "name": "Diane Corriette",
+    "url": "https://inspirationalguidance.com/diane-corriette/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inspirational Guidance",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.scheme }}://{{ request.get_host }}/static/images/logo.png"
+    }
+  },
+  "datePublished": "2026-07-15",
+  "dateModified": "2026-07-15",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request.build_absolute_uri }}"
+  }
+}
+</script>
+
+<div class="bg-white">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    {# --- Author + Date bar --- #}
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-6">
+      <a href="https://inspirationalguidance.com/diane-corriette/" class="font-medium text-teal-700 hover:underline">Diane Corriette</a>
+      <span>·</span>
+      <time datetime="2026-07-15">Published July 2026</time>
+    </div>
+
+    <header class="mb-8">
+      <h1 class="text-4xl mb-4 font-bold text-gray-900">How to Get Out of a Rut and Make Everyday Life More Interesting</h1>
+      <p class="leading-relaxed text-xl mt-2">
+        A rut rarely announces itself. The days just start to blur — same routine, same choices, same low hum of "is this it?" You are not broken and nothing has gone wrong. You have simply been living on autopilot, saying yes before checking what <em>you</em> want, and waiting for a spark that was never going to arrive on its own.
+      </p>
+      <p class="leading-relaxed text-xl mt-2">
+        This guide is the whole path in one place. Four simple moves — <strong>Feel Inspired</strong>, <strong>Make a Choice</strong>, <strong>Choose Yourself</strong>, and <strong>Take Action</strong> — plus the PAUSE Framework for the moments something knocks you off course. Small steps, done for real, are what make everyday life interesting again.
+      </p>
+    </header>
+
+    {# --- About this guide --- #}
+    <div class="bg-teal-50 border border-teal-200 rounded-xl p-5 mb-8 text-base text-teal-900 leading-relaxed">
+      <strong>About this guide:</strong> Written by <a href="https://inspirationalguidance.com/diane-corriette/" class="underline font-medium">Diane Corriette</a>, Personal Growth Coach and founder of Inspirational Guidance. It brings together the tools she uses with women who are not in crisis — just stuck, and quietly wanting more of themselves.
+    </div>
+
+    {# --- From Diane: personal experience --- #}
+    <div class="my-8 border-l-4 border-teal-600 bg-teal-50/60 rounded-r-lg p-5">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-800 mb-1">From Diane</p>
+      <p class="text-gray-800 leading-relaxed">I know this from the inside, not just from the coaching chair. There was a season I felt like I was just floating — busy enough, functioning, but not really choosing anything. Nothing was obviously wrong, and somehow that made it harder to name. What moved me wasn't a grand plan; it was starting to make small choices that were mine again. I wrote about that season <a href="/the-season-i-felt-like-i-was-just-floating/" class="text-teal-700 hover:underline">here</a>.</p>
+    </div>
+
+    {# --- quote --- #}
+    <section class="w-full">
+      <div class="max-w-7xl mb-8 mx-auto">
+        <blockquote class="p-4 px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
+          <p class="py-8">"You don't need a whole new life. You need the next small choice that feels like yours." <br> — Inspirational Guidance</p>
+        </blockquote>
+      </div>
+    </section>
+
+    {# --- On this page --- #}
+    <nav aria-label="On this page" class="bg-white rounded-xl border border-gray-200 p-6 mb-12">
+      <h2 class="text-lg font-semibold text-gray-900 mb-3">On this page</h2>
+      <ol class="grid sm:grid-cols-2 gap-x-8 gap-y-1 list-decimal ml-5 text-teal-700">
+        <li><a class="hover:underline" href="#in-a-rut">What it means to be in a rut</a></li>
+        <li><a class="hover:underline" href="#signs">Signs everyday life has become too repetitive</a></li>
+        <li><a class="hover:underline" href="#feel-inspired">Feel Inspired: rediscover what interests you</a></li>
+        <li><a class="hover:underline" href="#journaling">Use journaling to explore what you might enjoy</a></li>
+        <li><a class="hover:underline" href="#make-a-choice">Make a Choice: decide what you want next</a></li>
+        <li><a class="hover:underline" href="#alive-list">Use An ALIVE List to capture and plan</a></li>
+        <li><a class="hover:underline" href="#choose-yourself">Choose Yourself: protect time for what you want</a></li>
+        <li><a class="hover:underline" href="#take-action">Take Action: stop postponing and begin</a></li>
+        <li><a class="hover:underline" href="#pause">Use PAUSE when something knocks you off course</a></li>
+        <li><a class="hover:underline" href="#review">Review what you enjoyed and choose what comes next</a></li>
+      </ol>
+    </nav>
+
+    {# --- 1. What it means to be in a rut + Why this works --- #}
+    <div id="in-a-rut" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12 scroll-mt-24">
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3">What It Means to Be in a Rut</h2>
+        <p class="leading-relaxed text-xl mt-2">
+          Being in a rut is not the same as being unhappy or unwell. It is repetition without intention — living by a script you never consciously chose. You move through the week on inherited rules and old habits, agreeing to things before your own preferences have had a chance to register. Life keeps happening; it just stops feeling like <em>yours</em>.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          The way out is not a dramatic reinvention. It is noticing where you are on autopilot, and beginning to make small, deliberate choices that reflect what actually matters to you now.
+        </p>
+      </div>
+      <aside class="bg-slate-50 rounded-xl border border-indigo-100 p-6">
+        <h3 class="text-xl font-semibold text-teal-800 mb-2">Why This Works</h3>
+        <p class="text-teal-800/90 text-xl leading-relaxed">
+          Interest and energy return through action, not analysis. Every small choice you make on purpose adds to a quiet bank of evidence that your life is yours to steer. Not overnight — but consistently, one intentional choice at a time.
+        </p>
+      </aside>
+    </div>
+
+    <p class="mb-14 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+      <a href="/the-season-i-felt-like-i-was-just-floating/" class="text-teal-700 hover:underline">The Season I Felt Like I Was Just Floating</a> &middot;
+      <a href="/the-station-where-no-one-leaves/" class="text-teal-700 hover:underline">The Station You Refuse to Leave</a> &middot;
+      <a href="/what-it-really-means-to-live-with-purpose/" class="text-teal-700 hover:underline">What It Really Means to Live With Purpose</a></p>
+
+    {# --- 2. Signs --- #}
+    <section id="signs" class="prose text-lg max-w-none mb-14 scroll-mt-24">
+      <h2>Signs Everyday Life Has Become Too Repetitive</h2>
+      <p class="leading-relaxed text-xl mt-2">
+        Most people feel a rut long before they name it. See how many of these sound familiar:
+      </p>
+      <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+        <li>You say yes before checking whether you actually want to.</li>
+        <li>You over-explain and justify simple choices to other people.</li>
+        <li>You struggle to answer "what do <em>I</em> want?" without referencing what someone else wants.</li>
+        <li>You feel a flicker of guilt whenever you put yourself first.</li>
+        <li>Your days blur together — busy, but strangely forgettable.</li>
+        <li>You talk yourself out of things before you have even tried them.</li>
+        <li>There is a persistent gap between the life you live and the life that would feel like yours.</li>
+      </ul>
+      <p class="leading-relaxed text-xl mt-4">
+        None of these are character flaws. They are signals — and the moment you notice them, without judgement, is the moment the rut starts to loosen.
+      </p>
+      <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+        <a href="/signs-you-are-living-by-someone-elses-script/" class="text-teal-700 hover:underline">7 Signs You Are Living by Someone Else's Script</a> &middot;
+        <a href="/living-on-autopilot-signs/" class="text-teal-700 hover:underline">7 Signs You're Living on Autopilot</a> &middot;
+        <a href="/five-gentle-ways-to-get-unstuck/" class="text-teal-700 hover:underline">Five Gentle Ways to Get Unstuck</a></p>
+    </section>
+
+    {# --- 3. Feel Inspired --- #}
+    <section id="feel-inspired" class="mb-14 scroll-mt-24">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 mb-1">Feel Inspired</p>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Rediscover What Interests and Energizes You</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          You do not have to manufacture passion. You only have to pay attention. Start noticing — across an ordinary week — what quietly lifts you and what quietly flattens you.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Notice what energizes you and what drains you, without deciding yet what to do about it.</li>
+          <li>Let your values act as a guide for the everyday choices in front of you.</li>
+          <li>Keep a running record of ideas — small things you might enjoy or would like to experience.</li>
+        </ul>
+        <p class="leading-relaxed text-xl mt-4">
+          Inspiration is not a lightning bolt. It is a list of small clues you collect until a direction becomes obvious.
+        </p>
+        <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+          <a href="/one-simple-way-to-reignite-joy-and-meaning-in-dail/" class="text-teal-700 hover:underline">Reignite Joy and Meaning in Daily Life</a> &middot;
+          <a href="/why-joy-often-fades-in-midlife-and-3-small-steps-t/" class="text-teal-700 hover:underline">Why Joy Often Fades in Midlife (and 3 Small Steps)</a> &middot;
+          <a href="/tiny-bets-how-to-test-a-new-direction-without-risk/" class="text-teal-700 hover:underline">Tiny Creative Bets: Test a New Direction</a></p>
+      </div>
+    </section>
+
+    {# --- 4. Journaling to explore + tool callout --- #}
+    <section id="journaling" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Use Journaling to Explore What You Might Enjoy</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          Journaling is how you hear yourself think before the rest of the world gets a vote. It is the fastest way to move a vague "something needs to change" into something you can actually act on.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Use writing to discover what you want, rather than waiting to feel certain first.</li>
+          <li>Notice the patterns in what interests, energizes, or excites you.</li>
+          <li>Ask what you want tomorrow — or the coming week — to actually feel like.</li>
+          <li>Write through a choice before asking everyone else what they think.</li>
+          <li>Reach for a prompt on the days you feel stuck.</li>
+        </ul>
+      </div>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-slate-50 border border-indigo-100 rounded-2xl p-6">
+        <div class="md:col-span-3">
+          <h3 class="text-xl font-semibold text-gray-900">Try the Journal Prompt Generator</h3>
+          <p class="text-gray-700 mt-2">A free tool that hands you a prompt when the blank page feels too big — one question is often all it takes to start.</p>
+          <div class="mt-4">
+            <a href="{% url 'prompt:journal_prompt_generator' %}" class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-white font-medium hover:bg-teal-800">Get a Prompt</a>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <div class="rounded-xl overflow-hidden border border-gray-200 bg-white">
+            <img src="{% static 'images/diana-morgan-journal-prompts.webp' %}" alt="Journal prompts to explore what you enjoy" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+        <a href="/journal-prompts-to-help-design-your-life/" class="text-teal-700 hover:underline">Journal Prompts To Help You Design Your Life</a> &middot;
+        <a href="/journaling-can-untangle-thoughts-and-emotions/" class="text-teal-700 hover:underline">How Journaling Can Untangle Your Thoughts</a> &middot;
+        <a href="/journaling-for-personal-growth-pathways/" class="text-teal-700 hover:underline">Journaling for Personal Growth: 8 Pathways</a></p>
+    </section>
+
+    {# --- 5. Make a Choice --- #}
+    <section id="make-a-choice" class="mb-14 scroll-mt-24">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 mb-1">Make a Choice</p>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Decide What You Want to Do Next</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          Clues become momentum the moment you turn one of them into a decision. You do not need the whole plan — just the next intentional choice.
+        </p>
+        <div class="my-8 border-l-4 border-teal-600 bg-teal-50/60 rounded-r-lg p-5">
+          <p class="text-sm font-semibold uppercase tracking-wide text-teal-800 mb-1">From Diane</p>
+          <p class="text-gray-800 leading-relaxed">When I was 55, a pension, a house sale and an online sale all landed at once. The safe move would have been to bank it and carry on exactly as I was. Instead I made myself sit with a harder question: what do I actually want to do next? Getting honest about my own values — not the ones I had absorbed from everyone else — is what turned that question into a decision I could act on. Those are <a href="/finding-my-core-values/" class="text-teal-700 hover:underline">the four values I won't live without</a>.</p>
+        </div>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Clarify the values and priorities that matter to you <em>now</em>, not the ones you inherited.</li>
+          <li>Turn what matters into one small, intentional action.</li>
+          <li>Create simple decision rules so you are not weighing every choice from scratch.</li>
+          <li>Decide without endless overthinking, and trust your own judgment.</li>
+          <li>Write through the choice yourself before you hand it around for approval.</li>
+        </ul>
+        <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+          <a href="/purpose-values-led-choices/" class="text-teal-700 hover:underline">How to Clarify Your Values (and Decide Now)</a> &middot;
+          <a href="/purpose-decision-making/" class="text-teal-700 hover:underline">Values-Based Decision Rules That Stop Overthinking</a> &middot;
+          <a href="/empower-decision-making/" class="text-teal-700 hover:underline">Make Decisions Without Overthinking</a></p>
+      </div>
+    </section>
+
+    {# --- 6. ALIVE List + tool callout --- #}
+    <section id="alive-list" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Use An ALIVE List to Capture and Plan Your Choices</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          An ALIVE List is simply the list of experiences that make you feel alive — the things you want more of. It gives your ideas somewhere to live so they stop evaporating, and it turns each one into a plan rather than a wish.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Capture the experiences and interests you keep noticing in one place.</li>
+          <li>End each journal entry — and each idea — with one small action.</li>
+          <li>Turn insight into a micro-action small enough that you can actually start this week.</li>
+        </ul>
+      </div>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-slate-50 border border-indigo-100 rounded-2xl p-6">
+        <div class="md:col-span-3">
+          <h3 class="text-xl font-semibold text-gray-900">Build your own ALIVE List</h3>
+          <p class="text-gray-700 mt-2">Answer ten guided questions and discover exactly what belongs on your list — the experiences worth making room for.</p>
+          <div class="mt-4">
+            <a href="{% url 'tools:alive_list_builder' %}" class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-white font-medium hover:bg-teal-800">Start the List</a>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <div class="rounded-xl overflow-hidden border border-gray-200 bg-white">
+            <img src="{% static 'images/a-live-it-list-ig.webp' %}" alt="An ALIVE List of experiences that make you feel alive" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+        <a href="/empower-turn-awareness-into-action/" class="text-teal-700 hover:underline">Turn Awareness Into Action</a> &middot;
+        <a href="/empower-small-steps/" class="text-teal-700 hover:underline">Small Steps, Big Shifts</a> &middot;
+        <a href="/micro-habits-in-action-how-to-make-them-work/" class="text-teal-700 hover:underline">Micro Habits in Action</a></p>
+    </section>
+
+    {# --- 7. Choose Yourself --- #}
+    <section id="choose-yourself" class="mb-14 scroll-mt-24">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 mb-1">Choose Yourself</p>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Protect Time for What You Want</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          A choice only becomes real life if you protect the room for it. Choosing yourself is not selfish — it is what stops you quietly slipping back to the bottom of your own list.
+        </p>
+        <div class="my-8 border-l-4 border-teal-600 bg-teal-50/60 rounded-r-lg p-5">
+          <p class="text-sm font-semibold uppercase tracking-wide text-teal-800 mb-1">From Diane</p>
+          <p class="text-gray-800 leading-relaxed">For years I put myself at the bottom of my own list and called it being easy-going. As an <a href="/are-you-shy-or-just-an-introvert/" class="text-teal-700 hover:underline">introvert</a>, I genuinely need quiet to function — and learning to protect that time and energy was not selfish. It was the thing that gave me something worth bringing to everyone else.</p>
+        </div>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Set boundaries without guilt, and protect your time and energy on purpose.</li>
+          <li>Keep a simple "No for now" ready for when you need to make room for yourself.</li>
+          <li>Write short boundary scripts so you are not scrambling for words in the moment.</li>
+          <li>Use your voice to state plainly what you want — no long justification required.</li>
+          <li>Protect the choices you have already made instead of letting them erode.</li>
+        </ul>
+        <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+          <a href="/empower-boundaries-without-guilt/" class="text-teal-700 hover:underline">Set Boundaries Without Guilt</a> &middot;
+          <a href="/empower-power-of-no/" class="text-teal-700 hover:underline">The Power of "No For Now"</a> &middot;
+          <a href="/empower-self-advocacy/" class="text-teal-700 hover:underline">Speak Up for What You Need</a></p>
+      </div>
+    </section>
+
+    {# --- 9. Take Action --- #}
+    <section id="take-action" class="mb-14 scroll-mt-24">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 mb-1">Take Action</p>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Stop Postponing and Begin</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          Everything above stays theoretical until you begin. The goal is not a perfect plan — it is a first move small enough that you cannot talk yourself out of it.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Run small experiments instead of waiting for certainty to arrive.</li>
+          <li>Take small acts of everyday courage — the ones no one else would even notice.</li>
+          <li>Turn one insight from this page into one specific action, and do it.</li>
+          <li>Ask for what you need without over-explaining or apologising for it.</li>
+          <li>Follow through, then choose the next small thing.</li>
+        </ul>
+        <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+          <a href="/why-momentum-over-motivation/" class="text-teal-700 hover:underline">Momentum Over Motivation</a> &middot;
+          <a href="/start-where-you-stand-how-to-build-momentum/" class="text-teal-700 hover:underline">Start Where You Stand</a> &middot;
+          <a href="/how-to-bounce-back-without-shame/" class="text-teal-700 hover:underline">The Art of Restarting</a></p>
+      </div>
+    </section>
+
+    {# --- 10. PAUSE (full framework) --- #}
+    <section id="pause" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Use PAUSE When Something Knocks You Off Course</h2>
+      <p class="leading-relaxed text-xl mt-2">
+        Progress is never a straight line. Stress, a setback, a wave of guilt, uncertainty, or someone else's reaction can all make it harder to choose yourself and follow through. PAUSE is the framework to reach for in exactly those moments — a simple, repeatable sequence created by Diane Corriette to help you respond instead of react.
+      </p>
+      <div class="my-8 border-l-4 border-teal-600 bg-teal-50/60 rounded-r-lg p-5">
+        <p class="text-sm font-semibold uppercase tracking-wide text-teal-800 mb-1">From Diane</p>
+        <p class="text-gray-800 leading-relaxed">I built PAUSE because I needed it. Several years ago I had a reaction that was completely out of proportion to the thing that set it off — and it was not really about that moment at all. It was all the stress I had been carrying without ever pausing. That was my body's way of saying "Enough." Looking back, I was not resilient; I was surviving. Real resilience would have meant pausing earlier, accepting my limits, and choosing habits that gave me strength instead of draining it. That is exactly why PAUSE exists — I needed a sequence I could remember and use in the moment, not just understand in hindsight.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mt-6">
+        <div class="bg-white rounded-lg border border-gray-200 p-6">
+          <div class="text-sm font-semibold text-teal-700">Pause</div>
+          <p class="text-gray-700 mt-2">Create space before automatically responding or dismissing an idea.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6">
+          <div class="text-sm font-semibold text-teal-700">Accept</div>
+          <p class="text-gray-700 mt-2">Acknowledge how life feels now, without judging yourself for it.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6">
+          <div class="text-sm font-semibold text-teal-700">Understand</div>
+          <p class="text-gray-700 mt-2">Notice what is keeping you stuck, postponing enjoyment, or repeating the same patterns.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6">
+          <div class="text-sm font-semibold text-teal-700">Strengthen</div>
+          <p class="text-gray-700 mt-2">Draw on helpful self-talk, journaling, supportive people, and practical resources.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6">
+          <div class="text-sm font-semibold text-teal-700">Evolve</div>
+          <p class="text-gray-700 mt-2">Use what you have learned to make your next intentional choice.</p>
+        </div>
+      </div>
+      <p class="leading-relaxed text-xl mt-6">
+        You can run through PAUSE in ninety seconds, or use it as the shape of a longer journaling session. Both work. It is built for the moments you need it most — not only the calm ones you can reflect on later.
+      </p>
+      <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read the five steps in full:</span>
+        <a href="/pause-reclaiming-your-first-response/" class="text-teal-700 hover:underline">Pause</a> &middot;
+        <a href="/accept-naming-and-acknowledging-reality/" class="text-teal-700 hover:underline">Accept</a> &middot;
+        <a href="/understand-finding-the-why-beneath-the-reaction/" class="text-teal-700 hover:underline">Understand</a> &middot;
+        <a href="/strengthen-building-your-resilience-muscle/" class="text-teal-700 hover:underline">Strengthen</a> &middot;
+        <a href="/evolve-turning-survival-into-growth/" class="text-teal-700 hover:underline">Evolve</a> &middot;
+        <a href="/stay-calm-and-in-control-5-ways-to-apply-pause/" class="text-teal-700 hover:underline">5 Ways to Apply PAUSE</a></p>
+    </section>
+
+    {# --- 11. Review --- #}
+    <section id="review" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Review What You Enjoyed and Choose What Comes Next</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          Getting out of a rut is not a one-time event; it is a rhythm you keep. A short, regular review is what stops the old autopilot from quietly taking back over.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Hold a short weekly review — fifteen minutes, same day each week.</li>
+          <li>Ask what you actually enjoyed, and what you want more or less of.</li>
+          <li>Adjust your choices as your interests and circumstances develop.</li>
+          <li>Carry one lesson forward — the Evolve step in miniature — and choose what comes next.</li>
+        </ul>
+        <p class="leading-relaxed text-xl mt-4">
+          Then begin again from wherever you are. Feel inspired, make a choice, choose yourself, take action — and let everyday life get a little more interesting each time round.
+        </p>
+        <div class="my-8 border-l-4 border-teal-600 bg-teal-50/60 rounded-r-lg p-5">
+          <p class="text-sm font-semibold uppercase tracking-wide text-teal-800 mb-1">From Diane</p>
+          <p class="text-gray-800 leading-relaxed">I did not get out of my own rut by fixing my mindset or waiting until I felt ready. I did the next small thing that was mine to do, and then the one after that. That is really all this page is asking of you — just the next thing. For me it did not start with a grand escape; <a href="/how-i-came-to-live-with-purpose/" class="text-teal-700 hover:underline">it started at home</a>, one choice at a time.</p>
+        </div>
+        <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+          <a href="/purpose-realign-iterate/" class="text-teal-700 hover:underline">Your Weekly Purpose Reset (15 Minutes)</a> &middot;
+          <a href="/how-looking-back-can-move-you-forward/" class="text-teal-700 hover:underline">How Looking Back Can Move You Forward</a> &middot;
+          <a href="/checking-progress-and-making-adjustments/" class="text-teal-700 hover:underline">Checking Progress and Making Adjustments</a></p>
+      </div>
+    </section>
+
+    {# --- Product / Shop CTA --- #}
+    <section class="mt-14">
+      <div class="bg-indigo-900 text-white rounded-2xl p-8 md:p-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <p class="text-indigo-300 text-sm font-semibold uppercase tracking-wide mb-2">From the Shop</p>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Tools to help you begin</h2>
+            <p class="text-indigo-100 leading-relaxed mb-6">Planners, guides, and workbooks built around these exact four moves — to help you rediscover what interests you, decide what matters, protect your time, and follow through.</p>
+            <a href="/shop/" class="inline-flex items-center px-6 py-3 rounded-lg bg-teal-400 text-indigo-900 font-semibold hover:bg-teal-300 transition-colors">Explore the Shop →</a>
+          </div>
+          <div class="hidden md:block">
+            <div class="bg-indigo-800 rounded-xl p-6 space-y-3 text-indigo-100 text-sm">
+              <p class="font-semibold text-white text-base mb-4">Where each one helps:</p>
+              <p>✓ Feel Inspired — rediscover what you enjoy</p>
+              <p>✓ Make a Choice — decide what matters now</p>
+              <p>✓ Choose Yourself — protect time for it</p>
+              <p>✓ Take Action — stop postponing and begin</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {# --- FAQ --- #}
+    <section id="faq" class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">FAQ</h2>
+      <div class="max-w-3xl">
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">How do I know if I'm actually in a rut?</summary>
+          <p class="mt-3 text-gray-700">If your days blur together, you say yes before checking what you want, and there's a persistent gap between the life you live and the one that feels like yours — that's a rut. It isn't unhappiness or illness; it's repetition without intention, and it responds to small, deliberate choices.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Where do I start if everything feels stuck?</summary>
+          <p class="mt-3 text-gray-700">Start by noticing, not fixing. For one week, pay attention to what energizes you and what drains you, and write it down. That short list of clues is enough to point you toward your first small, intentional choice.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Do I need to make a big life change?</summary>
+          <p class="mt-3 text-gray-700">No. The most effective starting point is the opposite — the smallest, lowest-risk choice you can make on purpose. Getting out of a rut is built in daily micro-choices, not grand gestures.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">When should I use the PAUSE Framework?</summary>
+          <p class="mt-3 text-gray-700">Use PAUSE whenever stress, a setback, guilt, uncertainty, or someone else's reaction makes it harder to choose yourself and follow through. It gives you a simple five-step sequence — Pause, Accept, Understand, Strengthen, Evolve — you can remember under pressure.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">What is An ALIVE List?</summary>
+          <p class="mt-3 text-gray-700">An ALIVE List is your personal list of experiences that make you feel alive — the things you want more of. It gives your ideas somewhere to live and turns each one into a small, doable plan. You can build yours with the free ALIVE List Builder.</p>
+        </details>
+      </div>
+
+      {# FAQ schema #}
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "How do I know if I'm actually in a rut?", "acceptedAnswer": {"@type": "Answer", "text": "If your days blur together, you say yes before checking what you want, and there's a persistent gap between the life you live and the one that feels like yours, that's a rut. It's repetition without intention, and it responds to small deliberate choices."}},
+          {"@type": "Question", "name": "Where do I start if everything feels stuck?", "acceptedAnswer": {"@type": "Answer", "text": "Start by noticing, not fixing. For one week, pay attention to what energizes you and what drains you, and write it down. That short list of clues points you toward your first small intentional choice."}},
+          {"@type": "Question", "name": "Do I need to make a big life change?", "acceptedAnswer": {"@type": "Answer", "text": "No. The most effective starting point is the smallest, lowest-risk choice you can make on purpose. Getting out of a rut is built in daily micro-choices, not grand gestures."}},
+          {"@type": "Question", "name": "When should I use the PAUSE Framework?", "acceptedAnswer": {"@type": "Answer", "text": "Use PAUSE whenever stress, a setback, guilt, uncertainty, or someone else's reaction makes it harder to choose yourself and follow through. It is a five-step sequence: Pause, Accept, Understand, Strengthen, Evolve."}},
+          {"@type": "Question", "name": "What is An ALIVE List?", "acceptedAnswer": {"@type": "Answer", "text": "An ALIVE List is your personal list of experiences that make you feel alive. It gives your ideas somewhere to live and turns each one into a small, doable plan. Build yours with the free ALIVE List Builder."}}
+        ]
+      }
+      </script>
+    </section>
+
+    {# --- Sources & Further Reading --- #}
+    <section class="mt-16">
+      <h2 class="text-xl font-semibold text-gray-900 mb-3">Sources &amp; Further Reading</h2>
+      <ul class="space-y-2 text-base text-gray-700">
+        <li>Corriette, D. (2024). <em>The PAUSE Framework for Emotional Resilience.</em> Inspirational Guidance.</li>
+        <li><a href="https://www.apa.org/topics/resilience" class="text-teal-700 hover:underline" rel="noopener noreferrer" target="_blank">American Psychological Association — Building Your Resilience</a></li>
+        <li><a href="https://positivepsychology.com/emotional-resilience/" class="text-teal-700 hover:underline" rel="noopener noreferrer" target="_blank">Positive Psychology — Emotional Resilience overview</a></li>
+      </ul>
+    </section>
+
+    {# --- Keep going: durable tools & shop --- #}
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900">Keep Going</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="{% url 'tools:alive_list_builder' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Build An ALIVE List</h3>
+          <p class="text-gray-700 mt-1">Discover the experiences worth making room for.</p>
+        </a>
+        <a href="{% url 'prompt:journal_prompt_generator' %}" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Journal Prompt Generator</h3>
+          <p class="text-gray-700 mt-1">A prompt for the days the page feels blank.</p>
+        </a>
+        <a href="/shop/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Shop the Tools</h3>
+          <p class="text-gray-700 mt-1">Planners and guides for each of the four moves.</p>
+        </a>
+      </div>
+    </section>
+
+    {# --- Reflection box --- #}
+    <section class="mt-16">
+      <div class="rounded-2xl border border-slate-200 p-6 bg-slate-50">
+        <h2 class="text-xl font-semibold text-gray-900">Reflection</h2>
+        <p class="text-gray-700 mt-2">
+          Name one small thing you would like more of this week. Then choose the smallest possible action that moves you toward it — and do that one thing.
+        </p>
+      </div>
+    </section>
+
+  </section>
+</div>
+
+<!-- WebPage Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "How to Get Out of a Rut and Make Everyday Life More Interesting",
+  "description": "A practical guide to getting out of a rut — rediscover what interests you, decide what you want, protect time for it, and take small action, with the PAUSE Framework and journaling tools.",
+  "url": "{{ request.build_absolute_uri }}",
+  "inLanguage": "en-GB",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inspirational Guidance",
+    "url": "https://inspirationalguidance.com"
+  }
+}
+</script>
+
+{% endblock %}

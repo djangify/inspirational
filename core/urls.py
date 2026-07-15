@@ -1,5 +1,5 @@
 from django.urls import path
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from .views import (
     homepage,
     support_view,
@@ -14,43 +14,55 @@ app_name = "core"
 urlpatterns = [
     path("", homepage, name="homepage"),
     path("support/", support_view, name="support"),
-    path("quietly-you/", quietly_you_page, name="quietly"),
+    path(
+        "quietly-you/",
+        RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
+        name="quietly",
+    ),
     path("my-turn-now/", my_turn_now_page, name="myturn"),
     path("diane-corriette/", diane_corriette_page, name="diane_corriette"),
     path(
         "personal-development/",
-        TemplateView.as_view(template_name="core/personal-development.html"),
+        RedirectView.as_view(pattern_name="core:diane_corriette", permanent=True),
         name="about",
     ),
     # Cluster pages
     path(
+        "how-to-get-out-of-a-rut",
+        TemplateView.as_view(template_name="core/how-to-get-out-of-a-rut.html"),
+        name="get_out_of_a_rut",
+    ),
+    # Old cluster pages — consolidated into "how-to-get-out-of-a-rut".
+    # 301-redirect the old URLs so inbound links and SEO are preserved. The URL
+    # names are kept so existing {% url %} references keep resolving.
+    path(
         "pause-emotional-resilience",
-        TemplateView.as_view(template_name="core/pause-emotional-resilience.html"),
+        RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
         name="emotional_resilience",
     ),
     path(
         "build-self-confidence",
-        TemplateView.as_view(template_name="core/build-self-confidence.html"),
+        RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
         name="build_self_confidence",
     ),
     path(
         "live-with-purpose",
-        TemplateView.as_view(template_name="core/live-with-purpose.html"),
+        RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
         name="live_with_purpose",
     ),
     path(
         "empowered-living",
-        TemplateView.as_view(template_name="core/empowered-living.html"),
+        RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
         name="empowered_living",
     ),
     path(
         "self-authorship",
-        TemplateView.as_view(template_name="core/self-authorship.html"),
+        RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
         name="self_authorship",
     ),
     path(
         "journaling-personal-growth",
-        TemplateView.as_view(template_name="core/journaling-personal-growth.html"),
+        RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
         name="journaling",
     ),
     path(
@@ -58,14 +70,16 @@ urlpatterns = [
         TemplateView.as_view(template_name="core/personal-development-resources.html"),
         name="personal_development_resources",
     ),
+    # Social link-hub — shared from social bios (utm_medium=linkhub). Keep it live.
     path(
         "purpose/",
         TemplateView.as_view(template_name="core/purpose-links.html"),
         name="linkhub",
     ),
+    # Deleted page — 301-redirect to the consolidated pillar page.
     path(
         "develop-self-reliance/",
-        TemplateView.as_view(template_name="core/develop-self-reliance.html"),
+        RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
         name="develop_self_reliance",
     ),
     path("category/", category_hub, name="category"),
