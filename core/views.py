@@ -128,7 +128,7 @@ def handler403(request, exception):
 
 def handler404(request, exception):
     # Define which category to show (by slug)
-    category_slug = "reinvention-starting-over"  # Change this to your desired category slug
+    category_slug = "choose-yourself"  # Change this to your desired category slug
 
     try:
         # Try to get the category
@@ -209,5 +209,4 @@ def my_turn_now_page(request):
 
 
 def category_hub(request):
-    categories = Category.objects.exclude(slug__in=["build-self-confidence", "quietly-you"])
-    return render(request, "core/category.html", {"categories": categories})
+    return render(request, "core/category.html")

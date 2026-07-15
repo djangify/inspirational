@@ -18,10 +18,40 @@ def generate_public_id(instance, *args, **kwargs):
     return f"{slug}-{unique_id_short}"
 
 
+class CategoryQuerySet(models.QuerySet):
+    def visible(self):
+        """
+        Categories shown to visitors on the site.
+
+        A category only appears if it has at least one product that is live on
+        the site (active and Published / Coming Soon / Fully Booked). Draft
+        products don't count, so a category holding only drafts — including the
+        internal one-time-offer product — is hidden automatically.
+
+        The admin-only "Draft" category is never returned, regardless of what
+        it contains.
+        """
+        from django.db.models import Exists, OuterRef
+
+        live_products = Product.objects.filter(
+            category=OuterRef("pk"),
+            is_active=True,
+            status__in=["publish", "soon", "full"],
+        )
+
+        return (
+            self.exclude(slug__iexact="draft")
+            .exclude(name__iexact="draft")
+            .filter(Exists(live_products))
+        )
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True)
+
+    objects = CategoryQuerySet.as_manager()
 
     class Meta:
         verbose_name_plural = "categories"
