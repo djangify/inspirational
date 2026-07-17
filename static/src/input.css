@@ -377,7 +377,7 @@
 }
 .cta-title em { font-style: italic; color: var(--ig-teal-200); }
 .cta-text { font-weight: 300; line-height: 1.6; color: var(--ig-teal-200); margin: 0 0 1rem; }
-.cta-media { position: relative; width: 100%; max-width: 24rem; margin-inline: auto; }
+.cta-media { position: relative; width: 100%; max-width: 30rem; margin-inline: auto; }
 .cta-image { display: block; width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 12px 32px rgba(0,0,0,.25); }
 
 /* ============================================================
@@ -386,6 +386,7 @@
 @media (min-width: 640px) {
   .offer-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-actions { flex-direction: row; }
+  .cta-media { max-width: 38rem; }
 }
 
 @media (min-width: 1024px) {
@@ -398,6 +399,6 @@
 
   .offer-grid { grid-template-columns: repeat(3, 1fr); }
 
-  .cta-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
-  .cta-media { max-width: 32rem; margin-inline: 0; }
+  .cta-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .cta-media { max-width: 46rem; margin-inline: 0; }
 }
