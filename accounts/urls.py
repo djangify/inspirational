@@ -72,6 +72,11 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path(
+        "resources/<int:resource_id>/download/",
+        views.member_resource_download,
+        name="member_resource_download",
+    ),
     path("support/", views.support_view, name="support"),
     path("subscribe-updates/", views.subscribe_updates_view, name="subscribe_updates"),
 ]

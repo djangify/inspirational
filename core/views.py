@@ -12,8 +12,14 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_GET
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
-from django.http import Http404
+from django.http import Http404, FileResponse
 from django.core.paginator import Paginator
+from django.conf import settings
+import os
+import mimetypes
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def homepage(request):
@@ -169,6 +175,47 @@ def robots_txt(request):
         f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+# Free lead-magnet PDFs shown on the public /personal-development-resources page.
+# They physically live in media/member_resources/ (which Caddy blocks from direct
+# access so member-only resources stay gated), but these specific files are meant
+# to be public. This no-login view streams them server-side, so the files never
+# move and the gating on everything else is untouched. Whitelisted by exact
+# filename so a gated resource can never be served here.
+PUBLIC_FREEBIE_FILES = frozenset(
+    {
+        "clarify-your-values-your-life-your-way.pdf",
+        "emotional-resilience-pause-framework.pdf",
+        "empowering-questions-for-self-confidence.pdf",
+        "find-your-purpose-live-with-purpose.pdf",
+        "getting-started-inspirational-guidance2.pdf",
+        "mental-fitness-starter-kit.pdf",
+        "mind-over-matter-empowered-living.pdf",
+        "momentum-tracker-free-pdf-inspirational-guidance_1.pdf",
+        "small-steps-to-realignment.pdf",
+        "small-steps-vs-micro-habits.pdf",
+    }
+)
+
+
+@require_GET
+def public_freebie_download(request, filename):
+    # basename guards against path traversal; whitelist limits to public freebies.
+    name = os.path.basename(filename)
+    if name not in PUBLIC_FREEBIE_FILES:
+        raise Http404("Resource not found.")
+
+    file_path = os.path.join(settings.MEDIA_ROOT, "member_resources", name)
+    if not os.path.exists(file_path):
+        logger.error("Public freebie missing on disk: %s", file_path)
+        raise Http404("File could not be found.")
+
+    content_type, _ = mimetypes.guess_type(file_path)
+    content_type = content_type or "application/octet-stream"
+    response = FileResponse(open(file_path, "rb"), content_type=content_type)
+    response["Content-Disposition"] = f'attachment; filename="{name}"'
+    return response
 
 
 def quietly_you_page(request):

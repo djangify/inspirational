@@ -35,7 +35,7 @@
       <div
         class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200"
       >
-        <a href="{{ resource.file.url }}" class="block" target="_blank">
+        <a href="{% url 'accounts:member_resource_download' resource.id %}" class="block">
           <img
             src="{{ resource.thumbnail.url }}"
             alt="{{ resource.title }}"

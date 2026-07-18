@@ -7,6 +7,7 @@ from .views import (
     my_turn_now_page,
     diane_corriette_page,
     category_hub,
+    public_freebie_download,
 )
 
 app_name = "core"
@@ -69,6 +70,14 @@ urlpatterns = [
         "personal-development-resources",
         TemplateView.as_view(template_name="core/personal-development-resources.html"),
         name="personal_development_resources",
+    ),
+    # Public streaming download for the free lead-magnet PDFs on that page.
+    # Serves whitelisted files from member_resources/ without login, so the
+    # files stay put and the rest of member_resources stays gated.
+    path(
+        "free-resources/download/<str:filename>",
+        public_freebie_download,
+        name="freebie_download",
     ),
     # Social link-hub — shared from social bios (utm_medium=linkhub). Keep it live.
     path(
