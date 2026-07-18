@@ -73,7 +73,6 @@ INSTALLED_APPS = [
     "prompt",
     "accounts",
     "bots",
-    "pseo",
 ]
 
 MIDDLEWARE = [

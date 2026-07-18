@@ -159,6 +159,11 @@ def robots_txt(request):
         "Disallow: /accounts/",
         "Disallow: /shop/secure-download/",
         "Disallow: /media/secure_downloads/",
+        # Raw member/blog/preview files are publicly served but are not pages;
+        # keep bots from discovering them and inflating "not indexed" counts.
+        "Disallow: /media/member_resources/",
+        "Disallow: /media/news/resources/",
+        "Disallow: /media/public/products/previews/",
         "Allow: /",
         "",
         f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
