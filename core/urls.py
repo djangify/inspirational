@@ -33,14 +33,20 @@ urlpatterns = [
         TemplateView.as_view(template_name="core/how-to-get-out-of-a-rut.html"),
         name="get_out_of_a_rut",
     ),
+    path(
+        "pause-emotional-resilience",
+        TemplateView.as_view(template_name="core/pause-emotional-resilience.html"),
+        name="emotional_resilience",
+    ),
+    path(
+        "journaling-personal-growth",
+        TemplateView.as_view(template_name="core/journaling-personal-growth.html"),
+        name="journaling",
+    ),
     # Old cluster pages — consolidated into "how-to-get-out-of-a-rut".
     # 301-redirect the old URLs so inbound links and SEO are preserved. The URL
     # names are kept so existing {% url %} references keep resolving.
-    path(
-        "pause-emotional-resilience",
-        RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
-        name="emotional_resilience",
-    ),
+  
     path(
         "build-self-confidence",
         RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
@@ -61,11 +67,7 @@ urlpatterns = [
         RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
         name="self_authorship",
     ),
-    path(
-        "journaling-personal-growth",
-        RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
-        name="journaling",
-    ),
+   
     path(
         "personal-development-resources",
         TemplateView.as_view(template_name="core/personal-development-resources.html"),
