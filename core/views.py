@@ -133,26 +133,12 @@ def handler403(request, exception):
 
 
 def handler404(request, exception):
-    # Define which category to show (by slug)
-    category_slug = "choose-yourself"  # Change this to your desired category slug
+    # Show the 4 most recent published posts, regardless of category.
+    category_posts = Post.objects.filter(
+        status="published", publish_date__lte=timezone.now()
+    ).order_by("-publish_date")[:4]
 
-    try:
-        # Try to get the category
-        category = get_object_or_404(Category, slug=category_slug)
-
-        # Get posts from the category
-        category_posts = Post.objects.filter(
-            category=category, status="published", publish_date__lte=timezone.now()
-        ).order_by("-publish_date")[:4]
-
-    except Http404:
-        # Fallback to recent posts if category doesn't exist
-        category_posts = Post.objects.filter(
-            status="published", publish_date__lte=timezone.now()
-        ).order_by("-publish_date")[:3]
-        category = None
-
-    context = {"category_posts": category_posts, "selected_category": category}
+    context = {"category_posts": category_posts, "selected_category": None}
 
     return render(request, "error/404.html", context, status=404)
 
