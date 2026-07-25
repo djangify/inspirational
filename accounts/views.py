@@ -116,8 +116,14 @@ def verify_email(request, token):
             # Clean up the token
             verification_token.delete()
 
-            # Optional: Automatically log them in
-            # login(request, user)
+            # Automatically log them in. We didn't go through authenticate(),
+            # so Django doesn't know which backend to credit -- tell it
+            # explicitly (ModelBackend is the standard username/password one).
+            # This does NOT skip verification: is_active was still False until
+            # the moment above, so this only fires for someone who has just
+            # clicked a valid, single-use link from their own inbox.
+            user.backend = "django.contrib.auth.backends.ModelBackend"
+            login(request, user)
 
             return render(request, "accounts/email/email_verified.html")
 
