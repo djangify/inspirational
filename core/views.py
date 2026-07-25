@@ -12,8 +12,14 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_GET
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
-from django.http import Http404
+from django.http import Http404, FileResponse
 from django.core.paginator import Paginator
+from django.conf import settings
+import os
+import mimetypes
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def homepage(request):
@@ -127,26 +133,12 @@ def handler403(request, exception):
 
 
 def handler404(request, exception):
-    # Define which category to show (by slug)
-    category_slug = "momentum"  # Change this to your desired category slug
+    # Show the 4 most recent published posts, regardless of category.
+    category_posts = Post.objects.filter(
+        status="published", publish_date__lte=timezone.now()
+    ).order_by("-publish_date")[:4]
 
-    try:
-        # Try to get the category
-        category = get_object_or_404(Category, slug=category_slug)
-
-        # Get posts from the category
-        category_posts = Post.objects.filter(
-            category=category, status="published", publish_date__lte=timezone.now()
-        ).order_by("-publish_date")[:4]
-
-    except Http404:
-        # Fallback to recent posts if category doesn't exist
-        category_posts = Post.objects.filter(
-            status="published", publish_date__lte=timezone.now()
-        ).order_by("-publish_date")[:3]
-        category = None
-
-    context = {"category_posts": category_posts, "selected_category": category}
+    context = {"category_posts": category_posts, "selected_category": None}
 
     return render(request, "error/404.html", context, status=404)
 
@@ -159,11 +151,57 @@ def robots_txt(request):
         "Disallow: /accounts/",
         "Disallow: /shop/secure-download/",
         "Disallow: /media/secure_downloads/",
+        # Raw member/blog/preview files are publicly served but are not pages;
+        # keep bots from discovering them and inflating "not indexed" counts.
+        "Disallow: /media/member_resources/",
+        "Disallow: /media/news/resources/",
+        "Disallow: /media/public/products/previews/",
         "Allow: /",
         "",
         f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+# Free lead-magnet PDFs shown on the public /personal-development-resources page.
+# They physically live in media/member_resources/ (which Caddy blocks from direct
+# access so member-only resources stay gated), but these specific files are meant
+# to be public. This no-login view streams them server-side, so the files never
+# move and the gating on everything else is untouched. Whitelisted by exact
+# filename so a gated resource can never be served here.
+PUBLIC_FREEBIE_FILES = frozenset(
+    {
+        "clarify-your-values-your-life-your-way.pdf",
+        "emotional-resilience-pause-framework.pdf",
+        "empowering-questions-for-self-confidence.pdf",
+        "find-your-purpose-live-with-purpose.pdf",
+        "getting-started-inspirational-guidance2.pdf",
+        "mental-fitness-starter-kit.pdf",
+        "mind-over-matter-empowered-living.pdf",
+        "momentum-tracker-free-pdf-inspirational-guidance_1.pdf",
+        "small-steps-to-realignment.pdf",
+        "small-steps-vs-micro-habits.pdf",
+    }
+)
+
+
+@require_GET
+def public_freebie_download(request, filename):
+    # basename guards against path traversal; whitelist limits to public freebies.
+    name = os.path.basename(filename)
+    if name not in PUBLIC_FREEBIE_FILES:
+        raise Http404("Resource not found.")
+
+    file_path = os.path.join(settings.MEDIA_ROOT, "member_resources", name)
+    if not os.path.exists(file_path):
+        logger.error("Public freebie missing on disk: %s", file_path)
+        raise Http404("File could not be found.")
+
+    content_type, _ = mimetypes.guess_type(file_path)
+    content_type = content_type or "application/octet-stream"
+    response = FileResponse(open(file_path, "rb"), content_type=content_type)
+    response["Content-Disposition"] = f'attachment; filename="{name}"'
+    return response
 
 
 def quietly_you_page(request):
@@ -209,5 +247,4 @@ def my_turn_now_page(request):
 
 
 def category_hub(request):
-    categories = Category.objects.all()
-    return render(request, "core/category.html", {"categories": categories})
+    return render(request, "core/category.html")

@@ -1,6 +1,6 @@
 # accounts/views.py
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
+from django.http import JsonResponse, FileResponse, Http404
+from django.views.decorators.http import require_POST, require_http_methods
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -11,6 +11,9 @@ from django.utils.html import strip_tags
 from django.conf import settings
 from django.urls import reverse
 import time
+import os
+import mimetypes
+import logging
 from prompt.models import WritingPrompt
 from shop.models import Product, OrderItem
 from .forms import UserRegistrationForm, UserProfileForm, SupportForm
@@ -19,6 +22,8 @@ from prompt.models_tracker import WritingGoal, WritingSession
 from accounts.services.mailerlite import add_subscriber
 from news.views import latest_published_posts
 from tools.models import ToolSavedResult
+
+logger = logging.getLogger(__name__)
 
 
 def register_view(request):
@@ -111,8 +116,14 @@ def verify_email(request, token):
             # Clean up the token
             verification_token.delete()
 
-            # Optional: Automatically log them in
-            # login(request, user)
+            # Automatically log them in. We didn't go through authenticate(),
+            # so Django doesn't know which backend to credit -- tell it
+            # explicitly (ModelBackend is the standard username/password one).
+            # This does NOT skip verification: is_active was still False until
+            # the moment above, so this only fires for someone who has just
+            # clicked a valid, single-use link from their own inbox.
+            user.backend = "django.contrib.auth.backends.ModelBackend"
+            login(request, user)
 
             return render(request, "accounts/email/email_verified.html")
 
@@ -201,7 +212,6 @@ def dashboard_view(request):
     # Latest blog posts (reuses the same query as the homepage)
     latest_posts = latest_published_posts(3)
 
-    # Tool saved results (from premium hosted tools)
     tool_saved_results = ToolSavedResult.objects.filter(user=user).order_by("-created")[:10]
 
     context = {
@@ -217,6 +227,36 @@ def dashboard_view(request):
     }
 
     return render(request, "accounts/dashboard.html", context)
+
+
+@login_required
+@require_http_methods(["GET"])
+def member_resource_download(request, resource_id):
+    """Gated download for free member resources.
+
+    Requires login so the resource stays behind registration (email capture).
+    The raw file must not be reachable at its /media/ URL — Caddy blocks direct
+    access to /media/member_resources/ so this view is the only way in.
+    """
+    resource = get_object_or_404(MemberResource, id=resource_id, is_active=True)
+
+    if not resource.file:
+        raise Http404("File not available for this resource.")
+
+    file_path = resource.file.path
+    if not os.path.exists(file_path):
+        logger.error(
+            "Member resource file missing: %s (id=%s)", file_path, resource.id
+        )
+        raise Http404("File could not be found.")
+
+    content_type, _ = mimetypes.guess_type(file_path)
+    content_type = content_type or "application/octet-stream"
+    response = FileResponse(open(file_path, "rb"), content_type=content_type)
+    response["Content-Disposition"] = (
+        f'attachment; filename="{os.path.basename(file_path)}"'
+    )
+    return response
 
 
 @login_required

@@ -64,7 +64,7 @@ class Post(models.Model):
     ]
     CONTENT_TYPE_CHOICES = [
         ("article", "Writing"),
-        ("lillol", "Lil & Lol"),
+        ("alive", "Alive List"),
         ("bite", "Bites — short quick-read"),
         ("video", "Video"),
         ("audio", "Audio / Podcast"),
@@ -95,7 +95,7 @@ class Post(models.Model):
         max_length=10,
         choices=CONTENT_TYPE_CHOICES,
         default="article",
-        help_text="The FORMAT of the post: Writing = standard post (default), Lil & Lol = short and playful, Bites = short quick-read, Video = video embed, Audio = podcast/audio embed. Use Tags below for TOPICS like Choices or Updates.",
+        help_text="The FORMAT of the post: Writing = standard post (default), ALIVE List = short and playful, Bites = short quick-read, Video = video embed, Audio = podcast/audio embed. Use Tags below for TOPICS like Choices or Updates.",
     )
 
     # Topics — a post can carry several (Choices, Updates, or any you create)

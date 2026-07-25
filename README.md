@@ -37,7 +37,6 @@ Take a look at the getting started guide for new members.
 - ✅ Digital shop with Stripe checkout, coupons, and order bumps
 - ✅ Product reviews, wishlists, and secure digital downloads
 - ✅ Blog / News with categories, tags, and author profiles (EEAT-ready schema)
-- ✅ Programmatic SEO landing pages (pSEO)
 - ✅ Member dashboard with resources, order history, and profile management
 - ✅ Multi-theme support with per-request theme switching
 - ✅ Installable Progressive Web App (PWA) with offline fallback
@@ -56,7 +55,6 @@ inspirational/
 ├── prompt/          # Journaling prompts, categories, writing styles + writing goal tracker
 ├── tools/           # An ALIVE List, Experiment Weeks, goals, milestone reflections
 ├── news/            # Blog posts, categories, tags
-├── pseo/            # Programmatic SEO landing pages
 ├── templates/       # HTML templates (Tailwind + HTMX), including themes/ and pwa/
 ├── static/          # Source CSS/JS/images
 ├── staticfiles/     # Collected static assets (WhiteNoise)
@@ -109,9 +107,6 @@ Experiment Weeks, experiment goals, and milestone reflections help members set i
 
 ### Blog / News
 Articles with categories, tags, and author profiles, structured with EEAT markers and schema following the May 2026 core update.
-
-### Programmatic SEO
-The `pseo` app generates programmatic landing/cluster pages to expand organic reach.
 
 ### Member Dashboard
 A central hub to access purchased and free resources, save prompts, manage wishlists, track goals, review order history, and update profile settings.

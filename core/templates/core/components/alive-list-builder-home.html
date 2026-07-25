@@ -1,114 +1,69 @@
-{% extends "base.html" %}
-{% load static %}
- 
-{% block title %}ALIVE List Builder — Discover What Goes On Your List | Inspirational Guidance{% endblock %}
- 
- 
-{% block open_graph_tags %}
-  <meta property="fb:app_id" content="2433552923679047" />
-  <meta property="og:title" content="Build Your ALIVE List — Discover What Makes You Feel Alive" />
-  <meta property="og:description" content="Answer 10 questions and discover exactly what belongs on your ALIVE List — the experiences that make you feel truly alive." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/live-it-list.webp' %}" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/live-it-list.webp' %}" />
-{% endblock %}
- 
-{% block meta_description %}Answer 10 guided questions and discover exactly what belongs on your ALIVE List — the list of experiences that make you feel alive.{% endblock %}
- 
-{% block content %}
-<div class="max-w-6xl mx-auto px-4 py-12 sm:py-16">
- 
-  <!-- Breadcrumb -->
-  <nav class="mb-8 -mt-4" aria-label="Breadcrumb">
-    <ol class="flex items-center gap-2 text-sm text-gray-500">
-      <li><a href="/" class="hover:text-teal-700 transition-colors">Home</a></li>
-      <li><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
-      <li><a href="{% url 'tools:index' %}" class="hover:text-teal-700 transition-colors">Tools</a></li>
-      <li><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
-      <li class="text-gray-400">ALIVE List Builder</li>
-    </ol>
-  </nav>
- 
+{% load alive_list_tags %}
+{% alive_list_existing_items_json as alive_existing_items_json %}
+<!-- ALIVE List Builder (homepage version — matches homepage display font, no intro banner) -->
+<div class="max-w-5xl mx-auto mt-4 text-left">
+
   <!-- Page Header -->
   <div class="text-center mb-10">
-    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Build An ALIVE List</h1>
+    <h2 id="build-an-alive-list" class="text-3xl sm:text-4xl mb-3" style="font-family: var(--ig-font-display); font-weight: 600; color: var(--ig-ink);">Build An ALIVE List</h2>
     <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-      Ten questions. Each one unlocks something you already know but haven't written down yet. Answer each one or create your own.
-       
+      An ALIVE List is what you do instead of waiting for things to change on their own. Answer the ten questions or create your own.
     </p>
-    {% if not user_authenticated %}
-    <div class="mt-5 max-w-2xl mx-auto bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 text-left flex items-start gap-3">
-      <svg class="w-5 h-5 flex-shrink-0 text-amber-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-      </svg>
-      <p class="text-sm text-amber-800">
-        <strong>You don't have to log in to start.</strong> Your answers save to this browser as you go, and move to your account automatically once you register or log in here. (Switching devices or clearing your browser first will lose it — log in before you start if you want it saved for sure.)
-        <a href="{% url 'accounts:login' %}?next={% url 'tools:alive_list_builder' %}" class="font-semibold underline underline-offset-2 hover:text-amber-900">Log in</a>
-        or
-        <a href="{% url 'accounts:register' %}" class="font-semibold underline underline-offset-2 hover:text-amber-900">register free</a>
-        any time.
-      </p>
-    </div>
-    {% endif %}
   </div>
- 
+
   <div class="flex flex-col lg:flex-row gap-8 items-start">
- 
-    <!-- ── LEFT COLUMN: Question + Instructions + Share ──────────────────── -->
+
+    <!-- ── LEFT COLUMN: Question + Instructions ──────────────────── -->
     <div class="w-full lg:w-1/2 space-y-6">
- 
+
       <!-- Question panel -->
-      <div id="question-panel" class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 sm:p-8">
- 
+      <div id="alive-home-question-panel" class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 sm:p-8">
+
         <!-- Progress -->
         <div class="flex items-center justify-between mb-6">
-          <span id="progress-text" class="text-sm text-gray-500 font-medium">Question 1 of 10</span>
+          <span id="alive-home-progress-text" class="text-sm text-gray-500 font-medium">Question 1 of 10</span>
           <div class="flex gap-1">
             {% for i in "1234567890" %}
-            <div class="progress-dot w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300"></div>
+            <div class="alive-home-progress-dot w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300"></div>
             {% endfor %}
           </div>
         </div>
- 
+
         <!-- Question -->
-        <div id="question-wrap" class="transition-opacity duration-300">
-          <p id="question-text" class="text-gray-800 text-lg sm:text-xl leading-relaxed font-medium mb-6"></p>
- 
+        <div id="alive-home-question-wrap" class="transition-opacity duration-300">
+          <p id="alive-home-question-text" class="text-gray-800 text-lg sm:text-xl leading-relaxed font-medium mb-6"></p>
+
           <textarea
-            id="answer-input"
+            id="alive-home-answer-input"
             rows="3"
             placeholder="What comes to mind…"
             class="w-full border border-gray-300 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-base"
           ></textarea>
- 
+
           <div class="flex items-center gap-3 mt-4">
             <button
-              id="add-btn"
+              id="alive-home-add-btn"
               class="flex-1 bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-200 text-base"
             >
               Add to my list
             </button>
             <button
-              id="skip-btn"
+              id="alive-home-skip-btn"
               class="text-gray-400 hover:text-gray-600 text-sm underline underline-offset-2 transition-colors duration-200"
             >
               Skip
             </button>
           </div>
         </div>
- 
+
         <!-- Completion message (hidden until done) -->
-        <div id="completion-wrap" class="hidden text-center py-4">
+        <div id="alive-home-completion-wrap" class="hidden text-center py-4">
           <div class="text-4xl mb-4">✨</div>
-          <h2 class="text-2xl font-bold text-gray-900 mb-3">Your ALIVE List is taking shape.</h2>
+          <h3 class="text-2xl mb-3" style="font-family: var(--ig-font-display); font-weight: 600; color: var(--ig-ink);">Your ALIVE List is taking shape.</h3>
           <p class="text-gray-600 leading-relaxed mb-6">
             These are the things that make you feel alive. Keep adding to your list whenever something sparks that feeling.
           </p>
-          {% if not user_authenticated %}
+          {% if not request.user.is_authenticated %}
           <p class="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-5">
             <strong>Your list is saved on this browser.</strong> Register now and it'll move to your profile automatically — no re-entering anything. Just don't switch devices or clear your browser before you do.
           </p>
@@ -118,13 +73,13 @@
           </a>
           {% endif %}
         </div>
- 
+
       </div>
- 
+
       <!-- How this works -->
       <div class="bg-amber-50 border border-amber-100 rounded-2xl p-6 text-sm text-gray-700 space-y-3">
         <h3 class="font-semibold text-gray-900 text-base">How this works</h3>
-        {% if not user_authenticated %}
+        {% if not request.user.is_authenticated %}
         <p class="bg-white border border-amber-200 rounded-xl px-4 py-3 text-gray-800">
           <strong>Good to know:</strong> your list saves to this browser automatically as you go. Register or log in on this same browser afterward and it moves to your profile — you don't have to log in first, though it's the safest option if you might switch devices.
         </p>
@@ -135,41 +90,8 @@
           <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span><strong>Register or log in whenever you're ready.</strong> Your list moves to your profile automatically — items then save to your <a href="{% url 'accounts:dashboard' %}" class="underline underline-offset-2 text-teal-700 hover:text-teal-900">dashboard</a> as you add them.</span></li>
           <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>No account yet? It's free. <a href="{% url 'accounts:register' %}" class="underline underline-offset-2 text-teal-700 hover:text-teal-900">Register here</a> any time.</span></li>
           <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Tick the circle next to an item when you start living it.</span></li>
-          <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span>Share your list with family and friends — it makes a great conversation starter.</span></li>
           <li class="flex gap-2"><span class="text-teal-600 font-bold flex-shrink-0">&#8594;</span><span><strong>Registered users only:</strong> Come back any time to add more. Your list is never finished — that's the point.</span></li>
         </ul>
-      </div>
-
-      <!-- Share this page -->
-      <div class="bg-white border border-gray-200 rounded-2xl p-5">
-        <p class="text-sm font-semibold text-gray-700 mb-3">Share this tool with someone who needs it</p>
-        <div class="flex gap-2 flex-wrap">
-          <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
-             target="_blank" rel="noopener noreferrer" title="Share on Facebook"
-             class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-teal-700 hover:text-white text-gray-500 transition-colors duration-200">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/></svg>
-          </a>
-          <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text=Build%20Your%20Live%20It%20List%20%E2%80%94%20discover%20what%20makes%20you%20feel%20alive"
-             target="_blank" rel="noopener noreferrer" title="Share on X / Twitter"
-             class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-teal-700 hover:text-white text-gray-500 transition-colors duration-200">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
-          </a>
-          <a href="https://pinterest.com/pin/create/button/?url={{ request.build_absolute_uri }}&description=Build%20Your%20Live%20It%20List%20%E2%80%94%20discover%20what%20makes%20you%20feel%20alive"
-             target="_blank" rel="noopener noreferrer" title="Share on Pinterest"
-             class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-teal-700 hover:text-white text-gray-500 transition-colors duration-200">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
-          </a>
-          <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title=Build%20Your%20Live%20It%20List"
-             target="_blank" rel="noopener noreferrer" title="Share on LinkedIn"
-             class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-teal-700 hover:text-white text-gray-500 transition-colors duration-200">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
-          </a>
-          <a href="mailto:?subject=Build%20Your%20Live%20It%20List&body=I%20thought%20you%20might%20like%20this%20tool%3A%20{{ request.build_absolute_uri }}"
-             title="Share by email"
-             class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-teal-700 hover:text-white text-gray-500 transition-colors duration-200">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          </a>
-        </div>
       </div>
 
     </div>
@@ -180,12 +102,12 @@
       <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 sm:p-8 sticky top-8">
 
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-bold text-gray-900">My ALIVE List</h2>
-          <span id="item-count" class="text-sm text-gray-400 font-medium">0 items</span>
+          <h3 class="text-xl" style="font-family: var(--ig-font-display); font-weight: 600; color: var(--ig-ink);">My ALIVE List</h3>
+          <span id="alive-home-item-count" class="text-sm text-gray-400 font-medium">0 items</span>
         </div>
 
         <!-- Save status banner -->
-        {% if user_authenticated %}
+        {% if request.user.is_authenticated %}
         <div class="mb-5 flex items-center gap-2 bg-teal-50 border border-teal-200 rounded-xl px-4 py-3 text-sm text-teal-800">
           <svg class="w-4 h-4 flex-shrink-0 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -195,7 +117,7 @@
         {% else %}
         <div class="mb-5 flex items-center justify-between gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
           <p class="text-sm text-amber-800">Saved to this browser. Log in to move it to your dashboard permanently.</p>
-          <a href="{% url 'accounts:login' %}?next={% url 'tools:alive_list_builder' %}"
+          <a href="{% url 'accounts:login' %}?next={{ request.path }}"
              class="flex-shrink-0 bg-teal-700 hover:bg-teal-800 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors duration-200">
             Log in to save
           </a>
@@ -203,25 +125,25 @@
         {% endif %}
 
         <!-- Empty state -->
-        <div id="empty-state" class="text-center py-8 text-gray-400">
+        <div id="alive-home-empty-state" class="text-center py-8 text-gray-400">
           <p class="text-sm">Your items will appear here as you answer each question.</p>
         </div>
 
         <!-- Items list -->
-        <ul id="list-items" class="space-y-3"></ul>
+        <ul id="alive-home-list-items" class="space-y-3"></ul>
 
         <!-- Free-form add your own -->
         <div class="mt-5 pt-5 border-t border-gray-100">
           <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-2">Add anything you like</p>
           <div class="flex gap-2">
             <input
-              id="freeform-input"
+              id="alive-home-freeform-input"
               type="text"
               placeholder="Type any item and press Add…"
               class="flex-1 min-w-0 border border-gray-300 rounded-xl px-3 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
             />
             <button
-              id="freeform-add-btn"
+              id="alive-home-freeform-add-btn"
               class="flex-shrink-0 bg-teal-700 hover:bg-teal-800 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors duration-200"
             >
               Add
@@ -247,7 +169,7 @@
 
 <script>
 (function () {
-  const IS_AUTHENTICATED = {{ user_authenticated|yesno:"true,false" }};
+  const IS_AUTHENTICATED = {{ request.user.is_authenticated|yesno:"true,false" }};
   const CSRF_TOKEN = '{{ csrf_token }}';
   const SAVE_URL = '{% url "tools:alive_list_builder" %}';
 
@@ -311,23 +233,23 @@
   let listItems = [];
 
   // DOM refs
-  const questionText   = document.getElementById('question-text');
-  const answerInput    = document.getElementById('answer-input');
-  const addBtn         = document.getElementById('add-btn');
-  const skipBtn        = document.getElementById('skip-btn');
-  const questionWrap   = document.getElementById('question-wrap');
-  const completionWrap = document.getElementById('completion-wrap');
-  const progressText   = document.getElementById('progress-text');
-  const dots           = document.querySelectorAll('.progress-dot');
-  const listEl         = document.getElementById('list-items');
-  const emptyState     = document.getElementById('empty-state');
-  const itemCountEl    = document.getElementById('item-count');
+  const questionText   = document.getElementById('alive-home-question-text');
+  const answerInput    = document.getElementById('alive-home-answer-input');
+  const addBtn         = document.getElementById('alive-home-add-btn');
+  const skipBtn        = document.getElementById('alive-home-skip-btn');
+  const questionWrap   = document.getElementById('alive-home-question-wrap');
+  const completionWrap = document.getElementById('alive-home-completion-wrap');
+  const progressText   = document.getElementById('alive-home-progress-text');
+  const dots           = document.querySelectorAll('.alive-home-progress-dot');
+  const listEl         = document.getElementById('alive-home-list-items');
+  const emptyState     = document.getElementById('alive-home-empty-state');
+  const itemCountEl    = document.getElementById('alive-home-item-count');
 
   // ── Init ─────────────────────────────────────────────────────────────────
 
   function init() {
     if (IS_AUTHENTICATED) {
-      const serverItems = {{ existing_items_json|safe }};
+      const serverItems = {{ alive_existing_items_json|safe }};
       serverItems.forEach(si => {
         const q = QUESTIONS.find(q => q.category === si.category);
         listItems.push({
@@ -479,7 +401,7 @@
         const savedEl = document.createElement('span');
         savedEl.className = `text-xs ml-1 ${item.saved ? 'text-gray-300' : 'text-amber-400'}`;
         savedEl.textContent = item.saved ? '✓' : '…';
-        savedEl.id = `saved-indicator-${index}`;
+        savedEl.id = `alive-home-saved-indicator-${index}`;
         labelEl.appendChild(savedEl);
       }
 
@@ -542,7 +464,7 @@
       if (data.status === 'ok') {
         listItems[index].id = data.item_id;
         listItems[index].saved = true;
-        const indicator = document.getElementById(`saved-indicator-${index}`);
+        const indicator = document.getElementById(`alive-home-saved-indicator-${index}`);
         if (indicator) {
           indicator.textContent = '✓';
           indicator.className = 'text-xs ml-1 text-gray-300';
@@ -618,8 +540,8 @@
 
   // ── Free-form panel input ─────────────────────────────────────────────────
 
-  const freeformInput  = document.getElementById('freeform-input');
-  const freeformAddBtn = document.getElementById('freeform-add-btn');
+  const freeformInput  = document.getElementById('alive-home-freeform-input');
+  const freeformAddBtn = document.getElementById('alive-home-freeform-add-btn');
 
   freeformAddBtn.addEventListener('click', () => {
     const text = freeformInput.value.trim();
@@ -638,5 +560,3 @@
 
 })();
 </script>
-{% endblock %}
-   

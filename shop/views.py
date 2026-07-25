@@ -31,7 +31,7 @@ logger = logging.getLogger("shop")
 
 
 def product_list(request):
-    categories = Category.objects.all()
+    categories = Category.objects.visible()
     query = request.GET.get("q", "").strip()
 
     products = Product.objects.filter(
@@ -121,7 +121,7 @@ def cart_add(request, product_id):
 
 
 def category_hub(request):
-    categories = Category.objects.all()
+    categories = Category.objects.visible()
     return render(request, "shop/category_hub.html", {"categories": categories})
 
 
@@ -462,11 +462,13 @@ def purchases(request):
 
 
 def category_list(request, slug):
-    category = get_object_or_404(Category, slug=slug)
+    # Only categories that are visible on the site can be browsed directly;
+    # the Draft category and empty categories 404 for the public.
+    category = get_object_or_404(Category.objects.visible(), slug=slug)
     products = Product.objects.filter(
         category=category, status__in=["publish", "soon", "full"], is_active=True
     ).exclude(id__in=OneTimeOffer.hidden_product_ids()).order_by("order", "-created")
-    categories = Category.objects.all()
+    categories = Category.objects.visible()
 
     paginator = Paginator(products, 20)
     page = request.GET.get("page")

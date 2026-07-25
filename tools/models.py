@@ -271,17 +271,12 @@ class HostedTool(models.Model):
         ).exists()
 
 
-# ── Tool Saved Results ───────────────────────────────────────────────────────
+# ── Tool saved results ────────────────────────────────────────────────────────
 
 class ToolSavedResult(models.Model):
     """
-    A named result saved by a logged-in user from any HostedTool.
-
-    The tool's HTML calls POST /tools/api/save-result/ with:
-        { tool_slug, label, data }
-    where `data` is any JSON the tool wants to persist (e.g. top 3 values,
-    compass statement, answers). This model stores it against the user so it
-    can be displayed on their dashboard.
+    Generic JSON store for results that an uploaded HTML tool wants to
+    persist to the user's dashboard (e.g. top 3 core values + compass text).
     """
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

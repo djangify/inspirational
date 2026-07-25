@@ -29,10 +29,8 @@
     </header>
 
     <!--
-      Sandboxed iframe: allow-same-origin lets the tool use localStorage and
-      call this site's own API endpoints (e.g. /tools/api/save-result/).
-      X-Frame-Options: SAMEORIGIN (set by the raw view decorator) still
-      prevents other sites from embedding this page.
+      Sandboxed iframe: the artifact's JS runs in an opaque origin (no
+      allow-same-origin), so it cannot touch this site's cookies/session/DOM.
     -->
     <div class="w-full rounded-lg overflow-hidden border border-slate-200 shadow-sm bg-white">
         <iframe

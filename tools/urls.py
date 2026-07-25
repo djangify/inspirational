@@ -15,7 +15,7 @@ urlpatterns = [
         "live-it-list-builder/",
         RedirectView.as_view(pattern_name="tools:alive_list_builder", permanent=True),
     ),
-    # ── Hosted tool save API ─────────────────────────────────────────────────
+    # ── Hosted tool API endpoints ────────────────────────────────────────────
     path("api/save-result/", views.save_tool_result, name="save_tool_result"),
     path("api/generate-compass/", views.generate_compass_statement, name="generate_compass_statement"),
     # ── Uploaded "hosted tools" (Claude HTML artifacts) ──────────────────────

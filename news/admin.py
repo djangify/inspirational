@@ -75,7 +75,7 @@ class PostAdmin(admin.ModelAdmin):
                     "featured",
                 ),
                 "description": (
-                    "Content type = the FORMAT (Lil & Lol, Bites, Video, Audio). "
+                    "Content type = the FORMAT (ALIVE List, Bites, Video, Audio). "
                     "Tags = the TOPIC (Choices, Updates, or any you add). A post can "
                     "have one format and several tags, so it shows up under each."
                 ),

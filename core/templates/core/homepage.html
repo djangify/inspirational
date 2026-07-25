@@ -5,14 +5,14 @@
 
 {% block open_graph_tags %}
   <meta property="og:title" content="Start An ALIVE List — Free | Inspirational Guidance" />
-  <meta property="og:description" content="Your days are full but something feels missing. An ALIVE List is a simple, free tool to help you deliberately choose the small moments that make ordinary days feel like yours." />
+  <meta property="og:description" content="Feel like you are stuck in a rut? An ALIVE List is a simple, free tool to help you deliberately choose small moments that make ordinary days feel like yours." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://inspirationalguidance.com/" />
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}" />
   <meta property="og:site_name" content="Inspirational Guidance" />
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Start An ALIVE List — Free | Inspirational Guidance">
-  <meta name="twitter:description" content="Your days are full but something feels missing. An ALIVE List helps you choose the small moments that make ordinary days feel like yours.">
+  <meta name="twitter:description" content="Feel like you are stuck in a rut? An ALIVE List is a simple, free tool to help you deliberately choose small moments that make ordinary days feel like yours.">
   <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/ig-header-logo.jpg' %}">
 {% endblock %}
 
@@ -30,7 +30,7 @@
       "@id": "{{ site_url }}/#website",
       "url": "{{ site_url }}/",
       "name": "{{ site_name|escapejs }}",
-      "description": "Your days are full but something feels missing. Start An ALIVE List.",
+      "description": "Feel like you are stuck in a rut? Start An ALIVE List.",
       "publisher": { "@id": "{{ site_url }}/#organization" }
     },
     {
@@ -60,15 +60,14 @@
         "name": "Diane Corriette",
         "url": "https://inspirationalguidance.com/diane-corriette/",
         "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/diane-corriette-inspirational-guidance.jpg' %}",
-        "description": "Personal Growth Coach helping women move out of default mode into deliberate, purposeful living.",
+        "description": "Personal Growth Coach helping women get out of a rut and make everyday life more interesting through small, intentional choices.",
         "knowsAbout": [
-          "Self-Authorship",
-          "Emotional Resilience",
-          "Personal Development for Women",
-          "Intentional Living",
-          "Life Coaching",
-          "Self-Confidence",
-          "Journaling for Personal Growth"
+          "Getting Out of a Rut",
+          "Everyday Novelty & Intentional Choices",
+          "Rediscovering Enjoyment",
+          "The ALIVE List Method",
+          "Journaling for Personal Growth",
+          "Life Coaching"
         ],
         "sameAs": [
           "{{ social_youtube }}",
@@ -99,7 +98,7 @@
           <h1 class="hero-title">
             Feel like you're<br>
             living the same<br>
-            <em>day on a loop?</em>
+            <em>day on repeat?</em>
           </h1>
           <p class="hero-subtitle">
             An ALIVE List is a simple, free tool to help you deliberately choose the small moments that make ordinary days feel like yours.
@@ -113,7 +112,7 @@
             {% if user.is_authenticated %}
               <a href="{% url 'accounts:dashboard' %}" class="home-btn">Go To Dashboard</a>
             {% else %}
-              <a href="{% url 'accounts:register' %}" class="home-btn">Start My ALIVE List</a>
+              <a href="#build-an-alive-list" class="home-btn">Start My ALIVE List</a>
             {% endif %}
           </div>
         </div>
@@ -139,10 +138,7 @@
   <!-- 2. RECOGNITION -->
   <section class="recognition">
     <div class="home-container home-container--mid">
-      <p class="recognition-lead">Your days are full. You're managing everything...</p>
-      <p class="recognition-sub">And somehow, somewhere along the way, your day stopped feeling like yours.</p>
-      <span class="home-rule recognition-rule"></span>
-      <p class="recognition-point">An ALIVE List is what you do instead of waiting for things to change on their own.</p>
+      {% include "core/components/alive-list-builder-home.html" %}
     </div>
   </section>
 
@@ -157,18 +153,18 @@
           <h2 class="about-title">Simple. Honest.<br>Entirely yours.</h2>
           <p class="about-text">An ALIVE List is a list of small things that make you feel more alive, with one honest question to come back to:</p>
           <p class="about-question">"Am I living it?"</p>
-          <p class="about-text">Not because any single moment changes your life, but because small, deliberate choices — repeated — change how life feels.</p>
+          <p class="about-text">Not because any single moment changes your life, but because research has shown that small, deliberate choices — repeated — can change how life feels.</p>
         </div>
 
         <div class="about-card">
           <p class="about-card-title">Things that might be on an ALIVE List...</p>
           <ul class="about-list">
             <li class="about-list-item">Visit a bookshop</li>
-            <li class="about-list-item">Take a different route home</li>
+            <li class="about-list-item">Tell a bad joke</li>
             <li class="about-list-item">Watch the sun rise</li>
             <li class="about-list-item">More mornings with nowhere to be</li>
             <li class="about-list-item">Eat lunch on a park bench</li>
-            <li class="about-list-item">Go for that coffee with a friend</li>
+            <li class="about-list-item">Jump, shimmy, dance, sing, hum...</li>
           </ul>
         </div>
 
@@ -182,9 +178,8 @@
     <div class="home-container home-container--wide">
       <p class="home-eyebrow story-eyebrow">From Diane</p>
       <p class="story-quote">"I created An ALIVE List because I was tired of bucket lists. Skydiving, climbing mountains, quitting everything and moving abroad."</p>
-      <p class="story-text">I spent years managing a busy freelance business, family, and my own daily loops. I just wanted a simple way to feel alive inside my actual, everyday life.
-      So I wrote it down. The small things. The simple things. The things that make an ordinary day feel like mine.</p>
-      <p class="story-text">I taught myself what was needed to disrupt the monotony and pull me out of my rut. I built this space for you to do the same.</p>
+      <p class="story-text">I spent years managing a busy freelance business, family, and my feelings of being stuck in a rut. I just wanted a simple way to feel alive inside an ordinary day.
+      So I wrote down small, simple, "easy to achieve in the moment" things. I taught myself what was needed to disrupt the monotony.  I built this space for you to do the same.</p>
       <div class="story-author-row">
         <span class="home-rule"></span>
         <p class="story-author">Diane Corriette</p>
@@ -265,7 +260,7 @@
           </div>
         </div>
         <div class="cta-media">
-          <img src="{% static 'images/live-it-list.webp' %}" alt="personal development for women with An ALIVE List" class="cta-image">
+          <img src="{% static 'images/inspirational-guidance-register-image.webp' %}" alt="personal development for women with An ALIVE List" class="cta-image">
         </div>
       </div>
     </div>

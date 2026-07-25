@@ -37,7 +37,6 @@ def browse_categories():
 # Anything NOT listed here is treated as a Tag slug (topic) instead.
 FORMAT_FILTERS = {
     "writing": ["article"],
-    "lillol":  ["lillol"],
     "bites":   ["bite"],
     "video":   ["video"],
     "audio":   ["audio"],
@@ -51,7 +50,7 @@ SECTION_TABS = [
     ("Audio",     "audio"),
     ("Bites",     "bites"),
     ("Choices",   "choices"),
-    ("Lil & Lol", "lillol"),
+    ("Alive",     "alive"),
     ("Updates",   "updates"),
     ("Videos",    "video"),
     ("Writing",   "writing"),
@@ -71,6 +70,9 @@ def news_list(request):
     if active_type:
         if active_type in FORMAT_FILTERS:
             qs = qs.filter(content_type__in=FORMAT_FILTERS[active_type])
+        elif Category.objects.filter(slug=active_type).exists():
+            # Tab slug matches a Category (e.g. "alive" = Alive List) — filter by topic.
+            qs = qs.filter(category__slug=active_type)
         else:
             qs = qs.filter(tags__slug=active_type).distinct()
 

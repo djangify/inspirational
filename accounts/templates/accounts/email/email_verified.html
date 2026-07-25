@@ -18,11 +18,14 @@
         </div>
         
         <div class="px-6 py-8">
-            <p class="mb-4">Thank you for verifying your email address. Your account is ready. Log in to access your dashboard, tools, and saved progress.</p>
-            
+            <p class="mb-4">Thank you for verifying your email address. You're all set and logged in. If you started an ALIVE List before signing up, head back to the builder and it'll finish saving to your dashboard automatically.</p>
+
             <div class="mt-8 flex flex-col sm:flex-row sm:justify-center gap-4">
-                <a href="{% url 'accounts:login' %}" class="bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-6 rounded-md text-center transition-colors">
-                    Log in to your account
+                <a href="{% url 'tools:alive_list_builder' %}" class="bg-teal-700 hover:bg-teal-800 text-white font-medium py-2 px-6 rounded-md text-center transition-colors">
+                    Go to my ALIVE List
+                </a>
+                <a href="{% url 'accounts:dashboard' %}" class="bg-white border border-teal-700 text-teal-700 hover:bg-teal-50 font-medium py-2 px-6 rounded-md text-center transition-colors">
+                    Go to my dashboard
                 </a>
             </div>
         </div>
