@@ -125,6 +125,19 @@ def verify_email(request, token):
             user.backend = "django.contrib.auth.backends.ModelBackend"
             login(request, user)
 
+            # One-time offer: this is the "first login after email
+            # verification" moment the offer is designed for (see
+            # OneTimeOffer docstring in shop/models.py). Before auto-login
+            # was added here, that moment happened in login_view instead --
+            # this check mirrors the one there so it still fires.
+            try:
+                from shop.models import OneTimeOffer
+                offer = OneTimeOffer.objects.first()
+                if offer and offer.is_eligible_for(user):
+                    return redirect("shop:one_time_offer")
+            except Exception:
+                pass
+
             return render(request, "accounts/email/email_verified.html")
 
         else:
