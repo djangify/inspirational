@@ -47,6 +47,7 @@ class PostAdmin(admin.ModelAdmin):
         "status",
         "featured",
         "publish_date",
+        "updated",
         "display_thumbnail",
         "has_ad",
     ]
@@ -58,7 +59,7 @@ class PostAdmin(admin.ModelAdmin):
     readonly_fields = ["display_media"]
     form = PostAdminForm
     filter_horizontal = ["tags"]
-    list_filter = ["status", "category", "content_type", "tags", "featured", "created", "publish_date"]
+    list_filter = ["status", "category", "content_type", "tags", "featured", "created", "publish_date", "updated"]
     fieldsets = (
         (
             None,

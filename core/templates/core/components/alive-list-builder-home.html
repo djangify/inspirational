@@ -262,18 +262,19 @@
         });
       });
       renderList();
-      showQuestion(0);
+      showQuestion(0, { focus: false });
       migrateGuestList();
     } else {
       loadGuestList();
       renderList();
-      showQuestion(0);
+      showQuestion(0, { focus: false });
     }
   }
 
   // ── Questions ─────────────────────────────────────────────────────────────
 
-  function showQuestion(index) {
+  function showQuestion(index, opts) {
+    const shouldFocus = !opts || opts.focus !== false;
     if (index >= QUESTIONS.length) {
       showCompletion();
       return;
@@ -289,7 +290,7 @@
       progressText.textContent = `Question ${index + 1} of ${QUESTIONS.length}${isOptional ? ' (optional)' : ''}`;
       updateDots(index);
       questionWrap.style.opacity = '1';
-      answerInput.focus();
+      if (shouldFocus) answerInput.focus();
     }, 200);
   }
 
