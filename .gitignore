@@ -118,3 +118,4 @@ ruff.toml
 .json
 
 test_auth.http
+doc/

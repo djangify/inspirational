@@ -19,7 +19,7 @@ This Django-powered site brings together a digital shop, AI Mentor guides, journ
 
 ## What This Project Is
 
-Inspirational Guidance is a personal growth platform built to move women from *passive thinkers* to *active choosers* — solving "The Perpetual Tomorrow," where you know what you want but keep pushing it to the bottom of the list.
+Inspirational Guidance is a personal growth platform for women, built around one signature tool — the ALIVE List — and a library of practical resources (blog, workbooks, AI Mentor guides, journaling prompts, and calming tools) covering self-authorship, emotional resilience, self-confidence, purpose, and empowered living. It moves women from *passive thinkers* to *active choosers*, solving "The Perpetual Tomorrow," where you know what you want but keep pushing it to the bottom of the list.
 
 Take a look at the getting started guide for new members.
 
@@ -41,6 +41,7 @@ Take a look at the getting started guide for new members.
 - ✅ Multi-theme support with per-request theme switching
 - ✅ Installable Progressive Web App (PWA) with offline fallback
 - ✅ MailerLite email integration and welcome automation
+- ✅ Content organised around core topic clusters
 
 ---
 

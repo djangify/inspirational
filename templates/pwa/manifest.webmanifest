@@ -1,7 +1,7 @@
 {% load static %}{
   "name": "Inspirational Guidance",
   "short_name": "Inspire",
-  "description": "Stop putting your life on hold. Start your Live It List and begin choosing the things that make ordinary days feel alive.",
+  "description": "Stop putting your life on hold. Start An ALIVE List and begin choosing the things that make ordinary days feel alive.",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
