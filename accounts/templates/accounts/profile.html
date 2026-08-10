@@ -30,6 +30,24 @@
           {{ user.email }}
         </p>
       </div>
+
+      <div>
+        <label
+          for="{{ user_form.first_name.id_for_label }}"
+          class="block text-sm font-medium text-gray-700 mb-1"
+          >First name</label
+        >
+        {{ user_form.first_name }}
+      </div>
+
+      <div>
+        <label
+          for="{{ user_form.last_name.id_for_label }}"
+          class="block text-sm font-medium text-gray-700 mb-1"
+          >Last name (optional)</label
+        >
+        {{ user_form.last_name }}
+      </div>
     </div>
 
     <div>

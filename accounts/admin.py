@@ -19,9 +19,9 @@ class CustomUserAdmin(UserAdmin):
         "username",
         "email",
         "first_name",
-        "last_name",
+        "date_joined",
         "is_staff",
-     
+
     )
     list_filter = (
         "is_staff",
@@ -29,6 +29,7 @@ class CustomUserAdmin(UserAdmin):
         "is_active",
         "date_joined",
     )
+    ordering = ("-date_joined",)
 
     def get_favourite_count(self, obj):
         return obj.profile.favourite_prompts.count()
@@ -43,9 +44,15 @@ admin.site.register(User, CustomUserAdmin)
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ("user", "get_email", "verified", "get_date_joined", "account_age")
+    list_display = ("get_first_name", "get_email", "verified", "get_date_joined", "account_age")
     list_filter = ("verified",)
-    search_fields = ("user__username", "user__email")
+    search_fields = ("user__username", "user__email", "user__first_name")
+
+    def get_first_name(self, obj):
+        return obj.user.first_name or obj.user.username
+
+    get_first_name.short_description = "First name"
+    get_first_name.admin_order_field = "user__first_name"
 
     def get_email(self, obj):
         return obj.user.email

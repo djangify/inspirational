@@ -22,12 +22,6 @@ class UserRegistrationForm(UserCreationForm):
         min_length=2,
         error_messages={"min_length": "First name must be at least 2 characters long."},
     )
-    last_name = forms.CharField(
-        required=True,
-        help_text="Your last name.",
-        min_length=2,
-        error_messages={"min_length": "Last name must be at least 2 characters long."},
-    )
     honeypot = forms.CharField(required=False, widget=forms.HiddenInput)
     subscribe = forms.BooleanField(
         required=False,
@@ -38,38 +32,14 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = (
-            "username",
             "email",
             "first_name",
-            "last_name",
             "password1",
             "password2",
         )
 
-    def clean_username(self):
-        username = self.cleaned_data.get("username").strip().lower()
-
-        # Enforce length
-        if len(username) < 3:
-            raise forms.ValidationError("Username must be at least 3 characters long.")
-
-        if len(username) > 15:
-            raise forms.ValidationError("Username must be 15 characters or fewer.")
-
-        # Enforce allowed characters: letters, numbers, underscore
-        if not re.match(r"^[a-zA-Z0-9_]+$", username):
-            raise forms.ValidationError(
-                "Username can only contain letters, numbers, and underscores."
-            )
-
-        # Optional: override with slugified version
-        self.cleaned_data["username"] = username
-        return username
-
     def clean(self):
         cleaned_data = super().clean()
-        username = cleaned_data.get("username")
-        email = cleaned_data.get("email")
 
         # Honeypot spam trap
         honeypot = cleaned_data.get("honeypot")
@@ -91,12 +61,7 @@ class UserRegistrationForm(UserCreationForm):
             except ValueError:
                 raise forms.ValidationError("Invalid form submission.")
 
-        if username and len(username) < 3:
-            base = email.split("@")[0] if email else "user"
-            suggested = f"{base}_{random.randint(1000, 9999)}"
-            self.add_error(
-                "username", f"Username is too short. Try something like: {suggested}"
-            )
+        return cleaned_data
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -104,22 +69,48 @@ class UserRegistrationForm(UserCreationForm):
             raise forms.ValidationError("This email address is already in use.")
         return email
 
+    @staticmethod
+    def _generate_username(email):
+        """Build a unique username behind the scenes.
+
+        The user never picks one -- they sign in with their email (or this
+        username) via EmailOrUsernameModelBackend. We take the part of the
+        email before the @, strip it to safe characters, and add random
+        digits until it's unique. Django requires usernames to be unique
+        and non-empty.
+        """
+        base = re.sub(r"[^a-z0-9_]", "", email.split("@")[0].lower())[:20] or "user"
+        username = base
+        while User.objects.filter(username=username).exists():
+            username = f"{base}_{random.randint(1000, 9999)}"
+        return username
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.username = self._generate_username(self.cleaned_data["email"])
+        if commit:
+            user.save()
+        return user
+
 
 class UserEditForm(forms.ModelForm):
+    first_name = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={"class": "w-full rounded-md border-gray-300 shadow-sm"}
+        ),
+    )
+    last_name = forms.CharField(
+        required=False,
+        label="Last name (optional)",
+        widget=forms.TextInput(
+            attrs={"class": "w-full rounded-md border-gray-300 shadow-sm"}
+        ),
+    )
+
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email")
-        widgets = {
-            "first_name": forms.TextInput(
-                attrs={"class": "w-full rounded-md border-gray-300 shadow-sm"}
-            ),
-            "last_name": forms.TextInput(
-                attrs={"class": "w-full rounded-md border-gray-300 shadow-sm"}
-            ),
-            "email": forms.EmailInput(
-                attrs={"class": "w-full rounded-md border-gray-300 shadow-sm"}
-            ),
-        }
+        fields = ("first_name", "last_name")
 
 
 class UserProfileForm(forms.ModelForm):

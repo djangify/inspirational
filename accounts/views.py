@@ -16,7 +16,7 @@ import mimetypes
 import logging
 from prompt.models import WritingPrompt
 from shop.models import Product, OrderItem
-from .forms import UserRegistrationForm, UserProfileForm, SupportForm
+from .forms import UserRegistrationForm, UserEditForm, UserProfileForm, SupportForm
 from .models import EmailVerificationToken, MemberResource, SupportRequest
 from prompt.models_tracker import WritingGoal, WritingSession
 from accounts.services.mailerlite import add_subscriber
@@ -275,15 +275,20 @@ def member_resource_download(request, resource_id):
 @login_required
 def profile_view(request):
     if request.method == "POST":
+        user_form = UserEditForm(request.POST, instance=request.user)
         form = UserProfileForm(request.POST, instance=request.user.profile)
-        if form.is_valid():
+        if user_form.is_valid() and form.is_valid():
+            user_form.save()
             form.save()
             messages.success(request, "Your profile has been updated successfully.")
             return redirect("accounts:profile")
     else:
+        user_form = UserEditForm(instance=request.user)
         form = UserProfileForm(instance=request.user.profile)
 
-    return render(request, "accounts/profile.html", {"form": form})
+    return render(
+        request, "accounts/profile.html", {"user_form": user_form, "form": form}
+    )
 
 
 @login_required
