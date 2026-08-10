@@ -31,11 +31,9 @@ urlpatterns = [
     path("accounts/", include("accounts.urls", namespace="accounts")),
     path("prompt/", include("prompt.urls")),
     path("tools/", include("tools.urls", namespace="tools")),
-    path("", include("news.urls", namespace="news")),
-    # Sitemap and robots.txt
-    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
-    path("robots.txt", robots_txt, name="robots_txt"),
-    # PWA: manifest, service worker (must be at site root for full scope), offline fallback
+    # PWA: manifest, service worker (must be at site root for full scope), offline fallback.
+    # These MUST come before the news "" catch-all include below — its <slug:slug>/
+    # pattern would otherwise swallow /offline/ and return 404.
     path(
         "manifest.webmanifest",
         TemplateView.as_view(
@@ -57,6 +55,10 @@ urlpatterns = [
         TemplateView.as_view(template_name="pwa/offline.html"),
         name="offline",
     ),
+    path("", include("news.urls", namespace="news")),
+    # Sitemap and robots.txt
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
+    path("robots.txt", robots_txt, name="robots_txt"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
