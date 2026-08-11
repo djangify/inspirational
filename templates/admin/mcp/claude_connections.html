@@ -1,0 +1,122 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+  &rsaquo; Claude connections
+</div>
+{% endblock %}
+
+{% block content %}
+<style>
+  .cn-wrap { max-width: 1000px; }
+  .cn-intro { color: #444; margin-bottom: 22px; line-height: 1.5; max-width: 760px; }
+  .cn-card { border: 1px solid #e0e0e0; border-radius: 10px; background: #fff;
+             padding: 18px 22px; margin-bottom: 18px; }
+  .cn-card h2 { margin: 0 0 12px; font-size: 16px; }
+  .cn-conn { display: flex; align-items: flex-start; gap: 14px; border: 1px solid #e6e9ec;
+             border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; }
+  .cn-conn .dot { width: 12px; height: 12px; border-radius: 50%; flex: none; margin-top: 5px; }
+  .cn-conn.on  { background: #eafaf0; border-color: #b7e4c7; }
+  .cn-conn.on  .dot { background: #2fa95f; box-shadow: 0 0 0 4px rgba(47,169,95,.18); }
+  .cn-conn.off { background: #f6f7f8; border-color: #dde1e5; }
+  .cn-conn.off .dot { background: #aab2ba; }
+  .cn-conn .body { flex: 1; }
+  .cn-conn .name { font-size: 15px; font-weight: 700; margin: 0; }
+  .cn-conn .name .state { font-weight: 600; font-size: 12px; margin-left: 8px; }
+  .cn-conn.on  .name .state { color: #1b7a43; }
+  .cn-conn.off .name .state { color: #7a8791; }
+  .cn-conn .meta { margin-top: 8px; font-size: 12px; color: #555; }
+  .cn-conn .meta div { margin-top: 2px; }
+  .cn-conn .meta code { background: #f0f3f5; border-radius: 4px; padding: 1px 6px;
+                        font-family: ui-monospace, Menlo, monospace; font-size: 11px; }
+  .cn-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .cn-table th { text-align: left; font-size: 11px; text-transform: uppercase;
+                 letter-spacing: .04em; color: #888; border-bottom: 2px solid #eee;
+                 padding: 6px 10px; }
+  .cn-table td { padding: 8px 10px; border-bottom: 1px solid #f0f0f0; color: #444; }
+  .cn-empty { font-size: 13px; color: #888; padding: 4px 2px; }
+  .cn-house { font-size: 12px; color: #888; line-height: 1.6; }
+  .cn-foot { max-width: 1000px; margin-top: 18px; font-size: 12px; color: #999; }
+  .cn-btn { display: inline-block; background: #417690; color: #fff !important; border: none;
+            padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600;
+            text-decoration: none; }
+  .cn-btn:hover { background: #2e586e; }
+</style>
+
+<div class="cn-wrap">
+  <p class="cn-intro">
+    Everything currently connected to your site through Claude, on one page. This is a
+    read-only overview — to set up, reconnect or disconnect, use the
+    <a href="{{ connect_url }}">Connect to Claude</a> page.
+  </p>
+
+  <div class="cn-card">
+    <h2>Connectors</h2>
+    {% for c in connectors %}
+    <div class="cn-conn {% if c.status.connected %}on{% else %}off{% endif %}">
+      <span class="dot"></span>
+      <div class="body">
+        <p class="name">{{ c.name }}
+          <span class="state">{% if c.status.connected %}Connected{% else %}Not connected{% endif %}</span>
+        </p>
+        <div class="meta">
+          <div>Client ID: <code>{{ c.client_id }}</code></div>
+          {% if c.status.last_active %}<div>Last used by Claude: {{ c.status.last_active }}</div>{% endif %}
+          {% if c.status.connected %}<div>Active sessions: {{ c.live_sessions }}</div>{% endif %}
+          <div>Added: {{ c.created }}</div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="cn-empty">No connectors yet. Generate credentials on the
+      <a href="{{ connect_url }}">Connect to Claude</a> page to add one.</p>
+    {% endfor %}
+  </div>
+
+  <div class="cn-card">
+    <h2>Active sessions</h2>
+    <p style="margin:-4px 0 12px; font-size:12px; color:#888;">
+      Live logins Claude is currently using. Each refreshes itself automatically while in use
+      and expires on its own if left idle.</p>
+    {% if sessions %}
+    <table class="cn-table">
+      <thead>
+        <tr><th>Connector</th><th>Account</th><th>Started</th><th>Expires</th></tr>
+      </thead>
+      <tbody>
+        {% for s in sessions %}
+        <tr>
+          <td>{{ s.connector }}</td>
+          <td>{{ s.user|default:"—" }}</td>
+          <td>{{ s.created }}</td>
+          <td>{{ s.expires }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="cn-empty">No active sessions right now. Claude will start one the next time it
+      connects or runs a task.</p>
+    {% endif %}
+  </div>
+
+  <div class="cn-card">
+    <h2>Housekeeping</h2>
+    <p class="cn-house">
+      Behind the scenes Claude also keeps a few short-lived records while connecting. You never
+      need to touch these — they clear themselves automatically:
+    </p>
+    <p class="cn-house" style="margin-top:8px;">
+      {{ housekeeping.refresh }} saved login{{ housekeeping.refresh|pluralize }} ·
+      {{ housekeeping.grants }} one-time sign-in code{{ housekeeping.grants|pluralize }} ·
+      {{ housekeeping.id_tokens }} sign-in token{{ housekeeping.id_tokens|pluralize }}
+    </p>
+  </div>
+
+  <a class="cn-btn" href="{{ connect_url }}">Go to Connect to Claude</a>
+</div>
+
+<p class="cn-foot">Generated {{ generated }}. Read-only — nothing on this page changes your site.</p>
+{% endblock %}

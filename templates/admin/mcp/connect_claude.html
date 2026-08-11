@@ -1,0 +1,206 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+  &rsaquo; Connect to Claude
+</div>
+{% endblock %}
+
+{% block content %}
+<style>
+  .cc-wrap { max-width: 820px; }
+  .cc-intro { color: #444; margin-bottom: 22px; line-height: 1.5; }
+  .cc-card { border: 1px solid #e0e0e0; border-radius: 10px; background: #fff;
+             padding: 20px 24px; margin-bottom: 18px; }
+  .cc-card h2 { margin: 0 0 6px; font-size: 16px; }
+  .cc-field { margin: 14px 0; }
+  .cc-label { font-size: 11px; font-weight: 800; text-transform: uppercase;
+              letter-spacing: .05em; color: #888; margin-bottom: 4px; }
+  .cc-value { display: flex; align-items: center; gap: 10px; }
+  .cc-value code { font-size: 14px; background: #f3f5f7; border: 1px solid #e3e9ee;
+                   border-radius: 6px; padding: 8px 12px; flex: 1;
+                   word-break: break-all; font-family: ui-monospace, Menlo, monospace; }
+  .cc-copy { background: #417690; color: #fff; border: none; padding: 8px 12px;
+             border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+  .cc-copy:hover { background: #2e586e; }
+  .cc-btn { display: inline-block; background: #417690; color: #fff !important; border: none;
+            padding: 10px 18px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .cc-btn:hover { background: #2e586e; }
+  .cc-btn.secondary { background: #eef2f5; color: #2b4a5a !important; border: 1px solid #dde4e9; }
+  .cc-btn.secondary:hover { background: #e1e8ed; }
+  .cc-secret { border: 1px solid #f0c36d; background: #fffaf0; border-radius: 10px;
+               padding: 18px 22px; margin-bottom: 18px; }
+  .cc-secret h2 { color: #9a6a00; }
+  .cc-warn { font-size: 12px; color: #9a6a00; margin-top: 8px; font-weight: 600; }
+  .cc-error { border: 1px solid #f0b0b0; background: #fff5f5; color: #a12; border-radius: 8px;
+              padding: 12px 16px; margin-bottom: 18px; font-size: 13px; }
+  .cc-steps { margin: 6px 0 0; padding-left: 20px; line-height: 1.7; color: #444; font-size: 14px; }
+  .cc-steps code { background: #f3f5f7; border-radius: 4px; padding: 1px 6px; font-size: 13px; }
+  .cc-muted { font-size: 12px; color: #999; margin-top: 10px; }
+
+  /* Connection status banner */
+  .cc-status { border-radius: 10px; padding: 18px 22px; margin-bottom: 22px;
+               display: flex; align-items: flex-start; gap: 14px; }
+  .cc-status .dot { width: 12px; height: 12px; border-radius: 50%; flex: none; margin-top: 5px; }
+  .cc-status .body { flex: 1; }
+  .cc-status h2 { margin: 0 0 4px; font-size: 17px; }
+  .cc-status p { margin: 0; font-size: 13px; line-height: 1.5; }
+  .cc-status .meta { margin-top: 10px; font-size: 12px; color: #555; }
+  .cc-status .meta div { margin-top: 2px; }
+  .cc-on  { background: #eafaf0; border: 1px solid #b7e4c7; }
+  .cc-on  h2 { color: #1b7a43; }
+  .cc-on  .dot { background: #2fa95f; box-shadow: 0 0 0 4px rgba(47,169,95,.18); }
+  .cc-off { background: #f6f7f8; border: 1px solid #dde1e5; }
+  .cc-off h2 { color: #55606a; }
+  .cc-off .dot { background: #aab2ba; }
+  .cc-disconnect { background: none; color: #a12 !important; border: 1px solid #e5b7b7;
+                   padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
+                   cursor: pointer; margin-top: 12px; }
+  .cc-disconnect:hover { background: #fff5f5; }
+</style>
+
+<div class="cc-wrap">
+  <p class="cc-intro">
+    This connects <strong>your site</strong> to Claude as a custom connector, so you can ask
+    Claude to read and write your blog straight from any chat. Generate your credentials below,
+    then paste them into Claude once. Nothing here changes your site.
+  </p>
+
+  {% if error %}<div class="cc-error">{{ error }}</div>{% endif %}
+
+  {% if disconnected %}
+  <div class="cc-error" style="border-color:#dde1e5;background:#f6f7f8;color:#55606a;">
+    Claude has been disconnected. To reconnect, open this site in Claude and click
+    <strong>Connect</strong> again — your Client ID and Secret still work, so there's nothing to re-enter.
+  </div>
+  {% endif %}
+
+  {% if client_id %}
+    {% if status.connected %}
+    <div class="cc-status cc-on">
+      <span class="dot"></span>
+      <div class="body">
+        <h2>Connected to Claude</h2>
+        <p>This site is currently connected. It stays connected while you keep using it —
+          you don't need to add it again unless you disconnect it from inside Claude.</p>
+        <div class="meta">
+          {% if status.last_active %}<div>Last used by Claude: {{ status.last_active }}</div>{% endif %}
+          {% if status.last_authorized %}<div>Connected since: {{ status.last_authorized }}</div>{% endif %}
+        </div>
+        <form method="post" style="margin:0;"
+              onsubmit="return confirm('Disconnect Claude from this site? Claude will lose access until you reconnect it. Your Client ID and Secret are kept, so reconnecting is one click in Claude.');">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="disconnect">
+          <button type="submit" class="cc-disconnect">
+            Disconnect from Claude
+          </button>
+        </form>
+      </div>
+    </div>
+    {% else %}
+    <div class="cc-status cc-off">
+      <span class="dot"></span>
+      <div class="body">
+        <h2>Not connected</h2>
+        <p>Your credentials are ready, but Claude isn't connected yet. Follow the steps below
+          in Claude to connect. Once it's connected, this box turns green.</p>
+      </div>
+    </div>
+    {% endif %}
+  {% endif %}
+
+  {% if new_secret %}
+  <div class="cc-secret">
+    <h2>Your Client Secret (shown once)</h2>
+    <div class="cc-field">
+      <div class="cc-value">
+        <code id="cc-secret">{{ new_secret }}</code>
+        <button type="button" class="cc-copy" data-copy="cc-secret">Copy</button>
+      </div>
+    </div>
+    <p class="cc-warn">Copy this now — for security it is stored encrypted and can't be shown
+      again. If you lose it, just generate a new one.</p>
+  </div>
+  {% endif %}
+
+  <div class="cc-card">
+    <h2>1. Your connector details</h2>
+
+    <div class="cc-field">
+      <div class="cc-label">MCP server URL</div>
+      <div class="cc-value">
+        <code id="cc-url">{{ mcp_url }}</code>
+        <button type="button" class="cc-copy" data-copy="cc-url">Copy</button>
+      </div>
+    </div>
+
+    {% if client_id %}
+    <div class="cc-field">
+      <div class="cc-label">Client ID</div>
+      <div class="cc-value">
+        <code id="cc-id">{{ client_id }}</code>
+        <button type="button" class="cc-copy" data-copy="cc-id">Copy</button>
+      </div>
+    </div>
+
+    <form method="post" style="margin-top:16px;"
+          onsubmit="return confirm('Generate a new secret? Any Claude connector using the old secret will stop working until you paste the new one.');">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="reset">
+      <button type="submit" class="cc-btn secondary">
+        Generate a new secret
+      </button>
+    </form>
+    <p class="cc-muted">Use this only if you didn't copy your secret, or you want to revoke the old one.</p>
+    {% else %}
+    <p style="color:#555; font-size:14px;">No credentials yet. Generate them to get a Client ID and Secret.</p>
+    <form method="post" style="margin-top:12px;">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="generate">
+      <button type="submit" class="cc-btn">Generate credentials</button>
+    </form>
+    {% endif %}
+  </div>
+
+  {% if client_id %}
+  <p class="cc-muted" style="margin:-6px 0 18px;">
+    Want the full picture? See all connectors and active sessions on the
+    <a href="{{ connections_url }}">Claude connections</a> page.
+  </p>
+  {% endif %}
+
+  <div class="cc-card">
+    <h2>2. Add it in Claude</h2>
+    <ol class="cc-steps">
+      <li>In Claude, open <strong>Settings &rsaquo; Connectors</strong> and click
+        <strong>Add custom connector</strong>.</li>
+      <li>Paste the <strong>MCP server URL</strong> above into the
+        <strong>Remote MCP server URL</strong> field.</li>
+      <li>Open <strong>Advanced settings</strong> and paste your <strong>Client ID</strong>
+        and <strong>Client Secret</strong>.</li>
+      <li>Click <strong>Add</strong>, then <strong>Connect</strong>. Log in to your site and
+        approve access when asked.</li>
+      <li>Test it — ask Claude: <code>show me my latest blog posts</code>.</li>
+    </ol>
+    <p class="cc-muted">Your Client ID and Secret are private — they let Claude sign in as your
+      site. Don't share them.</p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll(".cc-copy").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var el = document.getElementById(btn.getAttribute("data-copy"));
+      if (!el) return;
+      navigator.clipboard.writeText(el.textContent.trim()).then(function () {
+        var old = btn.textContent;
+        btn.textContent = "Copied";
+        setTimeout(function () { btn.textContent = old; }, 1500);
+      });
+    });
+  });
+</script>
+{% endblock %}

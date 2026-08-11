@@ -8,7 +8,7 @@ from news.models import Category as NewsCategory
 from shop.models import Category as ShopCategory
 from news.models import Post, Category
 from django.utils.timezone import now
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_GET
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
@@ -161,6 +161,37 @@ def robots_txt(request):
         f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+@require_GET
+def oauth_authorization_server_metadata(request):
+    """RFC 8414 OAuth Authorization Server Metadata for the Claude MCP connector.
+
+    Claude discovers the OAuth endpoints here after reading the sidecar's
+    Protected Resource Metadata. django-oauth-toolkit serves the endpoints under
+    /o/ but does not publish this document, so we emit it explicitly. Behind
+    Caddy, SECURE_PROXY_SSL_HEADER makes request.scheme report "https"; local
+    dev on localhost stays "http".
+    """
+    base = f"{request.scheme}://{request.get_host()}"
+    return JsonResponse(
+        {
+            "issuer": base,
+            "authorization_endpoint": f"{base}/o/authorize/",
+            "token_endpoint": f"{base}/o/token/",
+            "introspection_endpoint": f"{base}/o/introspect/",
+            "revocation_endpoint": f"{base}/o/revoke_token/",
+            "scopes_supported": ["mcp"],
+            "response_types_supported": ["code"],
+            "grant_types_supported": ["authorization_code", "refresh_token"],
+            "code_challenge_methods_supported": ["S256"],
+            "token_endpoint_auth_methods_supported": [
+                "client_secret_post",
+                "client_secret_basic",
+                "none",
+            ],
+        }
+    )
 
 
 # Free lead-magnet PDFs shown on the public /personal-development-resources page.

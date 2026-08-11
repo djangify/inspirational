@@ -30,3 +30,11 @@ typing_extensions
 urllib3
 whitenoise
 reportlab==4.5.1
+
+# --- Claude MCP connector ---
+# Django is the OAuth Authorization Server; a sidecar process (mcp_server.app)
+# is the MCP Resource Server Claude talks to on /mcp.
+django-oauth-toolkit==3.3.0
+mcp==1.28.1
+starlette==1.3.1
+uvicorn[standard]==0.49.0

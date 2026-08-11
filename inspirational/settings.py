@@ -66,6 +66,9 @@ INSTALLED_APPS = [
     "tinymce",
     "rest_framework",
     "widget_tweaks",
+    # OAuth 2.1 Authorization Server for the Claude MCP connector. Listed before
+    # mcp_server so its admin is registered by the time mcp_server hides it.
+    "oauth2_provider",
     "core",
     "shop",
     "tools",
@@ -73,6 +76,9 @@ INSTALLED_APPS = [
     "prompt",
     "accounts",
     "bots",
+    # MCP connector app — call-log model + owner "Connect to Claude" admin pages.
+    # The MCP endpoint itself is served by a separate sidecar (mcp_server.app).
+    "mcp_server",
 ]
 
 MIDDLEWARE = [
@@ -349,4 +355,30 @@ TINYMCE_DEFAULT_CONFIG = {
         {"title": "Responsive (50%)", "value": "img-half"},
         {"title": "Full width", "value": "img-full"},
     ],
+}
+
+# ========================================================
+# OAUTH 2.1 — Authorization Server for the Claude MCP connector
+# Django (this app) issues tokens; the MCP sidecar is a separate Resource
+# Server that only verifies them. Interactive consent reuses the existing
+# owner login (LOGIN_URL above). PKCE (S256) is required, matching the MCP
+# authorization spec. Only the single "mcp" scope exists.
+# ========================================================
+OAUTH2_PROVIDER = {
+    "PKCE_REQUIRED": True,
+    "SCOPES": {"mcp": "Read and manage this site's content via MCP"},
+    "DEFAULT_SCOPES": ["mcp"],
+    # Tokens are bearer secrets sent to the sidecar; keep them short-lived and
+    # lean on refresh tokens (10h access, matching a working day).
+    "ACCESS_TOKEN_EXPIRE_SECONDS": env.int(
+        "MCP_ACCESS_TOKEN_EXPIRE_SECONDS", default=36000
+    ),
+    "REFRESH_TOKEN_EXPIRE_SECONDS": env.int(
+        "MCP_REFRESH_TOKEN_EXPIRE_SECONDS", default=5184000  # 60 days
+    ),
+    # Only allow HTTPS redirect URIs in real environments; permit http on
+    # localhost for the MCP Inspector during dev.
+    "ALLOWED_REDIRECT_URI_SCHEMES": env.list(
+        "MCP_ALLOWED_REDIRECT_URI_SCHEMES", default=["https"]
+    ),
 }

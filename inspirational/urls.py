@@ -12,7 +12,9 @@ from inspirational.sitemaps import (
     PromptCategorySitemap,
     NewsCategorySitemap,
 )
-from core.views import robots_txt
+from core.views import robots_txt, oauth_authorization_server_metadata
+from mcp_server import views as mcp_views
+from mcp_server.sidebar import install_sidebar_link
 
 sitemaps = {
     "static": StaticViewSitemap,
@@ -24,7 +26,20 @@ sitemaps = {
 }
 
 urlpatterns = [
+    # OAuth Authorization Server metadata (RFC 8414) for the Claude MCP connector.
+    path(
+        ".well-known/oauth-authorization-server",
+        oauth_authorization_server_metadata,
+        name="oauth_as_metadata",
+    ),
+    # Owner-only Connect-to-Claude pages. Mounted BEFORE the admin include so
+    # these admin/-prefixed paths resolve ahead of the admin catch-all.
+    path("admin/connect-claude/", mcp_views.connect_claude, name="admin_connect_claude"),
+    path("admin/claude-connections/", mcp_views.claude_connections, name="admin_claude_connections"),
     path("admin/", admin.site.urls),
+    # OAuth 2.1 Authorization Server for the MCP connector: /o/authorize,
+    # /o/token, /o/introspect, /o/revoke_token.
+    path("o/", include("oauth2_provider.urls", namespace="oauth2_provider")),
     path("", include("core.urls", namespace="core")),
     path("shop/", include("shop.urls", namespace="shop")),
     path("guides/", include("bots.urls", namespace="bots")),
@@ -71,3 +86,6 @@ handler403 = "core.views.handler403"
 admin.site.site_header = "Inspirational Guidance"
 admin.site.site_title = "Inspirational Guidance"
 admin.site.index_title = "Welcome to Your Site"
+
+# Add the superuser-only "Claude connector" links to the admin sidebar.
+install_sidebar_link()
