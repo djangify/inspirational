@@ -1,0 +1,478 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}An ALIVE List: The Small Things That Make an Ordinary Day Feel Like Yours{% endblock %}
+{% block meta_description %}An ALIVE List is your running list of the small things that make an ordinary day feel alive. Learn why small things matter, what goes on your list, how to share it and start An ALIVE List Club, and how to track it in the members area.{% endblock %}
+
+{# ===== Open Graph / Twitter Cards ===== #}
+{% block open_graph_tags %}
+  <meta property="og:title" content="An ALIVE List: The Small Things That Make an Ordinary Day Feel Like Yours" />
+  <meta property="og:description" content="The small things make the biggest difference. Start An ALIVE List, share it, do it with the people you love, and keep track of the life you are actually living." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:site_name" content="Inspirational Guidance" />
+  <meta property="article:author" content="Diane Corriette" />
+  <meta property="article:published_time" content="2026-08-12" />
+  <meta property="article:modified_time" content="2026-08-12" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="An ALIVE List: The Small Things That Make an Ordinary Day Feel Like Yours">
+  <meta name="twitter:description" content="Your running list of the small things that make an ordinary day feel alive. Start one, share it, and live it together. #AnAliveList">
+{% endblock %}
+
+{% block content %}
+
+{# ===== Article Schema ===== #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "An ALIVE List: The Small Things That Make an Ordinary Day Feel Like Yours",
+  "description": "An ALIVE List is your running list of the small things that make an ordinary day feel alive. Why small things matter, what goes on your list, how to share it and start An ALIVE List Club, and how to track it.",
+  "author": {
+    "@type": "Person",
+    "name": "Diane Corriette",
+    "url": "https://inspirationalguidance.com/diane-corriette/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inspirational Guidance",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.scheme }}://{{ request.get_host }}/static/images/logo.png"
+    }
+  },
+  "datePublished": "2026-08-12",
+  "dateModified": "2026-08-12",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request.build_absolute_uri }}"
+  }
+}
+</script>
+
+<div class="bg-white">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    {# --- Author + Date bar --- #}
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-6">
+      <a href="https://inspirationalguidance.com/diane-corriette/" class="font-medium text-teal-700 hover:underline">Diane Corriette</a>
+      <span>·</span>
+      <time datetime="2026-08-12">Published August 2026</time>
+    </div>
+
+    <header class="mb-8">
+      <h1 class="text-4xl mb-4 font-bold text-gray-900">An ALIVE List: The Small Things That Make an Ordinary Day Feel Like Yours</h1>
+      <p class="leading-relaxed text-xl mt-2">
+        Most days do not go wrong. They just go quiet. Same route, same replies, same evening, until the weeks blur into one long, forgettable stretch and you catch yourself wondering when life started feeling like going through the motions. Nothing is broken. You have simply stopped noticing the small things that were always there.
+      </p>
+      <p class="leading-relaxed text-xl mt-2">
+        An ALIVE List is the fix, and it is deliberately small. It is your running list of the little things that make you feel more alive, kept somewhere you will actually see it again, so you can start choosing more of them on purpose. This page is the whole idea in one place: why the small things matter more than the grand ones, what belongs on your list, how to share it with the people around you, and how to keep track of the life you are actually living.
+      </p>
+    </header>
+
+    {# --- About this guide --- #}
+    <div class="bg-teal-50 border border-teal-200 rounded-xl p-5 mb-8 text-base text-teal-900 leading-relaxed">
+      <strong>About this guide:</strong> Written by <a href="https://inspirationalguidance.com/diane-corriette/" class="underline font-medium">Diane Corriette</a>, Personal Growth Coach and founder of Inspirational Guidance. An ALIVE List is the free idea at the heart of everything here, the small, repeatable practice she uses with women who are not in crisis, just quietly ready to feel their own lives again.
+    </div>
+
+    {# --- From Diane: personal experience --- #}
+    <div class="my-8 border-l-4 border-teal-600 bg-teal-50/60 rounded-r-lg p-5">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-800 mb-1">From Diane</p>
+      <p class="text-gray-800 leading-relaxed">Mine, most days, is genuinely just good coffee made slowly instead of rushed. It sounds too small to be worth naming. Noticing it, on purpose, has done more for how my days feel than most of the bigger things I have tried. That is the whole secret of An ALIVE List. It is not about a dramatic new life. It is about seeing the one you already have.</p>
+    </div>
+
+    {# --- On this page --- #}
+    <nav aria-label="On this page" class="bg-white rounded-xl border border-gray-200 p-6 mb-12">
+      <h2 class="text-lg font-semibold text-gray-900 mb-3">On this page</h2>
+      <ol class="grid sm:grid-cols-2 gap-x-8 gap-y-1 list-decimal ml-5 text-teal-700">
+        <li><a class="hover:underline" href="#going-through-motions">When life starts feeling like going through the motions</a></li>
+        <li><a class="hover:underline" href="#science">The science: why we stop seeing our own lives</a></li>
+        <li><a class="hover:underline" href="#what-it-is">What An ALIVE List actually is</a></li>
+        <li><a class="hover:underline" href="#what-goes-on-it">What goes on your list</a></li>
+        <li><a class="hover:underline" href="#start">Start An ALIVE List</a></li>
+        <li><a class="hover:underline" href="#together">Do it together: share it and start a club</a></li>
+        <li><a class="hover:underline" href="#track">Keep it alive: save it and track your list</a></li>
+        <li><a class="hover:underline" href="#direction">Not sure of your direction?</a></li>
+        <li><a class="hover:underline" href="#shop">More prompts to keep your list growing</a></li>
+        <li><a class="hover:underline" href="#faq">FAQ</a></li>
+      </ol>
+    </nav>
+
+    {# --- 1. Going through the motions --- #}
+    <section id="going-through-motions" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">When Life Starts Feeling Like Going Through the Motions</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          There is a particular kind of stuck that has no crisis attached to it. You are functioning. You are busy. And yet the days have flattened into a routine you never quite chose, where you can tell me everything you did this week and not one thing you actually felt. It is easy to assume something big has to change. Usually, it does not.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Your days blur together, busy but strangely forgettable.</li>
+          <li>You feel like you are just existing rather than living, without being able to say why.</li>
+          <li>Small pleasures pass you by because you are moving too fast to register them.</li>
+          <li>You keep waiting to feel more alive, as if it will arrive on its own.</li>
+        </ul>
+        <p class="leading-relaxed text-xl mt-4">
+          None of this means anything is wrong with you. It means your attention has gone on autopilot, and attention is exactly the thing An ALIVE List is built to wake back up.
+        </p>
+        <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+          <a href="/when-did-life-start-feeling-like-going-through-the-motions-and-how-to-actually-feel-it-again/" class="text-teal-700 hover:underline">When Did Life Start Feeling Like Going Through the Motions</a> &middot;
+          <a href="/why-you-feel-like-youre-just-existing-not-living/" class="text-teal-700 hover:underline">Why You Feel Like You're Just Existing, Not Living</a></p>
+      </div>
+    </section>
+
+    {# --- 2. The science + Why this works --- #}
+    <div id="science" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12 scroll-mt-24">
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3">The Science: Why We Stop Seeing Our Own Lives</h2>
+        <p class="leading-relaxed text-xl mt-2">
+          There is a good reason ordinary days fade, and it has been measured. In one study, researchers tracked 122 people across several months and matched where they went against how they felt. On the days people moved among more varied places, they reported noticeably more positive feelings, and the effect ran both ways: a lighter mood led to more exploring, and the exploring lifted the mood that followed.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          The flip side is habituation. Anything that stays the same for long enough, the same commute, the same rooms, the same routine, gets filed by the brain as background and stops reaching your attention at all. That is why a life on repeat slowly stops being noticed. An ALIVE List works against both: it points your attention back at the small things, and gives you an easy way to add a little variety on purpose.
+        </p>
+      </div>
+      <aside class="bg-slate-50 rounded-xl border border-indigo-100 p-6">
+        <h3 class="text-xl font-semibold text-teal-800 mb-2">Why This Works</h3>
+        <p class="text-teal-800/90 text-xl leading-relaxed">
+          Repetition, not intensity, changes how life feels. One big moment fades fast. The same small choice, noticed and repeated, rewires how a whole week lands. An ALIVE List gives those small choices somewhere to live so they stop evaporating.
+        </p>
+      </aside>
+    </div>
+
+    {# --- quote --- #}
+    <section class="w-full">
+      <div class="max-w-7xl mb-8 mx-auto">
+        <blockquote class="p-4 px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
+          <p class="py-8">"You do not need a whole new life. You need to start seeing the one you already have." <br> Inspirational Guidance</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <p class="mb-14 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+      <a href="/the-role-of-micro-moments-in-building-a-life-that/" class="text-teal-700 hover:underline">The Role of Micro-Moments in Building a Life That Feels Like Yours</a> &middot;
+      <a href="/why-joy-often-fades-in-midlife-and-3-small-steps-t/" class="text-teal-700 hover:underline">Why Joy Often Fades in Midlife (and 3 Small Steps)</a></p>
+
+    {# --- 3. What An ALIVE List is --- #}
+    <section id="what-it-is" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">What An ALIVE List Actually Is</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          An ALIVE List is your personal, running list of the small things that make you feel more alive. Not a bucket list of once-in-a-lifetime moments, and not another set of goals to achieve. It is the everyday stuff: the walk you keep meaning to take, the book you keep meaning to start, the friend you keep meaning to call, the coffee you keep meaning to make slowly.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          You write it down, you keep it somewhere you will see it, and you ask yourself one honest question on repeat: "Am I actually living it?" That is the whole practice. Small enough to start today, powerful enough to change how an ordinary week feels.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div class="bg-white rounded-lg border border-gray-200 p-6">
+          <h3 class="text-lg font-semibold text-teal-700">A bucket list says "someday"</h3>
+          <p class="text-gray-700 mt-1">Big, rare, and mostly in the future. Skydiving. A trip of a lifetime. Lovely, but it does not change today.</p>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 p-6">
+          <h3 class="text-lg font-semibold text-teal-700">An ALIVE List says "today"</h3>
+          <p class="text-gray-700 mt-1">Small, repeatable, and available now. The things that make <em>this</em> ordinary day feel a little more like yours.</p>
+        </div>
+      </div>
+    </section>
+
+    {# --- 4. What goes on it + free Prompts tool --- #}
+    <section id="what-goes-on-it" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">What Goes on Your List</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          If you are not sure what belongs on it, you are not alone. Most people have stopped noticing. Start by paying attention to the small moments that quietly lift you, and write down anything that makes you think "more of that." A few to get you going:
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>A slow coffee before the day starts, phone left in another room.</li>
+          <li>A ten-minute walk somewhere green, with no destination.</li>
+          <li>A song that always lifts you, played loud, on purpose.</li>
+          <li>A proper catch-up with the friend you keep meaning to call.</li>
+          <li>Something made with your hands: a loaf, a sketch, a messy first page.</li>
+          <li>Five minutes outside to actually feel the weather instead of hurrying through it.</li>
+        </ul>
+      </div>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-slate-50 border border-indigo-100 rounded-2xl p-6">
+        <div class="md:col-span-3">
+          <h3 class="text-xl font-semibold text-gray-900">Stuck for ideas? Use the free prompts</h3>
+          <p class="text-gray-700 mt-2">An ALIVE List Prompts is a free tool that hands you a nudge whenever your list runs dry, so you always have a next small thing to notice.</p>
+          <div class="mt-4">
+            <a href="/tools/an-alive-list-prompts/" class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-white font-medium hover:bg-teal-800">Get a Prompt</a>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <div class="rounded-xl overflow-hidden border border-gray-200 bg-white">
+            <img src="{% static 'images/a-live-it-list-ig.webp' %}" alt="An ALIVE List of small things that make you feel alive" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+        <a href="/one-simple-way-to-reignite-joy-and-meaning-in-dail/" class="text-teal-700 hover:underline">One Simple Way to Reignite Joy and Meaning in Daily Life</a> &middot;
+        <a href="/five-minute-purpose-mornings/" class="text-teal-700 hover:underline">5-Minute Morning Practices for a Purpose-Led Day</a></p>
+    </section>
+
+    {# --- 5. Start An ALIVE List + Builder tool --- #}
+    <section id="start" class="mb-14 scroll-mt-24">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 mb-1">Start</p>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Start An ALIVE List</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          You do not need anything fancy to begin. A note on your phone works. But if you want a little structure, the free An ALIVE List Builder walks you through ten guided questions and hands you a list that actually fits you, rather than a blank page to stare at.
+        </p>
+      </div>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-slate-50 border border-indigo-100 rounded-2xl p-6">
+        <div class="md:col-span-3">
+          <h3 class="text-xl font-semibold text-gray-900">Build your list in ten minutes</h3>
+          <p class="text-gray-700 mt-2">Answer ten simple questions and discover exactly what belongs on your list, the small experiences worth making room for this week.</p>
+          <div class="mt-4">
+            <a href="/tools/an-alive-list-builder/" class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-white font-medium hover:bg-teal-800">Start the Builder</a>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <div class="rounded-xl overflow-hidden border border-gray-200 bg-white">
+            <img src="{% static 'images/a-live-it-list-ig.webp' %}" alt="Build An ALIVE List with the free builder tool" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+        <a href="/small-steps-to-realignment-pdf/" class="text-teal-700 hover:underline">Small Steps to Realignment</a> &middot;
+        <a href="/why-living-out-loud/" class="text-teal-700 hover:underline">Why Living Out Loud</a></p>
+    </section>
+
+    {# --- 6. Do it together --- #}
+    <section id="together" class="mb-14 scroll-mt-24">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 mb-1">Together</p>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Do It Together: Share Your List and Start a Club</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          An ALIVE List is lovely on your own. It is better shared. The moment you say your list out loud to someone, it becomes real, and the moment other people start their own, the small things multiply. Here are the ways it comes alive with other people:
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li><strong>Share your list with one person.</strong> Tell a friend what is on it. Saying it out loud makes it real, and gives you someone quietly cheering you on.</li>
+          <li><strong>Invite others to write their own.</strong> Friends, family, coworkers. It is a warm, no-pressure thing to hand someone: "write down the small things that make you feel alive."</li>
+          <li><strong>Do the items together.</strong> Turn a solo entry into a shared afternoon. Your "learn to bake" becomes a Saturday with a friend.</li>
+          <li><strong>Put a family list on the fridge.</strong> A shared list anyone in the house can add to, kids included.</li>
+          <li><strong>Start one at work.</strong> An ALIVE List for the team, full of the small things that make an ordinary workday less grey.</li>
+          <li><strong>Swap lists.</strong> Trade with a friend and each try one thing from the other's list.</li>
+        </ul>
+      </div>
+
+      {# --- An ALIVE List Club lead magnet (coming soon) --- #}
+      <div class="mt-8 bg-white border border-teal-200 rounded-2xl p-6">
+        <div class="flex flex-wrap items-center gap-3 mb-2">
+          <h3 class="text-xl font-semibold text-gray-900">Start An ALIVE List Club</h3>
+          <span class="inline-block text-xs font-bold uppercase tracking-wide text-teal-700 bg-teal-50 border border-teal-200 px-2.5 py-1 rounded-full">Coming Soon</span>
+        </div>
+        <p class="text-gray-700 leading-relaxed">Gather a few people, meet over coffee once a month, share what you have ticked off, and pick one small thing to do together before you meet again. We are putting together a simple <strong>Start An ALIVE List Club</strong> kit, three easy rules and everything you need to run one, as a free download. Join free to be first in line when it lands.</p>
+        <div class="mt-4">
+          <a href="/accounts/register/" class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-white font-medium hover:bg-teal-800">Join Free to Get the Kit</a>
+        </div>
+      </div>
+
+      {# --- Social sharing --- #}
+      <div class="mt-6 bg-indigo-50 border border-indigo-100 rounded-2xl p-6 text-center">
+        <p class="text-sm font-semibold uppercase tracking-wide text-indigo-700 mb-1">Share yours</p>
+        <p class="text-gray-800 text-lg leading-relaxed">Post one thing from your list and tag it <strong class="text-indigo-700">#AnAliveList</strong>. It might be the nudge someone else needs to start noticing their own small things.</p>
+      </div>
+
+      <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+        <a href="/why-living-out-loud/" class="text-teal-700 hover:underline">Why Living Out Loud</a></p>
+    </section>
+
+    {# --- 7. Keep it alive: track it --- #}
+    <section id="track" class="mb-14 scroll-mt-24">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 mb-1">Keep it alive</p>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Save It and Track Your List</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          A list only works if it does not vanish into a drawer. When you save An ALIVE List to your dashboard in the members area, it stays somewhere you will actually return to, and you can track where you are with it: what you have lived, what is waiting, and what you want more of.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Keep your list in one place instead of scattered across notes and good intentions.</li>
+          <li>Tick things off as you live them, so you can see the proof building up.</li>
+          <li>Run a short weekly check-in and ask the only question that matters: "Am I actually living it?"</li>
+          <li>Refresh the list each season, so habituation never gets the chance to flatten it again.</li>
+        </ul>
+      </div>
+      <div class="my-8 border-l-4 border-teal-600 bg-teal-50/60 rounded-r-lg p-5">
+        <p class="text-sm font-semibold uppercase tracking-wide text-teal-800 mb-1">From Diane</p>
+        <p class="text-gray-800 leading-relaxed">The habit that actually rebuilt my sense of a good week was absurdly small: fifteen minutes, same afternoon each week, looking back at my list and asking whether I had lived any of it. On the weeks I skip it, I can usually tell by how quickly they blur. Keeping track is not admin. It is how you notice your own life is happening.</p>
+      </div>
+      <div class="mt-2">
+        <a href="/accounts/register/" class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-white font-medium hover:bg-teal-800">Save your list to your dashboard</a>
+      </div>
+      <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+        <a href="/small-steps-vs-micro-habits-whats-the-difference/" class="text-teal-700 hover:underline">Small Steps vs. Micro Habits: What's the Difference</a> &middot;
+        <a href="/micro-habits-in-action-how-to-make-them-work/" class="text-teal-700 hover:underline">Micro Habits in Action</a> &middot;
+        <a href="/why-momentum-over-motivation/" class="text-teal-700 hover:underline">Momentum Over Motivation</a></p>
+    </section>
+
+    {# --- 8. Not sure of your direction --- #}
+    <section id="direction" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Not Sure of Your Direction?</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          Sometimes the problem is not knowing what to add to your list, it is a bigger sense of not knowing which way you are heading. An ALIVE List helps there too. The small things you keep returning to are clues, and there is a free tool built to read them.
+        </p>
+      </div>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="/tools/an-alive-list-direction-finder/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Try the Direction Finder</h3>
+          <p class="text-gray-700 mt-1">A free tool that turns the small things you love into a sense of where you want to head next.</p>
+        </a>
+        <a href="/realign-when-you-feel-lost/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">How to Realign When You Feel Lost</h3>
+          <p class="text-gray-700 mt-1">Small, gentle ways to find your footing when the direction has gone fuzzy.</p>
+        </a>
+        <a href="/tiny-bets-how-to-test-a-new-direction-without-risk/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Tiny Creative Bets</h3>
+          <p class="text-gray-700 mt-1">Test a new direction with something small, before you risk anything big.</p>
+        </a>
+      </div>
+      <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+        <a href="/why-you-should-focus-on-your-why/" class="text-teal-700 hover:underline">Why You Should Focus on Your 'Why'</a></p>
+    </section>
+
+    {# --- Product / Shop CTA (featured paid product) --- #}
+    <section id="shop" class="mt-14 scroll-mt-24">
+      <div class="bg-indigo-900 text-white rounded-2xl p-8 md:p-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <p class="text-indigo-300 text-sm font-semibold uppercase tracking-wide mb-2">From the Shop</p>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">More prompts to keep your list growing</h2>
+            <p class="text-indigo-100 leading-relaxed mb-4">When your list runs dry and you want to be nudged into something new, <strong>35 AI Coaching Prompts for Women Who Feel Stuck</strong> gives you a full set of deep, ready-to-paste prompts. Drop them into ChatGPT, Claude, or any AI assistant and get coached through the moments you feel flat or stuck.</p>
+            <p class="text-white font-semibold mb-6">Just $7</p>
+            <a href="/shop/product/35-ai-coaching-prompts-for-women-who-feel-stuck/" class="inline-flex items-center px-6 py-3 rounded-lg bg-teal-400 text-indigo-900 font-semibold hover:bg-teal-300 transition-colors">Get the 35 Prompts →</a>
+          </div>
+          <div class="hidden md:block">
+            <div class="bg-indigo-800 rounded-xl p-6 space-y-3 text-indigo-100 text-sm">
+              <p class="font-semibold text-white text-base mb-4">Why it pairs with your list:</p>
+              <p>✓ Fresh prompts for when your list runs dry</p>
+              <p>✓ Coaching-quality questions, no session needed</p>
+              <p>✓ Paste into any AI, any time of day</p>
+              <p>✓ Built for the moments you feel flat or stuck</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {# --- FAQ --- #}
+    <section id="faq" class="mt-16 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">FAQ</h2>
+      <div class="max-w-3xl">
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">What is An ALIVE List?</summary>
+          <p class="mt-3 text-gray-700">An ALIVE List is your running list of the small, everyday things that make you feel more alive. It is not a bucket list of once-in-a-lifetime moments and not a set of goals. It gives your small pleasures somewhere to live, so you notice them and choose more of them on purpose.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">How is An ALIVE List different from a bucket list?</summary>
+          <p class="mt-3 text-gray-700">A bucket list is big, rare, and mostly in the future. An ALIVE List is small, repeatable, and available today. It is about making <em>this</em> ordinary day feel more like yours, rather than waiting for a once-in-a-lifetime moment.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Why do the small things matter so much?</summary>
+          <p class="mt-3 text-gray-700">Because of habituation. Our brains tune out whatever stays the same, so a life on repeat literally stops being noticed. Deliberately noticing small things, and adding small bits of newness, is what switches your attention back on. Repetition, not intensity, is what changes how life feels.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">How do I start An ALIVE List Club?</summary>
+          <p class="mt-3 text-gray-700">Gather a few people, meet over coffee once a month, share what you have each ticked off, and pick one small thing to do together before the next meet-up. A free Start An ALIVE List Club kit is coming soon. Join free and you will be first to get it.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Where do I keep my list?</summary>
+          <p class="mt-3 text-gray-700">Anywhere you will actually see it. For the easiest option, save it to your dashboard in the members area, where you can track what you have lived, tick things off, and run a quick weekly check-in to make sure you are living it, not just listing it.</p>
+        </details>
+      </div>
+
+      {# FAQ schema #}
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "What is An ALIVE List?", "acceptedAnswer": {"@type": "Answer", "text": "An ALIVE List is your running list of the small, everyday things that make you feel more alive. It is not a bucket list and not a set of goals. It gives your small pleasures somewhere to live so you notice them and choose more of them on purpose."}},
+          {"@type": "Question", "name": "How is An ALIVE List different from a bucket list?", "acceptedAnswer": {"@type": "Answer", "text": "A bucket list is big, rare, and mostly in the future. An ALIVE List is small, repeatable, and available today. It is about making this ordinary day feel more like yours rather than waiting for a once-in-a-lifetime moment."}},
+          {"@type": "Question", "name": "Why do the small things matter so much?", "acceptedAnswer": {"@type": "Answer", "text": "Because of habituation. Our brains tune out whatever stays the same, so a life on repeat stops being noticed. Deliberately noticing small things, and adding small bits of newness, switches your attention back on. Repetition, not intensity, is what changes how life feels."}},
+          {"@type": "Question", "name": "How do I start An ALIVE List Club?", "acceptedAnswer": {"@type": "Answer", "text": "Gather a few people, meet over coffee once a month, share what you have each ticked off, and pick one small thing to do together before the next meet-up. A free Start An ALIVE List Club kit is coming soon."}},
+          {"@type": "Question", "name": "Where do I keep my list?", "acceptedAnswer": {"@type": "Answer", "text": "Anywhere you will actually see it. For the easiest option, save it to your dashboard in the members area, where you can track what you have lived, tick things off, and run a quick weekly check-in."}}
+        ]
+      }
+      </script>
+    </section>
+
+    {# --- Sources & Further Reading --- #}
+    <section class="mt-16">
+      <h2 class="text-xl font-semibold text-gray-900 mb-3">Sources &amp; Further Reading</h2>
+      <ul class="space-y-2 text-base text-gray-700">
+        <li><a href="https://spacedaily.com/m-researchers-tracked-122-people-varied-places-moodresearchers-tracked-122-people-varied-places-mood/" class="text-teal-700 hover:underline" rel="noopener noreferrer" target="_blank">Heller, Hartley et al. (2020), Nature Neuroscience.</a> A study tracking 122 people that found more varied daily experiences were linked to more positive mood.</li>
+      </ul>
+    </section>
+
+    {# --- Keep going: durable tools & shop --- #}
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900">Keep Going</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="/tools/an-alive-list-builder/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">An ALIVE List Builder</h3>
+          <p class="text-gray-700 mt-1">Ten questions to build your list from scratch.</p>
+        </a>
+        <a href="/tools/an-alive-list-prompts/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">An ALIVE List Prompts</h3>
+          <p class="text-gray-700 mt-1">A free nudge for when your list runs dry.</p>
+        </a>
+        <a href="/tools/an-alive-list-direction-finder/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">An ALIVE List Direction Finder</h3>
+          <p class="text-gray-700 mt-1">Turn the small things you love into a direction.</p>
+        </a>
+      </div>
+    </section>
+
+    {# --- Reflection box --- #}
+    <section class="mt-16">
+      <div class="rounded-2xl border border-slate-200 p-6 bg-slate-50">
+        <h2 class="text-xl font-semibold text-gray-900">Reflection</h2>
+        <p class="text-gray-700 mt-2">
+          Name one small thing that made you feel alive this week. Write it down as the first line of An ALIVE List, then choose one you will actually live in the next seven days.
+        </p>
+      </div>
+    </section>
+
+    {# --- Visit our other pages --- #}
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900">Visit our other pages</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="/how-to-get-out-of-a-rut" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">How to Get Out of a Rut</h3>
+          <p class="text-gray-700 mt-1">Feel inspired, make a choice, choose yourself, and take action.</p>
+        </a>
+        <a href="/how-to-find-your-core-values" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">How to Find Your Core Values</h3>
+          <p class="text-gray-700 mt-1">Uncover what matters, name it, and live by it.</p>
+        </a>
+        <a href="/journaling-personal-growth" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Journaling for Personal Growth</h3>
+          <p class="text-gray-700 mt-1">Hear yourself think, and turn what you notice into a next step.</p>
+        </a>
+      </div>
+    </section>
+
+  </section>
+</div>
+
+<!-- WebPage Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "An ALIVE List: The Small Things That Make an Ordinary Day Feel Like Yours",
+  "description": "An ALIVE List is your running list of the small things that make an ordinary day feel alive. Why small things matter, what goes on your list, how to share it and start a club, and how to track it.",
+  "url": "{{ request.build_absolute_uri }}",
+  "inLanguage": "en-GB",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inspirational Guidance",
+    "url": "https://inspirationalguidance.com"
+  }
+}
+</script>
+
+{% endblock %}
