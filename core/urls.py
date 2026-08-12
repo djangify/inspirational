@@ -43,6 +43,11 @@ urlpatterns = [
         TemplateView.as_view(template_name="core/journaling-personal-growth.html"),
         name="journaling",
     ),
+    path(
+        "how-to-find-your-core-values",
+        TemplateView.as_view(template_name="core/how-to-find-your-core-values.html"),
+        name="find_your_core_values",
+    ),
     # Old cluster pages — consolidated into "how-to-get-out-of-a-rut".
     # 301-redirect the old URLs so inbound links and SEO are preserved. The URL
     # names are kept so existing {% url %} references keep resolving.

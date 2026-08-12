@@ -1,0 +1,473 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}How to Find Your Core Values (and Actually Live by Them){% endblock %}
+{% block meta_description %}A practical guide to finding your core values, uncover what truly matters, name your values in your own words, use them to decide, and live them daily. Includes the free Core Values Compass, journaling prompts, and values-led planning from Inspirational Guidance.{% endblock %}
+
+{# ===== Open Graph / Twitter Cards ===== #}
+{% block open_graph_tags %}
+  <meta property="og:title" content="How to Find Your Core Values (and Actually Live by Them)" />
+  <meta property="og:description" content="Uncover what matters, name your values in your own words, let them make your decisions, and live them daily. A practical values guide with the free Core Values Compass." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:site_name" content="Inspirational Guidance" />
+  <meta property="article:author" content="Diane Corriette" />
+  <meta property="article:published_time" content="2026-08-12" />
+  <meta property="article:modified_time" content="2026-08-12" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Find Your Core Values (and Actually Live by Them)">
+  <meta name="twitter:description" content="Uncover, Name, Decide, Live: a practical guide to finding your core values and actually living by them, with the free Core Values Compass.">
+{% endblock %}
+
+{% block content %}
+
+{# ===== Article Schema ===== #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Find Your Core Values (and Actually Live by Them)",
+  "description": "A practical guide to finding your core values, uncover what truly matters, name your values in your own words, use them to decide, and live them daily, with the free Core Values Compass and values-led planning tools.",
+  "author": {
+    "@type": "Person",
+    "name": "Diane Corriette",
+    "url": "https://inspirationalguidance.com/diane-corriette/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inspirational Guidance",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.scheme }}://{{ request.get_host }}/static/images/logo.png"
+    }
+  },
+  "datePublished": "2026-08-12",
+  "dateModified": "2026-08-12",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request.build_absolute_uri }}"
+  }
+}
+</script>
+
+<div class="bg-white">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    {# --- Author + Date bar --- #}
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-6">
+      <a href="https://inspirationalguidance.com/diane-corriette/" class="font-medium text-teal-700 hover:underline">Diane Corriette</a>
+      <span>·</span>
+      <time datetime="2026-08-12">Published August 2026</time>
+    </div>
+
+    <header class="mb-8">
+      <h1 class="text-4xl mb-4 font-bold text-gray-900">How to Find Your Core Values (and Actually Live by Them)</h1>
+      <p class="leading-relaxed text-xl mt-2">
+        Most people can rattle off a few values (honesty, family, freedom) borrowed from a list and hoped to be true. But when life gets noisy, borrowed words collapse. Your <strong>core values</strong> are not slogans. They are the small set of principles already steering how you spend your time, what you say yes to, and where you quietly abandon yourself.
+      </p>
+      <p class="leading-relaxed text-xl mt-2">
+        This guide is the whole path in one place. Four simple moves (<strong>Uncover</strong>, <strong>Name</strong>, <strong>Decide</strong>, and <strong>Live</strong>) plus a short realign step for when life pulls you off course. You are not inventing new values. You are getting clear on the ones already there, and learning to actually live by them.
+      </p>
+    </header>
+
+    {# --- About this guide --- #}
+    <div class="bg-teal-50 border border-teal-200 rounded-xl p-5 mb-8 text-base text-teal-900 leading-relaxed">
+      <strong>About this guide:</strong> Written by <a href="https://inspirationalguidance.com/diane-corriette/" class="underline font-medium">Diane Corriette</a>, Personal Growth Coach and founder of Inspirational Guidance. It brings together the tools she uses with women who are not in crisis, just tired of drifting, and quietly ready to make choices that are actually theirs.
+    </div>
+
+    {# --- From Diane: personal experience --- #}
+    <div class="my-8 border-l-4 border-teal-600 bg-teal-50/60 rounded-r-lg p-5">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-800 mb-1">From Diane</p>
+      <p class="text-gray-800 leading-relaxed">Years ago I said yes to a project that paid well and looked good on paper, and every week I worked on it I felt a little more like I was renting out my time to someone else's priorities. It wasn't until I sat down and actually wrote out what mattered to me, not what I thought should matter, that I understood why it felt so wrong. It didn't fit. No amount of money was going to fix that. That was the day I stopped treating my values as a nice idea and started treating them as a compass.</p>
+    </div>
+
+    {# --- On this page --- #}
+    <nav aria-label="On this page" class="bg-white rounded-xl border border-gray-200 p-6 mb-12">
+      <h2 class="text-lg font-semibold text-gray-900 mb-3">On this page</h2>
+      <ol class="grid sm:grid-cols-2 gap-x-8 gap-y-1 list-decimal ml-5 text-teal-700">
+        <li><a class="hover:underline" href="#what-are-values">What core values actually are</a></li>
+        <li><a class="hover:underline" href="#signs">Signs you're living out of alignment</a></li>
+        <li><a class="hover:underline" href="#compass-intro">What a Values Compass is (and why start one)</a></li>
+        <li><a class="hover:underline" href="#uncover">Uncover: notice what actually matters</a></li>
+        <li><a class="hover:underline" href="#name">Name your values with the Core Values Compass</a></li>
+        <li><a class="hover:underline" href="#decide">Decide: let your values make the call</a></li>
+        <li><a class="hover:underline" href="#live">Live: design habits and days around them</a></li>
+        <li><a class="hover:underline" href="#realign">Realign when life pulls you off course</a></li>
+        <li><a class="hover:underline" href="#shop">Go deeper: the Define &amp; Live Your Values Bundle</a></li>
+        <li><a class="hover:underline" href="#faq">FAQ</a></li>
+      </ol>
+    </nav>
+
+    {# --- 1. What core values are + Why this works --- #}
+    <div id="what-are-values" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12 scroll-mt-24">
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-6">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-3">What Core Values Actually Are</h2>
+        <p class="leading-relaxed text-xl mt-2">
+          Core values are the handful of principles that shape how you think, act, and decide. Not trends, not inspirational quotes, but deeply personal anchors that tell you when to say yes and when to say no. Psychologists who study values find that most of us are guided by a small, fairly stable set of them, and that <em>naming</em> them clearly is what makes everyday decisions easier and less conflicted.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          That is the whole idea of a Values Compass: you are not building new values from scratch. You are surfacing the ones already steering you, and then choosing to honour them on purpose.
+        </p>
+      </div>
+      <aside class="bg-slate-50 rounded-xl border border-indigo-100 p-6">
+        <h3 class="text-xl font-semibold text-teal-800 mb-2">Why This Works</h3>
+        <p class="text-teal-800/90 text-xl leading-relaxed">
+          Clarity beats willpower. When you know what matters, you stop chasing external validation and start responding to life instead of coping with it. Values give you a way to weigh decisions without guilt or endless overthinking, a calm reference point when everything feels noisy.
+        </p>
+      </aside>
+    </div>
+
+    {# --- quote --- #}
+    <section class="w-full">
+      <div class="max-w-7xl mb-8 mx-auto">
+        <blockquote class="p-4 px-6 text-xl italic border-l-4 border-teal-700 bg-slate-50">
+          <p class="py-8">"Your life is not defined by the values you write down. It's defined by the values you act on." <br> Inspirational Guidance</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <p class="mb-14 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+      <a href="/values-compass-how-to-decide-what-truly-matters/" class="text-teal-700 hover:underline">The Values Compass: How to Decide What Truly Matters Now</a> &middot;
+      <a href="/find-your-core-values/" class="text-teal-700 hover:underline">Your Core Values Are Your Compass: How to Find Yours</a> &middot;
+      <a href="/values-based-boundaries/" class="text-teal-700 hover:underline">Your Life Your Way: A Practical Guide to Values-Led Living</a></p>
+
+    {# --- 2. Signs --- #}
+    <section id="signs" class="prose text-lg max-w-none mb-14 scroll-mt-24">
+      <h2>Signs You're Living Out of Alignment With Your Values</h2>
+      <p class="leading-relaxed text-xl mt-2">
+        Misalignment rarely announces itself. It leaks out as low-level resentment, overcommitment, or a sense of running on autopilot. See how many of these sound familiar:
+      </p>
+      <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+        <li>You chase goals that look good on paper but feel hollow once you reach them.</li>
+        <li>You say yes when you want to say no, then feel drained or resentful.</li>
+        <li>You keep busy, but underneath it you feel restless or vaguely "off."</li>
+        <li>You know you "should" have boundaries, but they collapse the moment pressure rises.</li>
+        <li>You've done a values exercise before, but the words never seemed to stick.</li>
+        <li>Your calendar is full of obligations and almost nothing you actually chose.</li>
+      </ul>
+      <p class="leading-relaxed text-xl mt-4">
+        None of these mean anything is wrong with you. They are signals, and a quick way to test one is to compare your week's schedule with what you say matters. If your time goes entirely to obligations rather than priorities, that gap is where the work begins.
+      </p>
+      <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+        <a href="/values-based-boundaries/" class="text-teal-700 hover:underline">From Drift to Direction: Values-Led Living</a> &middot;
+        <a href="/values-compass-how-to-decide-what-truly-matters/" class="text-teal-700 hover:underline">How to Tell Your Life Is Out of Alignment</a> &middot;
+        <a href="/intentional-living-design-your-days/" class="text-teal-700 hover:underline">Design Days That Reflect Your Values</a></p>
+    </section>
+
+    {# --- 2b. What a Values Compass is, and why start one --- #}
+    <section id="compass-intro" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">What a Values Compass Is (And Why It's Worth Starting)</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          A Values Compass is the free tool this whole guide runs on, a short list of the values that actually fit your life <em>now</em>, kept somewhere you'll return to when a decision feels murky. Not a borrowed list of virtues, but three to five words in your own language, plus a single compass statement you can carry into real choices.
+        </p>
+        <p class="leading-relaxed text-xl mt-4">
+          It works because a short list gives direction without diluting your focus. Too many competing values and every decision gets harder; a clear handful and you can quickly see what strengthens the life you want and what quietly takes from it. The free <a href="/tools/free-core-values-compass/" class="text-teal-700 hover:underline">Core Values Compass</a> gives those values somewhere to live so they stop evaporating the moment life gets loud.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <a href="/find-your-core-values/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Why Your Values Are Your Compass</h3>
+          <p class="text-gray-700 mt-1">Make decisions faster, with less second-guessing, once you know what actually matters.</p>
+        </a>
+        <a href="/values-compass-how-to-decide-what-truly-matters/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">The Four Anchors of a Values Compass</h3>
+          <p class="text-gray-700 mt-1">What you'll no longer sacrifice, what strengthens you, what to multiply, and what to model.</p>
+        </a>
+        <a href="/tools/free-core-values-compass/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Try the Free Core Values Compass</h3>
+          <p class="text-gray-700 mt-1">Sort 30 values into what fits you now, land on your top three, and save the result.</p>
+        </a>
+      </div>
+    </section>
+
+    {# --- 3. Uncover --- #}
+    <section id="uncover" class="mb-14 scroll-mt-24">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 mb-1">Uncover</p>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Notice What Actually Matters to You</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          You do not find your values by staring at a list of virtues. You find them by looking at your own life, at the moments you felt most like yourself and the moments you felt most compromised. Behaviour reveals values more honestly than ideals do.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>List moments from the past year when you felt proud, energised, or deeply content.</li>
+          <li>List the moments you felt frustrated, depleted, or out of alignment, and why.</li>
+          <li>Underline the words and themes that keep repeating across both lists.</li>
+          <li>Notice what you say yes to out of habit, and where you consistently abandon yourself.</li>
+        </ul>
+        <p class="leading-relaxed text-xl mt-4">
+          Your first shortlist of values usually emerges straight out of those patterns, no theory required.
+        </p>
+        <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+          <a href="/values-compass-how-to-decide-what-truly-matters/" class="text-teal-700 hover:underline">The Values Compass: How to Decide What Truly Matters Now</a> &middot;
+          <a href="/find-your-core-values/" class="text-teal-700 hover:underline">Your Core Values Are Your Compass: How to Find Yours</a> &middot;
+          <a href="/values-based-boundaries/" class="text-teal-700 hover:underline">Clarify Your Values: Step One of Values-Led Living</a></p>
+      </div>
+    </section>
+
+    {# --- 4. Name + free tool callout --- #}
+    <section id="name" class="mb-14 scroll-mt-24">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 mb-1">Name</p>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Name Your Values in Your Own Words</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          A long list of clues becomes a compass the moment you narrow it down and put it in your own language. Aim for three to five values, enough to give direction, few enough to actually remember under pressure.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Condense your repeating themes into a shortlist of five values.</li>
+          <li>Write each one in plain language, "family dinners," not "community."</li>
+          <li>Test the list: "If I had to live by only these next month, would my life feel more like mine?"</li>
+          <li>Keep it somewhere visible so it steers real choices, not a drawer.</li>
+        </ul>
+      </div>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-5 gap-6 items-center bg-slate-50 border border-indigo-100 rounded-2xl p-6">
+        <div class="md:col-span-3">
+          <h3 class="text-xl font-semibold text-gray-900">Try the free Core Values Compass</h3>
+          <p class="text-gray-700 mt-2">A free tool that walks you through sorting 30 values into what fits you right now, so you land on your top three and a short compass statement to carry into decisions. About ten minutes.</p>
+          <div class="mt-4">
+            <a href="/tools/free-core-values-compass/" class="inline-flex items-center px-5 py-3 rounded-lg bg-teal-700 text-white font-medium hover:bg-teal-800">Find Your Values</a>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <div class="rounded-xl overflow-hidden border border-gray-200 bg-white">
+            <img src="{% static 'images/define-core-values23.webp' %}" alt="The free Core Values Compass, sort 30 values into your top three" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+        <a href="/find-your-core-values/" class="text-teal-700 hover:underline">Define Your Core Values (and Actually Use Them)</a> &middot;
+        <a href="/values-compass-how-to-decide-what-truly-matters/" class="text-teal-700 hover:underline">A 10-Minute Values Exercise</a> &middot;
+        <a href="/values-based-boundaries/" class="text-teal-700 hover:underline">Clarify First, Then Define</a></p>
+    </section>
+
+    {# --- 5. Decide --- #}
+    <section id="decide" class="mb-14 scroll-mt-24">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 mb-1">Decide</p>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Let Your Values Make the Call</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          A named value is only worth something when it changes a decision. This is where the compass earns its keep, turning "I don't know what to do" into a clear yes, no, or not now.
+        </p>
+        <div class="my-8 border-l-4 border-teal-600 bg-teal-50/60 rounded-r-lg p-5">
+          <p class="text-sm font-semibold uppercase tracking-wide text-teal-800 mb-1">From Diane</p>
+          <p class="text-gray-800 leading-relaxed">For a long time I could tell how my week had gone by how much praise had landed in it, which meant my sense of things was never really mine, it was on loan. Building an inner sense of whether something had gone well, independent of who noticed, took far longer than I expected and changed far more than I expected too. My values are what I check against now, instead of the applause.</p>
+        </div>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Write one simple decision rule: "If it aligns with [value], it's a yes. If it competes, it's a no or a later."</li>
+          <li>Test each new commitment against your values <em>before</em> you agree to it.</li>
+          <li>Ask of any choice: "Does this strengthen or weaken the life I'm trying to build?"</li>
+          <li>Keep a ready script so you can say no without a paragraph of justification.</li>
+        </ul>
+        <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+          <a href="/values-based-boundaries/" class="text-teal-700 hover:underline">Decide With Clarity: Values-Based Decision Rules</a> &middot;
+          <a href="/values-compass-how-to-decide-what-truly-matters/" class="text-teal-700 hover:underline">How to Use Your Values Compass Daily</a> &middot;
+          <a href="/find-your-core-values/" class="text-teal-700 hover:underline">When to Say Yes and When to Say No</a></p>
+      </div>
+    </section>
+
+    {# --- 6. Live --- #}
+    <section id="live" class="mb-14 scroll-mt-24">
+      <p class="text-sm font-semibold uppercase tracking-wide text-teal-700 mb-1">Live</p>
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Design Habits and Days Around Your Values</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          Values stay abstract until they show up in your calendar. Living them is not a personality overhaul, it's a set of small, repeated touchpoints that keep your days pointing the right way.
+        </p>
+        <div class="my-8 border-l-4 border-teal-600 bg-teal-50/60 rounded-r-lg p-5">
+          <p class="text-sm font-semibold uppercase tracking-wide text-teal-800 mb-1">From Diane</p>
+          <p class="text-gray-800 leading-relaxed">The habit that actually changed my days wasn't a big one. It was reaching for my notebook before my phone in the morning, which sounds small until you notice how much of a day gets decided by whatever the first ten minutes are spent on. I didn't plan that habit consciously at first. I just noticed it was working, and kept doing it.</p>
+        </div>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Pick one value and design a ten-minute habit that expresses it ("When I pour my coffee, then I write one line on what matters today").</li>
+          <li>Translate each value into a single visible daily action, small enough to survive a busy day.</li>
+          <li>Protect high-energy windows for the values that need you at your best.</li>
+          <li>End the day with a one-minute check: "Did today reflect what matters to me?"</li>
+        </ul>
+      </div>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="/purpose-intentional-habits/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Design Intentional Habits</h3>
+          <p class="text-gray-700 mt-1">Build ten-minute "anchors" that turn a value into something you actually do.</p>
+        </a>
+        <a href="/intentional-living-design-your-days/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Design Days That Reflect Your Values</h3>
+          <p class="text-gray-700 mt-1">Map your energy, protect the space, and add purpose anchors to your day.</p>
+        </a>
+        <a href="/values-based-boundaries/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Values-Led Living, Step by Step</h3>
+          <p class="text-gray-700 mt-1">The full six-step framework from clarity to habits to weekly review.</p>
+        </a>
+      </div>
+    </section>
+
+    {# --- 7. Realign --- #}
+    <section id="realign" class="mb-14 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Realign When Life Pulls You Off Course</h2>
+      <div class="prose text-lg max-w-none">
+        <p class="leading-relaxed text-xl mt-2">
+          Even with the best intentions, drift happens. A short, regular check-in keeps you on course without the drama of "starting over", and reminds you that your values can evolve as you do.
+        </p>
+        <ul class="list-disc ml-6 mt-4 text-xl leading-relaxed space-y-2">
+          <li>Run a weekly Keep / Change / Stop review, fifteen minutes, same day each week.</li>
+          <li>Add one or two tiny experiments to test for the next seven days.</li>
+          <li>Once a month, ask whether how you're honouring each value still fits the season you're in.</li>
+          <li>Treat a shifting value as growth, not inconsistency, reassess rather than force the old version.</li>
+        </ul>
+        <div class="my-8 border-l-4 border-teal-600 bg-teal-50/60 rounded-r-lg p-5">
+          <p class="text-sm font-semibold uppercase tracking-wide text-teal-800 mb-1">From Diane</p>
+          <p class="text-gray-800 leading-relaxed">My own values shifted noticeably somewhere in my forties, quietly and without any single dramatic moment. Things I'd have said mattered a decade earlier just didn't hold the same weight anymore, and other things I'd barely noticed before moved right to the front. Checking in regularly is how I caught that, instead of living for years by a version of my values that had already changed.</p>
+        </div>
+        <p class="mt-6 text-lg text-gray-700"><span class="font-semibold text-gray-900">Read more:</span>
+          <a href="/values-based-boundaries/" class="text-teal-700 hover:underline">Realign, Review, and Refocus</a> &middot;
+          <a href="/intentional-living-design-your-days/" class="text-teal-700 hover:underline">End the Day With a Values Check</a> &middot;
+          <a href="/values-compass-how-to-decide-what-truly-matters/" class="text-teal-700 hover:underline">Why Your Values Sharpen With Experience</a></p>
+      </div>
+    </section>
+
+    {# --- Product / Shop CTA (featured paid product) --- #}
+    <section id="shop" class="mt-14 scroll-mt-24">
+      <div class="bg-indigo-900 text-white rounded-2xl p-8 md:p-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <p class="text-indigo-300 text-sm font-semibold uppercase tracking-wide mb-2">From the Shop · Featured</p>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Get Clear on Your Values in a Weekend</h2>
+            <p class="text-indigo-100 leading-relaxed mb-4">The <strong>Define &amp; Live Your Values Bundle</strong> takes you all the way through these four moves, discover your values from lived experience, define them in your own words, apply them with ready-made decision scripts, and condense them into a personal mission statement. Four workbooks, 72 pages, plus an AI Life Coach built around the guide.</p>
+            <p class="text-white font-semibold mb-6">$140+ of tools, <span class="text-teal-300">just $27</span></p>
+            <a href="/shop/product/define-and-live-your-values-bundle/" class="inline-flex items-center px-6 py-3 rounded-lg bg-teal-400 text-indigo-900 font-semibold hover:bg-teal-300 transition-colors">Get the Values Bundle →</a>
+          </div>
+          <div class="hidden md:block">
+            <div class="bg-indigo-800 rounded-xl p-6 space-y-3 text-indigo-100 text-sm">
+              <p class="font-semibold text-white text-base mb-4">What's inside:</p>
+              <p>✓ The Values Finder Toolkit: uncover your 3 to 5 true values</p>
+              <p>✓ Living Your Values in Daily Decisions: scripts &amp; scenarios</p>
+              <p>✓ Design Your Personal Mission Statement: your north star</p>
+              <p>✓ The Self-Authorship Starter Kit: decision rules &amp; daily anchors</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="mt-4 text-base text-gray-600">Prefer something smaller to start? The <a href="/shop/product/living-your-values-in-daily-decisions/" class="text-teal-700 hover:underline">Living Your Values in Daily Decisions mini-guide</a> ($9.99) is the field guide for acting on your values when pressure rises.</p>
+    </section>
+
+    {# --- FAQ --- #}
+    <section id="faq" class="mt-16 scroll-mt-24">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">FAQ</h2>
+      <div class="max-w-3xl">
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">How do I know what my core values actually are?</summary>
+          <p class="mt-3 text-gray-700">Start with behaviour, not ideals. Look at how you spend your time, where you feel most alive, and where you feel most compromised. Those patterns reveal your values more honestly than a list of virtues. The free Core Values Compass helps you sort them into a clear top three.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">How many core values should I focus on?</summary>
+          <p class="mt-3 text-gray-700">Aim for three to five. That's enough to give direction without diluting your focus. When too many values compete for attention, decisions get harder, a short list of anchors keeps things clear.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Can my values change as I get older?</summary>
+          <p class="mt-3 text-gray-700">Yes. Values naturally evolve with experience as your responsibilities and perspective change. Rather than seeing that as inconsistency, treat it as growth. Reassessing your values every so often keeps your choices matched to who you're becoming, not who you used to be.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">Why don't my values ever seem to stick?</summary>
+          <p class="mt-3 text-gray-700">Usually because they're borrowed words rather than your own, and they never make it into a decision. Name them in plain language, write one simple decision rule, and attach each value to a small daily habit. Values stick when you act on them, not when you write them down.</p>
+        </details>
+        <details class="border border-gray-200 rounded-lg p-4 mb-4">
+          <summary class="font-semibold cursor-pointer">What is the Core Values Compass?</summary>
+          <p class="mt-3 text-gray-700">It's a free tool that walks you through sorting 30 values into what fits your life right now, so you land on your top three and a short compass statement to carry into decisions. It takes about ten minutes, and you can save your result.</p>
+        </details>
+      </div>
+
+      {# FAQ schema #}
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "How do I know what my core values actually are?", "acceptedAnswer": {"@type": "Answer", "text": "Start with behaviour, not ideals. Look at how you spend your time, where you feel most alive, and where you feel most compromised. Those patterns reveal your values more honestly than a list of virtues. The free Core Values Compass helps you sort them into a clear top three."}},
+          {"@type": "Question", "name": "How many core values should I focus on?", "acceptedAnswer": {"@type": "Answer", "text": "Aim for three to five. That is enough to give direction without diluting your focus. When too many values compete for attention, decisions get harder, so a short list of anchors keeps things clear."}},
+          {"@type": "Question", "name": "Can my values change as I get older?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Values naturally evolve with experience as your responsibilities and perspective change. Treat that as growth rather than inconsistency, and reassess your values every so often so your choices match who you are becoming."}},
+          {"@type": "Question", "name": "Why don't my values ever seem to stick?", "acceptedAnswer": {"@type": "Answer", "text": "Usually because they are borrowed words rather than your own, and they never make it into a decision. Name them in plain language, write one simple decision rule, and attach each value to a small daily habit. Values stick when you act on them."}},
+          {"@type": "Question", "name": "What is the Core Values Compass?", "acceptedAnswer": {"@type": "Answer", "text": "It is a free tool that walks you through sorting 30 values into what fits your life right now, so you land on your top three and a short compass statement to carry into decisions. It takes about ten minutes and you can save your result."}}
+        ]
+      }
+      </script>
+    </section>
+
+    {# --- Sources & Further Reading --- #}
+    <section class="mt-16">
+      <h2 class="text-xl font-semibold text-gray-900 mb-3">Sources &amp; Further Reading</h2>
+      <ul class="space-y-2 text-base text-gray-700">
+        <li><a href="https://scholarworks.gvsu.edu/orpc/vol2/iss1/11/" class="text-teal-700 hover:underline" rel="noopener noreferrer" target="_blank">Schwartz, S. H. An Overview of the Schwartz Theory of Basic Values</a></li>
+        <li><a href="https://hbr.org/2007/10/manage-your-energy-not-your-time" class="text-teal-700 hover:underline" rel="noopener noreferrer" target="_blank">Harvard Business Review: Manage Your Energy, Not Your Time</a></li>
+      </ul>
+    </section>
+
+    {# --- Keep going: durable tools & shop --- #}
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900">Keep Going</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="/tools/free-core-values-compass/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Free Core Values Compass</h3>
+          <p class="text-gray-700 mt-1">Sort 30 values into your top three in about ten minutes.</p>
+        </a>
+        <a href="/shop/product/define-and-live-your-values-bundle/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Define &amp; Live Your Values Bundle</h3>
+          <p class="text-gray-700 mt-1">The complete weekend toolkit, discover, define, decide, live. $27.</p>
+        </a>
+        <a href="/shop/" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Shop the Tools</h3>
+          <p class="text-gray-700 mt-1">Planners and guides for living a values-led life.</p>
+        </a>
+      </div>
+    </section>
+
+    {# --- Reflection box --- #}
+    <section class="mt-16">
+      <div class="rounded-2xl border border-slate-200 p-6 bg-slate-50">
+        <h2 class="text-xl font-semibold text-gray-900">Reflection</h2>
+        <p class="text-gray-700 mt-2">
+          Name one value that has been waiting for your attention. Then choose the smallest possible way to honour it this week, and do that one thing.
+        </p>
+      </div>
+    </section>
+
+    {# --- Visit our other pages --- #}
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold text-gray-900">Visit our other pages</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <a href="/journaling-personal-growth" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">Journaling for Personal Growth</h3>
+          <p class="text-gray-700 mt-1">Hear yourself think, and turn what you notice into a next step.</p>
+        </a>
+        <a href="/how-to-get-out-of-a-rut" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">How to Get Out of a Rut</h3>
+          <p class="text-gray-700 mt-1">Feel inspired, make a choice, choose yourself, and take action.</p>
+        </a>
+        <a href="/pause-emotional-resilience" class="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <h3 class="text-lg font-semibold text-teal-700">The PAUSE Framework</h3>
+          <p class="text-gray-700 mt-1">A simple sequence for staying steady when life knocks you off course.</p>
+        </a>
+      </div>
+    </section>
+
+  </section>
+</div>
+
+<!-- WebPage Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "How to Find Your Core Values (and Actually Live by Them)",
+  "description": "A practical guide to finding your core values, uncover what truly matters, name your values in your own words, use them to decide, and live them daily, with the free Core Values Compass.",
+  "url": "{{ request.build_absolute_uri }}",
+  "inLanguage": "en-GB",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Inspirational Guidance",
+    "url": "https://inspirationalguidance.com"
+  }
+}
+</script>
+
+{% endblock %}

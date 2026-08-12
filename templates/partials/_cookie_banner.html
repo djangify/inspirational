@@ -1,0 +1,146 @@
+<!-- Cookie consent — Google Consent Mode v2 banner. Analytics stays denied until a choice is made. -->
+<div
+  id="cookie-consent"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="cookie-consent-title"
+  aria-hidden="true"
+  class="fixed bottom-4 right-4 z-50 w-[calc(100%-2rem)] sm:w-96 max-w-sm translate-y-4 opacity-0 pointer-events-none transition-all duration-300"
+>
+  <div class="rounded-xl border border-teal-200 bg-white shadow-2xl p-5">
+    <h2 id="cookie-consent-title" class="text-sm font-semibold mb-2 text-gray-900">We value your privacy</h2>
+
+    <p class="text-sm text-gray-700 mb-4">
+      We use cookies to run essential site features and, with your consent, to understand how the site is used.
+      <a href="{% url 'core:cookie_policy' %}"
+         class="underline hover:text-teal-700">
+        How We Use Cookies
+      </a>
+    </p>
+
+    <div id="cookie-prefs-panel" class="hidden mb-4 space-y-3 border-t border-teal-200 pt-3">
+      <div class="flex items-center justify-between gap-3">
+        <div>
+          <p class="text-sm font-medium text-gray-900">Essential</p>
+          <p class="text-xs text-gray-600">Required for login and security. Always on.</p>
+        </div>
+        <input type="checkbox" checked disabled aria-label="Essential cookies (always on)"
+               class="h-4 w-4 shrink-0 opacity-50 cursor-not-allowed">
+      </div>
+      <div class="flex items-center justify-between gap-3">
+        <div>
+          <p class="text-sm font-medium text-gray-900">Analytics</p>
+          <p class="text-xs text-gray-600">Helps us understand site usage. Optional.</p>
+        </div>
+        <input type="checkbox" id="cookie-analytics-toggle" aria-label="Analytics cookies"
+               class="h-4 w-4 shrink-0">
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <div class="flex gap-2">
+        <button id="cookie-accept-all" type="button"
+                class="flex-1 px-3 py-2 text-sm font-medium rounded-lg bg-teal-700 text-white hover:opacity-90 transition">
+          Accept all
+        </button>
+        <button id="cookie-reject-all" type="button"
+                class="flex-1 px-3 py-2 text-sm font-medium rounded-lg border border-teal-700 text-gray-700 hover:bg-teal-50 transition">
+          Reject non-essential
+        </button>
+      </div>
+      <div class="flex gap-2">
+        <button id="cookie-manage-toggle" type="button"
+                class="flex-1 px-3 py-1.5 text-xs underline text-gray-600 hover:text-teal-700 transition">
+          Manage preferences
+        </button>
+        <button id="cookie-save-prefs" type="button"
+                class="hidden flex-1 px-3 py-1.5 text-xs font-medium rounded-lg bg-teal-800 text-white hover:opacity-90 transition">
+          Save preferences
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'igCookieConsent';
+  var banner = document.getElementById('cookie-consent');
+  if (!banner) return;
+
+  function readConsent() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function applyConsent(payload) {
+    if (window.gtag) {
+      window.gtag('consent', 'update', {
+        analytics_storage: payload.analytics ? 'granted' : 'denied'
+      });
+    }
+    window.dispatchEvent(new CustomEvent('igCookieConsentUpdated', { detail: payload }));
+  }
+
+  function writeConsent(analytics) {
+    var payload = { analytics: !!analytics, ts: new Date().toISOString() };
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(payload)); } catch (e) {}
+    applyConsent(payload);
+    return payload;
+  }
+
+  var existing = readConsent();
+  if (existing) {
+    applyConsent(existing);
+    banner.remove();
+    return;
+  }
+
+  requestAnimationFrame(function () {
+    banner.classList.remove('translate-y-4', 'opacity-0', 'pointer-events-none');
+    banner.classList.add('translate-y-0', 'opacity-100');
+    banner.setAttribute('aria-hidden', 'false');
+  });
+
+  function dismiss() {
+    banner.classList.add('translate-y-4', 'opacity-0');
+    banner.classList.remove('translate-y-0', 'opacity-100');
+    setTimeout(function () { banner.remove(); }, 300);
+  }
+
+  var acceptAll = document.getElementById('cookie-accept-all');
+  var rejectAll = document.getElementById('cookie-reject-all');
+  var manageToggle = document.getElementById('cookie-manage-toggle');
+  var savePrefs = document.getElementById('cookie-save-prefs');
+  var panel = document.getElementById('cookie-prefs-panel');
+  var analyticsToggle = document.getElementById('cookie-analytics-toggle');
+
+  if (acceptAll) acceptAll.addEventListener('click', function (e) {
+    e.preventDefault();
+    writeConsent(true);
+    dismiss();
+  });
+
+  if (rejectAll) rejectAll.addEventListener('click', function (e) {
+    e.preventDefault();
+    writeConsent(false);
+    dismiss();
+  });
+
+  if (manageToggle) manageToggle.addEventListener('click', function (e) {
+    e.preventDefault();
+    var opening = panel.classList.contains('hidden');
+    panel.classList.toggle('hidden');
+    manageToggle.classList.toggle('hidden', opening);
+    savePrefs.classList.toggle('hidden', !opening);
+  });
+
+  if (savePrefs) savePrefs.addEventListener('click', function (e) {
+    e.preventDefault();
+    writeConsent(!!(analyticsToggle && analyticsToggle.checked));
+    dismiss();
+  });
+})();
+</script>

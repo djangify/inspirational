@@ -44,10 +44,19 @@
     {% block extra_head %}{% endblock %}
     <!-- Google tag (gtag.js) -->
     {% with ga_id=site_settings.google_analytics_id|default:"G-YCT3CVSPKT" %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
+    <!-- Google Consent Mode v2: analytics stays denied until the cookie banner records a decision -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied'
+      });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
+    <script>
       gtag('js', new Date());
       gtag('config', '{{ ga_id }}');
     </script>
@@ -77,23 +86,7 @@
     {% endif %}
 
     <!-- COOKIE BANNER -->
-    <div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #f8fafc; padding: 1em; text-align: center; font-size: 14px; box-shadow: 0 -1px 4px rgba(0,0,0,0.1); display: none;">
-      This website uses cookies to ensure you get the best ALIVE List experience.
-      <a href="{% url 'core:cookie_policy' %}" style="text-decoration: underline;">How We Use Cookies</a>.
-      <button id="accept-cookies" style="margin-left: 1em; background-color: #216a95; color: white; border: none; padding: 0.5em 1em; cursor: pointer;">
-        Accept
-      </button>
-    </div>
-
-    <script defer>
-      if (!localStorage.getItem("cookiesAccepted")) {
-        document.getElementById("cookie-banner").style.display = "block";
-      }
-      document.getElementById("accept-cookies").onclick = function () {
-        localStorage.setItem("cookiesAccepted", "true");
-        document.getElementById("cookie-banner").style.display = "none";
-      };
-    </script>
+    {% include 'partials/_cookie_banner.html' %}
 
     {% block scripts %}
       <!-- HTMX -->
