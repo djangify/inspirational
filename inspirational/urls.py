@@ -15,6 +15,7 @@ from inspirational.sitemaps import (
 from core.views import robots_txt, oauth_authorization_server_metadata
 from mcp_server import views as mcp_views
 from mcp_server.sidebar import install_sidebar_link
+from accounts import admin_stats
 
 sitemaps = {
     "static": StaticViewSitemap,
@@ -36,6 +37,7 @@ urlpatterns = [
     # these admin/-prefixed paths resolve ahead of the admin catch-all.
     path("admin/connect-claude/", mcp_views.connect_claude, name="admin_connect_claude"),
     path("admin/claude-connections/", mcp_views.claude_connections, name="admin_claude_connections"),
+    path("admin/email-list-stats/", admin_stats.email_list_stats, name="admin_email_list_stats"),
     path("admin/", admin.site.urls),
     # OAuth 2.1 Authorization Server for the MCP connector: /o/authorize,
     # /o/token, /o/introspect, /o/revoke_token.
@@ -89,3 +91,6 @@ admin.site.index_title = "Welcome to Your Site"
 
 # Add the superuser-only "Claude connector" links to the admin sidebar.
 install_sidebar_link()
+
+# Add the superuser-only "Email list stats" link to the admin sidebar.
+admin_stats.install_sidebar_link()

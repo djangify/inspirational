@@ -1,0 +1,134 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+  &rsaquo; Email list stats
+</div>
+{% endblock %}
+
+{% block content %}
+<style>
+  .els-wrap { max-width: 900px; }
+  .els-intro { color: #444; margin-bottom: 22px; line-height: 1.5; max-width: 720px; }
+  .els-card { border: 1px solid #e0e0e0; border-radius: 10px; background: #fff;
+              padding: 20px 22px; margin-bottom: 18px; }
+  .els-head { display: flex; align-items: baseline; justify-content: space-between;
+              flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .els-head h2 { margin: 0; font-size: 16px; color: #2b2b2b; }
+  .els-updated { font-size: 12px; color: #999; }
+  .els-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+               gap: 14px; margin-top: 16px; }
+  .els-stat { background: #f7f9fa; border-radius: 8px; padding: 16px 18px; }
+  .els-stat .num { font-size: 28px; font-weight: 700; color: #2e7d32; line-height: 1.1; }
+  .els-stat .num.muted { color: #aab2ba; font-weight: 600; }
+  .els-stat .lbl { font-size: 12px; color: #555; margin-top: 4px; }
+  .els-note { border: 1px solid #ffe1a8; background: #fff9ec; border-radius: 8px;
+              padding: 14px 16px; font-size: 13px; color: #6b5626; line-height: 1.5;
+              margin-top: 18px; }
+  .els-note a { color: #a06a12; font-weight: 600; }
+  .els-calm { background: #f6f7f8; border: 1px solid #dde1e5; border-radius: 8px;
+              padding: 16px 18px; font-size: 13px; color: #555; line-height: 1.5; }
+  .els-calm .hint { display: block; margin-top: 6px; font-size: 12px; color: #888; }
+  .els-actions { margin-top: 16px; }
+  .els-btn { display: inline-block; background: #417690; color: #fff !important; border: none;
+             padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600;
+             text-decoration: none; cursor: pointer; }
+  .els-btn:hover { background: #2e586e; }
+  .els-foot { max-width: 900px; margin-top: 16px; font-size: 12px; color: #999; }
+</style>
+
+<div class="els-wrap">
+  <p class="els-intro">
+    A quick, read-only snapshot of how your email list is doing, pulled live from
+    MailerLite. These figures are cached and refresh at most once every 12 hours —
+    use <strong>Refresh now</strong> for the latest.
+  </p>
+
+  {% if not_configured %}
+  <div class="els-card">
+    <h2>MailerLite not connected</h2>
+    <div class="els-calm" style="margin-top:12px;">
+      No MailerLite API key is configured, so there are no list stats to show. Set
+      <strong>MAILERLITE_API_KEY</strong> (and <strong>MAILERLITE_GROUP_ID</strong>)
+      in your environment to see your numbers here.
+    </div>
+  </div>
+
+  {% else %}
+  <div class="els-card">
+    <div class="els-head">
+      <h2>{{ provider_label }}</h2>
+      {% if stats.fetched_at %}
+      <span class="els-updated">Last updated {{ stats.fetched_at|date:"j M Y, H:i" }}</span>
+      {% endif %}
+    </div>
+
+    {% if stats.ok %}
+    <div class="els-stats">
+      <div class="els-stat">
+        {% if stats.subscribers_total is not None %}
+        <div class="num">{{ stats.subscribers_total }}</div>
+        {% else %}
+        <div class="num muted">&mdash;</div>
+        {% endif %}
+        <div class="lbl">Total subscribers</div>
+      </div>
+      <div class="els-stat">
+        {% if stats.new_last_30d is not None %}
+        <div class="num">{{ stats.new_last_30d }}</div>
+        {% else %}
+        <div class="num muted">&mdash;</div>
+        {% endif %}
+        <div class="lbl">New in last ~30 days</div>
+      </div>
+      <div class="els-stat">
+        {% if stats.growth_pct is not None %}
+        <div class="num">{{ stats.growth_pct }}%</div>
+        {% else %}
+        <div class="num muted">&mdash;</div>
+        {% endif %}
+        <div class="lbl">Growth (last ~30 days)</div>
+      </div>
+    </div>
+    {% if stats.subscribers_total is None and stats.new_last_30d is None %}
+    <div class="els-calm" style="margin-top:16px;">
+      {{ provider_label }} didn't return any figures we can show here. Your list is
+      still fine — check your MailerLite dashboard for the details.
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="els-calm">
+      We couldn't reach {{ provider_label }} right now, so these figures may be
+      unavailable or out of date. This won't affect your site — please try again
+      later.
+      {% if stats.error and ' ' in stats.error %}
+      <span class="hint">{{ stats.error }}</span>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="els-actions">
+      <form method="post" action="{% url 'admin_email_list_stats' %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="refresh">
+        <button type="submit" class="els-btn">Refresh now</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="els-note">
+    These are indicative figures. Visit your
+    {% if dashboard_url %}<a href="{{ dashboard_url }}" target="_blank" rel="noopener">{{ provider_label }} dashboard</a>{% else %}{{ provider_label }} dashboard{% endif %}
+    for full, up-to-date and accurate stats.
+  </div>
+  {% endif %}
+</div>
+
+<p class="els-foot">
+  Read-only: this panel never changes your list — it only reads your subscriber
+  numbers. Your API key is never shown here.
+</p>
+{% endblock %}
