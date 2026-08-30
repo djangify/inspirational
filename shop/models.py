@@ -399,6 +399,37 @@ class OrderItem(models.Model):
         return max(self.product.download_limit - self.download_count, 0)
 
 
+class PendingCheckout(models.Model):
+    """
+    Server-side snapshot of a checkout, keyed by the Stripe PaymentIntent id.
+
+    Written when the checkout page creates a PaymentIntent, and read by BOTH the
+    browser-redirect handler (payment_success) and the Stripe webhook. Because it
+    lives in the database — not the browser session — the webhook can build the
+    Order even if the customer's browser never returns after paying (tab closed,
+    network drop). See shop/services.finalize_order_from_payment_intent.
+    """
+
+    payment_intent_id = models.CharField(max_length=250, unique=True, db_index=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    email = models.EmailField(blank=True)
+    # [{"product_id": int, "quantity": int, "price": float(pounds)}, ...]
+    items = models.JSONField(default=list)
+    coupon_code = models.CharField(max_length=50, blank=True, default="")
+    coupon_discount_pence = models.PositiveIntegerField(default=0)
+    bump_product_id = models.PositiveIntegerField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    fulfilled = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["-created"]
+
+    def __str__(self):
+        return f"PendingCheckout {self.payment_intent_id}"
+
+
 class ProductReview(models.Model):
     RATING_CHOICES = [
         (1, "1"),

@@ -1,5 +1,5 @@
 # shop/views.py
-from .models import Category, Product, Order, OrderItem, ShopSettings, OrderBump, Coupon, OneTimeOffer
+from .models import Category, Product, Order, OrderItem, ShopSettings, OrderBump, Coupon, OneTimeOffer, PendingCheckout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -258,7 +258,7 @@ def checkout(request):
 
         # Save cart snapshot keyed to this PaymentIntent
         # so payment_success can recover it even if session cart is lost
-        request.session[f"cart_snapshot_{intent.id}"] = [
+        snapshot_items = [
             {
                 "product_id": item["product"].id,
                 "quantity": item["quantity"],
@@ -266,7 +266,29 @@ def checkout(request):
             }
             for item in cart
         ]
+        request.session[f"cart_snapshot_{intent.id}"] = snapshot_items
         request.session.modified = True
+
+        # Durable, server-side snapshot keyed by PaymentIntent id so the webhook
+        # can build the Order even if the browser never returns after paying.
+        if request.user.is_authenticated:
+            snapshot_email = request.user.email
+        else:
+            snapshot_email = request.session.get("guest_details", {}).get("email", "")
+
+        PendingCheckout.objects.update_or_create(
+            payment_intent_id=intent.id,
+            defaults={
+                "user": request.user if request.user.is_authenticated else None,
+                "email": snapshot_email,
+                "items": snapshot_items,
+                "coupon_code": coupon_code,
+                "coupon_discount_pence": coupon_discount_pence,
+                "bump_product_id": (
+                    accepted_bump_product_id if bump_accepted else None
+                ),
+            },
+        )
 
         shop_settings = ShopSettings.get_settings()
 

@@ -5,9 +5,9 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from .models import Order
-from .emails import send_order_confirmation_email, send_admin_new_order_email
+from .services import finalize_order_from_payment_intent
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("shop")
 
 
 @csrf_exempt
@@ -36,27 +36,19 @@ def stripe_webhook(request):
 
 
 def handle_payment_intent_succeeded(payment_intent):
-    order = Order.objects.filter(
-        payment_intent_id=payment_intent.id, status="pending"
-    ).first()
-
+    """
+    Safety net for the browser-redirect flow: build (or confirm) the Order from
+    the server-side PendingCheckout snapshot. Idempotent — if payment_success
+    already created the Order, this is a no-op. If the browser never returned,
+    this is what actually creates the customer's Order.
+    """
+    order = finalize_order_from_payment_intent(payment_intent.id)
     if order:
-        order.status = "completed"
-        order.paid = True
-        order.save()
-
-        for order_item in order.items.all():
-            product = order_item.product
-            product.purchase_count += order_item.quantity
-            product.save()
-
-        try:
-            send_order_confirmation_email(order)
-            send_admin_new_order_email(order)
-        except Exception as e:
-            logger.error(
-                f"Error sending emails in webhook for order {order.order_id}: {str(e)}"
-            )
+        logger.info(
+            "Webhook finalized order %s for payment_intent %s",
+            order.order_id,
+            payment_intent.id,
+        )
 
 
 def handle_payment_intent_failed(payment_intent):
