@@ -176,6 +176,16 @@ class HostedTool(models.Model):
         validators=[validate_html],
         help_text="Upload the single .html file. Hit save and it goes live at the URL above.",
     )
+    og_image = models.ImageField(
+        upload_to="tools/og/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Image shown when this tool's page is shared (social previews, Benable, "
+            "etc.), 1200x630 px recommended. Leave blank to use the site's default image."
+        ),
+        verbose_name="Social Preview Image",
+    )
     ACCESS_FREE = "free"
     ACCESS_PAID = "paid"
     ACCESS_CHOICES = [
@@ -226,6 +236,15 @@ class HostedTool(models.Model):
 
     def get_raw_url(self):
         return reverse("tools:hosted_tool_raw", kwargs={"slug": self.slug})
+
+    def get_og_image_url(self):
+        """URL for the social preview image, or None if this tool has none set."""
+        try:
+            if self.og_image:
+                return self.og_image.url
+            return None
+        except Exception:
+            return None
 
     @property
     def has_link(self):

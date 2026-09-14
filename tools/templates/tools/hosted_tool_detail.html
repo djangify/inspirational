@@ -1,8 +1,22 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ tool.title }} — Inspirational Guidance{% endblock %}
 
 {% block meta_description %}{{ tool.description|default:tool.title }}{% endblock %}
+
+{% block open_graph_tags %}
+  <meta property="fb:app_id" content="2433552923679047" />
+  <meta property="og:title" content="{{ tool.title }} | Inspirational Guidance" />
+  <meta property="og:description" content="{{ tool.description|default:tool.title }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  {% if tool.get_og_image_url %}
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ tool.get_og_image_url }}" />
+  {% else %}
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/personal-development-for-women.webp' %}" />
+  {% endif %}
+{% endblock %}
 
 {% block content %}
 
@@ -29,8 +43,11 @@
     </header>
 
     <!--
-      Sandboxed iframe: the artifact's JS runs in an opaque origin (no
-      allow-same-origin), so it cannot touch this site's cookies/session/DOM.
+      Sandboxed iframe: includes allow-same-origin, so the artifact's JS runs
+      on this site's own origin (not opaque) and can reach cookies/session/DOM
+      and call our API endpoints directly. It is trusted content today because
+      html_file can only be set via Django admin (staff-only), not by any
+      public upload path — see views.py hosted_tool_raw() docstring.
     -->
     <div class="w-full rounded-lg overflow-hidden border border-slate-200 shadow-sm bg-white">
         <iframe

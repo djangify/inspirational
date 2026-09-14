@@ -1,5 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Personal Development Tools for women{% endblock %}
+
+{% block meta_description %}Interactive personal development tools to help set and monitor goals and use journal prompts. Also available are games to reduce anxiety, improve focus, and create calm—one small moment at a time.{% endblock %}
+
+{% block open_graph_tags %}
+  <meta property="fb:app_id" content="2433552923679047" />
+  <meta property="og:title" content="Personal Development Tools for Women | Inspirational Guidance" />
+  <meta property="og:description" content="Interactive personal development tools to help set and monitor goals and use journal prompts. Also available are games to reduce anxiety, improve focus, and create calm." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/personal-development-for-women.webp' %}" />
+{% endblock %}
 
 {% block content %}
 <div class="max-w-3xl mx-auto px-4 py-16 text-center">

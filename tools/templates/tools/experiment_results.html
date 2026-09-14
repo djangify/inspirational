@@ -5,6 +5,15 @@
 
 {% block meta_description %}A public weekly log of building inspirationalguidance.com to 1000 paying customers. Real numbers, real reflections, real results from driving traffic to digital products.{% endblock %}
 
+{% block open_graph_tags %}
+  <meta property="fb:app_id" content="2433552923679047" />
+  <meta property="og:title" content="The 1000 True Fans Experiment — Weekly Results | Inspirational Guidance" />
+  <meta property="og:description" content="A public weekly log of building inspirationalguidance.com to 1000 paying customers. Real numbers, real reflections, real results from driving traffic to digital products." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/personal-development-for-women.webp' %}" />
+{% endblock %}
+
 {% block content %}
 <div class="text-gray-800">
 

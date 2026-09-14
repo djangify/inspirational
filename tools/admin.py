@@ -58,7 +58,7 @@ class HostedToolAdmin(admin.ModelAdmin):
         (
             None,
             {
-                "fields": ("title", "slug", "html_file", "description", "link_text", "link_url", "access", "published"),
+                "fields": ("title", "slug", "html_file", "description", "og_image", "link_text", "link_url", "access", "published"),
                 "description": (
                     "Upload the single .html file Claude gives you, then save — "
                     "your tool goes live at /tools/&lt;slug&gt;/. "

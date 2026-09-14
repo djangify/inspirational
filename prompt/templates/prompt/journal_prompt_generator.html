@@ -1,9 +1,23 @@
 {% extends "base.html" %}
 {% load static %}
 
-<title>Free Journal Prompt Generator | Daily Writing Prompts for Journaling & Self-Reflection</title>
-<meta name="description" content="Discover daily writing prompts with our free Journal Prompt Generator. Get fresh ideas for journaling, self-reflection, and personal growth — new prompts added regularly.">
+{% block title %}Free Journal Prompt Generator | Daily Writing Prompts for Journaling & Self-Reflection{% endblock %}
 
+{% block meta_description %}Discover daily writing prompts with our free Journal Prompt Generator. Get fresh ideas for journaling, self-reflection, and personal growth — new prompts added regularly.{% endblock %}
+
+{% block open_graph_tags %}
+  <meta property="fb:app_id" content="2433552923679047" />
+  <meta property="og:title" content="Free Journal Prompt Generator | Inspirational Guidance" />
+  <meta property="og:description" content="Discover daily writing prompts with our free Journal Prompt Generator. Get fresh ideas for journaling, self-reflection, and personal growth — new prompts added regularly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/diana-morgan-journal-prompts.webp' %}" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Journal Prompt Generator | Inspirational Guidance">
+  <meta name="twitter:description" content="Discover daily writing prompts with our free Journal Prompt Generator. Get fresh ideas for journaling, self-reflection, and personal growth.">
+  <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/diana-morgan-journal-prompts.webp' %}">
+{% endblock %}
 
 {% block extra_head %}
 <script type="application/ld+json">

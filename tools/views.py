@@ -440,9 +440,14 @@ def hosted_tool_raw(request, slug):
     Security model:
       - The file lives in secure_storage, so it is not directly web-served;
         this view is the only way to reach it.
-      - It is only ever loaded inside the sandboxed iframe on the detail page
-        (sandbox WITHOUT allow-same-origin => opaque origin => the artifact
-        cannot read this site's cookies, session or DOM).
+      - It is loaded inside an iframe on the detail page whose sandbox
+        includes allow-same-origin, so the artifact runs on this site's own
+        origin and CAN read this site's cookies/session/DOM and call our API
+        endpoints directly (that's why we inject window.__CSRF below). This
+        is safe only because html_file can be set exclusively via Django
+        admin (staff-only) — there is no public upload path. If that ever
+        changes, this needs real isolation (drop allow-same-origin, relay
+        API calls through postMessage instead of direct fetch).
       - X-Frame-Options: SAMEORIGIN (decorator) lets our own page frame it
         while blocking other sites; frame-ancestors 'self' is the modern
         equivalent / belt-and-braces.

@@ -1,5 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Calming Circles Game – A Moment of Stillness{% endblock %}
+
+{% block meta_description %}A gentle, interactive experience to help you slow down and refocus — one movement at a time.{% endblock %}
+
+{% block open_graph_tags %}
+  <meta property="fb:app_id" content="2433552923679047" />
+  <meta property="og:title" content="Calming Circles Game – A Moment of Stillness | Inspirational Guidance" />
+  <meta property="og:description" content="A gentle, interactive experience to help you slow down and refocus — one movement at a time." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/personal-development-for-women.webp' %}" />
+{% endblock %}
 
 {% block content %}
 <div class="max-w-3xl mx-auto px-4 py-16 text-center">
