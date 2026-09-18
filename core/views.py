@@ -159,8 +159,73 @@ def robots_txt(request):
         "Allow: /",
         "",
         f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
+        "",
+        f"# llms.txt (plain-Markdown site summary for AI systems): {request.build_absolute_uri('/llms.txt')}",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+@require_GET
+def llms_txt(request):
+    """
+    llms.txt: a plain-Markdown summary of the site for AI systems (ChatGPT,
+    Claude, Perplexity, etc.) to read directly, instead of having to parse
+    HTML. Auto-generated from live products (with their Product Knowledge,
+    where filled in) and published posts. Emerging convention (llmstxt.org),
+    separate from robots.txt, which only says what may be crawled, not what
+    the site actually is.
+    """
+    import html as html_lib
+
+    from django.utils.html import strip_tags
+
+    site_url = request.build_absolute_uri("/").rstrip("/")
+
+    lines = [
+        "# Inspirational Guidance",
+        "",
+        "> Personal growth guidance and tools for women at a turning point, "
+        "practical ways to reconnect with your own life, one deliberate "
+        "choice at a time.",
+        "",
+    ]
+
+    products = Product.objects.filter(status="publish", is_active=True).order_by(
+        "order", "-created"
+    )
+    if products.exists():
+        lines.append("## Products")
+        for p in products:
+            url = f"{site_url}{p.get_absolute_url()}"
+            knowledge = p.get_knowledge()
+            problem = (knowledge.problem_solved if knowledge else "").strip()
+            desc = problem or (p.description or "")
+            desc = html_lib.unescape(strip_tags(desc)).strip()
+            desc = " ".join(desc.split())[:200]
+            price = f"£{p.current_price}"
+            bit = f"- [{p.title}]({url})"
+            if desc:
+                bit += f": {desc}"
+            if price:
+                bit += f" ({price})"
+            lines.append(bit)
+        lines.append("")
+
+    posts = Post.objects.filter(status="published").order_by("-publish_date")[:50]
+    if posts:
+        lines.append("## Articles")
+        for post in posts:
+            url = f"{site_url}{post.get_absolute_url()}"
+            desc = (post.meta_description or "").strip()
+            bit = f"- [{post.title}]({url})"
+            if desc:
+                bit += f": {desc}"
+            lines.append(bit)
+        lines.append("")
+
+    return HttpResponse(
+        "\n".join(lines).strip() + "\n", content_type="text/markdown; charset=utf-8"
+    )
 
 
 @require_GET

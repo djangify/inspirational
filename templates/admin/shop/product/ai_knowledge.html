@@ -1,0 +1,110 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+  &rsaquo; <a href="{% url 'admin:app_list' 'shop' %}">Shop</a>
+  &rsaquo; <a href="{% url 'admin:shop_product_changelist' %}">Products</a>
+  &rsaquo; <a href="{% url 'admin:shop_product_change' product.pk %}">{{ product.title }}</a>
+  &rsaquo; AI Product Knowledge
+</div>
+{% endblock %}
+
+{% block content %}
+<style>
+  .aik-wrap { max-width: 900px; }
+  .aik-intro { color: #444; margin-bottom: 20px; line-height: 1.5; max-width: 720px; }
+  .aik-card { border: 1px solid #e0e0e0; border-radius: 10px; background: #fff;
+              padding: 20px 22px; margin-bottom: 18px; }
+  .aik-card h2 { margin: 0 0 12px; font-size: 16px; color: #2b2b2b; }
+  .aik-field { margin-bottom: 16px; }
+  .aik-field label { display: block; font-weight: 600; font-size: 12px; color: #555;
+                      margin-bottom: 4px; }
+  .aik-field textarea, .aik-field input[type=text] {
+    width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid #ccc;
+    border-radius: 6px; font-size: 13px; font-family: inherit;
+  }
+  .aik-field textarea { min-height: 60px; resize: vertical; }
+  .aik-qa { border-top: 1px solid #eee; padding-top: 12px; margin-top: 12px; }
+  .aik-qa-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px; }
+  .aik-actions { margin-top: 18px; display: flex; gap: 10px; }
+  .aik-btn { display: inline-block; border: none; padding: 9px 16px; border-radius: 6px;
+             font-size: 13px; font-weight: 600; cursor: pointer; }
+  .aik-btn-generate { background: #6a4c93; color: #fff !important; }
+  .aik-btn-generate:hover { background: #543a76; }
+  .aik-btn-save { background: #417690; color: #fff !important; }
+  .aik-btn-save:hover { background: #2e586e; }
+  .aik-note { border: 1px solid #ffe1a8; background: #fff9ec; border-radius: 8px;
+              padding: 12px 14px; font-size: 12px; color: #6b5626; line-height: 1.5;
+              margin-top: 14px; }
+</style>
+
+<div class="aik-wrap">
+  <p class="aik-intro">
+    Draft the "Product Knowledge" layer for <strong>{{ product.title }}</strong>,
+    the plain-language facts an AI system (ChatGPT, Claude, Perplexity) or search
+    engine can lift directly into an answer, plus a buyer Q&amp;A. Generating a draft
+    does not save anything; edit the text below, then click Save.
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="aik-card">
+      <h2>Product Knowledge</h2>
+      <div class="aik-field">
+        <label for="problem_solved">Problem this solves</label>
+        <textarea id="problem_solved" name="problem_solved">{{ fields.problem_solved }}</textarea>
+      </div>
+      <div class="aik-field">
+        <label for="target_audience">Who it's for</label>
+        <textarea id="target_audience" name="target_audience">{{ fields.target_audience }}</textarea>
+      </div>
+      <div class="aik-field">
+        <label for="differentiator">What makes it different</label>
+        <textarea id="differentiator" name="differentiator">{{ fields.differentiator }}</textarea>
+      </div>
+      <div class="aik-field">
+        <label for="search_keywords">Search terms (comma-separated)</label>
+        <input type="text" id="search_keywords" name="search_keywords" value="{{ fields.search_keywords }}">
+      </div>
+    </div>
+
+    <div class="aik-card">
+      <h2>Buyer Q&amp;A</h2>
+      <div class="aik-qa">
+        {% for q in questions %}
+        <div class="aik-qa-pair">
+          <div class="aik-field" style="margin-bottom:0;">
+            <label for="question_{{ forloop.counter }}">Question {{ forloop.counter }}</label>
+            <input type="text" id="question_{{ forloop.counter }}" name="question_{{ forloop.counter }}" value="{{ q.question }}">
+          </div>
+          <div class="aik-field" style="margin-bottom:0;">
+            <label for="answer_{{ forloop.counter }}">Answer</label>
+            <textarea id="answer_{{ forloop.counter }}" name="answer_{{ forloop.counter }}">{{ q.answer }}</textarea>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="aik-actions">
+      <button type="submit" name="action" value="generate" class="aik-btn aik-btn-generate">
+        Generate draft with AI
+      </button>
+      <button type="submit" name="action" value="save" class="aik-btn aik-btn-save">
+        Save
+      </button>
+      <a href="{% url 'admin:shop_product_change' product.pk %}" class="aik-btn" style="background:#eee;color:#333 !important;">
+        Cancel
+      </a>
+    </div>
+  </form>
+
+  <div class="aik-note">
+    Generating a draft calls Claude and replaces the text above with a fresh draft;
+    edit it before saving. Saving replaces the product's current Q&amp;A with whatever
+    non-empty question/answer pairs are filled in above.
+  </div>
+</div>
+{% endblock %}

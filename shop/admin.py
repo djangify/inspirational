@@ -1,13 +1,18 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.utils.html import format_html
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 from django.contrib.admin.widgets import AdminSplitDateTime
+from django.urls import path, reverse
+from django.shortcuts import redirect, get_object_or_404
+from django.template.response import TemplateResponse
 import requests
 from .models import (
     Category,
     Product,
     ProductImage,
+    ProductKnowledge,
+    ProductQuestion,
     Order,
     OrderItem,
     ProductReview,
@@ -18,6 +23,7 @@ from .models import (
     SiteSettings,
     OneTimeOffer,
 )
+from .ai_knowledge import generate_knowledge_draft, KnowledgeDraftError
 from django import forms
 
 
@@ -33,6 +39,24 @@ class ProductImageInline(admin.TabularInline):
     extra = 1
     fields = ["image", "alt_text", "order"]
     ordering = ["order"]
+
+
+class ProductKnowledgeInline(admin.StackedInline):
+    model = ProductKnowledge
+    max_num = 1
+    can_delete = True
+    verbose_name = "Product Knowledge (AI/search discoverability)"
+    verbose_name_plural = "Product Knowledge (AI/search discoverability)"
+    fields = ["problem_solved", "target_audience", "differentiator", "search_keywords"]
+
+
+class ProductQuestionInline(admin.TabularInline):
+    model = ProductQuestion
+    extra = 1
+    fields = ["question", "answer", "order"]
+    ordering = ["order"]
+    verbose_name = "Question (FAQ)"
+    verbose_name_plural = "Questions (FAQ), shown on the product page and in FAQ schema"
 
 
 @admin.register(Product)
@@ -66,12 +90,12 @@ class ProductAdmin(admin.ModelAdmin):
         # Hide the internal one-time-offer download record from the product list.
         return super().get_queryset(request).filter(one_time_offer__isnull=True)
 
-    readonly_fields = ["public_id", "purchase_count", "display_preview"]
+    readonly_fields = ["public_id", "purchase_count", "display_preview", "ai_knowledge_link"]
     list_editable = [
         "order",
         "featured",
     ]
-    inlines = [ProductImageInline]
+    inlines = [ProductImageInline, ProductKnowledgeInline, ProductQuestionInline]
     fieldsets = (
         (
             None,
@@ -95,6 +119,19 @@ class ProductAdmin(admin.ModelAdmin):
                     "description",
                     "long_description",
                 )
+            },
+        ),
+        (
+            "AI Discoverability",
+            {
+                "fields": ("ai_knowledge_link",),
+                "description": (
+                    "The Product Knowledge and Q&A below (saved after the inline "
+                    "sections further down) are what AI systems like ChatGPT and "
+                    "Claude read to understand, recommend and cite this product. "
+                    "Save this product first, then use the link below to draft "
+                    "them with AI."
+                ),
             },
         ),
         (
@@ -177,6 +214,97 @@ class ProductAdmin(admin.ModelAdmin):
         return format_html("".join(html)) if html else "-"
 
     display_preview.short_description = "Preview"
+
+    def ai_knowledge_link(self, obj):
+        if not obj.pk:
+            return "Save the product first to draft Product Knowledge with AI."
+        url = reverse("admin:shop_product_ai_knowledge", args=[obj.pk])
+        return format_html(
+            '<a class="button" href="{}">Draft Product Knowledge &amp; Q&amp;A with AI &raquo;</a>',
+            url,
+        )
+
+    ai_knowledge_link.short_description = "AI draft"
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom = [
+            path(
+                "<int:product_id>/ai-knowledge/",
+                self.admin_site.admin_view(self.ai_knowledge_view),
+                name="shop_product_ai_knowledge",
+            ),
+        ]
+        return custom + urls
+
+    def ai_knowledge_view(self, request, product_id):
+        product = get_object_or_404(Product, pk=product_id)
+        knowledge = product.get_knowledge()
+        existing_questions = list(product.questions.all())
+
+        draft = None
+        if request.method == "POST" and request.POST.get("action") == "generate":
+            try:
+                draft = generate_knowledge_draft(product)
+            except KnowledgeDraftError as exc:
+                messages.error(request, str(exc))
+
+        elif request.method == "POST" and request.POST.get("action") == "save":
+            knowledge, _ = ProductKnowledge.objects.get_or_create(product=product)
+            knowledge.problem_solved = request.POST.get("problem_solved", "").strip()
+            knowledge.target_audience = request.POST.get("target_audience", "").strip()
+            knowledge.differentiator = request.POST.get("differentiator", "").strip()
+            knowledge.search_keywords = request.POST.get("search_keywords", "").strip()
+            knowledge.save()
+
+            product.questions.all().delete()
+            order = 0
+            for i in range(1, 9):
+                q = request.POST.get(f"question_{i}", "").strip()
+                a = request.POST.get(f"answer_{i}", "").strip()
+                if q:
+                    ProductQuestion.objects.create(
+                        product=product, question=q, answer=a, order=order
+                    )
+                    order += 1
+
+            messages.success(request, "Product Knowledge and Q&A saved.")
+            return redirect(reverse("admin:shop_product_change", args=[product.pk]))
+
+        fields = {
+            "problem_solved": (draft or {}).get(
+                "problem_solved", knowledge.problem_solved if knowledge else ""
+            ),
+            "target_audience": (draft or {}).get(
+                "target_audience", knowledge.target_audience if knowledge else ""
+            ),
+            "differentiator": (draft or {}).get(
+                "differentiator", knowledge.differentiator if knowledge else ""
+            ),
+            "search_keywords": (draft or {}).get(
+                "search_keywords", knowledge.search_keywords if knowledge else ""
+            ),
+        }
+        if draft is not None:
+            questions = draft["questions"]
+        else:
+            questions = [
+                {"question": q.question, "answer": q.answer} for q in existing_questions
+            ]
+        # Pad to 8 rows for the form.
+        questions = (questions + [{"question": "", "answer": ""}] * 8)[:8]
+
+        context = {
+            **self.admin_site.each_context(request),
+            "title": f"AI Product Knowledge: {product.title}",
+            "product": product,
+            "fields": fields,
+            "questions": questions,
+            "opts": self.model._meta,
+        }
+        return TemplateResponse(
+            request, "admin/shop/product/ai_knowledge.html", context
+        )
 
     def clean_external_preview_url(self, url):
         if not url:

@@ -12,7 +12,7 @@ from inspirational.sitemaps import (
     PromptCategorySitemap,
     NewsCategorySitemap,
 )
-from core.views import robots_txt, oauth_authorization_server_metadata
+from core.views import robots_txt, llms_txt, oauth_authorization_server_metadata
 from mcp_server import views as mcp_views
 from mcp_server.sidebar import install_sidebar_link
 from accounts import admin_stats
@@ -76,6 +76,7 @@ urlpatterns = [
     # Sitemap and robots.txt
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
     path("robots.txt", robots_txt, name="robots_txt"),
+    path("llms.txt", llms_txt, name="llms_txt"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

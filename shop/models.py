@@ -285,6 +285,82 @@ class Product(models.Model):
         has_reviewed = self.reviews.filter(user=user).exists()
         return has_purchased and not has_reviewed
 
+    def get_knowledge(self):
+        """The product's ProductKnowledge row, or None if it hasn't been added."""
+        return getattr(self, "knowledge", None)
+
+
+class ProductKnowledge(models.Model):
+    """
+    The "why would someone want this" layer for a product, kept separate from
+    the sales-copy fields on Product itself (description/long_description).
+
+    Sales copy is written to persuade a reader who already found the product.
+    This is written to be found in the first place: what problem it solves and
+    who it's for, in plain language an AI system or search engine can lift
+    directly into an answer. Feeds the Product schema's audience/keywords and
+    llms.txt.
+    """
+
+    product = models.OneToOneField(
+        Product, on_delete=models.CASCADE, related_name="knowledge"
+    )
+    problem_solved = models.TextField(
+        "Problem this solves",
+        blank=True,
+        help_text="The specific problem a buyer has that this product solves.",
+    )
+    target_audience = models.TextField(
+        "Who it's for",
+        blank=True,
+        help_text="The specific kind of person this is for, not 'everyone'.",
+    )
+    differentiator = models.TextField(
+        "What makes it different",
+        blank=True,
+        help_text="What sets this apart from other ways to solve the same problem.",
+    )
+    search_keywords = models.CharField(
+        "Search terms",
+        max_length=500,
+        blank=True,
+        help_text="Comma-separated terms someone would search for before buying this.",
+    )
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Product Knowledge"
+        verbose_name_plural = "Product Knowledge"
+
+    def __str__(self):
+        return f"Knowledge: {self.product.title}"
+
+    @property
+    def is_filled(self):
+        return bool(self.problem_solved.strip() and self.target_audience.strip())
+
+    def keywords_list(self):
+        return [k.strip() for k in self.search_keywords.split(",") if k.strip()]
+
+
+class ProductQuestion(models.Model):
+    """A question/answer pair for a product's FAQPage schema and visible Q&A."""
+
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="questions"
+    )
+    question = models.CharField(max_length=300)
+    answer = models.TextField(blank=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
+        verbose_name = "Product Question"
+        verbose_name_plural = "Product Questions (FAQ)"
+
+    def __str__(self):
+        return self.question
+
 
 class ProductImage(models.Model):
     product = models.ForeignKey(
