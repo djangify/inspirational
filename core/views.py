@@ -91,7 +91,9 @@ def hero_newsletter_signup(request):
             form.cleaned_data["email"], form.cleaned_data["first_name"]
         )
         messages.success(
-            request, "Thanks! Check your inbox to confirm your subscription."
+            request,
+            "Thanks! Check your inbox for a welcome email, and check your "
+            "spam or junk folder too if you don't see it within a few minutes.",
         )
     else:
         messages.error(request, "Please enter a valid email address.")
