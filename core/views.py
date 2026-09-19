@@ -92,8 +92,8 @@ def hero_newsletter_signup(request):
         )
         messages.success(
             request,
-            "Thanks! Check your inbox for a welcome email, and check your "
-            "spam or junk folder too if you don't see it within a few minutes.",
+            "Thanks! Check your inbox for your free ALIVE List PDF, and check "
+            "your spam or junk folder too if you don't see it within a few minutes.",
         )
     else:
         messages.error(request, "Please enter a valid email address.")
