@@ -115,6 +115,19 @@
               <a href="#build-an-alive-list" class="home-btn">Start My ALIVE List</a>
             {% endif %}
           </div>
+
+          {% if not user.is_authenticated %}
+          <form action="{% url 'core:hero_newsletter_signup' %}" method="post" class="hero-newsletter">
+            {% csrf_token %}
+            <p class="hero-newsletter-label">Not ready to start yet? Get free ideas for getting unstuck, straight to your inbox.</p>
+            <div class="hero-newsletter-row">
+              <label for="hero-newsletter-email" class="sr-only">Email address</label>
+              <input type="email" id="hero-newsletter-email" name="email" placeholder="Your email address" required>
+              <input type="text" name="website" class="hero-newsletter-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <button type="submit" class="hero-newsletter-btn">Get Free Ideas</button>
+            </div>
+          </form>
+          {% endif %}
         </div>
 
         <div class="hero-media fade-up fade-up--delay">

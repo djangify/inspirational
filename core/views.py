@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import ContactForm
+from .forms import ContactForm, HeroNewsletterForm
 from .models import SupportMessage
 from django.contrib.auth.decorators import login_required
 from shop.models import Product, ProductReview
@@ -9,12 +9,13 @@ from shop.models import Category as ShopCategory
 from news.models import Post, Category
 from django.utils.timezone import now
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET, require_POST
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.http import Http404, FileResponse
 from django.core.paginator import Paginator
 from django.conf import settings
+from accounts.services.mailerlite import add_email_subscriber
 import os
 import mimetypes
 import logging
@@ -80,6 +81,19 @@ def homepage(request):
             "blog_posts": blog_posts,
         },
     )
+
+
+@require_POST
+def hero_newsletter_signup(request):
+    form = HeroNewsletterForm(request.POST)
+    if form.is_valid():
+        add_email_subscriber(form.cleaned_data["email"])
+        messages.success(
+            request, "Thanks! Check your inbox to confirm your subscription."
+        )
+    else:
+        messages.error(request, "Please enter a valid email address.")
+    return redirect("core:homepage")
 
 
 def about(request):

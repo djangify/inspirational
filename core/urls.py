@@ -8,12 +8,14 @@ from .views import (
     diane_corriette_page,
     category_hub,
     public_freebie_download,
+    hero_newsletter_signup,
 )
 
 app_name = "core"
 
 urlpatterns = [
     path("", homepage, name="homepage"),
+    path("newsletter-signup/", hero_newsletter_signup, name="hero_newsletter_signup"),
     path("support/", support_view, name="support"),
     path(
         "quietly-you/",
