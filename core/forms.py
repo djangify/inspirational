@@ -9,6 +9,7 @@ class ContactForm(forms.Form):
 
 
 class HeroNewsletterForm(forms.Form):
+    first_name = forms.CharField(label="First name", max_length=100)
     email = forms.EmailField(
         label="Email",
         widget=forms.EmailInput(attrs={"placeholder": "Your email address"}),

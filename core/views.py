@@ -87,7 +87,9 @@ def homepage(request):
 def hero_newsletter_signup(request):
     form = HeroNewsletterForm(request.POST)
     if form.is_valid():
-        add_email_subscriber(form.cleaned_data["email"])
+        add_email_subscriber(
+            form.cleaned_data["email"], form.cleaned_data["first_name"]
+        )
         messages.success(
             request, "Thanks! Check your inbox to confirm your subscription."
         )

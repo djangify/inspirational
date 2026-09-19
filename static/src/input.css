@@ -157,47 +157,50 @@
   color: var(--ig-teal-300);
 }
 .hero-actions { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
-.hero-newsletter { margin-top: 1.5rem; }
-.hero-newsletter-label {
-  font-size: 0.875rem;
-  font-weight: 300;
-  color: var(--ig-teal-200);
-  margin: 0 0 0.75rem;
-  max-width: 26rem;
+.hero-media { position: relative; width: 100%; }
+.hero-signup-card {
+  background: var(--ig-white);
+  color: var(--ig-body);
+  border-radius: 1rem;
+  box-shadow: 0 12px 32px rgba(0,0,0,.25);
+  padding: 2rem;
 }
-.hero-newsletter-row { display: flex; flex-direction: column; gap: 0.75rem; }
-.hero-newsletter-row input[type="email"] {
+.hero-signup-title {
+  font-family: var(--ig-font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--ig-teal-800);
+  margin: 0 0 0.75rem;
+}
+.hero-signup-text { font-size: 0.95rem; line-height: 1.6; margin: 0 0 1.25rem; }
+.hero-signup-form { display: flex; flex-direction: column; gap: 0.75rem; }
+.hero-signup-input {
   padding: 0.85rem 1.1rem;
-  border: 2px solid var(--ig-teal-300);
+  border: 1px solid #d1d5db;
   border-radius: 0.4rem;
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--ig-white);
+  color: var(--ig-ink);
   font-size: 0.95rem;
 }
-.hero-newsletter-row input[type="email"]::placeholder { color: var(--ig-teal-100); }
-.hero-newsletter-row input[type="email"]:focus {
-  outline: none;
-  border-color: var(--ig-teal-100);
-}
-.hero-newsletter-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.hero-newsletter-btn {
+.hero-signup-input:focus { outline: none; border-color: var(--ig-teal-600); }
+.hero-signup-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.hero-signup-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.85rem 1.75rem;
-  border: 2px solid var(--ig-teal-300);
+  padding: 0.9rem 1.5rem;
+  border: none;
   border-radius: 0.4rem;
-  background: var(--ig-teal-300);
-  color: var(--ig-teal-900);
-  font-size: 0.9rem;
+  background: var(--ig-teal-700);
+  color: var(--ig-white);
+  font-size: 0.95rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background-color .2s ease, border-color .2s ease;
+  transition: background-color .2s ease;
 }
-.hero-newsletter-btn:hover { background: var(--ig-white); border-color: var(--ig-white); }
-.hero-media { position: relative; width: 100%; }
+.hero-signup-btn:hover { background: var(--ig-teal-600); }
+.hero-signup-fineprint { font-size: 0.75rem; color: var(--ig-soft); margin: 0.9rem 0 0; text-align: center; }
 .hero-video {
   display: block;
   width: 100%;
@@ -426,8 +429,6 @@
 @media (min-width: 640px) {
   .offer-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-actions { flex-direction: row; }
-  .hero-newsletter-row { flex-direction: row; }
-  .hero-newsletter-row input[type="email"] { flex: 1; min-width: 0; }
   .cta-media { max-width: 38rem; }
 }
 

@@ -115,22 +115,10 @@
               <a href="#build-an-alive-list" class="home-btn">Start My ALIVE List</a>
             {% endif %}
           </div>
-
-          {% if not user.is_authenticated %}
-          <form action="{% url 'core:hero_newsletter_signup' %}" method="post" class="hero-newsletter">
-            {% csrf_token %}
-            <p class="hero-newsletter-label">Not ready to start yet? Get free ideas for getting unstuck, straight to your inbox.</p>
-            <div class="hero-newsletter-row">
-              <label for="hero-newsletter-email" class="sr-only">Email address</label>
-              <input type="email" id="hero-newsletter-email" name="email" placeholder="Your email address" required>
-              <input type="text" name="website" class="hero-newsletter-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-              <button type="submit" class="hero-newsletter-btn">Get Free Ideas</button>
-            </div>
-          </form>
-          {% endif %}
         </div>
 
         <div class="hero-media fade-up fade-up--delay">
+          {% if user.is_authenticated %}
           <img
             src="https://inspirationalguidance.com/media/public/news/images/analivelist.webp"
             alt="An ALIVE List — a simple, free tool to help women make small, intentional choices that make ordinary days feel alive"
@@ -141,6 +129,22 @@
             width="600"
             height="600"
           >
+          {% else %}
+          <div class="hero-signup-card">
+            <h2 class="hero-signup-title">Get Free Ideas For Getting Unstuck</h2>
+            <p class="hero-signup-text">Not ready to start An ALIVE List yet? Get practical ideas for getting out of a rut, straight to your inbox.</p>
+            <form action="{% url 'core:hero_newsletter_signup' %}" method="post" class="hero-signup-form">
+              {% csrf_token %}
+              <label for="hero-signup-name" class="sr-only">First name</label>
+              <input type="text" id="hero-signup-name" name="first_name" placeholder="First name" class="hero-signup-input" required>
+              <label for="hero-signup-email" class="sr-only">Email address</label>
+              <input type="email" id="hero-signup-email" name="email" placeholder="Email address" class="hero-signup-input" required>
+              <input type="text" name="website" class="hero-signup-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <button type="submit" class="hero-signup-btn">Get Free Ideas</button>
+            </form>
+            <p class="hero-signup-fineprint">No spam. Unsubscribe anytime.</p>
+          </div>
+          {% endif %}
         </div>
 
       </div>
