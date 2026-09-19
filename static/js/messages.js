@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // Auto-dismiss messages after 2 seconds
+  // Auto-dismiss messages after 6 seconds
   setTimeout(function () {
     const messages = document.querySelectorAll('[role="alert"]');
     messages.forEach(function (message) {
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         message.remove();
       }, 300);
     });
-  }, 2000);
+  }, 6000);
 
   // Confirmation dialog function
   window.showConfirmation = function (message, onConfirm) {
