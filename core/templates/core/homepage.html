@@ -131,8 +131,8 @@
           >
           {% else %}
           <div class="hero-signup-card">
-            <h2 class="hero-signup-title">Download An ALIVE List (Free PDF)</h2>
-            <p class="hero-signup-text">Enter your first name and email and we'll send you a free ALIVE List PDF to help you get started.</p>
+            <h2 class="hero-signup-title">14 Days Of Free ALIVE List Prompts</h2>
+            <p class="hero-signup-text">Enter your first name and email and we'll send you two weeks of short prompts to help you figure out what's actually on your list, and how to start living it in small ways.</p>
             <form action="{% url 'core:hero_newsletter_signup' %}" method="post" class="hero-signup-form">
               {% csrf_token %}
               <label for="hero-signup-name" class="sr-only">First name</label>
@@ -140,7 +140,7 @@
               <label for="hero-signup-email" class="sr-only">Email address</label>
               <input type="email" id="hero-signup-email" name="email" placeholder="Email address" class="hero-signup-input" required>
               <input type="text" name="website" class="hero-signup-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-              <button type="submit" class="hero-signup-btn">Send My Free PDF</button>
+              <button type="submit" class="hero-signup-btn">Start My 14 Days</button>
             </form>
             <p class="hero-signup-fineprint">No spam. Unsubscribe anytime.</p>
           </div>
