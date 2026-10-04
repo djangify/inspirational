@@ -329,14 +329,24 @@ TINYMCE_DEFAULT_CONFIG = {
     ),
     "block_formats": "Paragraph=p; Heading 2=h2; Heading 3=h3",
     "forced_root_block": "p",
-    "paste_as_text": True,
     "paste_data_images": False,
     "valid_elements": (
-        "p,strong/b,em/i,h2,h3,ul,ol,li,a[href|title|target|rel],br,"
-        "img[src|alt|width|height|class|style]"
-    ),
-    "extended_valid_elements": (
-        "a[href|title|target|rel],img[src|alt|width|height|class|style]"
+        "p[class|style],br,strong/b,em/i,u,s,strike,sub,sup,"
+        "h1[id|class],h2[id|class],h3[id|class],h4[id|class],h5[id|class],h6[id|class],"
+        "ul[class],ol[class],li[class],"
+        "a[href|target|title|id|name|rel|class|style],"
+        "img[src|alt|title|width|height|class|style],"
+        # Content blocks: class/style allowed on tables so the .cb-table styling survives
+        "table[border|cellspacing|cellpadding|class|style],caption,thead[class],tbody[class],"
+        "tr[class|style],th[colspan|rowspan|scope|class|style],td[colspan|rowspan|class|style],"
+        "blockquote[class],pre[class],code[class],"
+        "div[id|class|style],span[class|style],"
+        "section[id|class|style],figure[class],figcaption,details[class],summary,"
+        "iframe[src|width|height|frameborder|allow|allowfullscreen|title|loading|class|style],"
+        "video[src|width|height|controls|poster|preload|class|style],"
+        "audio[src|controls|preload|class|style],"
+        "source[src|type],"
+        "hr"
     ),
     "valid_children": "+ol[li],+ul[li]",
     "convert_urls": True,
