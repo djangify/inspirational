@@ -55,7 +55,7 @@
     {% endif %}
   ],
   "sku": "{{ product.public_id|default:product.slug }}",
-  "category": "{{ product.category.name }}",
+  "category": "{{ product.category.name|escapejs }}",
   "brand": {
     "@type": "Brand",
     "name": "Inspirational Guidance"
@@ -73,35 +73,7 @@
     "priceCurrency": "{{ site_settings.currency_code|default:'GBP' }}",
     "price": "{{ product.current_price }}",
     "availability": "https://schema.org/{% if product.is_active and not product.is_coming_soon and not product.is_fully_booked %}InStock{% else %}OutOfStock{% endif %}",
-    "itemCondition": "https://schema.org/NewCondition",
-    "shippingDetails": {
-      "@type": "OfferShippingDetails",
-      "shippingRate": {
-        "@type": "MonetaryAmount",
-        "value": "0.00",
-        "currency": "{{ site_settings.currency_code|default:'GBP' }}"
-      },
-      "shippingDestination": {
-        "@type": "DefinedRegion",
-        "addressCountry": "GB"
-      },
-      "deliveryTime": {
-        "@type": "ShippingDeliveryTime",
-        "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
-        "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
-      }
-    },
-    "hasMerchantReturnPolicy": {
-      "@type": "MerchantReturnPolicy",
-      "applicableCountry": "GB",
-      "returnPolicyCategory": "https://schema.org/NoReturnsAccepted",
-      "name": "Digital download – no physical shipping"
-    }
-  },
-  "isAccessoryOrSparePartFor": {
-    "@type": "ProductGroup",
-    "productGroupID": "digital-downloads",
-    "name": "Digital Downloads"
+    "itemCondition": "https://schema.org/NewCondition"
   }
 }
 </script>
