@@ -723,32 +723,3 @@
   .page-content ol.cb-steps,
   .page-content .cb-checklist ul { list-style: none !important; }
 }
-
-/* Note Stack: several short notes in one column, each in its own light shade */
-.page-content .cb-notes { margin: 1.5rem 0; }
-.page-content .cb-note {
-  border: 1px solid;
-  border-left-width: 6px;
-  border-radius: 0.625rem;
-  padding: 0.75rem 1rem;
-  margin: 0 0 0.875rem;
-  color: #1b2230;
-}
-.page-content .cb-notes > .cb-note:last-child { margin-bottom: 0; }
-.page-content .cb-note .cb-label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.page-content .cb-note > :last-child { margin-bottom: 0; }
-.page-content .cb-note-green { background: #e4f6f3; border-color: #139a8c; }
-.page-content .cb-note-green .cb-label { color: #0a4a44; }
-.page-content .cb-note-blue { background: #edf3ff; border-color: #7ba0f5; }
-.page-content .cb-note-blue .cb-label { color: #1b2230; }
-.page-content .cb-note-yellow { background: #fff5e0; border-color: #d9962a; }
-.page-content .cb-note-yellow .cb-label { color: #583a00; }
-.page-content .cb-note-red { background: #fdeee6; border-color: #d2633a; }
-.page-content .cb-note-red .cb-label { color: #5a2310; }
