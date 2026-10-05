@@ -9,6 +9,7 @@ from .views import (
     category_hub,
     public_freebie_download,
     hero_newsletter_signup,
+    confirm_newsletter,
 )
 
 app_name = "core"
@@ -16,6 +17,7 @@ app_name = "core"
 urlpatterns = [
     path("", homepage, name="homepage"),
     path("newsletter-signup/", hero_newsletter_signup, name="hero_newsletter_signup"),
+    path("newsletter-confirm/<str:token>/", confirm_newsletter, name="confirm_newsletter"),
     path("support/", support_view, name="support"),
     path(
         "quietly-you/",

@@ -15,7 +15,7 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404, FileResponse
 from django.core.paginator import Paginator
 from django.conf import settings
-from accounts.services.mailerlite import add_email_subscriber
+from accounts.services.brevo import add_email_subscriber, confirm_subscription
 import os
 import mimetypes
 import logging
@@ -88,13 +88,13 @@ def hero_newsletter_signup(request):
     form = HeroNewsletterForm(request.POST)
     if form.is_valid():
         add_email_subscriber(
-            form.cleaned_data["email"], form.cleaned_data["first_name"]
+            form.cleaned_data["email"], form.cleaned_data["first_name"], request=request
         )
         messages.success(
             request,
-            "Thanks! Check your inbox for day one of your ALIVE List prompts, "
-            "and check your spam or junk folder too if you don't see it within "
-            "a few minutes.",
+            "Thanks! Please check your inbox and click the link in the email to "
+            "confirm your subscription. Check your spam or junk folder too if you "
+            "don't see it within a few minutes.",
         )
     else:
         messages.error(request, "Please enter a valid email address.")
@@ -363,3 +363,19 @@ def my_turn_now_page(request):
 
 def category_hub(request):
     return render(request, "core/category.html")
+
+
+@require_GET
+def confirm_newsletter(request, token):
+    """Landing page for the link in the confirmation email (double opt-in)."""
+    if confirm_subscription(token):
+        messages.success(
+            request,
+            "You're confirmed. Thank you! Your first email is on its way.",
+        )
+    else:
+        messages.error(
+            request,
+            "That confirmation link has expired or is not valid. Please sign up again.",
+        )
+    return redirect("core:homepage")

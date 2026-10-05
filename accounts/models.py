@@ -164,11 +164,11 @@ class EmailListStatsSnapshot(models.Model):
     @classmethod
     def get(cls, force=False):
         """
-        Return the current snapshot, refreshing from MailerLite only when it is
+        Return the current snapshot, refreshing from Brevo only when it is
         missing, stale (older than ``REFRESH_EVERY``), the provider changed, or
         ``force=True`` (the "Refresh now" button).
         """
-        current_provider = "mailerlite" if getattr(settings, "MAILERLITE_API_KEY", "") else ""
+        current_provider = "brevo" if getattr(settings, "BREVO_API_KEY", "") else ""
         obj = cls.objects.first()
         if force or obj is None or obj.is_stale(current_provider):
             obj = cls.refresh()

@@ -287,6 +287,10 @@ STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET", default="whsec_placeholder"
 # -----------------------------------------------------------------------------
 # Email + verification
 # -----------------------------------------------------------------------------
+# Marketing list (Brevo): verified subscribers and the homepage signup form.
+BREVO_API_KEY = env("BREVO_API_KEY", default="")
+BREVO_LIST_ID = env.int("BREVO_LIST_ID", default=3)
+
 EMAIL_HOST = env("EMAIL_HOST", default="")
 EMAIL_PORT = env("EMAIL_PORT", default=587)
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
@@ -306,8 +310,8 @@ EMAIL_VERIFICATION_TOKEN_EXPIRY = 36  # hours
 PASSWORD_RESET_TIMEOUT = 3600
 
 
-MAILERLITE_API_KEY = env("MAILERLITE_API_KEY")
-MAILERLITE_GROUP_ID = env("MAILERLITE_GROUP_ID")
+BRAVO_API_KEY = env("BRAVO_API_KEY")
+BRAVO_GROUP_ID = env("BRAVO_GROUP_ID")
 
 # -----------------------------------------------------------------------------
 # Protected media

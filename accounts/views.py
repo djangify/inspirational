@@ -19,7 +19,7 @@ from shop.models import Product, OrderItem
 from .forms import UserRegistrationForm, UserEditForm, UserProfileForm, SupportForm
 from .models import EmailVerificationToken, MemberResource, SupportRequest
 from prompt.models_tracker import WritingGoal, WritingSession
-from accounts.services.mailerlite import add_subscriber
+from accounts.services.brevo import add_subscriber
 from news.views import latest_published_posts
 from tools.models import ToolSavedResult
 
@@ -387,7 +387,7 @@ def subscribe_updates_view(request):
     try:
         profile.is_subscribed = True
         profile.save(update_fields=["is_subscribed"])
-        from accounts.services.mailerlite import add_subscriber
+        from accounts.services.brevo import add_subscriber
         add_subscriber(user)
         messages.success(request, "You're subscribed! You'll hear from us when new content goes live.")
     except Exception as e:

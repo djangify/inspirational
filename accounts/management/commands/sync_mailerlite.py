@@ -1,10 +1,10 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from accounts.services.mailerlite import add_subscriber
+from accounts.services.brevo import add_subscriber
 
 
 class Command(BaseCommand):
-    help = "Sync verified, subscribed users who are missing a MailerLite ID"
+    help = "Sync verified, subscribed users who are missing a Brevo contact ID"
 
     def handle(self, *args, **kwargs):
         users = User.objects.filter(
