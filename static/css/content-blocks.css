@@ -10,17 +10,18 @@
 
 :root {
   /* Mapped to this site's brand shades (see static/src/input.css @theme) */
-  --color-primary: var(--color-brand-primary, #4c1d95);
+  /* Palette: slate grey for panels and progress, teal-700 (matches the site) for buttons, sand on hover. */
+  --color-primary: #334155;
   --color-primary-contrast: #ffffff;
-  --color-secondary: var(--color-brand-secondary, #216a95);
-  --color-secondary-contrast: #ffffff;
-  --color-accent: var(--color-brand-accent, #9ba3b4);
-  --color-accent-contrast: #1a1a1a;
+  --color-secondary: #e9dfd0;
+  --color-secondary-contrast: #1a1a1a;
+  --color-accent: #0f766e;
+  --color-accent-contrast: #ffffff;
   --color-light: #f8fafc;
   --color-light-contrast: #e2e8f0;
   --color-bg-contrast: #f1f5f9;
-  --color-link: var(--color-brand-secondary, #216a95);
-  --color-link-hover: var(--color-brand-primary, #4c1d95);
+  --color-link: #0f766e;
+  --color-link-hover: #115e59;
 }
 
 .page-content { line-height: 1.7; }
@@ -221,8 +222,8 @@
 
 /* Product panel: dark box with a heading, text and one button */
 .page-content .cb-cta {
-  background: var(--color-primary);
-  color: var(--color-primary-contrast);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
   border-radius: 1rem;
   padding: 2rem;
   margin: 2rem 0;

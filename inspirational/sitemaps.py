@@ -24,7 +24,6 @@ class StaticViewSitemap(Sitemap):
             "tools:alive_list_builder",
             "tools:calming_game",
             "tools:tap_to_calm",
-            "prompt:journal_prompt_generator",
             "core:privacy_policy",
             "core:cookie_policy",
             "core:terms_conditions",

@@ -57,10 +57,13 @@
   {% audio_embed post.audio_url %}
 </div>
 {% elif post.get_image_url %}
+{# IMAGE HIDDEN ON POST PAGE (Oct 2026). To bring the image back, delete the comment and endcomment tags around the div below. #}
+{% comment %}
 <div class="max-w-6xl mx-auto px-6 md:px-16 pt-8">
   <img src="{{ post.get_image_url }}" alt="{{ post.title }}"
        class="w-full h-auto rounded-lg">
 </div>
+{% endcomment %}
 {% elif post.youtube_url and post.get_youtube_embed_url %}
 <div class="w-full bg-stone-950">
   <div class="max-w-5xl mx-auto aspect-video">

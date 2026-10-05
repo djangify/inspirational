@@ -114,6 +114,8 @@
     ".cbp-seg button:last-child{border-right:0}",
     ".cbp-seg button:hover{background:var(--cbp-s);color:var(--cbp-sc)}",
     ".cbp-seg button[aria-pressed=true]{background:var(--cbp-p);color:var(--cbp-pc)}",
+    ".cbp-select{display:none;width:100%;margin-bottom:1rem;padding:.7rem 2.5rem .7rem 1rem;border:1px solid #94a3b8;border-radius:.5rem;font:inherit;font-weight:600;color:#1b2230;background-color:#fff;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%231b2230' stroke-width='2'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 1rem center;-webkit-appearance:none;appearance:none}",
+    "@media (max-width:640px){.cbp-seg{display:none}.cbp-select{display:block}.cbp-switch{padding:.85rem 1rem}.cbp-switch>[data-label]{line-height:1.6}}",
     ".cbp-switch>[data-label]>:last-child{margin-bottom:0}",
     ".cbp-switch ul{list-style:disc;padding-left:1.25rem;margin:0 0 .75rem}",
     ".cbp-switch li{margin:0 0 .5rem}",
@@ -609,6 +611,8 @@
     seg.setAttribute("role", "group");
     seg.setAttribute("aria-label", root.getAttribute("data-title") || "Choose a version");
     var buttons = [];
+    var select = h("select", "cbp-select");
+    select.setAttribute("aria-label", root.getAttribute("data-title") || "Choose a version");
     function auto() {
       var want = root.getAttribute("data-default");
       if (root.getAttribute("data-auto") === "os") {
@@ -629,21 +633,27 @@
         p.style.display = on ? "" : "none";
         buttons[n].setAttribute("aria-pressed", on ? "true" : "false");
       });
+      select.value = label;
+    }
+    function choose(label) {
+      store.set(k, label);
+      if (group) { (groups[group] || []).forEach(function (fn) { fn(label); }); } else { apply(label); }
     }
     panels.forEach(function (p) {
       p.id = p.id || nid("p");
       var b = h("button", "", p.getAttribute("data-label"));
       b.type = "button";
       b.setAttribute("aria-controls", p.id);
-      b.addEventListener("click", function () {
-        var label = p.getAttribute("data-label");
-        store.set(k, label);
-        if (group) { (groups[group] || []).forEach(function (fn) { fn(label); }); } else { apply(label); }
-      });
+      b.addEventListener("click", function () { choose(p.getAttribute("data-label")); });
       seg.appendChild(b);
       buttons.push(b);
+      var o = h("option", "", p.getAttribute("data-label"));
+      o.value = p.getAttribute("data-label");
+      select.appendChild(o);
     });
+    select.addEventListener("change", function () { choose(select.value); });
     root.insertBefore(seg, panels[0]);
+    root.insertBefore(select, panels[0]);
     var saved = store.get(k);
     var valid = panels.some(function (p) { return p.getAttribute("data-label") === saved; });
     function sync(label) {

@@ -9,7 +9,6 @@ from inspirational.sitemaps import (
     ShopCategorySitemap,
     ShopProductSitemap,
     NewsSitemap,
-    PromptCategorySitemap,
     NewsCategorySitemap,
 )
 from core.views import robots_txt, llms_txt, oauth_authorization_server_metadata
@@ -23,7 +22,6 @@ sitemaps = {
     "shop_products": ShopProductSitemap,
     "news": NewsSitemap,
     "news_categories": NewsCategorySitemap,
-    "prompt_categories": PromptCategorySitemap,
 }
 
 urlpatterns = [
