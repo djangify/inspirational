@@ -1,0 +1,3 @@
+{# Country (or countries) the shop sells in, taken from the shop currency because no address is stored. #}
+{# GBP=GB USD=US AUD=AU CAD=CA EUR=eurozone list. Output is a JSON value: a string or an array. #}
+{% with cur=site_settings.currency_code|default:'GBP' %}{% if cur == 'USD' %}"US"{% elif cur == 'AUD' %}"AU"{% elif cur == 'CAD' %}"CA"{% elif cur == 'EUR' %}["AT","BE","BG","CY","DE","EE","ES","FI","FR","GR","HR","IE","IT","LT","LU","LV","MT","NL","PT","SI","SK"]{% else %}"GB"{% endif %}{% endwith %}

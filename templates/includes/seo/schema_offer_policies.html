@@ -1,0 +1,23 @@
+{# Offer-level delivery and return details for digital downloads. Included inside "offers". #}
+"shippingDetails": {
+  "@type": "OfferShippingDetails",
+  "shippingRate": {
+    "@type": "MonetaryAmount",
+    "value": "0.00",
+    "currency": "{{ site_settings.currency_code|default:'GBP' }}"
+  },
+  "shippingDestination": {
+    "@type": "DefinedRegion",
+    "addressCountry": {% include "includes/seo/schema_country.html" %}
+  },
+  "deliveryTime": {
+    "@type": "ShippingDeliveryTime",
+    "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
+    "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
+  }
+},
+"hasMerchantReturnPolicy": {
+  "@type": "MerchantReturnPolicy",
+  "applicableCountry": {% include "includes/seo/schema_country.html" %},
+  "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+}

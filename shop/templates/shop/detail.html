@@ -55,6 +55,7 @@
     {% endif %}
   ],
   "sku": "{{ product.public_id|default:product.slug }}",
+  "mpn": "{{ product.public_id|default:product.slug }}",
   "category": "{{ product.category.name|escapejs }}",
   "brand": {
     "@type": "Brand",
@@ -73,7 +74,8 @@
     "priceCurrency": "{{ site_settings.currency_code|default:'GBP' }}",
     "price": "{{ product.current_price }}",
     "availability": "https://schema.org/{% if product.is_active and not product.is_coming_soon and not product.is_fully_booked %}InStock{% else %}OutOfStock{% endif %}",
-    "itemCondition": "https://schema.org/NewCondition"
+    "itemCondition": "https://schema.org/NewCondition",
+    {% include "includes/seo/schema_offer_policies.html" %}
   }
 }
 </script>
