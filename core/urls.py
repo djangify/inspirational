@@ -3,10 +3,10 @@ from django.views.generic import TemplateView, RedirectView
 from .views import (
     homepage,
     support_view,
-    quietly_you_page,
+     
     my_turn_now_page,
     diane_corriette_page,
-    category_hub,
+    
     public_freebie_download,
     hero_newsletter_signup,
     confirm_newsletter,
@@ -42,16 +42,16 @@ urlpatterns = [
         TemplateView.as_view(template_name="core/pause-emotional-resilience.html"),
         name="emotional_resilience",
     ),
-    path(
-        "journaling-personal-growth",
-        TemplateView.as_view(template_name="core/journaling-personal-growth.html"),
-        name="journaling",
-    ),
-    path(
-        "how-to-find-your-core-values",
-        TemplateView.as_view(template_name="core/how-to-find-your-core-values.html"),
-        name="find_your_core_values",
-    ),
+    # path(
+    #     "journaling-personal-growth",
+    #     TemplateView.as_view(template_name="core/journaling-personal-growth.html"),
+    #     name="journaling",
+    # ),
+    # path(
+    #     "how-to-find-your-core-values",
+    #     TemplateView.as_view(template_name="core/how-to-find-your-core-values.html"),
+    #     name="find_your_core_values",
+    # ),
     path(
         "an-alive-list",
         TemplateView.as_view(template_name="core/an-alive-list.html"),
@@ -107,7 +107,7 @@ urlpatterns = [
         RedirectView.as_view(pattern_name="core:get_out_of_a_rut", permanent=True),
         name="develop_self_reliance",
     ),
-    path("category/", category_hub, name="category"),
+    # path("category/", category_hub, name="category"),
     # Policy pages from templates/policy/
     path(
         "policy/privacy/",

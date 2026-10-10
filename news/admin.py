@@ -47,11 +47,11 @@ class PostAdmin(admin.ModelAdmin):
         "status",
         "featured",
         "publish_date",
-        "updated",
-        "display_thumbnail",
-        "has_ad",
+        # "updated",
+        # "display_thumbnail",
+        # "has_ad",
     ]
-    list_editable = ["featured"]
+    list_editable = ["featured", "status"]
 
     search_fields = ["title", "content", "featured", "meta_title", "meta_description"]
     prepopulated_fields = {"slug": ("title",)}
